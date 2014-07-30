@@ -51,9 +51,9 @@ Blockly.cake['colour_rgb'] = function(block) {
   // Compose a colour from RGB components expressed as percentages.
   var red = Blockly.cake.valueToCode(block, 'RED',
       Blockly.cake.ORDER_COMMA) || 0;
-  var green = Blockly.c.valueToCode(block, 'GREEN',
+  var green = Blockly.cake.valueToCode(block, 'GREEN',
       Blockly.cake.ORDER_COMMA) || 0;
-  var blue = Blockly.c.valueToCode(block, 'BLUE',
+  var blue = Blockly.cake.valueToCode(block, 'BLUE',
       Blockly.cake.ORDER_COMMA) || 0;
   var functionName = Blockly.cake.provideFunction_(
       'colour_rgb',

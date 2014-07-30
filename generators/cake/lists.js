@@ -189,7 +189,7 @@ Blockly.cake['lists_setIndex'] = function(block) {
   var where = block.getFieldValue('WHERE') || 'FROM_START';
   var at = Blockly.cake.valueToCode(block, 'AT',
       Blockly.cake.ORDER_NONE) || '1';
-  var value = Blockly.c.valueToCode(block, 'TO',
+  var value = Blockly.cake.valueToCode(block, 'TO',
       Blockly.cake.ORDER_ASSIGNMENT) || 'null';
   // Cache non-trivial values to variables to prevent repeated look-ups.
   // Closure, which accesses and modifies 'list'.
@@ -258,7 +258,7 @@ Blockly.cake['lists_setIndex'] = function(block) {
   throw 'Unhandled combination (lists_setIndex).';
 };
 
-Blockly.c['lists_getSublist'] = function(block) {
+Blockly.cake['lists_getSublist'] = function(block) {
   // Get sublist.
   var list = Blockly.cake.valueToCode(block, 'LIST',
       Blockly.cake.ORDER_MEMBER) || '[]';
