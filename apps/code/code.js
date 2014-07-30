@@ -42,7 +42,7 @@ var Code = {};
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['blocks', 'javascript', 'python', 'dart', 'c', 'xml'];
+Code.TABS_ = ['blocks', 'javascript', 'python', 'dart', 'cake', 'xml'];
 
 Code.selected = 'blocks';
 
@@ -125,12 +125,12 @@ Code.renderContent = function() {
       code = prettyPrintOne(code, 'dart');
       content.innerHTML = code;
     }
-  } else if (content.id == 'content_c') {
-    code = Blockly.c.workspaceToCode();
+  } else if (content.id == 'content_cake') {
+    code = Blockly.cake.workspaceToCode();
     content.textContent = code;
     if (typeof prettyPrintOne == 'function') {
       code = content.innerHTML;
-      code = prettyPrintOne(code, 'c');
+      code = prettyPrintOne(code, 'cake');
       content.innerHTML = code;
     }
   }
