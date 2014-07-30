@@ -23,92 +23,92 @@
  */
 'use strict';
 
-Blockly.cake['zrms14_getDebrisLocation'] = function(block) {
+Blockly.zr_cpp['zrms14_getDebrisLocation'] = function(block) {
 	var debrisId = block.getFieldValue('debrisId');
-	var loc = Blockly.cake.valueToCode(block, 'loc',
-			Blockly.cake.ORDER_NONE);
+	var loc = Blockly.zr_cpp.valueToCode(block, 'loc',
+			Blockly.zr_cpp.ORDER_NONE);
 	return 'game.getDebrisLocation(' + debrisId + ', ' + loc + ');\n';
 };
 
-Blockly.cake['zrms14_haveDebris'] = function(block) {
+Blockly.zr_cpp['zrms14_haveDebris'] = function(block) {
 	var debrisId = block.getFieldValue('debrisId');
-	return ['game.haveDebris(' + debrisId + ')', Blockly.cake.ORDER_FUNCTION_CALL];
+	return ['game.haveDebris(' + debrisId + ')', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_startLassoVoid'] = function(block) {
+Blockly.zr_cpp['zrms14_startLassoVoid'] = function(block) {
 	var debrisId = block.getFieldValue('debrisId');
 	return 'game.startLasso(' + debrisId + ');\n';
 };
 
-Blockly.cake['zrms14_startLassoBool'] = function(block) {
+Blockly.zr_cpp['zrms14_startLassoBool'] = function(block) {
 	var debrisId = block.getFieldValue('debrisId');
-	return ['game.startLasso(' + debrisId + ')', Blockly.cake.ORDER_FUNCTION_CALL];
+	return ['game.startLasso(' + debrisId + ')', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_havePack'] = function(block) {
+Blockly.zr_cpp['zrms14_havePack'] = function(block) {
 	var player = block.getFieldValue('player');
 	var objectNum = block.getFieldValue('objectNum');
-	return ['game.havePack(' + player + ', ' + objectNum + ')', Blockly.cake.ORDER_FUNCTION_CALL];
+	return ['game.havePack(' + player + ', ' + objectNum + ')', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_predictCometState'] = function(block) {
-	var dtSteps = Blockly.cake.valueToCode(block, 'dtSteps',
-			Blockly.cake.ORDER_NONE);
-	var initState = Blockly.cake.valueToCode(block, 'initState',
-			Blockly.cake.ORDER_NONE);
-	var finalState = Blockly.cake.valueToCode(block, 'finalState',
-			Blockly.cake.ORDER_NONE);
+Blockly.zr_cpp['zrms14_predictCometState'] = function(block) {
+	var dtSteps = Blockly.zr_cpp.valueToCode(block, 'dtSteps',
+			Blockly.zr_cpp.ORDER_NONE);
+	var initState = Blockly.zr_cpp.valueToCode(block, 'initState',
+			Blockly.zr_cpp.ORDER_NONE);
+	var finalState = Blockly.zr_cpp.valueToCode(block, 'finalState',
+			Blockly.zr_cpp.ORDER_NONE);
 	return 'game.predictCometState(' + dtSteps + ', ' + initState + ', ' + finalState + ');\n';
 };
 
-Blockly.cake['zrms14_getCometState'] = function(block) {
-	var state = Blockly.cake.valueToCode(block, 'state',
-			Blockly.cake.ORDER_NONE);
+Blockly.zr_cpp['zrms14_getCometState'] = function(block) {
+	var state = Blockly.zr_cpp.valueToCode(block, 'state',
+			Blockly.zr_cpp.ORDER_NONE);
 	return 'game.getCometState(' + state + ');\n';
 };
 
-Blockly.cake['zrms14_faceTarget'] = function(block) {
-	var target = Blockly.cake.valueToCode(block, 'target',
-			Blockly.cake.ORDER_NONE);
+Blockly.zr_cpp['zrms14_faceTarget'] = function(block) {
+	var target = Blockly.zr_cpp.valueToCode(block, 'target',
+			Blockly.zr_cpp.ORDER_NONE);
 	return 'game.faceTarget(' + target + ');\n';
 };
 
-Blockly.cake['zrms14_isFacingTarget'] = function(block) {
-	return ['game.isFacingComet()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_isFacingTarget'] = function(block) {
+	return ['game.isFacingComet()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_shootLaserBool'] = function(block) {
-	return ['game.shootLaser()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_shootLaserBool'] = function(block) {
+	return ['game.shootLaser()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_shootLaserVoid'] = function(block) {
+Blockly.zr_cpp['zrms14_shootLaserVoid'] = function(block) {
 	return 'game.shootLaser();\n';
 };
 
-Blockly.cake['zrms14_laserShotsRemaining'] = function(block) {
-	return ['game.laserShotsRemaining()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_laserShotsRemaining'] = function(block) {
+	return ['game.laserShotsRemaining()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_getMass'] = function(block) {
-	return ['game.getMass()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_getMass'] = function(block) {
+	return ['game.getMass()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_getFuelRemaining'] = function(block) {
-	return ['game.getFuelRemaining()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_getFuelRemaining'] = function(block) {
+	return ['game.getFuelRemaining()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_getScore'] = function(block) {
-	return ['game.getScore()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_getScore'] = function(block) {
+	return ['game.getScore()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_getOtherScore'] = function(block) {
-	return ['game.getOtherScore()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_getOtherScore'] = function(block) {
+	return ['game.getOtherScore()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_isSlowDownActive'] = function(block) {
-	return ['game.isSlowDownActive()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_isSlowDownActive'] = function(block) {
+	return ['game.isSlowDownActive()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['zrms14_isBounceActive'] = function(block) {
-	return ['game.isBounceActive()', Blockly.cake.ORDER_FUNCTION_CALL];
+Blockly.zr_cpp['zrms14_isBounceActive'] = function(block) {
+	return ['game.isBounceActive()', Blockly.zr_cpp.ORDER_FUNCTION_CALL];
 };
