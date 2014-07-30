@@ -1,10 +1,9 @@
 /**
+ * @license
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * http://blockly.googlecode.com/
- * and 2014 Massachusetts Institute of Technology
- * http://zerorobotics.org/
+ * https://blockly.googlecode.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +19,7 @@
  */
 
 /**
- * @fileoverview Generating JavaScript for loop blocks.
+ * @fileoverview Generating cake for loop blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
@@ -29,11 +28,27 @@ goog.provide('Blockly.cake.loops');
 
 goog.require('Blockly.cake');
 
+
+Blockly.cake['controls_repeat'] = function(block) {
+  // Repeat n times (internal number).
+  var repeats = Number(block.getFieldValue('TIMES'));
+  var branch = Blockly.cake.statementToCode(block, 'DO');
+  branch = Blockly.cake.addLoopTrap(branch, block.id);
+  var loopVar = Blockly.cake.variableDB_.getDistinctName(
+      'count', Blockly.Variables.NAME_TYPE);
+  var code = 'for (var ' + loopVar + ' = 0; ' +
+      loopVar + ' < ' + repeats + '; ' +
+      loopVar + '++) {\n' +
+      branch + '}\n';
+  return code;
+};
+
 Blockly.cake['controls_repeat_ext'] = function(block) {
   // Repeat n times (external number).
   var repeats = Blockly.cake.valueToCode(block, 'TIMES',
       Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var branch = Blockly.cake.statementToCode(block, 'DO');
+  branch = Blockly.cake.addLoopTrap(branch, block.id);
   var code = '';
   var loopVar = Blockly.cake.variableDB_.getDistinctName(
       'count', Blockly.Variables.NAME_TYPE);
@@ -41,9 +56,9 @@ Blockly.cake['controls_repeat_ext'] = function(block) {
   if (!repeats.match(/^\w+$/) && !Blockly.isNumber(repeats)) {
     var endVar = Blockly.cake.variableDB_.getDistinctName(
         'repeat_end', Blockly.Variables.NAME_TYPE);
-    code += 'int ' + endVar + ' = ' + repeats + ';\n';
+    code += 'var ' + endVar + ' = ' + repeats + ';\n';
   }
-  code += 'for (int ' + loopVar + ' = 0; ' +
+  code += 'for (var ' + loopVar + ' = 0; ' +
       loopVar + ' < ' + endVar + '; ' +
       loopVar + '++) {\n' +
       branch + '}\n';
@@ -51,12 +66,13 @@ Blockly.cake['controls_repeat_ext'] = function(block) {
 };
 
 Blockly.cake['controls_whileUntil'] = function(block) {
-  // While loop.
+  // Do while/until loop.
   var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.cake.valueToCode(block, 'BOOL',
       until ? Blockly.cake.ORDER_LOGICAL_NOT :
       Blockly.cake.ORDER_NONE) || 'false';
   var branch = Blockly.cake.statementToCode(block, 'DO');
+  branch = Blockly.cake.addLoopTrap(branch, block.id);
   if (until) {
     argument0 = '!' + argument0;
   }
@@ -74,15 +90,16 @@ Blockly.cake['controls_for'] = function(block) {
   var increment = Blockly.cake.valueToCode(block, 'BY',
       Blockly.cake.ORDER_ASSIGNMENT) || '1';
   var branch = Blockly.cake.statementToCode(block, 'DO');
+  branch = Blockly.cake.addLoopTrap(branch, block.id);
   var code;
   if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
       Blockly.isNumber(increment)) {
     // All arguments are simple numbers.
-    var up = parseInt(argument0) <= parseInt(argument1);
-    code = 'for (int ' + variable0 + ' = ' + argument0 + '; ' +
+    var up = parseFloat(argument0) <= parseFloat(argument1);
+    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
         variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
         variable0;
-    var step = Math.abs(parseInt(increment));
+    var step = Math.abs(parseFloat(increment));
     if (step == 1) {
       code += up ? '++' : '--';
     } else {
@@ -96,26 +113,26 @@ Blockly.cake['controls_for'] = function(block) {
     if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
       var startVar = Blockly.cake.variableDB_.getDistinctName(
           variable0 + '_start', Blockly.Variables.NAME_TYPE);
-      code += 'int ' + startVar + ' = ' + argument0 + ';\n';
+      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
     }
     var endVar = argument1;
     if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
       var endVar = Blockly.cake.variableDB_.getDistinctName(
           variable0 + '_end', Blockly.Variables.NAME_TYPE);
-      code += 'int ' + endVar + ' = ' + argument1 + ';\n';
+      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
     }
     // Determine loop direction at start, in case one of the bounds
     // changes during loop execution.
     var incVar = Blockly.cake.variableDB_.getDistinctName(
         variable0 + '_inc', Blockly.Variables.NAME_TYPE);
-    code += 'int ' + incVar + ' = ';
+    code += 'var ' + incVar + ' = ';
     if (Blockly.isNumber(increment)) {
       code += Math.abs(increment) + ';\n';
     } else {
-      code += 'fabsf(' + increment + ');\n';
+      code += 'Math.abs(' + increment + ');\n';
     }
     code += 'if (' + startVar + ' > ' + endVar + ') {\n';
-    code += '  ' + incVar + ' = -' + incVar +';\n';
+    code += Blockly.cake.INDENT + incVar + ' = -' + incVar +';\n';
     code += '}\n';
     code += 'for (' + variable0 + ' = ' + startVar + ';\n' +
         '     '  + incVar + ' >= 0 ? ' +
@@ -134,13 +151,10 @@ Blockly.cake['controls_forEach'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'LIST',
       Blockly.cake.ORDER_ASSIGNMENT) || '[]';
   var branch = Blockly.cake.statementToCode(block, 'DO');
-  if (Blockly.cake.INFINITE_LOOP_TRAP) {
-    branch = Blockly.cake.INFINITE_LOOP_TRAP.replace(/%1/g,
-        '\'' + block.id + '\'') + branch;
-  }
+  branch = Blockly.cake.addLoopTrap(branch, block.id);
   var indexVar = Blockly.cake.variableDB_.getDistinctName(
       variable0 + '_index', Blockly.Variables.NAME_TYPE);
-  branch = '  ' + variable0 + ' = ' + argument0 + '[' + indexVar + '];\n' +
+  branch = Blockly.cake.INDENT + variable0 + ' = ' + argument0 + '[' + indexVar + '];\n' +
       branch;
   var code = 'for (var ' + indexVar + ' in  ' + argument0 + ') {\n' +
       branch + '}\n';

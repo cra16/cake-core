@@ -19,7 +19,7 @@
  */
 
 /**
- * @fileoverview Generating c for colour blocks.
+ * @fileoverview Generating cake for colour blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';

@@ -1,10 +1,9 @@
 /**
+ * @license
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * http://blockly.googlecode.com/
- * and 2014 Massachusetts Institute of Technology
- * http://zerorobotics.org/
+ * https://blockly.googlecode.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +19,8 @@
  */
 
 /**
- * @fileoverview Generating C++ for text blocks. Modified from the standard Blockly JavaScript generator.
- * @author q.neutron@gmail.com (Quynh Neutron), dininno@mit.edu (Ethan DiNinno)
+ * @fileoverview Generating cake for logic blocks.
+ * @author q.neutron@gmail.com (Quynh Neutron)
  */
 'use strict';
 
@@ -53,12 +52,12 @@ Blockly.cake['controls_if'] = function(block) {
 Blockly.cake['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
-    EQ: '==',
-    NEQ: '!=',
-    LT: '<',
-    LTE: '<=',
-    GT: '>',
-    GTE: '>='
+    'EQ': '==',
+    'NEQ': '!=',
+    'LT': '<',
+    'LTE': '<=',
+    'GT': '>',
+    'GTE': '>='
   };
   var operator = OPERATORS[block.getFieldValue('OP')];
   var order = (operator == '==' || operator == '!=') ?
@@ -107,6 +106,11 @@ Blockly.cake['logic_boolean'] = function(block) {
   // Boolean values true and false.
   var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
   return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['logic_null'] = function(block) {
+  // Null data type.
+  return ['null', Blockly.cake.ORDER_ATOMIC];
 };
 
 Blockly.cake['logic_ternary'] = function(block) {

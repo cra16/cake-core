@@ -1,10 +1,9 @@
 /**
+ * @license
  * Visual Blocks Language
  *
  * Copyright 2012 Google Inc.
- * http://blockly.googlecode.com/
- * and 2014 Massachusetts Institute of Technology
- * http://zerorobotics.org/
+ * https://blockly.googlecode.com/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +19,7 @@
  */
 
 /**
- * @fileoverview Generating JavaScript for procedure blocks.
+ * @fileoverview Generating cake for procedure blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
@@ -35,40 +34,36 @@ Blockly.cake['procedures_defreturn'] = function(block) {
   var funcName = Blockly.cake.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var branch = Blockly.cake.statementToCode(block, 'STACK');
-  var type = block.getFieldValue('TYPE') || 'void';
+  if (Blockly.cake.STATEMENT_PREFIX) {
+    branch = Blockly.cake.prefixLines(
+        Blockly.cake.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + block.id + '\''), Blockly.cake.INDENT) + branch;
+  }
+  if (Blockly.cake.INFINITE_LOOP_TRAP) {
+    branch = Blockly.cake.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'' + block.id + '\'') + branch;
+  }
   var returnValue = Blockly.cake.valueToCode(block, 'RETURN',
       Blockly.cake.ORDER_NONE) || '';
   if (returnValue) {
     returnValue = '  return ' + returnValue + ';\n';
   }
-  var code = type + ' ' + funcName + block.getArgString(true) + ' {\n' +
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
+        Blockly.Variables.NAME_TYPE);
+  }
+  var code = 'function ' + funcName + '(' + args.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
-  return code;
+  Blockly.cake.definitions_[funcName] = code;
+  return null;
 };
 
 // Defining a procedure without a return value uses the same generator as
 // a procedure with a return value.
 Blockly.cake['procedures_defnoreturn'] =
     Blockly.cake['procedures_defreturn'];
-
-Blockly.cake['procedures_definit'] = function(block) {
-  // Define a procedure with a return value.
-  var branch = Blockly.cake.statementToCode(block, 'GLOBALS') + Blockly.cake.statementToCode(block, 'STACK');
-  var code = 'void init() {\n' +
-      branch + '}';
-  code = Blockly.cake.scrub_(block, code);
-  return code;
-};
-
-Blockly.cake['procedures_defloop'] = function(block) {
-  // Define a procedure with a return value.
-  var branch = Blockly.cake.statementToCode(block, 'STACK');
-  var code = 'void loop() {\n' +
-      branch + '}';
-  code = Blockly.cake.scrub_(block, code);
-  return code;
-};
 
 Blockly.cake['procedures_callreturn'] = function(block) {
   // Call a procedure with a return value.
