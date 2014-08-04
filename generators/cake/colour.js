@@ -19,45 +19,45 @@
  */
 
 /**
- * @fileoverview Generating cake for colour blocks.
+ * @fileoverview Generating Cake for colour blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.cake.colour');
+goog.provide('Blockly.Cake.colour');
 
-goog.require('Blockly.cake');
+goog.require('Blockly.Cake');
 
 
-Blockly.cake['colour_picker'] = function(block) {
+Blockly.Cake['colour_picker'] = function(block) {
   // Colour picker.
   var code = '\'' + block.getFieldValue('COLOUR') + '\'';
-  return [code, Blockly.cake.ORDER_ATOMIC];
+  return [code, Blockly.Cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['colour_random'] = function(block) {
+Blockly.Cake['colour_random'] = function(block) {
   // Generate a random colour.
-  var functionName = Blockly.cake.provideFunction_(
+  var functionName = Blockly.Cake.provideFunction_(
       'colour_random',
-      [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ + '() {',
+      [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ + '() {',
         '  var num = Math.floor(Math.random() * Math.pow(2, 24));',
         '  return \'#\' + (\'00000\' + num.toString(16)).substr(-6);',
         '}']);
   var code = functionName + '()';
-  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['colour_rgb'] = function(block) {
+Blockly.Cake['colour_rgb'] = function(block) {
   // Compose a colour from RGB components expressed as percentages.
-  var red = Blockly.cake.valueToCode(block, 'RED',
-      Blockly.cake.ORDER_COMMA) || 0;
-  var green = Blockly.cake.valueToCode(block, 'GREEN',
-      Blockly.cake.ORDER_COMMA) || 0;
-  var blue = Blockly.cake.valueToCode(block, 'BLUE',
-      Blockly.cake.ORDER_COMMA) || 0;
-  var functionName = Blockly.cake.provideFunction_(
+  var red = Blockly.Cake.valueToCode(block, 'RED',
+      Blockly.Cake.ORDER_COMMA) || 0;
+  var green = Blockly.Cake.valueToCode(block, 'GREEN',
+      Blockly.Cake.ORDER_COMMA) || 0;
+  var blue = Blockly.Cake.valueToCode(block, 'BLUE',
+      Blockly.Cake.ORDER_COMMA) || 0;
+  var functionName = Blockly.Cake.provideFunction_(
       'colour_rgb',
-      [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
+      [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
           '(r, g, b) {',
         '  r = Math.max(Math.min(Number(r), 100), 0) * 2.55;',
         '  g = Math.max(Math.min(Number(g), 100), 0) * 2.55;',
@@ -68,20 +68,20 @@ Blockly.cake['colour_rgb'] = function(block) {
         '  return \'#\' + r + g + b;',
         '}']);
   var code = functionName + '(' + red + ', ' + green + ', ' + blue + ')';
-  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.cake['colour_blend'] = function(block) {
+Blockly.Cake['colour_blend'] = function(block) {
   // Blend two colours together.
-  var c1 = Blockly.cake.valueToCode(block, 'COLOUR1',
-      Blockly.cake.ORDER_COMMA) || '\'#000000\'';
-  var c2 = Blockly.cake.valueToCode(block, 'COLOUR2',
-      Blockly.cake.ORDER_COMMA) || '\'#000000\'';
-  var ratio = Blockly.cake.valueToCode(block, 'RATIO',
-      Blockly.cake.ORDER_COMMA) || 0.5;
-  var functionName = Blockly.cake.provideFunction_(
+  var c1 = Blockly.Cake.valueToCode(block, 'COLOUR1',
+      Blockly.Cake.ORDER_COMMA) || '\'#000000\'';
+  var c2 = Blockly.Cake.valueToCode(block, 'COLOUR2',
+      Blockly.Cake.ORDER_COMMA) || '\'#000000\'';
+  var ratio = Blockly.Cake.valueToCode(block, 'RATIO',
+      Blockly.Cake.ORDER_COMMA) || 0.5;
+  var functionName = Blockly.Cake.provideFunction_(
       'colour_blend',
-      [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
+      [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
           '(c1, c2, ratio) {',
         '  ratio = Math.max(Math.min(Number(ratio), 1), 0);',
         '  var r1 = parseInt(c1.substring(1, 3), 16);',
@@ -99,5 +99,5 @@ Blockly.cake['colour_blend'] = function(block) {
         '  return \'#\' + r + g + b;',
         '}']);
   var code = functionName + '(' + c1 + ', ' + c2 + ', ' + ratio + ')';
-  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
 };

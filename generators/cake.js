@@ -25,15 +25,15 @@
  */
 'use strict';
 
-goog.provide('Blockly.cake');
+goog.provide('Blockly.Cake');
 
 goog.require('Blockly.Generator');
 
 
-Blockly.cake = new Blockly.Generator('cake');
+Blockly.Cake = new Blockly.Generator('Cake');
 
 //List of accepted variable types for dropdowns
-Blockly.cake.C_VARIABLE_TYPES =
+Blockly.Cake.C_VARIABLE_TYPES =
   [['float', 'float'],
    ['int', 'int'],
    ['unsigned int', 'unsigned int'],
@@ -41,7 +41,7 @@ Blockly.cake.C_VARIABLE_TYPES =
    ['unsigned short', 'unsigned short'],
    ['bool', 'bool']];
    
-Blockly.cake.C_GLOBAL_VARS = [];
+Blockly.Cake.C_GLOBAL_VARS = [];
 
 /**
  * List of illegal variable names.
@@ -50,7 +50,7 @@ Blockly.cake.C_GLOBAL_VARS = [];
  * accidentally clobbering a built-in object or function.
  * @private
  */
-Blockly.cake.addReservedWords(
+Blockly.Cake.addReservedWords(
   ',alignas,alignof,and,and_eq,asm,auto,bitand,bitor,bool,break,case,catch,char,char16_t,char32_t,class,compl,const,constexpr,const_cast,continue,decltype,default,delete,do,double,dynamic_cast,else,enum,explicit,export,extern,false,float,for,friend,goto,if,inline,int,long,mutable,namespace,new,noexcept,not,not_eq,nullptr,operator,or,or_eq,private,protected,public,register,reinterpret_cast,return,short,signed,sizeof,static,static_assert,static_cast,struct,switch,template,this,thread_local,throw,true,try,typedef,typeid,typename,union,unsigned,using,virtual,void,volatile,wchar_t,while,xor,xor_eq,posix,'
   // http://en.cppreference.com/w/cpp/keyword
   + 'game,api,PI,PI2,PI3,PI4,DEG2RAD,RAD2DEG,ZRMS,ZR2D,ZR3D,ALLIANCE' //TODO: add ZR #defines to list
@@ -60,32 +60,32 @@ Blockly.cake.addReservedWords(
  * Order of operation ENUMs.
  * http://en.cppreference.com/w/cpp/language/operator_precedence
  */
-Blockly.cake.ORDER_ATOMIC = 0;         // 0 "" ...
-Blockly.cake.ORDER_MEMBER = 2;         // . []
-Blockly.cake.ORDER_FUNCTION_CALL = 2;  // ()
-Blockly.cake.ORDER_INCREMENT = 3;      // ++
-Blockly.cake.ORDER_DECREMENT = 3;      // --
-Blockly.cake.ORDER_LOGICAL_NOT = 3;    // !
-Blockly.cake.ORDER_BITWISE_NOT = 3;    // ~
-Blockly.cake.ORDER_UNARY_PLUS = 3;     // +
-Blockly.cake.ORDER_UNARY_NEGATION = 3; // -
-Blockly.cake.ORDER_MULTIPLICATION = 5; // *
-Blockly.cake.ORDER_DIVISION = 5;       // /
-Blockly.cake.ORDER_MODULUS = 5;        // %
-Blockly.cake.ORDER_ADDITION = 6;       // +
-Blockly.cake.ORDER_SUBTRACTION = 6;    // -
-Blockly.cake.ORDER_BITWISE_SHIFT = 7;  // << >>
-Blockly.cake.ORDER_RELATIONAL = 8;     // < <= > >=
-Blockly.cake.ORDER_EQUALITY = 9;       // == != 
-Blockly.cake.ORDER_BITWISE_AND = 10;   // &
-Blockly.cake.ORDER_BITWISE_XOR = 11;   // ^
-Blockly.cake.ORDER_BITWISE_OR = 12;    // |
-Blockly.cake.ORDER_LOGICAL_AND = 13;   // &&
-Blockly.cake.ORDER_LOGICAL_OR = 14;    // ||
-Blockly.cake.ORDER_CONDITIONAL = 15;   // ?:
-Blockly.cake.ORDER_ASSIGNMENT = 15;    // = += -= *= /= %= <<= >>= ...
-Blockly.cake.ORDER_COMMA = 17;         // ,
-Blockly.cake.ORDER_NONE = 99;          // (...)
+Blockly.Cake.ORDER_ATOMIC = 0;         // 0 "" ...
+Blockly.Cake.ORDER_MEMBER = 2;         // . []
+Blockly.Cake.ORDER_FUNCTION_CALL = 2;  // ()
+Blockly.Cake.ORDER_INCREMENT = 3;      // ++
+Blockly.Cake.ORDER_DECREMENT = 3;      // --
+Blockly.Cake.ORDER_LOGICAL_NOT = 3;    // !
+Blockly.Cake.ORDER_BITWISE_NOT = 3;    // ~
+Blockly.Cake.ORDER_UNARY_PLUS = 3;     // +
+Blockly.Cake.ORDER_UNARY_NEGATION = 3; // -
+Blockly.Cake.ORDER_MULTIPLICATION = 5; // *
+Blockly.Cake.ORDER_DIVISION = 5;       // /
+Blockly.Cake.ORDER_MODULUS = 5;        // %
+Blockly.Cake.ORDER_ADDITION = 6;       // +
+Blockly.Cake.ORDER_SUBTRACTION = 6;    // -
+Blockly.Cake.ORDER_BITWISE_SHIFT = 7;  // << >>
+Blockly.Cake.ORDER_RELATIONAL = 8;     // < <= > >=
+Blockly.Cake.ORDER_EQUALITY = 9;       // == != 
+Blockly.Cake.ORDER_BITWISE_AND = 10;   // &
+Blockly.Cake.ORDER_BITWISE_XOR = 11;   // ^
+Blockly.Cake.ORDER_BITWISE_OR = 12;    // |
+Blockly.Cake.ORDER_LOGICAL_AND = 13;   // &&
+Blockly.Cake.ORDER_LOGICAL_OR = 14;    // ||
+Blockly.Cake.ORDER_CONDITIONAL = 15;   // ?:
+Blockly.Cake.ORDER_ASSIGNMENT = 15;    // = += -= *= /= %= <<= >>= ...
+Blockly.Cake.ORDER_COMMA = 17;         // ,
+Blockly.Cake.ORDER_NONE = 99;          // (...)
 
 /**
  * Arbitrary code to inject into locations that risk causing infinite loops.
@@ -93,35 +93,35 @@ Blockly.cake.ORDER_NONE = 99;          // (...)
  * E.g. '  checkTimeout(%1);\n'
  * @type ?string
  */
-Blockly.cake.INFINITE_LOOP_TRAP = null;
+Blockly.Cake.INFINITE_LOOP_TRAP = null;
 
 /**
  * Initialise the database of variable names.
  */
-Blockly.cake.init = function() {
+Blockly.Cake.init = function() {
   // Create a dictionary of definitions to be printed before the code.
-  Blockly.cake.definitions_ = Object.create(null);
+  Blockly.Cake.definitions_ = Object.create(null);
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
-  Blockly.cake.functionNames_ = Object.create(null);
+  Blockly.Cake.functionNames_ = Object.create(null);
 
   if (Blockly.Variables) {
-    if (!Blockly.cake.variableDB_) {
-      Blockly.cake.variableDB_ =
-          new Blockly.Names(Blockly.cake.RESERVED_WORDS_);
+    if (!Blockly.Cake.variableDB_) {
+      Blockly.Cake.variableDB_ =
+          new Blockly.Names(Blockly.Cake.RESERVED_WORDS_);
     } else {
-      Blockly.cake.variableDB_.reset();
+      Blockly.Cake.variableDB_.reset();
     }
 
     var defvars = [];
     Blockly.Variables.allVariables();
-    var variables = Blockly.cake.C_GLOBAL_VARS.values();
+    var variables = Blockly.Cake.C_GLOBAL_VARS.values();
     for (var x = 0; x < variables.length; x++) {
       defvars[x] = variables[x].type + ' ' +
-          Blockly.cake.variableDB_.getName(variables[x].name,
+          Blockly.Cake.variableDB_.getName(variables[x].name,
           Blockly.Variables.NAME_TYPE) + (variables[x].isArray === 'TRUE' ? '[' + variables[x].length + ']' : '') + ';';
     }
-    Blockly.cake.definitions_['variables'] = defvars.join('\n');
+    Blockly.Cake.definitions_['variables'] = defvars.join('\n');
   }
 };
 
@@ -130,16 +130,16 @@ Blockly.cake.init = function() {
  * @param {string} code Generated code.
  * @return {string} Completed code.
  */
-Blockly.cake.finish = function(code) {
+Blockly.Cake.finish = function(code) {
   //Suppress global variables on single-page displays
   return code;
 }
 
-Blockly.cake.finishFull = function(code) {
+Blockly.Cake.finishFull = function(code) {
   // Convert the definitions dictionary into a list.
   var definitions = [];
-  for (var name in Blockly.cake.definitions_) {
-    definitions.push(Blockly.cake.definitions_[name]);
+  for (var name in Blockly.Cake.definitions_) {
+    definitions.push(Blockly.Cake.definitions_[name]);
   }
   code = definitions.join('\n\n') + '\n\n' + 
   'void setPos(float x, float y, float z) {\n\tfloat pos[3];\n\tpos[0] = x; pos[1] = y; pos[2] = z;\n\tapi.setPositionTarget(pos);\n}'
@@ -157,7 +157,7 @@ Blockly.cake.finishFull = function(code) {
  * @param {string} line Line of generated code.
  * @return {string} Legal line of code.
  */
-Blockly.cake.scrubNakedValue = function(line) {
+Blockly.Cake.scrubNakedValue = function(line) {
   //ZR editor should ignore all blocks that are not children of the page's function block
   return '';
 };
@@ -169,7 +169,7 @@ Blockly.cake.scrubNakedValue = function(line) {
  * @return {string} JavaScript string.
  * @private
  */
-Blockly.cake.quote_ = function(string) {
+Blockly.Cake.quote_ = function(string) {
   // TODO: This is a quick hack.  Replace with goog.string.quote
   string = string.replace(/\\/g, '\\\\')
                  .replace(/\n/g, '\\\n')
@@ -187,7 +187,7 @@ Blockly.cake.quote_ = function(string) {
  * @this {Blockly.CodeGenerator}
  * @private
  */
-Blockly.cake.scrub_ = function(block, code) {
+Blockly.Cake.scrub_ = function(block, code) {
   if (code === null) {
     // Block has handled code generation itself.
     return '';

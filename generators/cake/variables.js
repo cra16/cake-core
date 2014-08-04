@@ -19,28 +19,28 @@
  */
 
 /**
- * @fileoverview Generating cake for variable blocks.
+ * @fileoverview Generating Cake for variable blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.cake.variables');
+goog.provide('Blockly.Cake.variables');
 
-goog.require('Blockly.cake');
+goog.require('Blockly.Cake');
 
 
-Blockly.cake['variables_get'] = function(block) {
+Blockly.Cake['variables_get'] = function(block) {
   // Variable getter.
-  var code = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),
+  var code = Blockly.Cake.variableDB_.getName(block.getFieldValue('VAR'),
       Blockly.Variables.NAME_TYPE);
-  return [code, Blockly.cake.ORDER_ATOMIC];
+  return [code, Blockly.Cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['variables_set'] = function(block) {
+Blockly.Cake['variables_set'] = function(block) {
   // Variable setter.
-  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
-      Blockly.cake.ORDER_ASSIGNMENT) || '0';
-  var varName = Blockly.cake.variableDB_.getName(
+  var argument0 = Blockly.Cake.valueToCode(block, 'VALUE',
+      Blockly.Cake.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.Cake.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   return varName + ' = ' + argument0 + ';\n';
 };
