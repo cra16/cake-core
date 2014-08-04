@@ -126,7 +126,11 @@ Code.renderContent = function() {
       content.innerHTML = code;
     }
   } else if (content.id == 'content_cake') {
+<<<<<<< HEAD
     code = Blockly.Cake.workspaceToCode();
+=======
+    code = Blockly.cake.workspaceToCode();
+>>>>>>> parent of bba1550... Revert "ing.."
     content.textContent = code;
     if (typeof prettyPrintOne == 'function') {
       code = content.innerHTML;
