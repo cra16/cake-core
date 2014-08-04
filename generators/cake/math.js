@@ -19,68 +19,68 @@
  */
 
 /**
- * @fileoverview Generating Cake for math blocks.
+ * @fileoverview Generating cake for math blocks.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
 'use strict';
 
-goog.provide('Blockly.Cake.math');
+goog.provide('Blockly.cake.math');
 
-goog.require('Blockly.Cake');
+goog.require('Blockly.cake');
 
 
-Blockly.Cake['math_number'] = function(block) {
+Blockly.cake['math_number'] = function(block) {
   // Numeric value.
   var code = parseFloat(block.getFieldValue('NUM'));
-  return [code, Blockly.Cake.ORDER_ATOMIC];
+  return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
-Blockly.Cake['math_arithmetic'] = function(block) {
+Blockly.cake['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
-    'ADD': [' + ', Blockly.Cake.ORDER_ADDITION],
-    'MINUS': [' - ', Blockly.Cake.ORDER_SUBTRACTION],
-    'MULTIPLY': [' * ', Blockly.Cake.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.Cake.ORDER_DIVISION],
-    'POWER': [null, Blockly.Cake.ORDER_COMMA]  // Handle power separately.
+    'ADD': [' + ', Blockly.cake.ORDER_ADDITION],
+    'MINUS': [' - ', Blockly.cake.ORDER_SUBTRACTION],
+    'MULTIPLY': [' * ', Blockly.cake.ORDER_MULTIPLICATION],
+    'DIVIDE': [' / ', Blockly.cake.ORDER_DIVISION],
+    'POWER': [null, Blockly.cake.ORDER_COMMA]  // Handle power separately.
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
   var order = tuple[1];
-  var argument0 = Blockly.Cake.valueToCode(block, 'A', order) || '0';
-  var argument1 = Blockly.Cake.valueToCode(block, 'B', order) || '0';
+  var argument0 = Blockly.cake.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.cake.valueToCode(block, 'B', order) || '0';
   var code;
-  // Power in Cake requires a special case since it has no operator.
+  // Power in cake requires a special case since it has no operator.
   if (!operator) {
     code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
-    return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   }
   code = argument0 + operator + argument1;
   return [code, order];
 };
 
-Blockly.Cake['math_single'] = function(block) {
+Blockly.cake['math_single'] = function(block) {
   // Math operators with single operand.
   var operator = block.getFieldValue('OP');
   var code;
   var arg;
   if (operator == 'NEG') {
     // Negation is a special case given its different operator precedence.
-    arg = Blockly.Cake.valueToCode(block, 'NUM',
-        Blockly.Cake.ORDER_UNARY_NEGATION) || '0';
+    arg = Blockly.cake.valueToCode(block, 'NUM',
+        Blockly.cake.ORDER_UNARY_NEGATION) || '0';
     if (arg[0] == '-') {
       // --3 is not legal in JS.
       arg = ' ' + arg;
     }
     code = '-' + arg;
-    return [code, Blockly.Cake.ORDER_UNARY_NEGATION];
+    return [code, Blockly.cake.ORDER_UNARY_NEGATION];
   }
   if (operator == 'SIN' || operator == 'COS' || operator == 'TAN') {
-    arg = Blockly.Cake.valueToCode(block, 'NUM',
-        Blockly.Cake.ORDER_DIVISION) || '0';
+    arg = Blockly.cake.valueToCode(block, 'NUM',
+        Blockly.cake.ORDER_DIVISION) || '0';
   } else {
-    arg = Blockly.Cake.valueToCode(block, 'NUM',
-        Blockly.Cake.ORDER_NONE) || '0';
+    arg = Blockly.cake.valueToCode(block, 'NUM',
+        Blockly.cake.ORDER_NONE) || '0';
   }
   // First, handle cases which generate values that don't need parentheses
   // wrapping the code.
@@ -120,7 +120,7 @@ Blockly.Cake['math_single'] = function(block) {
       break;
   }
   if (code) {
-    return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   }
   // Second, handle cases which generate values that may need parentheses
   // wrapping the code.
@@ -140,34 +140,34 @@ Blockly.Cake['math_single'] = function(block) {
     default:
       throw 'Unknown math operator: ' + operator;
   }
-  return [code, Blockly.Cake.ORDER_DIVISION];
+  return [code, Blockly.cake.ORDER_DIVISION];
 };
 
-Blockly.Cake['math_constant'] = function(block) {
+Blockly.cake['math_constant'] = function(block) {
   // Constants: PI, E, the Golden Ratio, sqrt(2), 1/sqrt(2), INFINITY.
   var CONSTANTS = {
-    'PI': ['Math.PI', Blockly.Cake.ORDER_MEMBER],
-    'E': ['Math.E', Blockly.Cake.ORDER_MEMBER],
-    'GOLDEN_RATIO': ['(1 + Math.sqrt(5)) / 2', Blockly.Cake.ORDER_DIVISION],
-    'SQRT2': ['Math.SQRT2', Blockly.Cake.ORDER_MEMBER],
-    'SQRT1_2': ['Math.SQRT1_2', Blockly.Cake.ORDER_MEMBER],
-    'INFINITY': ['Infinity', Blockly.Cake.ORDER_ATOMIC]
+    'PI': ['Math.PI', Blockly.cake.ORDER_MEMBER],
+    'E': ['Math.E', Blockly.cake.ORDER_MEMBER],
+    'GOLDEN_RATIO': ['(1 + Math.sqrt(5)) / 2', Blockly.cake.ORDER_DIVISION],
+    'SQRT2': ['Math.SQRT2', Blockly.cake.ORDER_MEMBER],
+    'SQRT1_2': ['Math.SQRT1_2', Blockly.cake.ORDER_MEMBER],
+    'INFINITY': ['Infinity', Blockly.cake.ORDER_ATOMIC]
   };
   return CONSTANTS[block.getFieldValue('CONSTANT')];
 };
 
-Blockly.Cake['math_number_property'] = function(block) {
+Blockly.cake['math_number_property'] = function(block) {
   // Check if a number is even, odd, prime, whole, positive, or negative
   // or if it is divisible by certain number. Returns true or false.
-  var number_to_check = Blockly.Cake.valueToCode(block, 'NUMBER_TO_CHECK',
-      Blockly.Cake.ORDER_MODULUS) || '0';
+  var number_to_check = Blockly.cake.valueToCode(block, 'NUMBER_TO_CHECK',
+      Blockly.cake.ORDER_MODULUS) || '0';
   var dropdown_property = block.getFieldValue('PROPERTY');
   var code;
   if (dropdown_property == 'PRIME') {
     // Prime is a special case as it is not a one-liner test.
-    var functionName = Blockly.Cake.provideFunction_(
+    var functionName = Blockly.cake.provideFunction_(
         'math_isPrime',
-        [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
+        [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ + '(n) {',
           '  // https://en.wikipedia.org/wiki/Primality_test#Naive_methods',
           '  if (n == 2 || n == 3) {',
           '    return true;',
@@ -187,7 +187,7 @@ Blockly.Cake['math_number_property'] = function(block) {
           '  return true;',
           '}']);
     code = functionName + '(' + number_to_check + ')';
-    return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   }
   switch (dropdown_property) {
     case 'EVEN':
@@ -206,67 +206,67 @@ Blockly.Cake['math_number_property'] = function(block) {
       code = number_to_check + ' < 0';
       break;
     case 'DIVISIBLE_BY':
-      var divisor = Blockly.Cake.valueToCode(block, 'DIVISOR',
-          Blockly.Cake.ORDER_MODULUS) || '0';
+      var divisor = Blockly.cake.valueToCode(block, 'DIVISOR',
+          Blockly.cake.ORDER_MODULUS) || '0';
       code = number_to_check + ' % ' + divisor + ' == 0';
       break;
   }
-  return [code, Blockly.Cake.ORDER_EQUALITY];
+  return [code, Blockly.cake.ORDER_EQUALITY];
 };
 
-Blockly.Cake['math_change'] = function(block) {
+Blockly.cake['math_change'] = function(block) {
   // Add to a variable in place.
-  var argument0 = Blockly.Cake.valueToCode(block, 'DELTA',
-      Blockly.Cake.ORDER_ADDITION) || '0';
-  var varName = Blockly.Cake.variableDB_.getName(
+  var argument0 = Blockly.cake.valueToCode(block, 'DELTA',
+      Blockly.cake.ORDER_ADDITION) || '0';
+  var varName = Blockly.cake.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   return varName + ' = (typeof ' + varName + ' == \'number\' ? ' + varName +
       ' : 0) + ' + argument0 + ';\n';
 };
 
 // Rounding functions have a single operand.
-Blockly.Cake['math_round'] = Blockly.Cake['math_single'];
+Blockly.cake['math_round'] = Blockly.cake['math_single'];
 // Trigonometry functions have a single operand.
-Blockly.Cake['math_trig'] = Blockly.Cake['math_single'];
+Blockly.cake['math_trig'] = Blockly.cake['math_single'];
 
-Blockly.Cake['math_on_list'] = function(block) {
+Blockly.cake['math_on_list'] = function(block) {
   // Math functions for lists.
   var func = block.getFieldValue('OP');
   var list, code;
   switch (func) {
     case 'SUM':
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_MEMBER) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_MEMBER) || '[]';
       code = list + '.reduce(function(x, y) {return x + y;})';
       break;
     case 'MIN':
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_COMMA) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_COMMA) || '[]';
       code = 'Math.min.apply(null, ' + list + ')';
       break;
     case 'MAX':
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_COMMA) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_COMMA) || '[]';
       code = 'Math.max.apply(null, ' + list + ')';
       break;
     case 'AVERAGE':
       // math_median([null,null,1,3]) == 2.0.
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'math_mean',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
             '  return myList.reduce(function(x, y) {return x + y;}) / ' +
                   'myList.length;',
             '}']);
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_NONE) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     case 'MEDIAN':
       // math_median([null,null,1,3]) == 2.0.
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'math_median',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(myList) {',
             '  var localList = myList.filter(function (x) ' +
               '{return typeof x == \'number\';});',
@@ -279,17 +279,17 @@ Blockly.Cake['math_on_list'] = function(block) {
             '    return localList[(localList.length - 1) / 2];',
             '  }',
             '}']);
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_NONE) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     case 'MODE':
       // As a list of numbers can contain more than one mode,
       // the returned result is provided as an array.
       // Mode of [3, 'x', 'x', 1, 1, 2, '3'] -> ['x', 1].
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'math_modes',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(values) {',
             '  var modes = [];',
             '  var counts = [];',
@@ -318,14 +318,14 @@ Blockly.Cake['math_on_list'] = function(block) {
             '  }',
             '  return modes;',
             '}']);
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_NONE) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     case 'STD_DEV':
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'math_standard_deviation',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(numbers) {',
             '  var n = numbers.length;',
             '  if (!n) return null;',
@@ -337,60 +337,60 @@ Blockly.Cake['math_on_list'] = function(block) {
             '  variance = variance / n;',
             '  return Math.sqrt(variance);',
             '}']);
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_NONE) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     case 'RANDOM':
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'math_random_list',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(list) {',
             '  var x = Math.floor(Math.random() * list.length);',
             '  return list[x];',
             '}']);
-      list = Blockly.Cake.valueToCode(block, 'LIST',
-          Blockly.Cake.ORDER_NONE) || '[]';
+      list = Blockly.cake.valueToCode(block, 'LIST',
+          Blockly.cake.ORDER_NONE) || '[]';
       code = functionName + '(' + list + ')';
       break;
     default:
       throw 'Unknown operator: ' + func;
   }
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['math_modulo'] = function(block) {
+Blockly.cake['math_modulo'] = function(block) {
   // Remainder computation.
-  var argument0 = Blockly.Cake.valueToCode(block, 'DIVIDEND',
-      Blockly.Cake.ORDER_MODULUS) || '0';
-  var argument1 = Blockly.Cake.valueToCode(block, 'DIVISOR',
-      Blockly.Cake.ORDER_MODULUS) || '0';
+  var argument0 = Blockly.cake.valueToCode(block, 'DIVIDEND',
+      Blockly.cake.ORDER_MODULUS) || '0';
+  var argument1 = Blockly.cake.valueToCode(block, 'DIVISOR',
+      Blockly.cake.ORDER_MODULUS) || '0';
   var code = argument0 + ' % ' + argument1;
-  return [code, Blockly.Cake.ORDER_MODULUS];
+  return [code, Blockly.cake.ORDER_MODULUS];
 };
 
-Blockly.Cake['math_constrain'] = function(block) {
+Blockly.cake['math_constrain'] = function(block) {
   // Constrain a number between two limits.
-  var argument0 = Blockly.Cake.valueToCode(block, 'VALUE',
-      Blockly.Cake.ORDER_COMMA) || '0';
-  var argument1 = Blockly.Cake.valueToCode(block, 'LOW',
-      Blockly.Cake.ORDER_COMMA) || '0';
-  var argument2 = Blockly.Cake.valueToCode(block, 'HIGH',
-      Blockly.Cake.ORDER_COMMA) || 'Infinity';
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_COMMA) || '0';
+  var argument1 = Blockly.cake.valueToCode(block, 'LOW',
+      Blockly.cake.ORDER_COMMA) || '0';
+  var argument2 = Blockly.cake.valueToCode(block, 'HIGH',
+      Blockly.cake.ORDER_COMMA) || 'Infinity';
   var code = 'Math.min(Math.max(' + argument0 + ', ' + argument1 + '), ' +
       argument2 + ')';
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['math_random_int'] = function(block) {
+Blockly.cake['math_random_int'] = function(block) {
   // Random integer between [X] and [Y].
-  var argument0 = Blockly.Cake.valueToCode(block, 'FROM',
-      Blockly.Cake.ORDER_COMMA) || '0';
-  var argument1 = Blockly.Cake.valueToCode(block, 'TO',
-      Blockly.Cake.ORDER_COMMA) || '0';
-  var functionName = Blockly.Cake.provideFunction_(
+  var argument0 = Blockly.cake.valueToCode(block, 'FROM',
+      Blockly.cake.ORDER_COMMA) || '0';
+  var argument1 = Blockly.cake.valueToCode(block, 'TO',
+      Blockly.cake.ORDER_COMMA) || '0';
+  var functionName = Blockly.cake.provideFunction_(
       'math_random_int',
-      [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+      [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
           '(a, b) {',
         '  if (a > b) {',
         '    // Swap a and b to ensure a is smaller.',
@@ -401,10 +401,10 @@ Blockly.Cake['math_random_int'] = function(block) {
         '  return Math.floor(Math.random() * (b - a + 1) + a);',
         '}']);
   var code = functionName + '(' + argument0 + ', ' + argument1 + ')';
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['math_random_float'] = function(block) {
+Blockly.cake['math_random_float'] = function(block) {
   // Random fraction between 0 and 1.
-  return ['Math.random()', Blockly.Cake.ORDER_FUNCTION_CALL];
+  return ['Math.random()', Blockly.cake.ORDER_FUNCTION_CALL];
 };

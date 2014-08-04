@@ -19,100 +19,100 @@
  */
 
 /**
- * @fileoverview Generating Cake for text blocks.
+ * @fileoverview Generating cake for text blocks.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Cake.text');
+goog.provide('Blockly.cake.text');
 
-goog.require('Blockly.Cake');
+goog.require('Blockly.cake');
 
 
-Blockly.Cake['text'] = function(block) {
+Blockly.cake['text'] = function(block) {
   // Text value.
-  var code = Blockly.Cake.quote_(block.getFieldValue('TEXT'));
-  return [code, Blockly.Cake.ORDER_ATOMIC];
+  var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+  return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
-Blockly.Cake['text_join'] = function(block) {
+Blockly.cake['text_join'] = function(block) {
   // Create a string made up of any number of elements of any type.
   var code;
   if (block.itemCount_ == 0) {
-    return ['\'\'', Blockly.Cake.ORDER_ATOMIC];
+    return ['\'\'', Blockly.cake.ORDER_ATOMIC];
   } else if (block.itemCount_ == 1) {
-    var argument0 = Blockly.Cake.valueToCode(block, 'ADD0',
-        Blockly.Cake.ORDER_NONE) || '\'\'';
+    var argument0 = Blockly.cake.valueToCode(block, 'ADD0',
+        Blockly.cake.ORDER_NONE) || '\'\'';
     code = 'String(' + argument0 + ')';
-    return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   } else if (block.itemCount_ == 2) {
-    var argument0 = Blockly.Cake.valueToCode(block, 'ADD0',
-        Blockly.Cake.ORDER_NONE) || '\'\'';
-    var argument1 = Blockly.Cake.valueToCode(block, 'ADD1',
-        Blockly.Cake.ORDER_NONE) || '\'\'';
+    var argument0 = Blockly.cake.valueToCode(block, 'ADD0',
+        Blockly.cake.ORDER_NONE) || '\'\'';
+    var argument1 = Blockly.cake.valueToCode(block, 'ADD1',
+        Blockly.cake.ORDER_NONE) || '\'\'';
     code = 'String(' + argument0 + ') + String(' + argument1 + ')';
-    return [code, Blockly.Cake.ORDER_ADDITION];
+    return [code, Blockly.cake.ORDER_ADDITION];
   } else {
     code = new Array(block.itemCount_);
     for (var n = 0; n < block.itemCount_; n++) {
-      code[n] = Blockly.Cake.valueToCode(block, 'ADD' + n,
-          Blockly.Cake.ORDER_COMMA) || '\'\'';
+      code[n] = Blockly.cake.valueToCode(block, 'ADD' + n,
+          Blockly.cake.ORDER_COMMA) || '\'\'';
     }
     code = '[' + code.join(',') + '].join(\'\')';
-    return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   }
 };
 
-Blockly.Cake['text_append'] = function(block) {
+Blockly.cake['text_append'] = function(block) {
   // Append to a variable in place.
-  var varName = Blockly.Cake.variableDB_.getName(
+  var varName = Blockly.cake.variableDB_.getName(
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
-  var argument0 = Blockly.Cake.valueToCode(block, 'TEXT',
-      Blockly.Cake.ORDER_NONE) || '\'\'';
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
   return varName + ' = String(' + varName + ') + String(' + argument0 + ');\n';
 };
 
-Blockly.Cake['text_length'] = function(block) {
+Blockly.cake['text_length'] = function(block) {
   // String length.
-  var argument0 = Blockly.Cake.valueToCode(block, 'VALUE',
-      Blockly.Cake.ORDER_FUNCTION_CALL) || '\'\'';
-  return [argument0 + '.length', Blockly.Cake.ORDER_MEMBER];
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_FUNCTION_CALL) || '\'\'';
+  return [argument0 + '.length', Blockly.cake.ORDER_MEMBER];
 };
 
-Blockly.Cake['text_isEmpty'] = function(block) {
+Blockly.cake['text_isEmpty'] = function(block) {
   // Is the string null?
-  var argument0 = Blockly.Cake.valueToCode(block, 'VALUE',
-      Blockly.Cake.ORDER_MEMBER) || '\'\'';
-  return ['!' + argument0, Blockly.Cake.ORDER_LOGICAL_NOT];
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_MEMBER) || '\'\'';
+  return ['!' + argument0, Blockly.cake.ORDER_LOGICAL_NOT];
 };
 
-Blockly.Cake['text_indexOf'] = function(block) {
+Blockly.cake['text_indexOf'] = function(block) {
   // Search the text for a substring.
   var operator = block.getFieldValue('END') == 'FIRST' ?
       'indexOf' : 'lastIndexOf';
-  var argument0 = Blockly.Cake.valueToCode(block, 'FIND',
-      Blockly.Cake.ORDER_NONE) || '\'\'';
-  var argument1 = Blockly.Cake.valueToCode(block, 'VALUE',
-      Blockly.Cake.ORDER_MEMBER) || '\'\'';
+  var argument0 = Blockly.cake.valueToCode(block, 'FIND',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  var argument1 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_MEMBER) || '\'\'';
   var code = argument1 + '.' + operator + '(' + argument0 + ') + 1';
-  return [code, Blockly.Cake.ORDER_MEMBER];
+  return [code, Blockly.cake.ORDER_MEMBER];
 };
 
-Blockly.Cake['text_charAt'] = function(block) {
+Blockly.cake['text_charAt'] = function(block) {
   // Get letter at index.
   // Note: Until January 2013 this block did not have the WHERE input.
   var where = block.getFieldValue('WHERE') || 'FROM_START';
-  var at = Blockly.Cake.valueToCode(block, 'AT',
-      Blockly.Cake.ORDER_UNARY_NEGATION) || '1';
-  var text = Blockly.Cake.valueToCode(block, 'VALUE',
-      Blockly.Cake.ORDER_MEMBER) || '\'\'';
+  var at = Blockly.cake.valueToCode(block, 'AT',
+      Blockly.cake.ORDER_UNARY_NEGATION) || '1';
+  var text = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_MEMBER) || '\'\'';
   switch (where) {
     case 'FIRST':
       var code = text + '.charAt(0)';
-      return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
     case 'LAST':
       var code = text + '.slice(-1)';
-      return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
     case 'FROM_START':
       // Blockly uses one-based indicies.
       if (Blockly.isNumber(at)) {
@@ -123,40 +123,40 @@ Blockly.Cake['text_charAt'] = function(block) {
         at += ' - 1';
       }
       var code = text + '.charAt(' + at + ')';
-      return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
     case 'FROM_END':
       var code = text + '.slice(-' + at + ').charAt(0)';
-      return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
     case 'RANDOM':
-      var functionName = Blockly.Cake.provideFunction_(
+      var functionName = Blockly.cake.provideFunction_(
           'text_random_letter',
-          [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
               '(text) {',
             '  var x = Math.floor(Math.random() * text.length);',
             '  return text[x];',
             '}']);
       code = functionName + '(' + text + ')';
-      return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   }
   throw 'Unhandled option (text_charAt).';
 };
 
-Blockly.Cake['text_getSubstring'] = function(block) {
+Blockly.cake['text_getSubstring'] = function(block) {
   // Get substring.
-  var text = Blockly.Cake.valueToCode(block, 'STRING',
-      Blockly.Cake.ORDER_MEMBER) || '\'\'';
+  var text = Blockly.cake.valueToCode(block, 'STRING',
+      Blockly.cake.ORDER_MEMBER) || '\'\'';
   var where1 = block.getFieldValue('WHERE1');
   var where2 = block.getFieldValue('WHERE2');
-  var at1 = Blockly.Cake.valueToCode(block, 'AT1',
-      Blockly.Cake.ORDER_NONE) || '1';
-  var at2 = Blockly.Cake.valueToCode(block, 'AT2',
-      Blockly.Cake.ORDER_NONE) || '1';
+  var at1 = Blockly.cake.valueToCode(block, 'AT1',
+      Blockly.cake.ORDER_NONE) || '1';
+  var at2 = Blockly.cake.valueToCode(block, 'AT2',
+      Blockly.cake.ORDER_NONE) || '1';
   if (where1 == 'FIRST' && where2 == 'LAST') {
     var code = text;
   } else {
-    var functionName = Blockly.Cake.provideFunction_(
+    var functionName = Blockly.cake.provideFunction_(
         'text_get_substring',
-        [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ +
+        [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
             '(text, where1, at1, where2, at2) {',
           '  function getAt(where, at) {',
           '    if (where == \'FROM_START\') {',
@@ -179,10 +179,10 @@ Blockly.Cake['text_getSubstring'] = function(block) {
     var code = functionName + '(' + text + ', \'' +
         where1 + '\', ' + at1 + ', \'' + where2 + '\', ' + at2 + ')';
   }
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['text_changeCase'] = function(block) {
+Blockly.cake['text_changeCase'] = function(block) {
   // Change capitalization.
   var OPERATORS = {
     'UPPERCASE': '.toUpperCase()',
@@ -192,27 +192,27 @@ Blockly.Cake['text_changeCase'] = function(block) {
   var operator = OPERATORS[block.getFieldValue('CASE')];
   var code;
   if (operator) {
-    // Upper and lower case are functions built into Cake.
-    var argument0 = Blockly.Cake.valueToCode(block, 'TEXT',
-        Blockly.Cake.ORDER_MEMBER) || '\'\'';
+    // Upper and lower case are functions built into cake.
+    var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+        Blockly.cake.ORDER_MEMBER) || '\'\'';
     code = argument0 + operator;
   } else {
-    // Title case is not a native Cake function.  Define one.
-    var functionName = Blockly.Cake.provideFunction_(
+    // Title case is not a native cake function.  Define one.
+    var functionName = Blockly.cake.provideFunction_(
         'text_toTitleCase',
-        [ 'function ' + Blockly.Cake.FUNCTION_NAME_PLACEHOLDER_ + '(str) {',
+        [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ + '(str) {',
           '  return str.replace(/\\S+/g,',
           '      function(txt) {return txt[0].toUpperCase() + ' +
               'txt.substring(1).toLowerCase();});',
           '}']);
-    var argument0 = Blockly.Cake.valueToCode(block, 'TEXT',
-        Blockly.Cake.ORDER_NONE) || '\'\'';
+    var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+        Blockly.cake.ORDER_NONE) || '\'\'';
     code = functionName + '(' + argument0 + ')';
   }
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['text_trim'] = function(block) {
+Blockly.cake['text_trim'] = function(block) {
   // Trim spaces.
   var OPERATORS = {
     'LEFT': '.trimLeft()',
@@ -220,37 +220,37 @@ Blockly.Cake['text_trim'] = function(block) {
     'BOTH': '.trim()'
   };
   var operator = OPERATORS[block.getFieldValue('MODE')];
-  var argument0 = Blockly.Cake.valueToCode(block, 'TEXT',
-      Blockly.Cake.ORDER_MEMBER) || '\'\'';
-  return [argument0 + operator, Blockly.Cake.ORDER_FUNCTION_CALL];
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_MEMBER) || '\'\'';
+  return [argument0 + operator, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['text_print'] = function(block) {
+Blockly.cake['text_print'] = function(block) {
   // Print statement.
-  var argument0 = Blockly.Cake.valueToCode(block, 'TEXT',
-      Blockly.Cake.ORDER_NONE) || '\'\'';
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
   return 'window.alert(' + argument0 + ');\n';
 };
 
-Blockly.Cake['text_prompt'] = function(block) {
+Blockly.cake['text_prompt'] = function(block) {
   // Prompt function (internal message).
-  var msg = Blockly.Cake.quote_(block.getFieldValue('TEXT'));
+  var msg = Blockly.cake.quote_(block.getFieldValue('TEXT'));
   var code = 'window.prompt(' + msg + ')';
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'parseFloat(' + code + ')';
   }
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
 
-Blockly.Cake['text_prompt_ext'] = function(block) {
+Blockly.cake['text_prompt_ext'] = function(block) {
   // Prompt function (external message).
-  var msg = Blockly.Cake.valueToCode(block, 'TEXT',
-      Blockly.Cake.ORDER_NONE) || '\'\'';
+  var msg = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
   var code = 'window.prompt(' + msg + ')';
   var toNumber = block.getFieldValue('TYPE') == 'NUMBER';
   if (toNumber) {
     code = 'parseFloat(' + code + ')';
   }
-  return [code, Blockly.Cake.ORDER_FUNCTION_CALL];
+  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
