@@ -20,7 +20,7 @@
  */
 
 /**
- * @fileoverview Helper functions for generating C++ for blocks. Modified from the standard Blockly JavaScript generator. 
+ * @fileoverview Helper functions for generating C++ for blocks. Modified from the standard Blockly cake generator. 
  * @author fraser@google.com (Neil Fraser), dininno@mit.edu (Ethan DiNinno)
  */
 'use strict';
@@ -114,12 +114,11 @@ Blockly.cake.init = function() {
     }
 
     var defvars = [];
-    Blockly.Variables.allVariables();
-    var variables = Blockly.cake.C_GLOBAL_VARS.values();
+    var variables = Blockly.Variables.allVariables();
     for (var x = 0; x < variables.length; x++) {
-      defvars[x] = variables[x].type + ' ' +
-          Blockly.cake.variableDB_.getName(variables[x].name,
-          Blockly.Variables.NAME_TYPE) + (variables[x].isArray === 'TRUE' ? '[' + variables[x].length + ']' : '') + ';';
+      defvars[x] = 'var ' +
+          Blockly.cake.variableDB_.getName(variables[x],
+          Blockly.Variables.NAME_TYPE) + ';';
     }
     Blockly.cake.definitions_['variables'] = defvars.join('\n');
   }
@@ -163,10 +162,10 @@ Blockly.cake.scrubNakedValue = function(line) {
 };
 
 /**
- * Encode a string as a properly escaped JavaScript string, complete with
+ * Encode a string as a properly escaped cake string, complete with
  * quotes.
  * @param {string} string Text to encode.
- * @return {string} JavaScript string.
+ * @return {string} cake string.
  * @private
  */
 Blockly.cake.quote_ = function(string) {
@@ -178,12 +177,12 @@ Blockly.cake.quote_ = function(string) {
 };
 
 /**
- * Common tasks for generating JavaScript from blocks.
+ * Common tasks for generating cake from blocks.
  * Handles comments for the specified block and any connected value blocks.
  * Calls any statements following this block.
  * @param {!Blockly.Block} block The current block.
- * @param {string} code The JavaScript code created for this block.
- * @return {string} JavaScript code with comments and subsequent blocks added.
+ * @param {string} code The cake code created for this block.
+ * @return {string} cake code with comments and subsequent blocks added.
  * @this {Blockly.CodeGenerator}
  * @private
  */
