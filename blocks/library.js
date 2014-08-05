@@ -4,7 +4,7 @@ goog.provide('Blockly.Blocks.library');
 
 goog.require('Blockly.Blocks');
 
-Blockly.Blocks['text'] = {
+Blockly.Blocks['cake_func_paren'] = {
   /**
    * Block for text value.
    * @this Blockly.Block
@@ -36,7 +36,7 @@ Blockly.Blocks['text'] = {
   }
 };
 
-Blockly.Blocks['stdio_printf'] = {
+Blockly.Blocks['cake_stdio_printf'] = {
   /**
    * Block for [printf function] in c
    * @this Blockly.Block
@@ -55,7 +55,7 @@ Blockly.Blocks['stdio_printf'] = {
   //text block's newQuote replaces this.newQuote
 };
 
-Blockly.Blocks['stdio_scanf'] = {
+Blockly.Blocks['cake_stdio_scanf'] = {
   /**
    * Block for [printf function] in c
    * @this Blockly.Block

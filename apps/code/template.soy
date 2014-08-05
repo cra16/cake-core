@@ -130,37 +130,40 @@
 {template .toolbox}
   <xml id="toolbox" style="display: none">
     <category name="{msg meaning="Apps.catVariables" desc="IBID"}Variables{/msg}" custom="VARIABLE">
-      <block type="var_array"></block>
-      <block type="var_integer"></block>
-      <block type="var_realnumber"></block>
-      <block type="var_character"></block>
-      <block type="var_constant"></block>
+      <block type="cake_var_array"></block>
+      <block type="cake_var_integer"></block>
+      <block type="cake_var_realnumber"></block>
+      <block type="cake_var_character"></block>
+      <block type="cake_var_constant"></block>
     </category>
     <category name="{msg meaning="Apps.catLoops" desc="IBID"}Loops{/msg}">
-      <block type="loop_while"></block>
-      <block type="loop_dowhile"></block>
-      <block type="loop_for"></block>
+      <block type="cake_loop_while"></block>
+      <block type="cake_loop_dowhile"></block>
+      <block type="cake_loop_for"></block>
     </category>
     <category name="{msg meaning="Apps.catLogic" desc="IBID"}Logic{/msg}">
-      <block type="logic_ifelse"></block>
-      <block type="logic_switch"></block>
+      <block type="cake_logic_ifelse"></block>
+      <block type="cake_logic_switch"></block>
     </category><category name="Function">
-      <block type="logic_ifelse"></block>
-      <block type="logic_switch"></block>
+      <block type="cake_logic_ifelse"></block>
+      <block type="cake_logic_switch"></block>
     </category>
     <category name="{msg meaning="Apps.catLibrary" desc="IBID"}Library{/msg}">
       <category name="Stdio">
-        <block type="stdio_printf"></block>
-        <block type="stdio_scanf"></block>
+        <block type="cake_func_paren"></block>
+        <block type="cake_stdio_printf"></block>
+        <block type="cake_stdio_scanf"></block>
       </category>
       <category name="Stdlib">
-        <block type="stdlib_rand"></block>
-        <block type="stdlib_exit"></block>
+        <block type="cake_func_paren"></block>
+        <block type="cake_stdlib_rand"></block>
+        <block type="cake_stdlib_exit"></block>
       </category>
       <category name="{msg meaning="Apps.catMath" desc="IBID"}Math{/msg}">
-        <block type="math_sin"></block>
-        <block type="math_cos"></block>
-        <block type="math_tan"></block>
+        <block type="cake_func_paren"></block>
+        <block type="cake_math_sin"></block>
+        <block type="cake_math_cos"></block>
+        <block type="cake_math_tan"></block>
       </category>
     </category>
   </xml>
