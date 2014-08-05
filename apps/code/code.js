@@ -42,7 +42,7 @@ var Code = {};
  * List of tab names.
  * @private
  */
-Code.TABS_ = ['blocks', 'javascript', 'python', 'dart', 'xml', 'cake'];
+Code.TABS_ = ['blocks', 'javascript', 'python', 'dart', 'cake', 'xml'];
 
 Code.selected = 'blocks';
 
@@ -130,7 +130,7 @@ Code.renderContent = function() {
     content.textContent = code;
     if (typeof prettyPrintOne == 'function') {
       code = content.innerHTML;
-      code = prettyPrintOne(code, 'cake');
+      code = prettyPrintOne(code, 'c');
       content.innerHTML = code;
     }
   }
