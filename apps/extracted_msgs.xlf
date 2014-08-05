@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file original="SoyMsgBundle" datatype="x-soy-msg-bundle" xml:space="preserve" source-language="en">
+    <body>
+      <trans-unit id="34428208008617605" datatype="html">
+        <source>Maze</source>
+        <note priority="1" from="description">title - Specifies that this is Blockly's '''Maze''' tutorial.</note>
+        <note priority="1" from="meaning">Maze.maze</note>
+      </trans-unit>
+      <trans-unit id="148032336181194017" datatype="html">
+        <source>Error parsing XML:\n%1\n\nSelect 'OK' to abandon your changes or 'Cancel' to further edit the XML.</source>
+        <note priority="1" from="description">alert - Message shown when the user tries switching from the XML tab after entering XML text that could not be parsed.  This asks whether they wish to abandon the XML they added.  If they select 'OK' (or the translated equivalent), the XML is cleared, and the other tab is shown.  If they select 'Cancel', they remain on the XML tab with the bad XML.\n\nUsed in JavaScript &lt;code&gt;window.confirm()&lt;/code&gt;.</note>
+        <note priority="1" from="meaning">Code.badXml</note>
+      </trans-unit>
+      <trans-unit id="172935374208882914" datatype="html">
+        <source>São Paulo</source>
+        <note priority="1" from="description">The city São Paulo in Brazil.</note>
+        <note priority="1" from="meaning">Puzzle.country4City2</note>
+      </trans-unit>
+      <trans-unit id="183634583247013051" datatype="html">
+        <source>The highlighted block is not correct.\nKeep trying.</source>
+        <note priority="1" from="description">A message indicating that a visually distinguished block is incorrect and that the user should try to fix it.\n\nThe use of a new line character is optional.</note>
+        <note priority="1" from="meaning">Puzzle.tryAgain</note>
+      </trans-unit>
+      <trans-unit id="196845303311122428" datatype="html">
+        <source>pen up</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb to lift up a pen so that moving it leaves no mark on the writing surface.</note>
+        <note priority="1" from="meaning">Turtle.penUp</note>
+      </trans-unit>
+      <trans-unit id="286555642257111053" datatype="html">
+        <source>Rows: %1</source>
+        <note priority="1" from="description">page text - Total number of rows of seats on an airplane.\n\nParameters:\n* %1 - number of rows of seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.rows</note>
+      </trans-unit>
+      <trans-unit id="295126337553066153" datatype="html">
+        <source>pen down</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb to lower a raised pen so that moving it leaves a mark on the writing surface.</note>
+        <note priority="1" from="meaning">Turtle.penDown</note>
+      </trans-unit>
+      <trans-unit id="327067666833971381" datatype="html">
+        <source>Makes the turtle do what the blocks say.</source>
+        <note priority="1" from="description">tooltip - Pressing this button runs the computer program the user has written to move the turtle on the canvas.</note>
+        <note priority="1" from="meaning">Turtle.runTooltip</note>
+      </trans-unit>
+      <trans-unit id="339365101010834276" datatype="html">
+        <source>Code</source>
+        <note priority="1" from="description">IBID</note>
+        <note priority="1" from="meaning">Code.title</note>
+      </trans-unit>
+      <trans-unit id="456260871761620526" datatype="html">
+        <source>https://en.wikipedia.org/wiki/Printing</source>
+        <note priority="1" from="description">URL - Information about printing or typography.</note>
+        <note priority="1" from="meaning">Turtle.printHelpUrl</note>
+      </trans-unit>
+      <trans-unit id="552526916301133670" datatype="html">
+        <source>Moves the turtle forward or backward by the specified amount.</source>
+        <note priority="1" from="description">tooltip - In this and subsequent messages, 'turtle' refers to a stylized turtle on the screen to represent a position and direction.  This imaginary turtle is carrying a pen in its tail, so moving the turtle draws a line (or curve, etc.).  You are encouraged to play with the [https://blockly-demo.appspot.com/static/apps/turtle/index.html Turtle application] before doing this translation.</note>
+        <note priority="1" from="meaning">Turtle.moveTooltip</note>
+      </trans-unit>
+      <trans-unit id="561418461570337551" datatype="html">
+        <source>You have %2 blocks left.</source>
+        <note priority="1" from="description">warning - Only %2 more blocks may be used, where %2 is an integer greater than 1.\n\nSee also:\n* {lb}{lb}msg-blockly|Maze.capacity1{rb}{rb}</note>
+        <note priority="1" from="meaning">Maze.capacity2</note>
+      </trans-unit>
+      <trans-unit id="569611506796947817" datatype="html">
+        <source>Chinese</source>
+        <note priority="1" from="description">The Chinese language.\n{lb}{lb}Identical|Chinese{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country3Language</note>
+      </trans-unit>
+      <trans-unit id="586801704101593425" datatype="html">
+        <source>Blocks</source>
+        <note priority="1" from="description">tab text - Displays and allows editing of the user's program as blocks.\n{lb}{lb}Identical|Blocks{rb}{rb}</note>
+        <note priority="1" from="meaning">Code.blocks</note>
+      </trans-unit>
+      <trans-unit id="768570576516576913" datatype="html">
+        <source>text</source>
+        <note priority="1" from="description">variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Text piece of text].  This should be a single word, preferably short.\n{lb}{lb}Identical|Text{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.textVariable</note>
+      </trans-unit>
+      <trans-unit id="793577727112679597" datatype="html">
+        <source>Save the drawing.</source>
+        <note priority="1" from="description">tooltip - Pressing this button causes the drawing created by the user's program to be saved as an image on the user's computer.  The button icon looks like a camera.</note>
+        <note priority="1" from="meaning">Turtle.captureTooltip</note>
+      </trans-unit>
+      <trans-unit id="942647526999045936" datatype="html">
+        <source>language:</source>
+        <note priority="1" from="description">Prompt for the user to provide the official language of a country.\n{lb}{lb}Identical|Language{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.language</note>
+      </trans-unit>
+      <trans-unit id="945126989426193972" datatype="html">
+        <source>Lifts or lowers the pen, to stop or start drawing.</source>
+        <note priority="1" from="description">tooltip - Lifting the pen off the writing surface prevents anything from being drawn.  Lowering it (after it has been lifted) enables it to draw again.</note>
+        <note priority="1" from="meaning">Turtle.penTooltip</note>
+      </trans-unit>
+      <trans-unit id="990695256953568910" datatype="html">
+        <source>seats =</source>
+        <note priority="1" from="description">block text - The first half of a mathematical equation determining the number of seats in an airplane, such as: ''''seats =''' 4 x rows'.</note>
+        <note priority="1" from="meaning">Plane.setSeats</note>
+      </trans-unit>
+      <trans-unit id="1013045213595604872" datatype="html">
+        <source>move forward by</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Infinitive or imperative of a verb telling a turtle to move (walk) in the direction he/she is facing.  This is followed by a number indicating how far (how many pixels) to go.  Prefer a translation that has text in common with the translation of 'move backward'.  See [[Translating:Blockly#Drop-Down_Menus]].</note>
+        <note priority="1" from="meaning">Turtle.moveForward</note>
+      </trans-unit>
+      <trans-unit id="1020451542663054555" datatype="html">
+        <source>Delete all %1 blocks?</source>
+        <note priority="1" from="description">alert - Message shown after the user clicks on the 'discard all' icon.  Selecting 'OK' (or the translated equivalent) causes all of the blocks to be discarded.  Selecting 'Cancel' prevents blocks from being deleted.\n\nParameters:\n* %1 - number of blocks to be deleted. It is always an integer greater than or equal to 2.</note>
+        <note priority="1" from="meaning">Code.discard</note>
+      </trans-unit>
+      <trans-unit id="1061578198057067927" datatype="html">
+        <source>You have used up all the blocks for this level.  To create a new block, you first need to delete an existing block.</source>
+        <note priority="1" from="description">callout - This is shown after the user has used all the blocks permitted on this level.</note>
+        <note priority="1" from="meaning">Maze.helpCapacity</note>
+      </trans-unit>
+      <trans-unit id="1146327621590900127" datatype="html">
+        <source>hide turtle</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb telling a turtle to hide itself (become invisible).</note>
+        <note priority="1" from="meaning">Turtle.hideTurtle</note>
+      </trans-unit>
+      <trans-unit id="1190064103412776740" datatype="html">
+        <source>Repeat the enclosed actions until finish point is reached.</source>
+        <note priority="1" from="description">tooltip - Repeat the enclosed commands until the maze has been successfully completed (the end point reached).</note>
+        <note priority="1" from="meaning">Maze.whileTooltip</note>
+      </trans-unit>
+      <trans-unit id="1274375705158281519" datatype="html">
+        <source>Functions</source>
+        <note priority="1" from="description">category - Blocks related to [https://en.wikipedia.org/wiki/Subroutine defining or using procedures/functions].</note>
+        <note priority="1" from="meaning">Apps.catProcedures</note>
+      </trans-unit>
+      <trans-unit id="1287357579287299642" datatype="html">
+        <source>English</source>
+        <note priority="1" from="description">The English language.{lb}{lb}Identical|English{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country1Language</note>
+      </trans-unit>
+      <trans-unit id="1327005465775917626" datatype="html">
+        <source>An airplane has two seats in the flight deck (for the pilot and co-pilot), and a number of rows of 1st class and 2nd class passenger seats.  Each 1st class row contains four seats. Each 2nd class row contains five seats.</source>
+        <note priority="1" from="description">instructions - Note that in [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=3 this level], there are three types of seats on this plane.  Be sure to use the same terms for '1st class' and '2nd class' as you did for the earlier messages.</note>
+        <note priority="1" from="meaning">Plane.description3</note>
+      </trans-unit>
+      <trans-unit id="1350759209070481203" datatype="html">
+        <source>Maximum execution iterations exceeded.</source>
+        <note priority="1" from="description">alert - Message shown if the program has run for more than the permitted number of steps.  This exists so that programs with infinite loops do not run forever.</note>
+        <note priority="1" from="meaning">Code.timeout</note>
+      </trans-unit>
+      <trans-unit id="1359456544648181295" datatype="html">
+        <source>Changes the width of the pen.</source>
+        <note priority="1" from="description">tooltip</note>
+        <note priority="1" from="meaning">Turtle.widthTooltip</note>
+      </trans-unit>
+      <trans-unit id="1406728939680691839" datatype="html">
+        <source>Discard all blocks.</source>
+        <note priority="1" from="description">tooltip - Clicking on this causes the user program to be discarded.</note>
+        <note priority="1" from="meaning">Code.trashTooltip</note>
+      </trans-unit>
+      <trans-unit id="1456515588173174520" datatype="html">
+        <source>Click on %1 in the 'if' block to change its condition.</source>
+        <note priority="1" from="description">callout - %1 will be replaced with an image of the dropdown menu that the user needs to click.</note>
+        <note priority="1" from="meaning">Maze.helpMenu</note>
+      </trans-unit>
+      <trans-unit id="1649099567159388799" datatype="html">
+        <source>?</source>
+        <note priority="1" from="description">page text - A word or symbol indicating that this numeric value has not yet been determined.</note>
+        <note priority="1" from="meaning">Plane.placeholder</note>
+      </trans-unit>
+      <trans-unit id="1686883036031489642" datatype="html">
+        <source>Logic</source>
+        <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Logic logic].</note>
+        <note priority="1" from="meaning">Apps.catLogic</note>
+      </trans-unit>
+      <trans-unit id="1706166575733269263" datatype="html">
+        <source>Turtle Graphics</source>
+        <note priority="1" from="description">title - Specifies that this is Blockly's '''Turtle Graphics''' application.  Should you wish to, you can read more about [https://en.wikipedia.org/wiki/Turtle_graphics turtle graphics].</note>
+        <note priority="1" from="meaning">Turtle.title</note>
+      </trans-unit>
+      <trans-unit id="1794249676769577229" datatype="html">
+        <source>You have %0 blocks left.</source>
+        <note priority="1" from="description">warning - No more blocks may be added until some are removed.  Please include '%0' in the translated string.  It will be replaced with '0' and made bold.</note>
+        <note priority="1" from="meaning">Maze.capacity0</note>
+      </trans-unit>
+      <trans-unit id="1843334689331866804" datatype="html">
+        <source>If there is a path in the specified direction, then do the first block of actions.  Otherwise, do the second block of actions.</source>
+        <note priority="1" from="description">tooltip - 'path' refers to a path through a maze.</note>
+        <note priority="1" from="meaning">Maze.ifelseTooltip</note>
+      </trans-unit>
+      <trans-unit id="2075728723517768097" datatype="html">
+        <source>Makes the player do what the blocks say.</source>
+        <note priority="1" from="description">tooltip - Pressing this button runs the computer program the user has written to move the player through the maze.</note>
+        <note priority="1" from="meaning">Maze.runTooltip</note>
+      </trans-unit>
+      <trans-unit id="2149839397262503913" datatype="html">
+        <source>if path to the left</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Condensed form of 'if there is a path to the left', as in: 'if path to the left, turn left'.</note>
+        <note priority="1" from="meaning">Maze.pathLeft</note>
+      </trans-unit>
+      <trans-unit id="2201212763190410627" datatype="html">
+        <source>Changes the colour of the pen.</source>
+        <note priority="1" from="description">tooltip - Changes the colour of ink in the pen carried by the turtle.</note>
+        <note priority="1" from="meaning">Turtle.colourTooltip</note>
+      </trans-unit>
+      <trans-unit id="2217658647698715954" datatype="html">
+        <source>Munich</source>
+        <note priority="1" from="description">The city Munich (München) in Germany.</note>
+        <note priority="1" from="meaning">Puzzle.country2City2</note>
+      </trans-unit>
+      <trans-unit id="2353453760676853811" datatype="html">
+        <source>Perfect!\nAll %1 blocks are correct.</source>
+        <note priority="1" from="description">A congratulatory message displayed if the user placed all of the blocks correctly.\n\nParameters:\n* %1 - number of blocks correctly placed.  It is always an integer greater than 1.\n\nThe use of a new line character is optional.</note>
+        <note priority="1" from="meaning">Puzzle.error0</note>
+      </trans-unit>
+      <trans-unit id="2409415650297366191" datatype="html">
+        <source>font size</source>
+        <note priority="1" from="description">block text - This precedes a number specifying the size of the typographic font that should be used when displaying text.  This appears in the same block as 'font', so that word should not be repeated.</note>
+        <note priority="1" from="meaning">Turtle.fontSize</note>
+      </trans-unit>
+      <trans-unit id="2555132265974908158" datatype="html">
+        <source>bold</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Specifies that a typographic font should be [https://en.wikipedia.org/wiki/Emphasis_(typography) bold].</note>
+        <note priority="1" from="meaning">Turtle.fontBold</note>
+      </trans-unit>
+      <trans-unit id="2561306449483326985" datatype="html">
+        <source>Text</source>
+        <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Text text processing].\n{lb}{lb}Identical|Text{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.catText</note>
+      </trans-unit>
+      <trans-unit id="2570539532822249158" datatype="html">
+        <source>Sorry, '%1' doesn't correspond with any saved program.</source>
+        <note priority="1" from="description">alert - A request to retrieve a stored program does not have a valid URL. %1 is the invalid portion of the URL.</note>
+        <note priority="1" from="meaning">Apps.hashError</note>
+      </trans-unit>
+      <trans-unit id="2745637248856614957" datatype="html">
+        <source>Melbourne</source>
+        <note priority="1" from="description">The city Melbourne in Australia.</note>
+        <note priority="1" from="meaning">Puzzle.country1City1</note>
+      </trans-unit>
+      <trans-unit id="2801052495540198573" datatype="html">
+        <source>turn right</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Imperative or infinitive of a verb for a person turning his head and body one quarter rotation clockwise.  Prefer a translation that has text in common with the translation of 'turn left'.  See [[Translating:Blockly#Drop-Down_Menus]].</note>
+        <note priority="1" from="meaning">Maze.turnRight</note>
+      </trans-unit>
+      <trans-unit id="2827102143774531943" datatype="html">
+        <source>Check Answers</source>
+        <note priority="1" from="description">A label on a button the user can press to check his/her answers.</note>
+        <note priority="1" from="meaning">Puzzle.checkAnswers</note>
+      </trans-unit>
+      <trans-unit id="2989183467808289061" datatype="html">
+        <source>choose...</source>
+        <note priority="1" from="description">Initial text displayed in a dropdown menu from which the user should choose the language spoken in the indicated country.\n{lb}{lb}Identical|Choose{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.languageChoose</note>
+      </trans-unit>
+      <trans-unit id="3160118472257830313" datatype="html">
+        <source>normal</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Specifies that a typographic font should be normal (neither in italics or bold).</note>
+        <note priority="1" from="meaning">Turtle.fontNormal</note>
+      </trans-unit>
+      <trans-unit id="3190825933229819894" datatype="html">
+        <source>Put the player back at the start of the maze.</source>
+        <note priority="1" from="description">tooltip - Pressing this button restores the player to the start position and enables the user's program to be run again.</note>
+        <note priority="1" from="meaning">Maze.resetTooltip</note>
+      </trans-unit>
+      <trans-unit id="3204121527132027178" datatype="html">
+        <source>https://en.wikipedia.org/wiki/China</source>
+        <note priority="1" from="description">The URL of a page with basic information about China.</note>
+        <note priority="1" from="meaning">Puzzle.country3HelpUrl</note>
+      </trans-unit>
+      <trans-unit id="3279501947911403228" datatype="html">
+        <source>Variables</source>
+        <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Variables variables].</note>
+        <note priority="1" from="meaning">Apps.catVariables</note>
+      </trans-unit>
+      <trans-unit id="3293197141663117591" datatype="html">
+        <source>if path ahead</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Condensed form of 'if there is a path ahead', as in: 'if path ahead, go forward'.  Prefer translation that has text in common with 'if path to the left' and 'if path to the right'.</note>
+        <note priority="1" from="meaning">Maze.pathAhead</note>
+      </trans-unit>
+      <trans-unit id="3391402801438897952" datatype="html">
+        <source>Cake</source>
+        <note priority="1" from="description">IBID</note>
+        <note priority="1" from="meaning">Apps.blocklyMessage</note>
+      </trans-unit>
+      <trans-unit id="3470388111919662764" datatype="html">
+        <source>https://en.wikipedia.org/wiki/Germany</source>
+        <note priority="1" from="description">The URL of a page with basic information about Germany.</note>
+        <note priority="1" from="meaning">Puzzle.country2HelpUrl</note>
+      </trans-unit>
+      <trans-unit id="3478101938294488773" datatype="html">
+        <source>You can fit more than one block inside a 'repeat' block.</source>
+        <note priority="1" from="description">callout - This is a hint that the user should place a second block inside of a 'repeat' block.\n\n'repeat' should be consistent with {lb}{lb}msg-blockly|Maze.repeatUntil{rb}{rb}.</note>
+        <note priority="1" from="meaning">Maze.helpRepeatMany</note>
+      </trans-unit>
+      <trans-unit id="3526991786845491951" datatype="html">
+        <source>Sydney</source>
+        <note priority="1" from="description">The city Sydney in Australia.</note>
+        <note priority="1" from="meaning">Puzzle.country1City2</note>
+      </trans-unit>
+      <trans-unit id="3792533731296600003" datatype="html">
+        <source>italic</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Specifies that a typographic font should be [https://en.wikipedia.org/wiki/Italics italic].</note>
+        <note priority="1" from="meaning">Turtle.fontItalic</note>
+      </trans-unit>
+      <trans-unit id="3821803554803730960" datatype="html">
+        <source>German</source>
+        <note priority="1" from="description">The German language.\n{lb}{lb}Identical|German{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country2Language</note>
+      </trans-unit>
+      <trans-unit id="3872872459414039837" datatype="html">
+        <source>Build a formula (below) that calculates the total number of seats on the airplane as the rows are changed (above).</source>
+        <note priority="1" from="description">page text - This text appears below the airplane graphic and above the space for the user to create the formula.  The number of rows an the graphic may be changed by the user with a slider.  See [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=1] for a picture.</note>
+        <note priority="1" from="meaning">Plane.instructions</note>
+      </trans-unit>
+      <trans-unit id="3903900976387299493" datatype="html">
+        <source>flag:</source>
+        <note priority="1" from="description">[[File:Config-language.png|left||32px]]\nnoun the official flag representing a country (the national flag).\n{lb}{lb}Identical|Flag{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.flag</note>
+      </trans-unit>
+      <trans-unit id="3964361619617826429" datatype="html">
+        <source>OK</source>
+        <note priority="1" from="description">Label on button for user to press when done reading help information.\n{lb}{lb}Identical|OK{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.dialogOk</note>
+      </trans-unit>
+      <trans-unit id="4092567125241388941" datatype="html">
+        <source>Rio de Janeiro</source>
+        <note priority="1" from="description">The city Rio de Janeiro in Brazil.</note>
+        <note priority="1" from="meaning">Puzzle.country4City1</note>
+      </trans-unit>
+      <trans-unit id="4130136547051161134" datatype="html">
+        <source>font</source>
+        <note priority="1" from="description">block text - This precedes a dropdown menu specifying the typographic font [family] that should be used when displaying text.</note>
+        <note priority="1" from="meaning">Turtle.font</note>
+      </trans-unit>
+      <trans-unit id="4138774728570944645" datatype="html">
+        <source>move forward</source>
+        <note priority="1" from="description">block text - Imperative or infinitive of a verb for a person moving (walking) in the direction he/she is facing.</note>
+        <note priority="1" from="meaning">Maze.moveForward</note>
+      </trans-unit>
+      <trans-unit id="4294783477990312138" datatype="html">
+        <source>move backward by</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Infinitive or imperative of a verb telling a turtle to move (walk) in the direction opposite to where he/she is facing.  This is followed by a number indicating how far (how many pixels) to go.  Prefer a translation that has text in common with the translation of 'move forward'.</note>
+        <note priority="1" from="meaning">Turtle.moveBackward</note>
+      </trans-unit>
+      <trans-unit id="4353792691863884862" datatype="html">
+        <source>Portuguese</source>
+        <note priority="1" from="description">The Portuguese language.\n{lb}{lb}Identical|Portuguese{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country4Language</note>
+      </trans-unit>
+      <trans-unit id="4358472193998870679" datatype="html">
+        <source>C language</source>
+        <note priority="1" from="description">title - Title of this application, indicating that it is for writing arbitrary programs.\n{lb}{lb}Identical|Code{rb}{rb}</note>
+        <note priority="1" from="meaning">Code.title</note>
+      </trans-unit>
+      <trans-unit id="4362899193616566882" datatype="html">
+        <source>Stack a couple of 'move forward' blocks together to help me reach the goal.</source>
+        <note priority="1" from="description">callout - The words for 'stack' and 'blocks' should be the same as for stacking children's blocks. Use the imperative verb form appropriate for speaking to a child, gender unspecified.  If no gender-neutral singular/familiar form exists but a gender-neutral plural/formal form exists, use that instead.  Be sure to use the same translation of 'move forward' as above.\n\n'move forward' refers to {lb}{lb}msg-blockly|Maze.moveForward{rb}{rb}.</note>
+        <note priority="1" from="meaning">Maze.helpStack</note>
+      </trans-unit>
+      <trans-unit id="4387610548281891603" datatype="html">
+        <source>Germany</source>
+        <note priority="1" from="description">The country Germany.\n{lb}{lb}Identical|Germany{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country2</note>
+      </trans-unit>
+      <trans-unit id="4392335668231319812" datatype="html">
+        <source>Sets the font used by the print block.</source>
+        <note priority="1" from="description">tooltip - This is shown on the block that lets the user specify the font [family], size, and style that should be used for subsequent displays of text.</note>
+        <note priority="1" from="meaning">Turtle.fontTooltip</note>
+      </trans-unit>
+      <trans-unit id="4467754447775177700" datatype="html">
+        <source>China</source>
+        <note priority="1" from="description">The People's Republic of China.</note>
+        <note priority="1" from="meaning">Puzzle.country3</note>
+      </trans-unit>
+      <trans-unit id="4502373380845009974" datatype="html">
+        <source>Turns the player left or right by 90 degrees.</source>
+        <note priority="1" from="description">tooltip - Turns the icon on the screen representing the player 90 degrees counter-clockwise (left) or clockwise (right).</note>
+        <note priority="1" from="meaning">Maze.turnTooltip</note>
+      </trans-unit>
+      <trans-unit id="4634715858389563104" datatype="html">
+        <source>Moves the player forward one space.</source>
+        <note priority="1" from="description">tooltip - Moves the icon on the screen representing the player forward one square on the maze board.</note>
+        <note priority="1" from="meaning">Maze.moveForwardTooltip</note>
+      </trans-unit>
+      <trans-unit id="4740404346868773841" datatype="html">
+        <source>Brazil</source>
+        <note priority="1" from="description">The name of the country Brazil.</note>
+        <note priority="1" from="meaning">Puzzle.country4</note>
+      </trans-unit>
+      <trans-unit id="4751586063015654997" datatype="html">
+        <source>Run your program to see what happens.</source>
+        <note priority="1" from="description">callout - This is shown after the user has created a program on the first level.</note>
+        <note priority="1" from="meaning">Maze.helpRun</note>
+      </trans-unit>
+      <trans-unit id="4755413400587385256" datatype="html">
+        <source>An airplane has two seats in the flight deck (for the pilot and co-pilot), and a number of rows of passenger seats.  Each row contains four seats.</source>
+        <note priority="1" from="description">instructions - Note that in [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=2 this level], there are two types of seats on this plane.</note>
+        <note priority="1" from="meaning">Plane.description2</note>
+      </trans-unit>
+      <trans-unit id="4831971084084101656" datatype="html">
+        <source>Beijing</source>
+        <note priority="1" from="description">The capital city of China (also known as Peking).</note>
+        <note priority="1" from="meaning">Puzzle.country3City1</note>
+      </trans-unit>
+      <trans-unit id="4874525273235336318" datatype="html">
+        <source>If there is a path in the specified direction, then do some actions.</source>
+        <note priority="1" from="description">tooltip - 'path' refers to a path through a maze.</note>
+        <note priority="1" from="meaning">Maze.ifTooltip</note>
+      </trans-unit>
+      <trans-unit id="4989466653686700554" datatype="html">
+        <source>Learn to use Blockly's interface.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/puzzle/index.html Puzzle application].</note>
+        <note priority="1" from="meaning">Apps.puzzleSubtitle</note>
+      </trans-unit>
+      <trans-unit id="5000330788075193694" datatype="html">
+        <source>repeat until</source>
+        <note priority="1" from="description">block text - Imperative or infinitive of a verb to repeat the following commands.  The phrase is followed by the symbol denoting the end of the maze.\n\nSee also:\n* {lb}{lb}msg-blockly|Maze.helpRepeatMany{rb}{rb}.</note>
+        <note priority="1" from="meaning">Maze.repeatUntil</note>
+      </trans-unit>
+      <trans-unit id="5076791813618961196" datatype="html">
+        <source>An 'if' block will do something only if the condition is true.  Try turning left if there is a path to the left.</source>
+        <note priority="1" from="description">callout - This is shown when the 'if' block is introduced.  An example of an 'if' block is: 'if there is a path to the left, turn left'.</note>
+        <note priority="1" from="meaning">Maze.helpIf</note>
+      </trans-unit>
+      <trans-unit id="5180825245477618167" datatype="html">
+        <source>Turtle</source>
+        <note priority="1" from="description">category - Blocks related to Turtle commands.</note>
+        <note priority="1" from="meaning">Turtle.catTurtle</note>
+      </trans-unit>
+      <trans-unit id="5293485729310732301" datatype="html">
+        <source>Blockly is a graphical programming environment.  Below are some sample applications that use Blockly.</source>
+        <note priority="1" from="description">page text - This appears before a list of Blockly apps. Please use the same term for 'Blockly' as in {lb}{lb}msg-blockly|Apps.blocklyMessage{rb}{rb}.</note>
+        <note priority="1" from="meaning">Apps.choiceIntro</note>
+      </trans-unit>
+      <trans-unit id="5307089055470217701" datatype="html">
+        <source>You have %1 block left.</source>
+        <note priority="1" from="description">warning - Only one more block may be added.  Please include '%1' in the translated string. It will be replaced with '1' and made bold.\n\nSee also:\n* {lb}{lb}msg-blockly|Maze.capacity2{rb}{rb}</note>
+        <note priority="1" from="meaning">Maze.capacity1</note>
+      </trans-unit>
+      <trans-unit id="5350996283015775721" datatype="html">
+        <source>Berlin</source>
+        <note priority="1" from="description">The city Berlin in Germany.</note>
+        <note priority="1" from="meaning">Puzzle.country2City1</note>
+      </trans-unit>
+      <trans-unit id="5355893896926183437" datatype="html">
+        <source>On this level, you need to stack together all of the blocks in the white workspace.</source>
+        <note priority="1" from="description">callout - This is displayed if a user attempts to run a program composed of multiple stacks of blocks, letting them know they need to create a single stack.</note>
+        <note priority="1" from="meaning">Maze.helpOneTopBlock</note>
+      </trans-unit>
+      <trans-unit id="5356379656768291040" datatype="html">
+        <source>Block Factory</source>
+        <note priority="1" from="description">title - The name of a factory or tool that produces blocks.</note>
+        <note priority="1" from="meaning">Apps.blockFactory</note>
+      </trans-unit>
+      <trans-unit id="5391382062551588177" datatype="html">
+        <source>Save and link to blocks.</source>
+        <note priority="1" from="description">tooltip - Clicking on this button will cause the current program to be saved and for a URL to be shown to later retrieve it.</note>
+        <note priority="1" from="meaning">Apps.linkTooltip</note>
+      </trans-unit>
+      <trans-unit id="5453010276194242854" datatype="html">
+        <source>Export a Blockly program into JavaScript, Python, Dart or XML.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/code/index.html Code application].</note>
+        <note priority="1" from="meaning">Apps.codeSubtitle</note>
+      </trans-unit>
+      <trans-unit id="5519625826423551192" datatype="html">
+        <source>For each country (green), attach its flag, choose its language, and make a stack of its cities.</source>
+        <note priority="1" from="description">Instructions for the puzzle.  For context, see [http://blockly-demo.appspot.com/static/apps/puzzle/index.html Blockly Puzzle].</note>
+        <note priority="1" from="meaning">Puzzle.helpText</note>
+      </trans-unit>
+      <trans-unit id="5532942470899034153" datatype="html">
+        <source>Colour</source>
+        <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Colour colour].\n{lb}{lb}Identical|Colour{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.catColour</note>
+      </trans-unit>
+      <trans-unit id="5622822520334788359" datatype="html">
+        <source>1st class rows (%1)</source>
+        <note priority="1" from="description">block text - The number of rows of first-class seats on the, to be used in a mathematical equation.  See [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=3].\n\nParameters:\n* %1 - number of rows of first-class seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.getRows1</note>
+      </trans-unit>
+      <trans-unit id="5683520235628284499" datatype="html">
+        <source>Choose your favourite player from this menu.</source>
+        <note priority="1" from="description">callout - This is a hint that the user can change the appearance of the player that moves within the maze.</note>
+        <note priority="1" from="meaning">Maze.helpSkins</note>
+      </trans-unit>
+      <trans-unit id="5718696793880573329" datatype="html">
+        <source>https://en.wikipedia.org/wiki/Font</source>
+        <note priority="1" from="description">URL - Information about typographic fonts.</note>
+        <note priority="1" from="meaning">Turtle.fontHelpUrl</note>
+      </trans-unit>
+      <trans-unit id="5758425077401246127" datatype="html">
+        <source>Could not load your saved file.  Perhaps it was created with a different version of Blockly?</source>
+        <note priority="1" from="description">alert - There was a problem loading a file previously saved by the user.  The most likely reason for the problem is that it was created with an earlier, incompatible version of Blockly.  This message will be followed by technical information useful to engineers trying to understand the problem.</note>
+        <note priority="1" from="meaning">Apps.xmlError</note>
+      </trans-unit>
+      <trans-unit id="5838195295317713027" datatype="html">
+        <source>See generated JavaScript code.</source>
+        <note priority="1" from="description">tooltip - Pressing the button causes a program in the JavaScript computer language to be displayed, based on the program created by the user.</note>
+        <note priority="1" from="meaning">Apps.codeTooltip</note>
+      </trans-unit>
+      <trans-unit id="5922351303839855212" datatype="html">
+        <source>do</source>
+        <note priority="1" from="description">block text - Imperative or infinitive of a verb preceding one or more commands to a person.  This is part of [https://code.google.com/p/blockly/wiki/Loops#repeat repeat] and [https://code.google.com/p/blockly/wiki/IfElse#If_blocks if] blocks.</note>
+        <note priority="1" from="meaning">Maze.doCode</note>
+      </trans-unit>
+      <trans-unit id="6078028329780496695" datatype="html">
+        <source>turn left by</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Infinitive or imperative of verb telling a turtle to rotate counter-clockwise (anti-clockwise).  This is followed by a number indicating how far (how many degrees) to turn.  Prefer a translation that has text in common with the translation of 'turn right by'.</note>
+        <note priority="1" from="meaning">Turtle.turnLeft</note>
+      </trans-unit>
+      <trans-unit id="6082253890512898845" datatype="html">
+        <source>turn left</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Imperative or infinitive of a verb for a person turning his head and body one quarter rotation counter-clockwise.  Prefer a translation that has text in common with the translation of 'turn right'.  See [[Translating:Blockly#Drop-Down_Menus]].</note>
+        <note priority="1" from="meaning">Maze.turnLeft</note>
+      </trans-unit>
+      <trans-unit id="6161178750148345044" datatype="html">
+        <source>Graphing Calculator</source>
+        <note priority="1" from="description">title - Brief title for this graphic calculator application.</note>
+        <note priority="1" from="meaning">Graph.title</note>
+      </trans-unit>
+      <trans-unit id="6189808175540281396" datatype="html">
+        <source>Run Program</source>
+        <note priority="1" from="description">button label - Pressing the button runs the computer program the user has written.</note>
+        <note priority="1" from="meaning">Apps.runProgram</note>
+      </trans-unit>
+      <trans-unit id="6192195229721218364" datatype="html">
+        <source>Draws text in the turtle's direction at its location.</source>
+        <note priority="1" from="description">tooltip - Note that 'print' refers to displaying text on the screen, not on an external printer.</note>
+        <note priority="1" from="meaning">Turtle.printTooltip</note>
+      </trans-unit>
+      <trans-unit id="6192625840582724866" datatype="html">
+        <source>Share your blocks with this link:\n\n%1</source>
+        <note priority="1" from="description">alert - After the user has pressed a button to save his/her program, this provides the URL (%1) to retrieve the program.  The characters '\n\n' indicate that a blank line will be displayed before the URL (in English).  Leave those in unless you move %1 to the beginning or middle of the text, in which case you should use your judgment about where blank lines would be most useful.\n\nParameters:\n* %1 - URL of saved program.</note>
+        <note priority="1" from="meaning">Apps.linkAlert</note>
+      </trans-unit>
+      <trans-unit id="6316320629891574281" datatype="html">
+        <source>Run the program defined by the blocks in the workspace.</source>
+        <note priority="1" from="description">tooltip - Pressing this button runs the computer program the user has written.</note>
+        <note priority="1" from="meaning">Apps.runTooltip</note>
+      </trans-unit>
+      <trans-unit id="6491926390857975299" datatype="html">
+        <source>There was a problem with the request.</source>
+        <note priority="1" from="description">alert - The URL is invalid or a server error occurred.  This message will be followed by technical information useful to engineers trying to understand the problem.</note>
+        <note priority="1" from="meaning">Apps.httpRequestError</note>
+      </trans-unit>
+      <trans-unit id="6508091993289219492" datatype="html">
+        <source>Help</source>
+        <note priority="1" from="description">The label on a button the user can press for help.\n{lb}{lb}Identical|Help{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.help</note>
+      </trans-unit>
+      <trans-unit id="6518880171303137514" datatype="html">
+        <source>Use Blockly to solve a maze.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/maze/index.html Maze application].</note>
+        <note priority="1" from="meaning">Apps.mazeSubtitle</note>
+      </trans-unit>
+      <trans-unit id="6523129415371026229" datatype="html">
+        <source>Solve a math problem with one or two variables.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/plane/index.html Plane application].</note>
+        <note priority="1" from="meaning">Apps.planeSubtitle</note>
+      </trans-unit>
+      <trans-unit id="6523489254328705062" datatype="html">
+        <source>2nd class rows: %1</source>
+        <note priority="1" from="description">page text - The number of rows of second-class seats on the airplane.  %1 is an integer greater or equal to zero.  See [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=3].\n\nParameters:\n* %1 - number of rows of second-class seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.rows2</note>
+      </trans-unit>
+      <trans-unit id="6533409555866489852" datatype="html">
+        <source>Reset</source>
+        <note priority="1" from="description">button label - Pressing the button causes the output of the program to be erased but does not delete the user's program).</note>
+        <note priority="1" from="meaning">Apps.resetProgram</note>
+      </trans-unit>
+      <trans-unit id="6636919311618748816" datatype="html">
+        <source>Seats: %1</source>
+        <note priority="1" from="description">page text - The total number of seats on the airplane.\n\nParameters:\n* %1 - number of seats on an airplane.  It is always either the next message or an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.seats</note>
+      </trans-unit>
+      <trans-unit id="6646116297668869388" datatype="html">
+        <source>Plane Seat Calculator</source>
+        <note priority="1" from="description">title - Specifies that this is Blockly's '''Plane''' (airplane) tutorial.  The word 'plane' was chosen over 'airplane' in English because it is shorter and less formal.</note>
+        <note priority="1" from="meaning">Plane.plane</note>
+      </trans-unit>
+      <trans-unit id="6650354588969822092" datatype="html">
+        <source>Blockly</source>
+        <note priority="1" from="description">The project name.  If readers of your language would know approximately how to pronounce 'Blockly', leave unchanged.  Otherwise, include a transliteration in parentheses, such as the Russian: 'Blockly (Блoкли)'.</note>
+        <note priority="1" from="meaning">Apps.blocklyMessage</note>
+      </trans-unit>
+      <trans-unit id="6682302477448017479" datatype="html">
+        <source>Reach the end of this path using only two blocks.  Use 'repeat' to run a block more than once.</source>
+        <note priority="1" from="description">callout - This is shown when the 'repeat' block is introduced.  The word 'path' refers to a path through a maze, and 'block' refers to a child's building block.</note>
+        <note priority="1" from="meaning">Maze.helpRepeat</note>
+      </trans-unit>
+      <trans-unit id="6787275955604631342" datatype="html">
+        <source>Blockly is free and open source.  To contribute code or translations to Blockly, or to use Blockly in your own app, visit %1.</source>
+        <note priority="1" from="description">page text - Text appearing at the end of the page. Parameters:\n* %1 - the Blockly URL</note>
+        <note priority="1" from="meaning">Apps.indexFooter</note>
+      </trans-unit>
+      <trans-unit id="6889946611851664425" datatype="html">
+        <source>turn right by</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Infinitive or imperative of verb telling a turtle to rotate clockwise.  This is followed by a number indicating how far (how many degrees) to turn.  Prefer a translation that has text in common with the translation of 'turn left by'.</note>
+        <note priority="1" from="meaning">Turtle.turnRight</note>
+      </trans-unit>
+      <trans-unit id="7030918043298347994" datatype="html">
+        <source>rows (%1)</source>
+        <note priority="1" from="description">block text - The number of rows on the airplane, to be used in a mathematical equation, such as: 'seats = 4 x '''rows (5)''''.\n\nParameters:\n* %1 - number of rows of seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.getRows</note>
+      </trans-unit>
+      <trans-unit id="7043905265543168717" datatype="html">
+        <source>Use Blockly to draw.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/turtle/index.html Turtle application].</note>
+        <note priority="1" from="meaning">Apps.turtleSubtitle</note>
+      </trans-unit>
+      <trans-unit id="7055959262533612779" datatype="html">
+        <source>Leaving this page will result in the loss of your work.</source>
+        <note priority="1" from="description">alert - This is shown if the user attempts to close the browser tab containing the page or navigate to a different page to prevent them from accidentally losing their program in progress.</note>
+        <note priority="1" from="meaning">Turtle.unloadWarning</note>
+      </trans-unit>
+      <trans-unit id="7089740218907481322" datatype="html">
+        <source>Turns the turtle left or right by the specified number of degrees.</source>
+        <note priority="1" from="description">'Left' means counter-clockwise/anti-clockwise, and 'right' means clockwise.</note>
+        <note priority="1" from="meaning">Turtle.turnTooltip</note>
+      </trans-unit>
+      <trans-unit id="7091637686507441682" datatype="html">
+        <source>1st class rows: %1</source>
+        <note priority="1" from="description">page text - The number of rows of first-class seats on the airplane.  You can see the block at [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=3].\n\nParameters:\n* %1 - number of rows of first-class seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.rows1</note>
+      </trans-unit>
+      <trans-unit id="7135964206164849448" datatype="html">
+        <source>Can you solve this complicated maze?  Try following the left-hand wall.  Advanced programmers only!</source>
+        <note priority="1" from="description">callout - This advises the user to solve a maze by keeping his/her left hand in contact with the wall while proceding through it.  The final sentence is a warning that only advanced programmers should attempt this problem, as beginners tend to get frustrated.</note>
+        <note priority="1" from="meaning">Maze.helpWallFollow</note>
+      </trans-unit>
+      <trans-unit id="7149849676690329496" datatype="html">
+        <source>Congratulations! You have solved the final level.</source>
+        <note priority="1" from="description">alert - This is displayed when the user solves the most difficult level.</note>
+        <note priority="1" from="meaning">Maze.finalLevel</note>
+      </trans-unit>
+      <trans-unit id="7221035465778066902" datatype="html">
+        <source>drawing.png</source>
+        <note priority="1" from="description">filename - The name of the image file containing the user's drawing.  It must end with '.png'.</note>
+        <note priority="1" from="meaning">Turtle.imgFilename</note>
+      </trans-unit>
+      <trans-unit id="7264063713014053084" datatype="html">
+        <source>%1 blocks are incorrect.</source>
+        <note priority="1" from="description">An error message displayed if the user misplaced multiple blocks.\n\nParameters:\n* %1 - number of blocks incorrectly placed, which is always greater than 1 (or the message Puzzle.error1 would be used).</note>
+        <note priority="1" from="meaning">Puzzle.error2</note>
+      </trans-unit>
+      <trans-unit id="7314181232693154293" datatype="html">
+        <source>list</source>
+        <note priority="1" from="description">variable name - Default [https://code.google.com/p/blockly/wiki/Variables variable] representing a [https://code.google.com/p/blockly/wiki/Lists list].  This should be a single word, preferably short.</note>
+        <note priority="1" from="meaning">Apps.listVariable</note>
+      </trans-unit>
+      <trans-unit id="7358214333593766572" datatype="html">
+        <source>Congratulations! Are you ready to proceed to level %1?</source>
+        <note priority="1" from="description">alert - This is displayed when the user solves the maze, inviting them to precede to the next level of difficulty.\n\nParameters:\n* %1 - the number of the next level, which is always an integer greater than 1.</note>
+        <note priority="1" from="meaning">Maze.nextLevel</note>
+      </trans-unit>
+      <trans-unit id="7527162652570717706" datatype="html">
+        <source>Plot functions with Blockly.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/graph/index.html Graph application].</note>
+        <note priority="1" from="meaning">Apps.graphSubtitle</note>
+      </trans-unit>
+      <trans-unit id="7544100018692826729" datatype="html">
+        <source>cities:</source>
+        <note priority="1" from="description">A label preceding a list of cities.\n{lb}{lb}Identical|City{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.cities</note>
+      </trans-unit>
+      <trans-unit id="7784699858027886282" datatype="html">
+        <source>An airplane has a number of rows of passenger seats.  Each row contains four seats.</source>
+        <note priority="1" from="description">instructions - Note that in [http://blockly-share.appspot.com/static/apps/plane/plane.html?lang=en&amp;level=1 this level], there is only one type of seat on the plane.</note>
+        <note priority="1" from="meaning">Plane.description1</note>
+      </trans-unit>
+      <trans-unit id="7880221162350996120" datatype="html">
+        <source>Lists</source>
+        <note priority="1" from="description">category - Blocks related to [https://code.google.com/p/blockly/wiki/Lists lists].\n{lb}{lb}Identical|Lists{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.catLists</note>
+      </trans-unit>
+      <trans-unit id="7922752443358054817" datatype="html">
+        <source>Makes the turtle (circle and arrow) visible or invisible.</source>
+        <note priority="1" from="description">tooltip</note>
+        <note priority="1" from="meaning">Turtle.turtleVisibilityTooltip</note>
+      </trans-unit>
+      <trans-unit id="7974005368401638032" datatype="html">
+        <source>Blockly Apps</source>
+        <note priority="1" from="description">page text - The word 'Apps' is short for 'Applications'.  We chose it because it is more informal.  This and the following messages currently appear at [http://blockly-demo.appspot.com/static/apps/index.html].</note>
+        <note priority="1" from="meaning">Apps.indexTitle</note>
+      </trans-unit>
+      <trans-unit id="8109604937581467227" datatype="html">
+        <source>Your program didn't solve the maze.  Press 'Reset' and try again.</source>
+        <note priority="1" from="description">callout - This is shown after the user has run a program that does not solve the maze.\n\n'Reset' refers to {lb}{lb}msg-blockly|Apps.resetProgram{rb}{rb}.</note>
+        <note priority="1" from="meaning">Maze.helpReset</note>
+      </trans-unit>
+      <trans-unit id="8225483509416707116" datatype="html">
+        <source>Australia</source>
+        <note priority="1" from="description">The name of the country Australia\n{lb}{lb}Identical|Australia{rb}{rb}</note>
+        <note priority="1" from="meaning">Puzzle.country1</note>
+      </trans-unit>
+      <trans-unit id="8347578891541780742" datatype="html">
+        <source>2nd class rows (%1)</source>
+        <note priority="1" from="description">block text - The number of rows of second-class (also called 'economy class') seats on the airplane, to be used in a mathematical expression.\n\nParameters:\n* %1 - number of rows of second-class seats on an airplane.  It is always an integer greater than or equal to zero.</note>
+        <note priority="1" from="meaning">Plane.getRows2</note>
+      </trans-unit>
+      <trans-unit id="8411464713145270471" datatype="html">
+        <source>Build custom blocks using Blockly.</source>
+        <note priority="1" from="description">page text - A subtitle describing Blockly's [https://blockly-demo.appspot.com/static/apps/blockfactory/index.html Block Factory application].</note>
+        <note priority="1" from="meaning">Apps.blockfactorySubtitle</note>
+      </trans-unit>
+      <trans-unit id="8436599549372868479" datatype="html">
+        <source>Puzzle</source>
+        <note priority="1" from="description">A brief title for page, not including the word for Blockly.  Use the word for a jigsaw puzzle.</note>
+        <note priority="1" from="meaning">Puzzle.title</note>
+      </trans-unit>
+      <trans-unit id="8453803544352763294" datatype="html">
+        <source>Almost! One block is incorrect.</source>
+        <note priority="1" from="description">An encouraging error message displayed if the user placed all blocks except 1 correctly.\n\nIf the number of incorrect blocks is 2 or more, Puzzle.error2 is used instead.</note>
+        <note priority="1" from="meaning">Puzzle.error1</note>
+      </trans-unit>
+      <trans-unit id="8470792861618868667" datatype="html">
+        <source>set width to</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb to set the width of the lines that should be drawn in the future by an imaginary pen.  This is followed by a number indicating the width in pixels (1 or greater).</note>
+        <note priority="1" from="meaning">Turtle.setWidth</note>
+      </trans-unit>
+      <trans-unit id="8496210457380227143" datatype="html">
+        <source>if path to the right</source>
+        <note priority="1" from="description">[[Translating:Blockly#Drop-Down_Menus dropdown]] - Condensed form of 'if there is a path to the right', as in: 'if path to the right, turn right'.</note>
+        <note priority="1" from="meaning">Maze.pathRight</note>
+      </trans-unit>
+      <trans-unit id="8504064665960111059" datatype="html">
+        <source>Math</source>
+        <note priority="1" from="description">category - Blocks related to mathematics.</note>
+        <note priority="1" from="meaning">Apps.catMath</note>
+      </trans-unit>
+      <trans-unit id="8514812131842527965" datatype="html">
+        <source>Loops</source>
+        <note priority="1" from="description">category - Blocks related to [https://en.wikipedia.org/wiki/Control_flow#Loops loops].</note>
+        <note priority="1" from="meaning">Apps.catLoops</note>
+      </trans-unit>
+      <trans-unit id="8598935855828958714" datatype="html">
+        <source>show turtle</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb telling a turtle to show itself (become visible after having been invisible).</note>
+        <note priority="1" from="meaning">Turtle.showTurtle</note>
+      </trans-unit>
+      <trans-unit id="8605819299263106886" datatype="html">
+        <source>Cancel</source>
+        <note priority="1" from="description">Label on button for user to press when not wanting to proceed.\n{lb}{lb}Identical|Cancel{rb}{rb}</note>
+        <note priority="1" from="meaning">Apps.dialogCancel</note>
+      </trans-unit>
+      <trans-unit id="8677869006057523031" datatype="html">
+        <source>https://en.wikipedia.org/wiki/Australia</source>
+        <note priority="1" from="description">The URL of a page with basic information about Australia.</note>
+        <note priority="1" from="meaning">Puzzle.country1HelpUrl</note>
+      </trans-unit>
+      <trans-unit id="8678021904034212986" datatype="html">
+        <source>If-else blocks will do one thing or the other.</source>
+        <note priority="1" from="description">callout - This is shown when the 'if-else' block is introduced.  For 'if-else' concatenate the words for 'if' and 'else/otherwise'.</note>
+        <note priority="1" from="meaning">Maze.helpIfElse</note>
+      </trans-unit>
+      <trans-unit id="8755460901437343901" datatype="html">
+        <source>print</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb telling a turtle to display text on the screen.  This is always followed by a block indicating what should be printed.</note>
+        <note priority="1" from="meaning">Turtle.print</note>
+      </trans-unit>
+      <trans-unit id="8892522437221635683" datatype="html">
+        <source>https://en.wikipedia.org/wiki/Brazil</source>
+        <note priority="1" from="description">The URL of a page with basic information about Brazil.</note>
+        <note priority="1" from="meaning">Puzzle.country4HelpUrl</note>
+      </trans-unit>
+      <trans-unit id="8943253138333696551" datatype="html">
+        <source>Program error:\n%1</source>
+        <note priority="1" from="description">alert - Message shown if an error occurs while interpreting the user program.  The error description follows.</note>
+        <note priority="1" from="meaning">Code.badCode</note>
+      </trans-unit>
+      <trans-unit id="8983835283796130303" datatype="html">
+        <source>set colour to</source>
+        <note priority="1" from="description">block text - Infinitive or imperative of a verb to specify the colour of the lines that should be drawn in the future by an imaginary pen.  This is followed by a block showing the colour</note>
+        <note priority="1" from="meaning">Turtle.setColour</note>
+      </trans-unit>
+      <trans-unit id="9030321566026677700" datatype="html">
+        <source>Shanghai</source>
+        <note priority="1" from="description">The city Shanghai in China.</note>
+        <note priority="1" from="meaning">Puzzle.country3City2</note>
+      </trans-unit>
+      <trans-unit id="9137982570247930589" datatype="html">
+        <source>else</source>
+        <note priority="1" from="description">block text - Conjunction meaning 'otherwise', introducing commands to be performed if a previous condition was not true, as in 'if x&gt;3, do this, else do that'.  See [https://code.google.com/p/blockly/wiki/IfElse#If-Else_blocks].</note>
+        <note priority="1" from="meaning">Maze.elseCode</note>
+      </trans-unit>
+      <trans-unit id="9151382257658567281" datatype="html">
+        <source>a visual programming environment</source>
+        <note priority="1" from="description">A short description of Blockly.</note>
+        <note priority="1" from="meaning">Apps.subtitle</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
