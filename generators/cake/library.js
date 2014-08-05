@@ -1,7 +1,7 @@
 
 'use strict';
 
-goog.provide('Blockly.cake.stdio');
+goog.provide('Blockly.cake.library');
 
 goog.require('Blockly.cake');
 
