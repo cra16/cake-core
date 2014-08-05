@@ -130,8 +130,27 @@ Blockly.cake.init = function() {
  * @return {string} Completed code.
  */
 Blockly.cake.finish = function(code) {
-  //Suppress global variables on single-page displays
-  return code;
+  // Indent every line.
+  if (code) {
+    code = this.prefixLines(code, Blockly.cake.INDENT);
+  }
+  code = 'int main() {\n' + code + '}';
+
+  // Convert the definitions dictionary into a list.
+  var imports = [];
+  var definitions = [];
+  for (var name in Blockly.cake.definitions_) {
+    var def = Blockly.cake.definitions_[name];
+    if (def.match(/^import\s/)) {
+      imports.push(def);
+    } else {
+      definitions.push(def);
+    }
+  }
+  //imports--> #include
+  //definitions--> function def, #def
+  var allDefs = imports.join('\n') + '\n\n' + definitions.join('\n\n');
+  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
 }
 
 Blockly.cake.finishFull = function(code) {
