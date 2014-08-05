@@ -12,7 +12,24 @@ Blockly.Blocks['stdio_printf'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
     this.setColour(160);
-    this.interpolateMsg(Blockly.Msg.TEXT_PRINT_TITLE,
+    this.interpolateMsg(Blockly.Msg.STDIO_PRINTF_TITLE,
+                        ['TEXT', null, Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+  }
+};
+
+Blockly.Blocks['stdio_scanf'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(160);
+    this.interpolateMsg(Blockly.Msg.STDIO_SCANF_TITLE,
                         ['TEXT', null, Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
