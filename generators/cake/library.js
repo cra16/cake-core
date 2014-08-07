@@ -11,12 +11,14 @@ goog.require('Blockly.cake');
 //   return [code, Blockly.cake.ORDER_ATOMIC];
 // };
 
-Blockly.cake['library_include'] = function(block) {
-  var text_file = block.getFieldValue('FILE');
-  // TODO: Assemble JavaScript into code variable.
-  var code = '#include <' + text_file+'>\n';
-  return code;
-};
+// Blockly.cake['library_include'] = function(block) {
+//   var text_file = block.getFieldValue('FILE');
+//   // TODO: Assemble JavaScript into code variable.
+//   var code = '';
+//   Blockly.cake.definitions_['include_cake_stdio'] =
+//         '#include <stdio.h>;';
+//   return code;  
+// };
 
 Blockly.cake['library_func_paren'] = function(block) {
   // Text value.

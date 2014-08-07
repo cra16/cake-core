@@ -17,22 +17,21 @@ goog.require('Blockly.Blocks');
 //     this.setTooltip('');
 //   }
 // };
-var stdioN=0;
 
-Blockly.Blocks['library_include'] = {
-  init: function() {
-    this.setHelpUrl('http://www.example.com/');
-    this.setColour(260);
-    this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("#include <")
-        .appendField(new Blockly.FieldTextInput(""), "FILE")
-        .appendField(">");
-    this.setPreviousStatement(true, "null");
-    this.setNextStatement(true, "null");
-    this.setTooltip('');
-  }
-};
+// Blockly.Blocks['library_include'] = {
+//   init: function() {
+//     this.setHelpUrl('http://www.example.com/');
+//     this.setColour(260);
+//     this.appendDummyInput()
+//         .setAlign(Blockly.ALIGN_CENTRE)
+//         .appendField("#include <")
+//         .appendField(new Blockly.FieldTextInput(""), "FILE")
+//         .appendField(">");
+//     this.setPreviousStatement(true, "null");
+//     this.setNextStatement(true, "null");
+//     this.setTooltip('');
+//   }
+// };
 
 Blockly.Blocks['library_func_paren'] = {
   /**
