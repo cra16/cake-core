@@ -62,7 +62,7 @@ Blockly.Blocks['library_func_paren'] = {
       var file = 'leftBracket.png';
     }
     return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
-                                  18, 18, '"');
+                                  15, 15, '"');
   }
 };
 

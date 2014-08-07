@@ -153,8 +153,16 @@
     <category name="{msg meaning="Apps.catLibrary" desc="IBID"}Library{/msg}">
       <category name="Stdio">
         <block type="library_func_paren"></block>
-        <block type="library_stdio_printf"></block>
-        <block type="library_stdio_scanf"></block>
+        <block type="library_stdio_printf">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdio_scanf">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
       </category>
       <category name="Stdlib">
         <block type="library_func_paren"></block>
