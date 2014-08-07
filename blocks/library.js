@@ -25,8 +25,9 @@ Blockly.Blocks['library_include'] = {
     this.setColour(260);
     this.appendDummyInput()
         .setAlign(Blockly.ALIGN_CENTRE)
-        .appendField("#include")
-        .appendField(new Blockly.FieldTextInput(""), "FILE");
+        .appendField("#include <")
+        .appendField(new Blockly.FieldTextInput(""), "FILE")
+        .appendField(">");
     this.setPreviousStatement(true, "null");
     this.setNextStatement(true, "null");
     this.setTooltip('');

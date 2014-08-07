@@ -137,19 +137,19 @@ Blockly.cake.finish = function(code) {
   code = 'int main() {\n' + code + '}';
 
   // Convert the definitions dictionary into a list.
-  var imports = [];
+  var includes = [];
   var definitions = [];
   for (var name in Blockly.cake.definitions_) {
     var def = Blockly.cake.definitions_[name];
-    if (def.match(/^import\s/)) {
-      imports.push(def);
+    if (def.match(/^include\s/)) {
+      includes.push(def);
     } else {
       definitions.push(def);
     }
   }
   //imports--> #include
   //definitions--> function def, #def
-  var allDefs = imports.join('\n') + '\n\n' + definitions.join('\n\n');
+  var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
   return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code;
 }
 
