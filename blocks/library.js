@@ -4,6 +4,35 @@ goog.provide('Blockly.Blocks.library');
 
 goog.require('Blockly.Blocks');
 
+// Blockly.Blocks['library_func_paren'] = {
+//   init: function() {
+//     this.setHelpUrl('http://www.example.com/');
+//     this.setColour(260);
+//     this.appendDummyInput()
+//         .setAlign(Blockly.ALIGN_CENTRE)
+//         .appendField(new Blockly.FieldImage("../../media/leftBracket.png", 15, 15, "("))
+//         .appendField(new Blockly.FieldTextInput(''), 'INTEXT')
+//         .appendField(new Blockly.FieldImage("../../media/rightBracket.png", 15, 15, ")"));
+//     this.setOutput(true, "String");
+//     this.setTooltip('');
+//   }
+// };
+var stdioN=0;
+
+Blockly.Blocks['library_include'] = {
+  init: function() {
+    this.setHelpUrl('http://www.example.com/');
+    this.setColour(260);
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("#include")
+        .appendField(new Blockly.FieldTextInput(""), "FILE");
+    this.setPreviousStatement(true, "null");
+    this.setNextStatement(true, "null");
+    this.setTooltip('');
+  }
+};
+
 Blockly.Blocks['library_func_paren'] = {
   /**
    * Block for text value.
@@ -11,13 +40,14 @@ Blockly.Blocks['library_func_paren'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(160);
+    this.setColour(260);
     this.appendDummyInput()
-        .appendField(this.newQuote_(true))
+        .appendField(this.newBracket_(true))
         .appendField(new Blockly.FieldTextInput(''), 'TEXT')
-        .appendField(this.newQuote_(false));
+        .appendField(this.newBracket_(false));
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+
   },
   /**
    * Create an image of an open or closed quote.
@@ -25,14 +55,14 @@ Blockly.Blocks['library_func_paren'] = {
    * @return {!Blockly.FieldImage} The field image of the quote.
    * @private
    */
-  newQuote_: function(open) {
+  newBracket_: function(open) {
     if (open == Blockly.RTL) {
-      var file = 'quote1.png';
+      var file = 'rightBracket.png';
     } else {
-      var file = 'quote0.png';
+      var file = 'leftBracket.png';
     }
     return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
-                                  12, 12, '"');
+                                  18, 18, '"');
   }
 };
 
@@ -62,7 +92,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(160);
+    this.setColour(260);
     this.interpolateMsg(Blockly.Msg.STDIO_SCANF_TITLE,
                         ['TEXT', null, Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
