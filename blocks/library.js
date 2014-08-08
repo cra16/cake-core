@@ -43,7 +43,7 @@ Blockly.Blocks['library_func_paren'] = {
     this.setColour(260);
     this.appendDummyInput()
         .appendField(this.newBracket_(true))
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(new Blockly.FieldTextInput(' '), 'TEXT')
         .appendField(this.newBracket_(false));
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
