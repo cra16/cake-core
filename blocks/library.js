@@ -45,7 +45,7 @@ Blockly.Blocks['library_func_paren'] = {
         .appendField(this.newBracket_(true))
         .appendField(new Blockly.FieldTextInput(' '), 'TEXT')
         .appendField(this.newBracket_(false));
-    this.setOutput(true, 'String');
+    this.setOutput(true, 'INBRACKET');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
 
   },
@@ -75,7 +75,7 @@ Blockly.Blocks['library_stdio_printf'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
     this.setColour(260);
     this.interpolateMsg(Blockly.Msg.STDIO_PRINTF_TITLE,
-                        ['TEXT', null, Blockly.ALIGN_RIGHT],
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -94,7 +94,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
     this.setColour(260);
     this.interpolateMsg(Blockly.Msg.STDIO_SCANF_TITLE,
-                        ['TEXT', null, Blockly.ALIGN_RIGHT],
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
