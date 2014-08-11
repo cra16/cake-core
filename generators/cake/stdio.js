@@ -43,3 +43,39 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
         '#include <stdio.h>;';
   return 'scanf(' + argument0 + ');\n';
 };
+
+Blockly.cake['library_stdio_fopen'] = function(block) {
+  // Print statement
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fopen(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fclose'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fclose(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fprintf'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fprintf(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fscanf'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fscanf(' + argument0 + ');\n';
+};

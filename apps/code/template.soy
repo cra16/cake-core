@@ -30,20 +30,24 @@
   <!-- debug template -->
   <script type="text/javascript" src="../../generators/cake.js"></script>
   <script type="text/javascript" src="../../generators/cake/colour.js"></script>
-  <script type="text/javascript" src="../../generators/cake/library.js"></script>
+  <script type="text/javascript" src="../../generators/cake/stdio.js"></script>
+  <script type="text/javascript" src="../../generators/cake/stdlib.js"></script>
+  <script type="text/javascript" src="../../generators/cake/math.js"></script>
+  <script type="text/javascript" src="../../generators/cake/string.js"></script>
   <script type="text/javascript" src="../../generators/cake/lists.js"></script>
   <script type="text/javascript" src="../../generators/cake/logic.js"></script>
   <script type="text/javascript" src="../../generators/cake/loops.js"></script>
-  <script type="text/javascript" src="../../generators/cake/math.js"></script>
   <script type="text/javascript" src="../../generators/cake/procedures.js"></script>
   <script type="text/javascript" src="../../generators/cake/text.js"></script>
   <script type="text/javascript" src="../../generators/cake/variables.js"></script>
   <script type="text/javascript" src="../../blocks/colour.js"></script>
-  <script type="text/javascript" src="../../blocks/library.js"></script>
+  <script type="text/javascript" src="../../blocks/stdio.js"></script>
+  <script type="text/javascript" src="../../blocks/stdlib.js"></script>
+  <script type="text/javascript" src="../../blocks/math.js"></script>
+  <script type="text/javascript" src="../../blocks/string.js"></script>
   <script type="text/javascript" src="../../blocks/lists.js"></script>
   <script type="text/javascript" src="../../blocks/logic.js"></script>
   <script type="text/javascript" src="../../blocks/loops.js"></script>
-  <script type="text/javascript" src="../../blocks/math.js"></script>
   <script type="text/javascript" src="../../blocks/procedures.js"></script>
   <script type="text/javascript" src="../../blocks/text.js"></script>
   <script type="text/javascript" src="../../blocks/variables.js"></script>
@@ -158,6 +162,26 @@
             <block type="library_func_paren"></block>
           </value>
         </block>
+        <block type="library_stdio_fopen">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdio_fclose">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdio_fprintf">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdio_fscanf">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>        
       </category>
       <category name="Stdlib">
         <block type="library_func_paren"></block>
