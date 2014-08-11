@@ -151,42 +151,102 @@
     </category>
     <category name="{msg meaning="Apps.catLibrary" desc="IBID"}Library{/msg}">
       <category name="Stdio">
-        <block type="library_func_paren"></block>
-        <block type="library_stdio_printf">
-          <value name="TEXT">
+        <category name="FILE I/O">
+          <block type="library_stdio_fopen">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_fclose">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_fprintf">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_fscanf">
+            <value name="TEXT">
             <block type="library_func_paren"></block>
-          </value>
-        </block>
-        <block type="library_stdio_scanf">
-          <value name="TEXT">
-            <block type="library_func_paren"></block>
-          </value>
-        </block>
-        <block type="library_stdio_fopen">
-          <value name="TEXT">
-            <block type="library_func_paren"></block>
-          </value>
-        </block>
-        <block type="library_stdio_fclose">
-          <value name="TEXT">
-            <block type="library_func_paren"></block>
-          </value>
-        </block>
-        <block type="library_stdio_fprintf">
-          <value name="TEXT">
-            <block type="library_func_paren"></block>
-          </value>
-        </block>
-        <block type="library_stdio_fscanf">
-          <value name="TEXT">
-            <block type="library_func_paren"></block>
-          </value>
-        </block>        
+            </value>
+          </block>
+          <block type="library_stdio_fread">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_fwrite">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_fflush">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          </category>
+          <category name="I/O">
+          <block type="library_stdio_printf">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_scanf">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_getchar">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_putchar">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_gets">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+          <block type="library_stdio_puts">
+            <value name="TEXT">
+              <block type="library_func_paren"></block>
+            </value>
+          </block>
+        </category>
       </category>
       <category name="Stdlib">
-        <block type="library_func_paren"></block>
-        <block type="library_stdlib_rand"></block>
-        <block type="library_stdlib_exit"></block>
+        <block type="library_stdlib_rand">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdlib_srand">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdlib_malloc">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdlib_free">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
+        <block type="library_stdlib_exit">
+          <value name="TEXT">
+            <block type="library_func_paren"></block>
+          </value>
+        </block>
       </category>
       <category name="{msg meaning="Apps.catMath" desc="IBID"}Math{/msg}">
         <block type="library_func_paren"></block>

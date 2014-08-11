@@ -11,7 +11,7 @@ Blockly.Blocks['library_func_paren'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(260);
+    this.setColour(700);
     this.appendDummyInput()
         .appendField(this.newBracket_(true))
         .appendField(new Blockly.FieldTextInput(' '), 'TEXT')
@@ -44,7 +44,7 @@ Blockly.Blocks['library_stdio_printf'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(300);
     this.interpolateMsg(Blockly.Msg.STDIO_PRINTF_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
@@ -63,7 +63,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(300);
     this.interpolateMsg(Blockly.Msg.STDIO_SCANF_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
@@ -80,7 +80,7 @@ Blockly.Blocks['library_stdio_fopen'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(240);
     this.interpolateMsg(Blockly.Msg.STDIO_FOPEN_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
@@ -99,7 +99,7 @@ Blockly.Blocks['library_stdio_fclose'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(240);
     this.interpolateMsg(Blockly.Msg.STDIO_FCLOSE_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
@@ -118,7 +118,7 @@ Blockly.Blocks['library_stdio_fprintf'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(240);
     this.interpolateMsg(Blockly.Msg.STDIO_FPRINTF_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
@@ -137,8 +137,142 @@ Blockly.Blocks['library_stdio_fscanf'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(260);
+    this.setColour(240);
     this.interpolateMsg(Blockly.Msg.STDIO_FSCANF_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_fflush'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(240);
+    this.interpolateMsg(Blockly.Msg.STDIO_FFLUSH_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_fread'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(240);
+    this.interpolateMsg(Blockly.Msg.STDIO_FREAD_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+
+Blockly.Blocks['library_stdio_fwrite'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(240);
+    this.interpolateMsg(Blockly.Msg.STDIO_FWRITE_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_getchar'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.STDIO_GETCHAR_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_putchar'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.STDIO_PUTCHAR_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_gets'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.STDIO_GETS_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  }
+  //text block's newQuote replaces this.newQuote
+};
+
+Blockly.Blocks['library_stdio_puts'] = {
+  /**
+   * Block for [printf function] in c
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.STDIO_PUTS_TITLE,
                         ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);

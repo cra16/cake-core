@@ -1,24 +1,9 @@
 
 'use strict';
 
-goog.provide('Blockly.cake.library');
+goog.provide('Blockly.cake.stdio');
 
 goog.require('Blockly.cake');
-
-// Blockly.cake['library_func_paren'] = function(block) {
-//   // Text value.
-//   var code = block.getFieldValue('INTEXT');
-//   return [code, Blockly.cake.ORDER_ATOMIC];
-// };
-
-// Blockly.cake['library_include'] = function(block) {
-//   var text_file = block.getFieldValue('FILE');
-//   // TODO: Assemble JavaScript into code variable.
-//   var code = '';
-//   Blockly.cake.definitions_['include_cake_stdio'] =
-//         '#include <stdio.h>;';
-//   return code;  
-// };
 
 Blockly.cake['library_func_paren'] = function(block) {
   // Text value.
@@ -78,4 +63,67 @@ Blockly.cake['library_stdio_fscanf'] = function(block) {
   Blockly.cake.definitions_['include_cake_stdio'] =
         '#include <stdio.h>;';
   return 'fscanf(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fflush'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fflush(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fread'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fread(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_fwrite'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'fwrite(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_getchar'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'getchar(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_putchar'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'putchar(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_gets'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'gets(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_stdio_puts'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_stdio'] =
+        '#include <stdio.h>;';
+  return 'puts(' + argument0 + ');\n';
 };
