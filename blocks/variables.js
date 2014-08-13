@@ -48,22 +48,12 @@ Blockly.Blocks['variables_get'] = {
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-        .appendField(new Blockly.FieldDropdown(TYPE),'END')
-        .appendField(new Blockly.FieldVariable(
-        Blockly.Msg.VARIABLES_GET_ITEM), 'VAR')
+        .appendField(new Blockly.FieldVariable('--Select--', null), 'VAR')
         .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
-  },
-  /**
-   * Return all variables's types referenced by this block.
-   * @return {!Array.<string>} List of variable types.
-   * @this Blockly.Block
-   */
-  getTypes: function() {
-    return [this.getFieldValue('TYPES')];
   },
   /**
    * Return all variables referenced by this block.
@@ -159,7 +149,7 @@ Blockly.Blocks['variables_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+        ['VAR', new Blockly.FieldVariable('--Select--', null, false, this)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -167,14 +157,6 @@ Blockly.Blocks['variables_set'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
-  },
-  /**
-   * Return all variables's types referenced by this block.
-   * @return {!Array.<string>} List of variable types.
-   * @this Blockly.Block
-   */
-  getTypes: function() {
-    return [this.getFieldValue('TYPES')];
   },
   /**
    * Return all variables referenced by this block.
@@ -209,7 +191,7 @@ Blockly.Blocks['variables_declare'] = {
         Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
         Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3',
         ['TYPES', new Blockly.FieldDropdown(TYPE)],
-        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+        ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -232,6 +214,14 @@ Blockly.Blocks['variables_declare'] = {
    * @this Blockly.Block
    */
   getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getDeclare: function() {
     return [this.getFieldValue('VAR')];
   },
   /**

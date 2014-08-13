@@ -116,8 +116,9 @@ Blockly.cake.init = function() {
     var defvars = [];
     var variables = Blockly.Variables.allVariables();
     for (var x = 0; x < variables.length; x++) {
-      defvars[x] = 'var ' +
-          Blockly.cake.variableDB_.getName(variables[x],
+      if(variables[x][0] == 'int')
+      defvars[x] = 'int ' +
+          Blockly.cake.variableDB_.getName(variables[x][1],
           Blockly.Variables.NAME_TYPE) + ';';
     }
     Blockly.cake.definitions_['variables'] = defvars.join('\n');
