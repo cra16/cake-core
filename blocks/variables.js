@@ -29,6 +29,15 @@ goog.provide('Blockly.Blocks.variables');
 goog.require('Blockly.Blocks');
 
 
+var TYPE = 
+  [[Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+  [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']];
+
 Blockly.Blocks['variables_get'] = {
   /**
    * Block for variable getter.
@@ -39,6 +48,7 @@ Blockly.Blocks['variables_get'] = {
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
+        .appendField(new Blockly.FieldDropdown(TYPE),'END')
         .appendField(new Blockly.FieldVariable(
         Blockly.Msg.VARIABLES_GET_ITEM), 'VAR')
         .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
@@ -46,6 +56,14 @@ Blockly.Blocks['variables_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
+  },
+  /**
+   * Return all variables's types referenced by this block.
+   * @return {!Array.<string>} List of variable types.
+   * @this Blockly.Block
+   */
+  getTypes: function() {
+    return [this.getFieldValue('TYPES')];
   },
   /**
    * Return all variables referenced by this block.
@@ -85,6 +103,50 @@ Blockly.Blocks['variables_get'] = {
   }
 };
 
+// Blockly.Blocks['variables_set'] = {
+//   /**
+//    * Block for variable setter.
+//    * @this Blockly.Block
+//    */
+//   init: function() {
+//     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+//     this.setColour(330);
+//     this.interpolateMsg(
+//         // TODO: Combine these messages instead of using concatenation.
+//         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+//         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+//         ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+//         ['VALUE', null, Blockly.ALIGN_RIGHT],
+//         Blockly.ALIGN_RIGHT);
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+//     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+//     this.contextMenuType_ = 'variables_get';
+//   },
+//   /**
+//    * Return all variables referenced by this block.
+//    * @return {!Array.<string>} List of variable names.
+//    * @this Blockly.Block
+//    */
+//   getVars: function() {
+//     return [this.getFieldValue('VAR')];
+//   },
+//   /**
+//    * Notification that a variable is renaming.
+//    * If the name matches one of this block's variables, rename it.
+//    * @param {string} oldName Previous name of variable.
+//    * @param {string} newName Renamed variable.
+//    * @this Blockly.Block
+//    */
+//   renameVar: function(oldName, newName) {
+//     if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+//       this.setFieldValue(newName, 'VAR');
+//     }
+//   },
+//   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+// };
+
 Blockly.Blocks['variables_set'] = {
   /**
    * Block for variable setter.
@@ -105,6 +167,64 @@ Blockly.Blocks['variables_set'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
+  },
+  /**
+   * Return all variables's types referenced by this block.
+   * @return {!Array.<string>} List of variable types.
+   * @this Blockly.Block
+   */
+  getTypes: function() {
+    return [this.getFieldValue('TYPES')];
+  },
+  /**
+   * Return all variables referenced by this block.
+   * @return {!Array.<string>} List of variable names.
+   * @this Blockly.Block
+   */
+  getVars: function() {
+    return [this.getFieldValue('VAR')];
+  },
+  /**
+   * Notification that a variable is renaming.
+   * If the name matches one of this block's variables, rename it.
+   * @param {string} oldName Previous name of variable.
+   * @param {string} newName Renamed variable.
+   * @this Blockly.Block
+   */
+  renameVar: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+      this.setFieldValue(newName, 'VAR');
+    }
+  },
+  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+};
+
+Blockly.Blocks['variables_declare'] = {
+  init : function() {
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+    this.setColour(330);
+    this.interpolateMsg(
+        // TODO: Combine these messages instead of using concatenation.
+        Blockly.Msg.VARIABLES_DECLARE_TITLE + ' %1 ' +
+        Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
+        Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3',
+        ['TYPES', new Blockly.FieldDropdown(TYPE)],
+        ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
+        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    this.contextMenuType_ = 'variables_get';
+  },
+  /**
+   * Return all variables's types referenced by this block.
+   * @return {!Array.<string>} List of variable types.
+   * @this Blockly.Block
+   */
+  getTypes: function() {
+    return [this.getFieldValue('TYPES')];
   },
   /**
    * Return all variables referenced by this block.

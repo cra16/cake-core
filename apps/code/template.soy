@@ -135,7 +135,10 @@
  */
 {template .toolbox}
   <xml id="toolbox" style="display: none">
-    <category name="{msg meaning="Apps.catVariables" desc="IBID"}Variables{/msg}" custom="VARIABLE">
+    <category name="{msg meaning="Apps.catVariables" desc="IBID"}Variables{/msg}">
+      <block type="variables_declare"></block>
+      <block type="variables_get"></block>
+      <block type="variables_set"></block>      
     </category>
     <category name="{msg meaning="Apps.catLoops" desc="IBID"}Loops{/msg}">
       <block type="loop_while"></block>
