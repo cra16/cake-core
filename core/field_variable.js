@@ -42,29 +42,29 @@ goog.require('Blockly.Variables');
  * @constructor
  */
 Blockly.FieldVariable = function(varname, opt_changeHandler) {
-  var changeHandler;
-  if (opt_changeHandler) {
-    // Wrap the user's change handler together with the variable rename handler.
-    var thisObj = this;
-    changeHandler = function(value) {
-      var retVal = Blockly.FieldVariable.dropdownChange.call(thisObj, value);
-      var newVal;
-      if (retVal === undefined) {
-        newVal = value;  // Existing variable selected.
-      } else if (retVal === null) {
-        newVal = thisObj.getValue();  // Abort, no change.
-      } else {
-        newVal = retVal;  // Variable name entered.
-      }
-      opt_changeHandler.call(thisObj, newVal);
-      return retVal;
-    };
-  } else {
-    changeHandler = Blockly.FieldVariable.dropdownChange;
-  }
+  // var changeHandler;
+  // if (opt_changeHandler) {
+  //   // Wrap the user's change handler together with the variable rename handler.
+  //   var thisObj = this;
+  //   changeHandler = function(value) {
+  //     var retVal = Blockly.FieldVariable.dropdownChange.call(thisObj, value);
+  //     var newVal;
+  //     if (retVal === undefined) {
+  //       newVal = value;  // Existing variable selected.
+  //     } else if (retVal === null) {
+  //       newVal = thisObj.getValue();  // Abort, no change.
+  //     } else {
+  //       newVal = retVal;  // Variable name entered.
+  //     }
+  //     opt_changeHandler.call(thisObj, newVal);
+  //     return retVal;
+  //   };
+  // } else {
+  //   changeHandler = Blockly.FieldVariable.dropdownChange;
+  // }
 
   Blockly.FieldVariable.superClass_.constructor.call(this,
-      Blockly.FieldVariable.dropdownCreate, changeHandler);
+      Blockly.FieldVariable.dropdownCreate, opt_changeHandler);
 
   if (varname) {
     this.setValue(varname);
@@ -114,9 +114,10 @@ Blockly.FieldVariable.dropdownCreate = function() {
   if (name && variableList.indexOf(name) == -1) {
     variableList.push(name);
   }
+  else variableList.push('--Select--');
   variableList.sort(goog.string.caseInsensitiveCompare);
-  variableList.push(Blockly.Msg.RENAME_VARIABLE);
-  variableList.push(Blockly.Msg.NEW_VARIABLE);
+  // variableList.push(Blockly.Msg.RENAME_VARIABLE);
+  // variableList.push(Blockly.Msg.NEW_VARIABLE);
   // Variables are not language-specific, use the name as both the user-facing
   // text and the internal representation.
   var options = [];

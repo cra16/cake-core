@@ -54,22 +54,34 @@ Blockly.Variables.allVariables = function(opt_block) {
   var variableHash = Object.create(null);
   // Iterate through every block and add each variable to the hash.
   for (var x = 0; x < blocks.length; x++) {
-    var func = blocks[x].getVars;
+    var func = blocks[x].getDeclare;
+    // window.alert(func);
     if (func) {
-      var blockVariables = func.call(blocks[x]);
-      for (var y = 0; y < blockVariables.length; y++) {
-        var varName = blockVariables[y];
-        // Variable name may be null if the block is only half-built.
-        if (varName) {
-          variableHash[varName.toLowerCase()] = varName;
-        }
+      var blockVariablesName = func.call(blocks[x]);
+      var funcType = blocks[x].getTypes;
+      var blockVariablesType = funcType.call(blocks[x]);
+      // window.alert(blockVariablesName);
+      // window.alert(blockVariablesType);
+      for (var z = 0; z < blockVariablesType.length; z++) {
+        var varType = blockVariablesType[z];
       }
+      for (var y = 0; y < blockVariablesName.length; y++) {
+        var varName = blockVariablesName[y];
+        // Variable name may be null if the block is only half-built.
+        // if (varName) {
+        //   variableHash[varName.toLowerCase()] = [varType, varName];
+        // }
+      }
+      if (varName) {
+          variableHash[varName.toLowerCase()] = [varType, varName];
+        }
     }
   }
   // Flatten the hash into a list.
   var variableList = [];
   for (var name in variableHash) {
-    variableList.push(variableHash[name]);
+    variableList.push([variableHash[name][0], variableHash[name][1]]);
+    // window.alert(variableList);
   }
   return variableList;
 };
@@ -99,6 +111,7 @@ Blockly.Variables.renameVariable = function(oldName, newName) {
  */
 Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
   var variableList = Blockly.Variables.allVariables();
+  window.alert(variableList);
   variableList.sort(goog.string.caseInsensitiveCompare);
   // In addition to the user's variables, we also want to display the default
   // variable name at the top.  We also don't want this duplicated if the

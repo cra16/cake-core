@@ -400,3 +400,14 @@ Blockly.Msg.STDLIB_SRAND_TITLE = 'srand %1';
 Blockly.Msg.STDLIB_MALLOC_TITLE = 'malloc %1';
 Blockly.Msg.STDLIB_FREE_TITLE = 'free %1';
 Blockly.Msg.STDLIB_EXIT_TITLE = 'exit %1';
+
+Blockly.Msg.VARIABLES_SET_TYPE_INT = 'int';
+Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = 'float';
+Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE = 'double';
+Blockly.Msg.VARIABLES_SET_TYPE_LONG = 'long';
+Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG = 'long long';
+Blockly.Msg.VARIABLES_SET_TYPE_SHORT = 'short';
+Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE = 'long double';
+Blockly.Msg.VARIABLES_DECLARE_TITLE = 'variable type :';
+Blockly.Msg.VARIABLES_DECLARE_NAME = 'name :';
+Blockly.Msg.VARIABLES_DECLARE_INIT = 'initialized by';

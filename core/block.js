@@ -1864,3 +1864,20 @@ Blockly.Block.prototype.render = function() {
   this.svg_.render();
   Blockly.Realtime.blockChanged(this);
 };
+
+
+Blockly.Blocks.CNameValidator = function(newVar) {
+  //Regex tests whether name is a valid C identifier
+  if(!new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$').test(newVar)) {
+    return null;
+  }
+  //Don't allow names that could be used as loop counters
+  if(new RegExp('^index[0-9]+$').test(newVar)) {
+    return null;
+  }
+  //Avoid clobbering global names
+  if(Blockly.cake.RESERVED_WORDS_.indexOf(',' + newVar + ',') !== -1) {
+    return null;
+  };
+  return newVar;
+};
