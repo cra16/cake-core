@@ -171,179 +171,132 @@
         </div>
       <div id="blocklyDiv" class="col-xs-6"></div>
       <xml id="toolbox" style="display: none">
-        <category name="Logic">
-          <block type="controls_if"></block>
-          <block type="logic_compare"></block>
-          <block type="logic_operation"></block>
-          <block type="logic_negate"></block>
-          <block type="logic_boolean"></block>
-          <block type="logic_null"></block>
-          <block type="logic_ternary"></block>
+        <category name="Variables">
+          <block type="variables_declare"></block>
+          <block type="variables_get"></block>
+          <block type="variables_set"></block>
         </category>
         <category name="Loops">
-          <block type="controls_repeat_ext">
-            <value name="TIMES">
-              <block type="math_number">
-                <field name="NUM">10</field>
-              </block>
-            </value>
-          </block>
-          <block type="controls_whileUntil"></block>
-          <block type="controls_for">
-            <value name="FROM">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <value name="TO">
-              <block type="math_number">
-                <field name="NUM">10</field>
-              </block>
-            </value>
-            <value name="BY">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-          </block>
-          <block type="controls_forEach"></block>
-          <block type="controls_flow_statements"></block>
+          <block type="loop_while"></block>
+          <block type="loop_dowhile"></block>
+          <block type="loop_for"></block>
         </category>
-        <category name="Math">
-          <block type="math_number"></block>
-          <block type="math_arithmetic"></block>
-          <block type="math_single"></block>
-          <block type="math_trig"></block>
-          <block type="math_constant"></block>
-          <block type="math_number_property"></block>
-          <block type="math_change">
-            <value name="DELTA">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-          </block>
-          <block type="math_round"></block>
-          <block type="math_on_list"></block>
-          <block type="math_modulo"></block>
-          <block type="math_constrain">
-            <value name="LOW">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <value name="HIGH">
-              <block type="math_number">
-                <field name="NUM">100</field>
-              </block>
-            </value>
-          </block>
-          <block type="math_random_int">
-            <value name="FROM">
-              <block type="math_number">
-                <field name="NUM">1</field>
-              </block>
-            </value>
-            <value name="TO">
-              <block type="math_number">
-                <field name="NUM">100</field>
-              </block>
-            </value>
-          </block>
-          <block type="math_random_float"></block>
+        <category name="Logic">
+          <block type="logic_ifelse"></block>
+          <block type="logic_switch"></block>
+        </category><category name="Function">
+          <block type="logic_ifelse"></block>
+          <block type="logic_switch"></block>
         </category>
-        <category name="Text">
-          <block type="text"></block>
-          <block type="text_join"></block>
-          <block type="text_append">
-            <value name="TEXT">
-              <block type="text"></block>
-            </value>
-          </block>
-          <block type="text_length"></block>
-          <block type="text_isEmpty"></block>
-          <block type="text_indexOf">
-            <value name="VALUE">
-              <block type="variables_get">
-                <field name="VAR">text</field>
+        <category name="Library">
+          <category name="Stdio">
+            <category name="FILE I/O">
+              <block type="library_stdio_fopen">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
               </block>
-            </value>
-          </block>
-          <block type="text_charAt">
-            <value name="VALUE">
-              <block type="variables_get">
-                <field name="VAR">text</field>
+              <block type="library_stdio_fclose">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
               </block>
-            </value>
-          </block>
-          <block type="text_getSubstring">
-            <value name="STRING">
-              <block type="variables_get">
-                <field name="VAR">text</field>
+              <block type="library_stdio_fprintf">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
               </block>
-            </value>
-          </block>
-          <block type="text_changeCase"></block>
-          <block type="text_trim"></block>
-          <block type="text_print"></block>
-          <block type="text_prompt_ext">
-            <value name="TEXT">
-              <block type="text"></block>
-            </value>
-          </block>
+              <block type="library_stdio_fscanf">
+                <value name="TEXT">
+                <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_fread">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_fwrite">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_fflush">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              </category>
+              <category name="I/O">
+              <block type="library_stdio_printf">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_scanf">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_getchar">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_putchar">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_gets">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+              <block type="library_stdio_puts">
+                <value name="TEXT">
+                  <block type="library_func_paren"></block>
+                </value>
+              </block>
+            </category>
+          </category>
+          <category name="Stdlib">
+            <block type="library_stdlib_rand">
+              <value name="TEXT">
+                <block type="library_func_paren"></block>
+              </value>
+            </block>
+            <block type="library_stdlib_srand">
+              <value name="TEXT">
+                <block type="library_func_paren"></block>
+              </value>
+            </block>
+            <block type="library_stdlib_malloc">
+              <value name="TEXT">
+                <block type="library_func_paren"></block>
+              </value>
+            </block>
+            <block type="library_stdlib_free">
+              <value name="TEXT">
+                <block type="library_func_paren"></block>
+              </value>
+            </block>
+            <block type="library_stdlib_exit">
+              <value name="TEXT">
+                <block type="library_func_paren"></block>
+              </value>
+            </block>
+          </category>
+          <category name="Math">
+            <block type="library_func_paren"></block>
+            <block type="library_math_sin"></block>
+            <block type="library_math_cos"></block>
+            <block type="library_math_tan"></block>
+          </category>
         </category>
-        <category name="Lists">
-          <block type="lists_create_empty"></block>
-          <block type="lists_create_with"></block>
-          <block type="lists_repeat">
-            <value name="NUM">
-              <block type="math_number">
-                <field name="NUM">5</field>
-              </block>
-            </value>
-          </block>
-          <block type="lists_length"></block>
-          <block type="lists_isEmpty"></block>
-          <block type="lists_indexOf">
-            <value name="VALUE">
-              <block type="variables_get">
-                <field name="VAR">list</field>
-              </block>
-            </value>
-          </block>
-          <block type="lists_getIndex">
-            <value name="VALUE">
-              <block type="variables_get">
-                <field name="VAR">list</field>
-              </block>
-            </value>
-          </block>
-          <block type="lists_setIndex">
-            <value name="LIST">
-              <block type="variables_get">
-                <field name="VAR">list</field>
-              </block>
-            </value>
-          </block>
-          <block type="lists_getSublist">
-            <value name="LIST">
-              <block type="variables_get">
-                <field name="VAR">list</field>
-              </block>
-            </value>
-          </block>
-        </category>
-        <category name="Colour">
-          <block type="colour_picker"></block>
-          <block type="colour_random"></block>
-          <block type="colour_rgb"></block>
-          <block type="colour_blend"></block>
-        </category>
-        <category name="Variables" custom="VARIABLE"></category>
-        <category name="Functions" custom="PROCEDURE"></category>
       </xml>
       <div id="code" class="col-xs-4">
-        <pre id="importExport" onclick="toCode('cake')"></pre>
+        <pre id="importExport"></pre>
       </div>
     </div>
   </div>

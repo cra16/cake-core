@@ -15,6 +15,7 @@ function start() {
         toolbox: document.getElementById('toolbox')
       }
   );
+  Blockly.addChangeListener(toCode);
 }
 
 function toXml() {
@@ -31,7 +32,7 @@ function fromXml() {
   Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
 }
 
-function toCode(lang) {
-  var output = document.getElementById('importExport');
-  output.innerHTML = Blockly[lang].workspaceToCode();
+function toCode() {
+  var code = document.getElementById('importExport');
+  code.innerHTML = Blockly.cake.workspaceToCode();
 }
