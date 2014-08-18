@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="google" value="notranslate">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cake</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body onload="start()">
+  <div class="header">
+   <nav class="navbar navbar-default" role="navigation" style="background-color: #ffffff; margin-bottom: 5px;">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Cake</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">About Cake</a></li>
+              <li><a href="#">Developer</a></li>
+              <li><a href="#">add contents</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Project<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="project/prjIndex.html">New Project</a></li>
+              <li><a href="#">Open Project</a></li>
+              <li><a href="#">add contents</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Etc<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Donation</a></li>
+              <li><a href="#">Help</a></li>
+              <li><a href="#">add contents</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- Modal -->
+          <div id="loginModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog"> // style="max-width: 350px;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">x</span>
+                    <span class="sr-only">Close</span>
+                  </button>
+                  <h4 class="modal-title">LogIn</h4>
+                </div>
+                <div class="modal-body" style="padding-left: 40px; padding-right: 40px;">
+                  <form role="form">
+                      <div class="form-group">
+                        <input type="email" class="form-control" id="inputEmail1" placeholder="Email" required="" autofocus="">
+                        <input type="password" class="form-control" id="inputPassword1" placeholder="Password" required="">
+                      </div>
+                      <div class="form-group" style="TEXT-ALIGN:center">
+                        <div class="checkbox">
+                          <label><input type="checkbox">Remember me</label>
+                        </div>
+                      </div>
+                      <div class="form-group" style="TEXT-ALIGN:center">
+                        <!--{call .signup/} Sign up-->
+                        <a href="signup.html">Sign up</a> 
+                      </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-primary">LogIn</button>
+                </div>
+                </div>
+              <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+          </div>
+          <!-- /.modal -->      
+          <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">
+                LogIn
+          </button>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+   </nav>
+  </div>
+  <nav class="navbar navbar-default" role="navigation" style="background-color: #ffffff; margin-bottom: 5px;">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+   
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">File<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Save As</a></li>
+              <li><a href="#">Download</a></li>
+              <li><a href="#">Rename</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tool<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Tool1</a></li>
+              <li><a href="#">Tool2</a></li>
+              <li><a href="#">Tool3</a></li>
+            </ul>
+          </li>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row" id="main-wrapper">
+        <div class="col-xs-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 4px;">
+          <div style="background-color: #FFFFFF; border: 1px solid #e7e7e7; border-radius: 5px;">
+            <ul class="nav nav-pills nav-stacked">
+              <li class="active"><a href="#">Pre</a></li>
+              <li><a href="#">Main</a></li>
+              <accordion>
+                <div class="panel panel-default ng-isolate-scope" heading="Functions" is-open="true" style="margin: 1px">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a class="accordion-toggle ng-binding" ng-click="isOpen = !isOpen" accordion-transclude="heading">sub functions</a>
+                  </h4>
+                </div>
+                <div class="panel-collapse collapse in" collapse="!isOpen" style="height: auto">
+                  <div class="panel-body" ng-transclude>
+                    <div class="list-group ng-scope" adjustheight="325">
+                      <a class="list-group-item">sub1</a>
+                      <a class="list-group-item">sub2</a>
+                      <!-- ngRepeat: k in pages.keys().sort() -->
+                      <a class="list-group-item active" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">init</a>
+                      <!-- end ngRepeat: k in pages.keys().sort() -->
+                      <a class="list-group-item" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">main</a>
+                      <!-- end ngRepeat: k in pages.keys().sort() -->
+                    </div>
+                    <center>
+                      <div class="btn-group btn-group-sm ng-scope">
+                        <button type="button" class="btn btn-default" ng-click="newPage()"><span class="glyphicon glyphicon-plus"></span></button>
+                        <button type="button" class="btn btn-default" ng-click="deletePage(currentPageName)"><span class="glyphicon glyphicon-minus"></span></button>
+                      </div>
+                    </center>
+                  </div>
+                </div>
+              </div>
+              </accordion>
+            </ul>
+          </div>
+        </div>
+      <div id="blocklyDiv" class="col-xs-6"></div>
+      <xml id="toolbox" style="display: none">
+        <category name="Logic">
+          <block type="controls_if"></block>
+          <block type="logic_compare"></block>
+          <block type="logic_operation"></block>
+          <block type="logic_negate"></block>
+          <block type="logic_boolean"></block>
+          <block type="logic_null"></block>
+          <block type="logic_ternary"></block>
+        </category>
+        <category name="Loops">
+          <block type="controls_repeat_ext">
+            <value name="TIMES">
+              <block type="math_number">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+          </block>
+          <block type="controls_whileUntil"></block>
+          <block type="controls_for">
+            <value name="FROM">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="TO">
+              <block type="math_number">
+                <field name="NUM">10</field>
+              </block>
+            </value>
+            <value name="BY">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+          <block type="controls_forEach"></block>
+          <block type="controls_flow_statements"></block>
+        </category>
+        <category name="Math">
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+          <block type="math_single"></block>
+          <block type="math_trig"></block>
+          <block type="math_constant"></block>
+          <block type="math_number_property"></block>
+          <block type="math_change">
+            <value name="DELTA">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+          <block type="math_round"></block>
+          <block type="math_on_list"></block>
+          <block type="math_modulo"></block>
+          <block type="math_constrain">
+            <value name="LOW">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="HIGH">
+              <block type="math_number">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+          </block>
+          <block type="math_random_int">
+            <value name="FROM">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+            <value name="TO">
+              <block type="math_number">
+                <field name="NUM">100</field>
+              </block>
+            </value>
+          </block>
+          <block type="math_random_float"></block>
+        </category>
+        <category name="Text">
+          <block type="text"></block>
+          <block type="text_join"></block>
+          <block type="text_append">
+            <value name="TEXT">
+              <block type="text"></block>
+            </value>
+          </block>
+          <block type="text_length"></block>
+          <block type="text_isEmpty"></block>
+          <block type="text_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_charAt">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_getSubstring">
+            <value name="STRING">
+              <block type="variables_get">
+                <field name="VAR">text</field>
+              </block>
+            </value>
+          </block>
+          <block type="text_changeCase"></block>
+          <block type="text_trim"></block>
+          <block type="text_print"></block>
+          <block type="text_prompt_ext">
+            <value name="TEXT">
+              <block type="text"></block>
+            </value>
+          </block>
+        </category>
+        <category name="Lists">
+          <block type="lists_create_empty"></block>
+          <block type="lists_create_with"></block>
+          <block type="lists_repeat">
+            <value name="NUM">
+              <block type="math_number">
+                <field name="NUM">5</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_length"></block>
+          <block type="lists_isEmpty"></block>
+          <block type="lists_indexOf">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getIndex">
+            <value name="VALUE">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_setIndex">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+          <block type="lists_getSublist">
+            <value name="LIST">
+              <block type="variables_get">
+                <field name="VAR">list</field>
+              </block>
+            </value>
+          </block>
+        </category>
+        <category name="Colour">
+          <block type="colour_picker"></block>
+          <block type="colour_random"></block>
+          <block type="colour_rgb"></block>
+          <block type="colour_blend"></block>
+        </category>
+        <category name="Variables" custom="VARIABLE"></category>
+        <category name="Functions" custom="PROCEDURE"></category>
+      </xml>
+      <div id="code" class="col-xs-4">
+        <pre id="importExport" onclick="toCode('cake')"></pre>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../blockly_uncompressed.js"></script>
+  <script type="text/javascript" src="../generators/cake.js"></script>
+  <script type="text/javascript" src="../generators/cake/colour.js"></script>
+  <script type="text/javascript" src="../generators/cake/stdio.js"></script>
+  <script type="text/javascript" src="../generators/cake/stdlib.js"></script>
+  <script type="text/javascript" src="../generators/cake/math.js"></script>
+  <script type="text/javascript" src="../generators/cake/string.js"></script>
+  <script type="text/javascript" src="../generators/cake/lists.js"></script>
+  <script type="text/javascript" src="../generators/cake/logic.js"></script>
+  <script type="text/javascript" src="../generators/cake/loops.js"></script>
+  <script type="text/javascript" src="../generators/cake/procedures.js"></script>
+  <script type="text/javascript" src="../generators/cake/text.js"></script>
+  <script type="text/javascript" src="../generators/cake/variables.js"></script>
+  <script type="text/javascript" src="../msg/js/en.js"></script>
+  <script type="text/javascript" src="../blocks/colour.js"></script>
+  <script type="text/javascript" src="../blocks/stdio.js"></script>
+  <script type="text/javascript" src="../blocks/stdlib.js"></script>
+  <script type="text/javascript" src="../blocks/math.js"></script>
+  <script type="text/javascript" src="../blocks/string.js"></script>
+  <script type="text/javascript" src="../blocks/lists.js"></script>
+  <script type="text/javascript" src="../blocks/logic.js"></script>
+  <script type="text/javascript" src="../blocks/loops.js"></script>
+  <script type="text/javascript" src="../blocks/procedures.js"></script>
+  <script type="text/javascript" src="../blocks/text.js"></script>
+  <script type="text/javascript" src="../blocks/variables.js"></script>
+  <script type="text/javascript" src="js/code.js"></script>
+  <!-- Load the Google Drive SDK Realtime libraries. -->
+  <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+  <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>

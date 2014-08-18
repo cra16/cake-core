@@ -1,0 +1,24 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+@import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+
+/* Reset the container */
+.container {
+  max-width: none !important;
+  width: 1280px;
+}
+#main-wrapper {
+  height: 600px;
+}
+#blocklyDiv {
+  height: 100%;
+}
+#importExport {
+  width: 100%;
+  height: 100%;
+}
+#code {
+  height: 100%;
+}
