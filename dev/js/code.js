@@ -15,24 +15,16 @@ function start() {
         toolbox: document.getElementById('toolbox')
       }
   );
-  Blockly.addChangeListener(toCode);
+  Blockly.addChangeListener(renderContent);
 }
 
-function toXml() {
-  var output = document.getElementById('importExport');
-  var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-  output.value = Blockly.Xml.domToPrettyText(xml);
-  output.focus();
-  output.select();
-}
-
-function fromXml() {
-  var input = document.getElementById('importExport');
-  var xml = Blockly.Xml.textToDom(input.value);
-  Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-}
-
-function toCode() {
-  var code = document.getElementById('importExport');
-  code.innerHTML = Blockly.cake.workspaceToCode();
+function renderContent() {
+  var content = document.getElementById('codePane');
+  var code = Blockly.cake.workspaceToCode();
+  content.textContent = code;
+  if (typeof prettyPrintOne == 'function') {
+    code = content.innerHTML;
+    code = prettyPrintOne(code, 'c');
+    content.innerHTML = code;
+  };
 }
