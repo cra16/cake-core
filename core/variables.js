@@ -119,7 +119,7 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
   variableList.unshift(null);
   var defaultVariable = undefined;
   for (var i = 0; i < variableList.length; i++) {
-    if (variableList[i] === defaultVariable) {
+    if (variableList[i][1] === defaultVariable) {
       continue;
     }
     var getBlock = Blockly.Blocks['variables_get'] ?
@@ -128,11 +128,11 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
     var setBlock = Blockly.Blocks['variables_set'] ?
         Blockly.Block.obtain(workspace, 'variables_set') : null;
     setBlock && setBlock.initSvg();
-    if (variableList[i] === null) {
+    if (variableList[i][1] === null) {
       defaultVariable = (getBlock || setBlock).getVars()[0];
     } else {
-      getBlock && getBlock.setFieldValue(variableList[i], 'VAR');
-      setBlock && setBlock.setFieldValue(variableList[i], 'VAR');
+      getBlock && getBlock.setFieldValue(variableList[i][1], 'VAR');
+      setBlock && setBlock.setFieldValue(variableList[i][1], 'VAR');
     }
     setBlock && blocks.push(setBlock);
     getBlock && blocks.push(getBlock);
@@ -160,7 +160,7 @@ Blockly.Variables.generateUniqueName = function() {
       i = 0;
       inUse = false;
       while (i < variableList.length && !inUse) {
-        if (variableList[i].toLowerCase() == potName) {
+        if (variableList[i][1].toLowerCase() == potName) {
           // This potential name is already used.
           inUse = true;
         }
