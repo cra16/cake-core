@@ -112,9 +112,9 @@ Blockly.FieldVariable.dropdownCreate = function() {
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
   if (name && variableList.indexOf(name) == -1) {
-    variableList.push(name);
+    variableList.push(['',name]);
   }
-  else variableList.push('--Select--');
+  else variableList.push(['','--Select--']);
   variableList.sort(goog.string.caseInsensitiveCompare);
   // variableList.push(Blockly.Msg.RENAME_VARIABLE);
   // variableList.push(Blockly.Msg.NEW_VARIABLE);
