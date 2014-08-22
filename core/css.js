@@ -127,8 +127,8 @@ Blockly.Css.CONTENT = [
 
   '.blocklyText {',
   '  cursor: default;',
-  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
-  '  font-size: 11pt;',
+  '  font-family: "Source Code Pro","Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
+  '  font-size: 10pt;',
   '  fill: #fff;',
   '}',
 
@@ -188,7 +188,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTooltipText {',
-  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
+  '  font-family: "Source Code Pro","Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 9pt;',
   '  fill: #000;',
   '}',
@@ -211,7 +211,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyIconMark {',
   '  cursor: default !important;',
-  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
+  '  font-family: "Source Code Pro","Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 9pt;',
   '  font-weight: bold;',
   '  fill: #ccc;',
@@ -235,8 +235,8 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyHtmlInput {',
-  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
-  '  font-size: 11pt;',
+  '  font-family: "Source Code Pro","Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
+  '  font-size: 10pt;',
   '  border: none;',
   '  outline: none;',
   '  width: 100%',
@@ -315,7 +315,7 @@ Blockly.Css.CONTENT = [
 
   /* Category tree in Toolbox. */
   '.blocklyToolboxDiv {',
-  '  background-color: #ddd;',
+  '  background-color: #f5f5f5;',
   '  display: none;',
   '  overflow-x: visible;',
   '  overflow-y: auto;',
@@ -387,8 +387,8 @@ Blockly.Css.CONTENT = [
 
   '.blocklyTreeLabel {',
   '  cursor: default;',
-  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
-  '  font-size: 16px;',
+  '  font-family: "Source Code Pro","Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
+  '  font-size: 14px;',
   '  padding: 0 3px;',
   '  vertical-align: middle;',
   '}',

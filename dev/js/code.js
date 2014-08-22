@@ -3,11 +3,6 @@
 var rtl = (document.location.search == '?rtl');
 var block = null;
 
-function enableRealtimeSpecificUi() {
-  var realtimeDiv = document.getElementById('realtime');
-  realtimeDiv.display = 'block';
-}
-
 function start() {
   Blockly.inject(document.getElementById('blocklyDiv'), 
       {
@@ -19,7 +14,7 @@ function start() {
 }
 
 function renderContent() {
-  var content = document.getElementById('codePane');
+  var content = document.getElementById('code');
   var code = Blockly.cake.workspaceToCode();
   content.textContent = code;
   if (typeof prettyPrintOne == 'function') {
@@ -40,6 +35,10 @@ function discard() {
   }
 }
 
+/**
+ * Insert terminal into page.
+ * https://github.com/jcubic/jquery.terminal
+ */
 jQuery(function($, undefined) {
     $('#terminal').terminal(function(command, term) {
         if (command !== '') {
@@ -49,15 +48,16 @@ jQuery(function($, undefined) {
             }
         }
     }, {
-        greetings: 'Cake Console Termnal',
+        greetings: 'Cake Console Terminal',
         name: 'js_demo',
-        height: 100,
-        width: 600,
+        height: 0,
+        width: 0,
         prompt: 'cake> '});
 });
 
 /**
  * Save current codes into a *.c file.
+ * https://github.com/eligrey/FileSaver.js
  */
 function downloadCode() {
   var code = Blockly.cake.workspaceToCode();

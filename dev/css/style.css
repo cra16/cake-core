@@ -1,8 +1,10 @@
+/* get Bootstrap config on http://getbootstrap.com/customize/?id=581587aab022e010e9c9 */
 @import url(http://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumgothiccoding.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 @import url(http://fonts.googleapis.com/earlyaccess/nanumpenscript.css);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro);
 
 /* Reset the container */
 .container {
@@ -76,22 +78,29 @@
   background-color: transparent !important;
 }
 #main-wrapper {
-  height: 500px;
+  height: auto;
 }
 #terminal-wrapper {
-  height: 150px;
+  height: auto;
 }
 #terminal {
-  width: 100% !important;
-}
-#blocklyDiv {
-  height: 500px;
-  padding: 0px !important;
-}
-#codePane {
   width: 100%;
   height: 300px;
 }
+#blocklyDiv {
+  height: 700px;
+  padding: 0px !important;
+}
+#code-wrapper {
+  height: auto;
+}
 #code {
-  height: 100%;
+  height: 500px;
+  margin-bottom: 0;
+}
+#toolbox {
+  display: none;
+}
+#footer {
+  border-top: 1px solid #e5e5e5;
 }
