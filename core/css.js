@@ -127,7 +127,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyText {',
   '  cursor: default;',
-  '  font-family: sans-serif;',
+  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 11pt;',
   '  fill: #fff;',
   '}',
@@ -188,7 +188,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyTooltipText {',
-  '  font-family: sans-serif;',
+  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 9pt;',
   '  fill: #000;',
   '}',
@@ -211,7 +211,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyIconMark {',
   '  cursor: default !important;',
-  '  font-family: sans-serif;',
+  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 9pt;',
   '  font-weight: bold;',
   '  fill: #ccc;',
@@ -235,7 +235,7 @@ Blockly.Css.CONTENT = [
   '}',
 
   '.blocklyHtmlInput {',
-  '  font-family: sans-serif;',
+  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 11pt;',
   '  border: none;',
   '  outline: none;',
@@ -387,7 +387,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyTreeLabel {',
   '  cursor: default;',
-  '  font-family: sans-serif;',
+  '  font-family: "Nanum Gothic Coding",Menlo,Monaco,Consolas,"Courier New",monospace;',
   '  font-size: 16px;',
   '  padding: 0 3px;',
   '  vertical-align: middle;',
