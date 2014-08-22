@@ -26,7 +26,18 @@ function renderContent() {
     code = content.innerHTML;
     code = prettyPrintOne(code, 'c');
     content.innerHTML = code;
-  };
+  }
+}
+
+/**
+ * Discard all blocks from the workspace.
+ */
+function discard() {
+  var count = Blockly.mainWorkspace.getAllBlocks().length;
+  if (count < 2 || window.confirm("Remove all blocks?")) {
+    Blockly.mainWorkspace.clear();
+    window.location.hash = '';
+  }
 }
 
 jQuery(function($, undefined) {
@@ -44,3 +55,15 @@ jQuery(function($, undefined) {
         width: 600,
         prompt: 'cake> '});
 });
+
+/**
+ * Save current codes into a *.c file.
+ */
+function downloadCode() {
+  var code = Blockly.cake.workspaceToCode();
+  var codeArray = [];
+  codeArray.push(code);
+  console.log(code);
+  var codeBlob = new Blob(codeArray, {type: "text/plain;charset=utf-8"});
+  saveAs(codeBlob, "code.c");
+}

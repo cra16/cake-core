@@ -103,32 +103,32 @@
       <div class="collapse navbar-collapse">
         <div class="btn-toolbar" role="toolbar">
           <div class="btn-group">
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
               <span class="glyphicon glyphicon-file"></span> New File
             </button>
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
               <span class="glyphicon glyphicon-folder-open"></span> Open
             </button>
-            <button type="button" class="btn btn-default navbar-btn">
-              <span class="glyphicon glyphicon-floppy-save"></span> Save
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
+              <span class="glyphicon glyphicon-floppy-disk"></span> Save
             </button>
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" onclick="downloadCode()">
               <span class="glyphicon glyphicon-download-alt"></span> Download
             </button>
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" onclick="discard()" data-toggle="button">
               <span class="glyphicon glyphicon-trash"></span> Trash
             </button>
           </div>
           <div class="btn-group">
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
               <span class="glyphicon glyphicon-play"></span> Run
             </button>
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
               <span class="glyphicon glyphicon-wrench"></span> Setting
             </button>
           </div>
           <div class="btn-group">
-            <button type="button" class="btn btn-default navbar-btn">
+            <button type="button" class="btn btn-default navbar-btn" disabled="disabled">
               <span class="glyphicon glyphicon-fullscreen"></span> Fullscreen
             </button>
           </div>
@@ -361,6 +361,7 @@
   <script type="text/javascript" src="../blocks/text.js"></script>
   <script type="text/javascript" src="../blocks/variables.js"></script>
   <script type="text/javascript" src="js/code.js"></script>
+  <script type="text/javascript" src="js/FileSaver.js"></script>
   <script type="text/javascript" src="js/prettify.js"></script>
   <script type="text/javascript" src="js/jquery.terminal-0.8.8.min.js"></script>
   <!-- Load the Google Drive SDK Realtime libraries. -->
