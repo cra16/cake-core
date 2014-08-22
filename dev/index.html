@@ -9,38 +9,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/prettify.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script type="text/javascript" src="../blockly_uncompressed.js"></script>
-  <script type="text/javascript" src="../javascript_compressed.js"></script>
-  <script type="text/javascript" src="../python_compressed.js"></script>
-  <script type="text/javascript" src="../dart_compressed.js"></script>
-  <script type="text/javascript" src="../msg/js/en.js"></script>
-  <script type="text/javascript" src="../generators/cake.js"></script>
-  <script type="text/javascript" src="../generators/cake/colour.js"></script>
-  <script type="text/javascript" src="../generators/cake/stdio.js"></script>
-  <script type="text/javascript" src="../generators/cake/stdlib.js"></script>
-  <script type="text/javascript" src="../generators/cake/math.js"></script>
-  <script type="text/javascript" src="../generators/cake/string.js"></script>
-  <script type="text/javascript" src="../generators/cake/lists.js"></script>
-  <script type="text/javascript" src="../generators/cake/logic.js"></script>
-  <script type="text/javascript" src="../generators/cake/loops.js"></script>
-  <script type="text/javascript" src="../generators/cake/procedures.js"></script>
-  <script type="text/javascript" src="../generators/cake/text.js"></script>
-  <script type="text/javascript" src="../generators/cake/variables.js"></script>
-  <script type="text/javascript" src="../blocks/colour.js"></script>
-  <script type="text/javascript" src="../blocks/stdio.js"></script>
-  <script type="text/javascript" src="../blocks/stdlib.js"></script>
-  <script type="text/javascript" src="../blocks/math.js"></script>
-  <script type="text/javascript" src="../blocks/string.js"></script>
-  <script type="text/javascript" src="../blocks/lists.js"></script>
-  <script type="text/javascript" src="../blocks/logic.js"></script>
-  <script type="text/javascript" src="../blocks/loops.js"></script>
-  <script type="text/javascript" src="../blocks/procedures.js"></script>
-  <script type="text/javascript" src="../blocks/text.js"></script>
-  <script type="text/javascript" src="../blocks/variables.js"></script>
-  <script type="text/javascript" src="js/code.js"></script>
-  <script type="text/javascript" src="js/prettify.js"></script>
-  <!-- Load the Google Drive SDK Realtime libraries. -->
-  <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/jquery.terminal.css">
 </head>
 <body onload="start()">
   <div class="header">
@@ -164,43 +133,50 @@
   </nav>
   <div class="container">
     <div class="row" id="main-wrapper">
-        <div class="col-xs-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 4px;">
-          <div style="background-color: #FFFFFF; border: 1px solid #e7e7e7; border-radius: 5px;">
-            <ul class="nav nav-pills nav-stacked">
-              <li class="active"><a href="#">Pre</a></li>
-              <li><a href="#">Main</a></li>
-              <accordion>
-                <div class="panel panel-default ng-isolate-scope" heading="Functions" is-open="true" style="margin: 1px">
-                <div class="panel-heading">
-                  <h4 class="panel-title">
-                    <a class="accordion-toggle ng-binding" ng-click="isOpen = !isOpen" accordion-transclude="heading">sub functions</a>
-                  </h4>
-                </div>
-                <div class="panel-collapse collapse in" collapse="!isOpen" style="height: auto">
-                  <div class="panel-body" ng-transclude>
-                    <div class="list-group ng-scope" adjustheight="325">
-                      <a class="list-group-item">sub1</a>
-                      <a class="list-group-item">sub2</a>
-                      <!-- ngRepeat: k in pages.keys().sort() -->
-                      <a class="list-group-item active" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">init</a>
-                      <!-- end ngRepeat: k in pages.keys().sort() -->
-                      <a class="list-group-item" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">main</a>
-                      <!-- end ngRepeat: k in pages.keys().sort() -->
-                    </div>
-                    <center>
-                      <div class="btn-group btn-group-sm ng-scope">
-                        <button type="button" class="btn btn-default" ng-click="newPage()"><span class="glyphicon glyphicon-plus"></span></button>
-                        <button type="button" class="btn btn-default" ng-click="deletePage(currentPageName)"><span class="glyphicon glyphicon-minus"></span></button>
-                      </div>
-                    </center>
+      <div class="col-xs-2" style="padding-top: 10px; padding-bottom: 10px; border-radius: 4px;">
+        <div style="background-color: #FFFFFF; border: 1px solid #e7e7e7; border-radius: 5px;">
+          <ul class="nav nav-pills nav-stacked">
+            <li class="active"><a href="#">Pre</a></li>
+            <li><a href="#">Main</a></li>
+            <accordion>
+              <div class="panel panel-default ng-isolate-scope" heading="Functions" is-open="true" style="margin: 1px">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a class="accordion-toggle ng-binding" ng-click="isOpen = !isOpen" accordion-transclude="heading">sub functions</a>
+                </h4>
+              </div>
+              <div class="panel-collapse collapse in" collapse="!isOpen" style="height: auto">
+                <div class="panel-body" ng-transclude>
+                  <div class="list-group ng-scope" adjustheight="325">
+                    <a class="list-group-item">sub1</a>
+                    <a class="list-group-item">sub2</a>
+                    <!-- ngRepeat: k in pages.keys().sort() -->
+                    <a class="list-group-item active" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">init</a>
+                    <!-- end ngRepeat: k in pages.keys().sort() -->
+                    <a class="list-group-item" ng-repeat="k in pages.keys().sort()" ng-click="setActivePage(k);" ng-style="{ 'font-weight': (k === 'init' || k === 'main' ? 'bold' : 'normal')}" style="font-weight: bold;">main</a>
+                    <!-- end ngRepeat: k in pages.keys().sort() -->
                   </div>
+                  <center>
+                    <div class="btn-group btn-group-sm ng-scope">
+                      <button type="button" class="btn btn-default" ng-click="newPage()"><span class="glyphicon glyphicon-plus"></span></button>
+                      <button type="button" class="btn btn-default" ng-click="deletePage(currentPageName)"><span class="glyphicon glyphicon-minus"></span></button>
+                    </div>
+                  </center>
                 </div>
               </div>
-              </accordion>
-            </ul>
-          </div>
+            </div>
+            </accordion>
+          </ul>
         </div>
-      <div id="blocklyDiv" class="col-xs-6"></div>
+      </div>
+      <div class="col-xs-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Workspace</h3>
+          </div>
+          <div id="blocklyDiv" class="panel-body"></div>
+        </div>
+      </div>
       <xml id="toolbox" style="display: none">
         <category name="Variables">
           <block type="variables_declare"></block>
@@ -327,11 +303,55 @@
         </category>
       </xml>
       <div id="code" class="col-xs-4">
-        <pre id="codePane"></pre>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Code</h3>
+          </div>
+          <pre id="codePane" class="panel-body pre-scrollable"></pre>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Console</h3>
+          </div>
+          <div class="panel-body" id="terminal"></div>
+        </div>
       </div>
     </div>
   </div>
   <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../blockly_uncompressed.js"></script>
+  <script type="text/javascript" src="../javascript_compressed.js"></script>
+  <script type="text/javascript" src="../python_compressed.js"></script>
+  <script type="text/javascript" src="../dart_compressed.js"></script>
+  <script type="text/javascript" src="../msg/js/en.js"></script>
+  <script type="text/javascript" src="../generators/cake.js"></script>
+  <script type="text/javascript" src="../generators/cake/colour.js"></script>
+  <script type="text/javascript" src="../generators/cake/stdio.js"></script>
+  <script type="text/javascript" src="../generators/cake/stdlib.js"></script>
+  <script type="text/javascript" src="../generators/cake/math.js"></script>
+  <script type="text/javascript" src="../generators/cake/string.js"></script>
+  <script type="text/javascript" src="../generators/cake/lists.js"></script>
+  <script type="text/javascript" src="../generators/cake/logic.js"></script>
+  <script type="text/javascript" src="../generators/cake/loops.js"></script>
+  <script type="text/javascript" src="../generators/cake/procedures.js"></script>
+  <script type="text/javascript" src="../generators/cake/text.js"></script>
+  <script type="text/javascript" src="../generators/cake/variables.js"></script>
+  <script type="text/javascript" src="../blocks/colour.js"></script>
+  <script type="text/javascript" src="../blocks/stdio.js"></script>
+  <script type="text/javascript" src="../blocks/stdlib.js"></script>
+  <script type="text/javascript" src="../blocks/math.js"></script>
+  <script type="text/javascript" src="../blocks/string.js"></script>
+  <script type="text/javascript" src="../blocks/lists.js"></script>
+  <script type="text/javascript" src="../blocks/logic.js"></script>
+  <script type="text/javascript" src="../blocks/loops.js"></script>
+  <script type="text/javascript" src="../blocks/procedures.js"></script>
+  <script type="text/javascript" src="../blocks/text.js"></script>
+  <script type="text/javascript" src="../blocks/variables.js"></script>
+  <script type="text/javascript" src="js/code.js"></script>
+  <script type="text/javascript" src="js/prettify.js"></script>
+  <script type="text/javascript" src="js/jquery.terminal-0.8.8.min.js"></script>
+  <!-- Load the Google Drive SDK Realtime libraries. -->
+  <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
 </body>
 </html>
