@@ -411,3 +411,4 @@ Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE = 'long double';
 Blockly.Msg.VARIABLES_DECLARE_TITLE = 'variable type :';
 Blockly.Msg.VARIABLES_DECLARE_NAME = 'name :';
 Blockly.Msg.VARIABLES_DECLARE_INIT = 'initialized by';
+Blockly.Msg.VARIABLES_RETURN = 'return ';

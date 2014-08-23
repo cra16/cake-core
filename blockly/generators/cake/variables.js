@@ -54,3 +54,10 @@ Blockly.cake['variables_declare'] = function(block) {
   var varType = block.getFieldValue('TYPES');
   return varType + ' ' + varName + ' = ' + argument0 + ';\n';
 };
+
+Blockly.cake['variables_return'] = function(block) {
+  //return value setting
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+    Blockly.cake.ORDER_ASSIGNMENT) || '0';
+  return 'return ' + argument0 + ';\n';
+}

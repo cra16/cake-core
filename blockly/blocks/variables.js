@@ -238,3 +238,19 @@ Blockly.Blocks['variables_declare'] = {
   },
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
+
+Blockly.Blocks['variables_return'] = {
+  init : function() {
+    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+    this.setColour(330);
+    this.interpolateMsg(
+        // TODO: Combine these messages instead of using concatenation.
+        Blockly.Msg.VARIABLES_RETURN + ' %1 ',
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
+        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+  }
+}
