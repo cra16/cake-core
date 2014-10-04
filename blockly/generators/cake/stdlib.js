@@ -16,7 +16,7 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>;';
+        '#include <stdlib.h>';
   return 'rand(' + argument0 + ');\n';
 };
 
@@ -25,7 +25,7 @@ Blockly.cake['library_stdlib_srand'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>;';
+        '#include <stdlib.h>';
   return 'srand(' + argument0 + ');\n';
 };
 Blockly.cake['library_stdlib_malloc'] = function(block) {
@@ -33,7 +33,7 @@ Blockly.cake['library_stdlib_malloc'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>;';
+        '#include <stdlib.h>';
   return 'malloc(' + argument0 + ');\n';
 };
 
@@ -42,7 +42,7 @@ Blockly.cake['library_stdlib_free'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>;';
+        '#include <stdlib.h>';
   return 'free(' + argument0 + ');\n';
 };
 
@@ -51,6 +51,6 @@ Blockly.cake['library_stdlib_exit'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>;';
+        '#include <stdlib.h>';
   return 'exit(' + argument0 + ');\n';
 };

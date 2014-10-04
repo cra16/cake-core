@@ -28,7 +28,6 @@ goog.provide('Blockly.cake.variables');
 
 goog.require('Blockly.cake');
 
-
 Blockly.cake['variables_get'] = function(block) {
   // Variable getter.
   var code = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),
@@ -53,6 +52,43 @@ Blockly.cake['variables_declare'] = function(block) {
       block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var varType = block.getFieldValue('TYPES');
   return varType + ' ' + varName + ' = ' + argument0 + ';\n';
+};
+
+Blockly.cake['variables_pointer_declare'] = function(block) {
+  // Variable declare.
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.cake.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var varType = block.getFieldValue('TYPES');
+  var varIteration;
+  if(block.getFieldValue('ITERATION') == 'Normal')
+    varIteration = '*';
+  else if(block.getFieldValue('ITERATION') == 'Double')
+    varIteration = '**';
+  else if(block.getFieldValue('ITERATION') == 'Triple')
+    varIteration = '***';
+  else{
+    window.alert('Error');
+    return 0;
+  }    
+  return varType + varIteration + ' ' + varName + ' = ' + argument0 + ';\n';
+};
+
+Blockly.cake['variables_array_declare'] = function(block) {
+  // Variable declare.
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.cake.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var varType = block.getFieldValue('TYPES');
+  var Length = block.getFieldValue('LENGTH');
+  Length = Length * 1;
+  if(isNaN(Length) == true){
+    window.alert('Error, you have to enter the number in length');
+  }
+  else
+    return varType + '[' + Length + '] ' + varName + ' = ' + argument0 + ';\n';
 };
 
 Blockly.cake['variables_return'] = function(block) {
