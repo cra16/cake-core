@@ -258,7 +258,7 @@ Blockly.Blocks['variables_declare'] = {
 Blockly.Blocks['variables_pointer_declare'] = {
   init : function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setColour(45);
     this.interpolateMsg(
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE + ' %1 ' +
@@ -329,7 +329,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
 Blockly.Blocks['variables_array_declare'] = {
   init : function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setColour(90);
     this.interpolateMsg(
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' +
@@ -392,7 +392,7 @@ Blockly.Blocks['variables_array_declare'] = {
 Blockly.Blocks['variables_return'] = {
   init : function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setColour(180);
     this.interpolateMsg(
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_RETURN + ' %1 ',
