@@ -53,17 +53,50 @@ Blockly.cake['procedures_defreturn'] = function(block) {
     args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
         Blockly.Variables.NAME_TYPE);
   }
-  var code = 'function ' + funcName + '(' + args.join(', ') + ') {\n' +
+  var returnType = block.getFieldValue('TYPES');
+  var code = returnType + ' ' + funcName + '(' + args.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
+  Blockly.cake.definitions_['Func_declare'+funcName] =
+    returnType + ' ' + funcName + '(' + args.join(', ') + ');';  
   return null;
 };
 
 // Defining a procedure without a return value uses the same generator as
 // a procedure with a return value.
-Blockly.cake['procedures_defnoreturn'] =
-    Blockly.cake['procedures_defreturn'];
+Blockly.cake['procedures_defnoreturn'] = function(block) {
+  // Define a procedure with a return value.
+  var funcName = Blockly.cake.variableDB_.getName(
+      block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
+  var branch = Blockly.cake.statementToCode(block, 'STACK');
+  if (Blockly.cake.STATEMENT_PREFIX) {
+    branch = Blockly.cake.prefixLines(
+        Blockly.cake.STATEMENT_PREFIX.replace(/%1/g,
+        '\'' + block.id + '\''), Blockly.cake.INDENT) + branch;
+  }
+  if (Blockly.cake.INFINITE_LOOP_TRAP) {
+    branch = Blockly.cake.INFINITE_LOOP_TRAP.replace(/%1/g,
+        '\'' + block.id + '\'') + branch;
+  }
+  var returnValue = Blockly.cake.valueToCode(block, 'RETURN',
+      Blockly.cake.ORDER_NONE) || '';
+  if (returnValue) {
+    returnValue = '  return ' + returnValue + ';\n';
+  }
+  var args = [];
+  for (var x = 0; x < block.arguments_.length; x++) {
+    args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
+        Blockly.Variables.NAME_TYPE);
+  }
+  var code = 'void ' + funcName + '(' + args.join(', ') + ') {\n' +
+      branch + returnValue + '}';
+  code = Blockly.cake.scrub_(block, code);
+  Blockly.cake.definitions_[funcName] = code;
+  Blockly.cake.definitions_['Func_declare'+funcName] =
+    'void ' + funcName + '(' + args.join(', ') + ');';
+  return null;
+};
 
 Blockly.cake['procedures_callreturn'] = function(block) {
   // Call a procedure with a return value.

@@ -28,6 +28,14 @@ goog.provide('Blockly.Blocks.procedures');
 
 goog.require('Blockly.Blocks');
 
+var TYPE = 
+  [[Blockly.Msg.FUNCTION_SET_TYPE_INT, 'int'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_FLOAT, 'float'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE, 'double'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_LONG, 'long'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG, 'long long'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_SHORT, 'short'],
+  [Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE, 'long double']];
 
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
@@ -314,6 +322,7 @@ Blockly.Blocks['procedures_defreturn'] = {
     var name = Blockly.Procedures.findLegalName(
         Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
     this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
         .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_TITLE)
         .appendField(new Blockly.FieldTextInput(name,
         Blockly.Procedures.rename), 'NAME')
@@ -344,6 +353,9 @@ Blockly.Blocks['procedures_defreturn'] = {
    */
   getProcedureDef: function() {
     return [this.getFieldValue('NAME'), this.arguments_, true];
+  },
+  getType: function(){
+    return [this.getFieldValue('TYPES')];
   },
   getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,

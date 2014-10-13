@@ -419,3 +419,11 @@ Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '중첩';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'type';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
+
+Blockly.Msg.FUNCTION_SET_TYPE_INT = 'int';
+Blockly.Msg.FUNCTION_SET_TYPE_FLOAT = 'float';
+Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE = 'double';
+Blockly.Msg.FUNCTION_SET_TYPE_LONG = 'long';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG = 'long long';
+Blockly.Msg.FUNCTION_SET_TYPE_SHORT = 'short';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
