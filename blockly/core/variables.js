@@ -60,8 +60,14 @@ Blockly.Variables.allVariables = function(opt_block) {
       var blockVariablesName = func.call(blocks[x]);
       var funcType = blocks[x].getTypes;
       var blockVariablesType = funcType.call(blocks[x]);
+      var funcDist = blocks[x].getDist;
+      var blockDistribute = funcDist.call(blocks[x]);
       // window.alert(blockVariablesName);
       // window.alert(blockVariablesType);
+      // window.alert(blockDistribute);
+      for (var w = 0; w < blockDistribute.length; w++){
+        var varDist = blockDistribute[w];
+      }
       for (var z = 0; z < blockVariablesType.length; z++) {
         var varType = blockVariablesType[z];
       }
@@ -73,14 +79,14 @@ Blockly.Variables.allVariables = function(opt_block) {
         // }
       }
       if (varName) {
-          variableHash[varName.toLowerCase()] = [varType, varName];
+          variableHash[varName.toLowerCase()] = [varType, varName, varDist];
         }
     }
   }
   // Flatten the hash into a list.
   var variableList = [];
   for (var name in variableHash) {
-    variableList.push([variableHash[name][0], variableHash[name][1]]);
+    variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2]]);
     // window.alert(variableList);
   }
   return variableList;

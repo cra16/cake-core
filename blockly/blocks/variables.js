@@ -28,7 +28,6 @@ goog.provide('Blockly.Blocks.variables');
 
 goog.require('Blockly.Blocks');
 
-
 var TYPE = 
   [[Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
   [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
@@ -99,6 +98,51 @@ Blockly.Blocks['variables_get'] = {
   }
 };
 
+
+// Blockly.Blocks['variables_set'] = {
+//   /**
+//    * Block for variable setter.
+//    * @this Blockly.Block
+//    */
+//   init: function() {
+//     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+//     this.setColour(330);
+//     this.interpolateMsg(
+//         // TODO: Combine these messages instead of using concatenation.
+//         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+//         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+//         ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
+//         ['VALUE', null, Blockly.ALIGN_RIGHT],
+//         Blockly.ALIGN_RIGHT);
+//     this.setPreviousStatement(true);
+//     this.setNextStatement(true);
+//     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+//     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+//     this.contextMenuType_ = 'variables_get';
+//   },
+//   /**
+//    * Return all variables referenced by this block.
+//    * @return {!Array.<string>} List of variable names.
+//    * @this Blockly.Block
+//    */
+//   getVars: function() {
+//     return [this.getFieldValue('VAR')];
+//   },
+//   /**
+//    * Notification that a variable is renaming.
+//    * If the name matches one of this block's variables, rename it.
+//    * @param {string} oldName Previous name of variable.
+//    * @param {string} newName Renamed variable.
+//    * @this Blockly.Block
+//    */
+//   renameVar: function(oldName, newName) {
+//     if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+//       this.setFieldValue(newName, 'VAR');
+//     }
+//   },
+//   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+// };
+
 Blockly.Blocks['variables_set'] = {
   /**
    * Block for variable setter.
@@ -163,6 +207,12 @@ Blockly.Blocks['variables_declare'] = {
     this.contextMenuType_ = 'variables_get';
   },
   /**
+   * Return 'variables'.
+   */
+  getDist: function() {
+    return 'v';
+  },
+  /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
    * @this Blockly.Block
@@ -216,7 +266,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-    this.contextMenuType_ = 'variables_set';
+    this.contextMenuType_ = 'variables_pointer_set';
   },
   /**
    * Return all variables referenced by this block.
@@ -275,7 +325,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-    this.contextMenuType_ = 'variables_get';
+    this.contextMenuType_ = 'variables_pointer_get';
   },
   /**
    * Return all variables referenced by this block.
@@ -297,7 +347,7 @@ Blockly.Blocks['variables_pointer_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
 };
 
 Blockly.Blocks['variables_pointer_declare'] = {
@@ -319,7 +369,13 @@ Blockly.Blocks['variables_pointer_declare'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-    this.contextMenuType_ = 'variables_get';
+    this.contextMenuType_ = 'variables_pointer_get';
+  },
+  /**
+   * Return 'pointer'.
+   */
+  getDist: function() {
+    return 'p';
   },
   /**
    * Return all variables's types referenced by this block.
@@ -368,7 +424,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
 };
 
 Blockly.Blocks['variables_array_get'] = {
@@ -386,7 +442,7 @@ Blockly.Blocks['variables_array_get'] = {
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-    this.contextMenuType_ = 'variables_set';
+    this.contextMenuType_ = 'variables_array_set';
   },
   /**
    * Return all variables referenced by this block.
@@ -445,7 +501,7 @@ Blockly.Blocks['variables_array_set'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-    this.contextMenuType_ = 'variables_get';
+    this.contextMenuType_ = 'variables_array_get';
   },
   /**
    * Return all variables referenced by this block.
@@ -467,7 +523,7 @@ Blockly.Blocks['variables_array_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
 };
 
 Blockly.Blocks['variables_array_declare'] = {
@@ -489,7 +545,13 @@ Blockly.Blocks['variables_array_declare'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-    this.contextMenuType_ = 'variables_get';
+    this.contextMenuType_ = 'variables_array_get';
+  },
+  /**
+   * Return 'array'.
+   */
+  getDist: function() {
+    return 'a';
   },
   /**
    * Return all variables's types referenced by this block.
@@ -530,7 +592,7 @@ Blockly.Blocks['variables_array_declare'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
 };
 
 Blockly.Blocks['variables_return'] = {
