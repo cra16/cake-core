@@ -81,7 +81,6 @@ Blockly.Variables.allVariables = function(opt_block) {
       if (varName) {
           variableHash[varName.toLowerCase()] = [varType, varName, varDist];
       }
-      
     }
   }
   // Flatten the hash into a list.

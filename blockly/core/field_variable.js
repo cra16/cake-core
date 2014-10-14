@@ -41,7 +41,9 @@ goog.require('Blockly.Variables');
  * @extends {Blockly.FieldDropdown}
  * @constructor
  */
-Blockly.FieldVariable = function(varname, opt_changeHandler, contextType) {
+
+var dist = '';
+Blockly.FieldVariable = function(varname, opt_changeHandler, distribute) {
   // var changeHandler;
   // if (opt_changeHandler) {
   //   // Wrap the user's change handler together with the variable rename handler.
@@ -71,6 +73,8 @@ Blockly.FieldVariable = function(varname, opt_changeHandler, contextType) {
   } else {
     this.setValue(Blockly.Variables.generateUniqueName());
   }
+
+  dist = distribute;
 };
 goog.inherits(Blockly.FieldVariable, Blockly.FieldDropdown);
 
@@ -110,27 +114,67 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
 Blockly.FieldVariable.dropdownCreate = function() {
   var variableList = Blockly.Variables.allVariables();
   var varNameTemp = [];
-  for (var temp = 0; temp < variableList.length; temp++){
-    varNameTemp.push(variableList[temp][1],variableList[temp][2]);
-    console.log(varNameTemp);
+  var variableListPop = []; // 보여줄 리스트 거를 것.
+
+  // for (var temp = 0; temp < variableList.length; temp++){
+  //   varNameTemp.push(variableList[temp][1],variableList[temp][2]);
+  //   console.log('varNameTemp: '+varNameTemp);
+  // }
+
+  if(dist=='variables'){
+    for (var temp = 0; temp < variableList.length; temp++){
+      if(variableList[temp][2]=='v')
+        variableListPop.push(variableList[temp][1]);
+    }
+  }
+
+  if(dist=='pointer'){
+    for (var temp = 0; temp < variableList.length; temp++){
+      if(variableList[temp][2]=='p')
+        variableListPop.push(variableList[temp][1]);
+    }
+  }
+
+  if(dist=='array'){
+    for (var temp = 0; temp < variableList.length; temp++){
+      if(variableList[temp][2]=='a')
+        variableListPop.push(variableList[temp][1]);
+    }
   }
 
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
-  if (name && variableList.indexOf(name) == -1) {
-    variableList.push(['',name]);
+  if (name && variableListPop.indexOf(name) == -1) {
+    variableListPop.push(name);
   }
-  else variableList.push(['','--Select--']);
-  variableList.sort(goog.string.caseInsensitiveCompare);
+  else variableListPop.push('--Select--');
+  variableListPop.sort(goog.string.caseInsensitiveCompare);
   // variableList.push(Blockly.Msg.RENAME_VARIABLE);
   // variableList.push(Blockly.Msg.NEW_VARIABLE);
   // Variables are not language-specific, use the name as both the user-facing
   // text and the internal representation.
   var options = [];
-  for (var x = 0; x < variableList.length; x++) {
-    options[x] = [variableList[x][1], variableList[x][1]];
-  }
+  for (var x = 0; x < variableListPop.length; x++) {
+      options[x] = [variableListPop[x], variableListPop[x]];
+   }
   return options;
+
+  // // Ensure that the currently selected variable is an option.
+  // var name = this.getText();
+  // if (name && variableList.indexOf(name) == -1) {
+  //   variableList.push(['',name]);
+  // }
+  // else variableList.push(['','--Select--']);
+  // variableList.sort(goog.string.caseInsensitiveCompare);
+  // // variableList.push(Blockly.Msg.RENAME_VARIABLE);
+  // // variableList.push(Blockly.Msg.NEW_VARIABLE);
+  // // Variables are not language-specific, use the name as both the user-facing
+  // // text and the internal representation.
+  // var options = [];
+  // for (var x = 0; x < variableList.length; x++) {
+  //     options[x] = [variableList[x][1], variableList[x][1]];
+  //  }
+  // return options;
 };
 
 /**
