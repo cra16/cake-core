@@ -42,7 +42,6 @@ var ITERATION =
   [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, 'Double'],
   [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, 'Triple']];
 
-
 Blockly.Blocks['variables_get'] = {
   /**
    * Block for variable getter.
@@ -155,7 +154,7 @@ Blockly.Blocks['variables_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, false, this)],
+        ['VAR', new Blockly.FieldVariable('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -318,7 +317,7 @@ Blockly.Blocks['variables_pointer_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, false, this)],
+        ['VAR', new Blockly.FieldVariable('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -494,7 +493,7 @@ Blockly.Blocks['variables_array_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, false, this)],
+        ['VAR', new Blockly.FieldVariable('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);

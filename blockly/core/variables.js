@@ -80,14 +80,14 @@ Blockly.Variables.allVariables = function(opt_block) {
       }
       if (varName) {
           variableHash[varName.toLowerCase()] = [varType, varName, varDist];
-        }
+      }
+      
     }
   }
   // Flatten the hash into a list.
   var variableList = [];
   for (var name in variableHash) {
     variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2]]);
-    // window.alert(variableList);
   }
   return variableList;
 };

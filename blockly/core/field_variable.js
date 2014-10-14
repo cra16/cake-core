@@ -109,6 +109,12 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
  */
 Blockly.FieldVariable.dropdownCreate = function() {
   var variableList = Blockly.Variables.allVariables();
+  var varNameTemp = [];
+  for (var temp = 0; temp < variableList.length; temp++){
+    varNameTemp.push(variableList[temp][1],variableList[temp][2]);
+    console.log(varNameTemp);
+  }
+
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
   if (name && variableList.indexOf(name) == -1) {
