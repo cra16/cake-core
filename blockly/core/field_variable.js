@@ -41,7 +41,7 @@ goog.require('Blockly.Variables');
  * @extends {Blockly.FieldDropdown}
  * @constructor
  */
-Blockly.FieldVariable = function(varname, opt_changeHandler) {
+Blockly.FieldVariable = function(varname, opt_changeHandler, contextType) {
   // var changeHandler;
   // if (opt_changeHandler) {
   //   // Wrap the user's change handler together with the variable rename handler.
