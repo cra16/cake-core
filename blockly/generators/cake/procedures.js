@@ -49,17 +49,21 @@ Blockly.cake['procedures_defreturn'] = function(block) {
     returnValue = '  return ' + returnValue + ';\n';
   }
   var args = [];
+  var argTypes = [];
+  var typePlusArgs = [];
   for (var x = 0; x < block.arguments_.length; x++) {
     args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
         Blockly.Variables.NAME_TYPE);
+    argTypes[x] = block.types_[x];
+    typePlusArgs[x] = argTypes[x] + ' ' + args[x];
   }
   var returnType = block.getFieldValue('TYPES');
-  var code = returnType + ' ' + funcName + '(' + args.join(', ') + ') {\n' +
+  var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
-    returnType + ' ' + funcName + '(' + args.join(', ') + ');';  
+    returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ');';  
   return null;
 };
 
@@ -85,16 +89,20 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
     returnValue = '  return ' + returnValue + ';\n';
   }
   var args = [];
+  var argTypes = [];
+  var typePlusArgs = [];
   for (var x = 0; x < block.arguments_.length; x++) {
     args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
         Blockly.Variables.NAME_TYPE);
+    argTypes[x] = block.types_[x];
+    typePlusArgs[x] = argTypes[x] + ' ' + args[x];
   }
-  var code = 'void ' + funcName + '(' + args.join(', ') + ') {\n' +
+  var code = 'void ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
       branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
-    'void ' + funcName + '(' + args.join(', ') + ');';
+    'void ' + funcName + '(' + typePlusArgs.join(', ') + ');';
   return null;
 };
 
