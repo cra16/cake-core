@@ -135,7 +135,7 @@ Blockly.cake.finish = function(code) {
   if (code) {
     code = this.prefixLines(code, Blockly.cake.INDENT);
   }
-  code = 'int main() {\n' + code + '}';
+  code = '\n' + code;
 
   // Convert the definitions dictionary into a list.
   var includes = [];

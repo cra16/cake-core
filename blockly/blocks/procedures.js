@@ -37,6 +37,31 @@ var TYPE =
   [Blockly.Msg.FUNCTION_SET_TYPE_SHORT, 'short'],
   [Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE, 'long double']];
 
+Blockly.Blocks['main_block'] = {
+  init: function(){
+    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
+    this.setColour(290);
+    var name = Blockly.Procedures.findLegalName(
+        Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MAIN_BLOCK)
+    this.appendStatementInput('STACK')
+        .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
+    this.appendValueInput('RETURN')
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+    this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
+    this.arguments_ = [];
+    this.types_ = [];
+    this.types_[0] = 'int';
+    this.types_[1] = 'char**'
+    this.arguments_[0] = 'argc';
+    this.arguments_[1] = 'argv';
+    this.statementConnection_ = null;
+    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+    this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+  }
+}
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
@@ -58,7 +83,8 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP);
     this.arguments_ = [];
     this.types_ = [];
-    this.statementConnection_ = null;
+    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+    this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
   /**
    * Update the display of parameters for this procedure definition block.
@@ -349,7 +375,8 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
     this.arguments_ = [];
     this.types_ = [];
-    this.statementConnection_ = null;
+    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+    this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
   updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
