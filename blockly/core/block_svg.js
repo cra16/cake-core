@@ -559,6 +559,7 @@ Blockly.BlockSvg.prototype.renderCompute_ = function(iconWidth) {
         Blockly.BlockSvg.NOTCH_WIDTH + Blockly.BlockSvg.SEP_SPACE_X);
   }
   var fieldValueWidth = 0;  // Width of longest external value field.
+  
   var fieldStatementWidth = 0;  // Width of longest statement field.
   var hasValue = false;
   var hasStatement = false;

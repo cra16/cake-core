@@ -272,7 +272,7 @@ Blockly.Msg.PROCEDURES_CREATE_DO = "Create '%1'";
 Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "do something";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "to";
+Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "Name";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "Creates a function with no output.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "return";
@@ -419,3 +419,13 @@ Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '중첩';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'type';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
+
+Blockly.Msg.FUNCTION_SET_TYPE_INT = 'int';
+Blockly.Msg.FUNCTION_SET_TYPE_FLOAT = 'float';
+Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE = 'double';
+Blockly.Msg.FUNCTION_SET_TYPE_LONG = 'long';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG = 'long long';
+Blockly.Msg.FUNCTION_SET_TYPE_SHORT = 'short';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
+
+Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
