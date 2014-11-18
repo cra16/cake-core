@@ -24,6 +24,7 @@
  */
 'use strict';
 goog.require('goog.asserts');
+goog.require('Blockly.Warning');
 
 /**
  * Name space for the Blocks singleton.
@@ -175,3 +176,19 @@ Blockly.Blocks.addTemplate = function(details) {
   // Add new block to Blockly.Blocks.
   Blockly.Blocks[details.blockName] = block;
 };
+
+/*
+The Function to set warning text and show it when the block 
+that must be in function is out of function.
+*/
+Blockly.Blocks.requireInFunction = function() {
+  if (!this.workspace) {
+    // Block has been deleted.
+    return;
+  }
+  if (this.getSurroundParent()) {
+    this.setWarningText(null);
+  } else {
+    this.setWarningText('Warning: Place this block inside a function.');
+  }
+}

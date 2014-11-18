@@ -43,17 +43,6 @@ var ITERATION =
   [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, 'Double'],
   [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, 'Triple']];
 
-Blockly.Blocks['variables_name'] = {
-  init: function(){
-    this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
-    this.setColour(330);
-    this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator),'VAR');
-    this.setOutput(true,"String");
-    this.setTooltip('');
-  }
-};
-
 Blockly.Blocks['variables_get'] = {
   /**
    * Block for variable getter.
@@ -71,6 +60,8 @@ Blockly.Blocks['variables_get'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,  
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -109,50 +100,6 @@ Blockly.Blocks['variables_get'] = {
   }
 };
 
-// Blockly.Blocks['variables_set'] = {
-//   /**
-//    * Block for variable setter.
-//    * @this Blockly.Block
-//    */
-//   init: function() {
-//     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-//     this.setColour(330);
-//     this.interpolateMsg(
-//         // TODO: Combine these messages instead of using concatenation.
-//         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-//         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-//         ['VAR', new Blockly.FieldVariable(Blockly.Msg.VARIABLES_SET_ITEM)],
-//         ['VALUE', null, Blockly.ALIGN_RIGHT],
-//         Blockly.ALIGN_RIGHT);
-//     this.setPreviousStatement(true);
-//     this.setNextStatement(true);
-//     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-//     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-//     this.contextMenuType_ = 'variables_get';
-//   },
-//   /**
-//    * Return all variables referenced by this block.
-//    * @return {!Array.<string>} List of variable names.
-//    * @this Blockly.Block
-//    */
-//   getVars: function() {
-//     return [this.getFieldValue('VAR')];
-//   },
-//   /**
-//    * Notification that a variable is renaming.
-//    * If the name matches one of this block's variables, rename it.
-//    * @param {string} oldName Previous name of variable.
-//    * @param {string} newName Renamed variable.
-//    * @this Blockly.Block
-//    */
-//   renameVar: function(oldName, newName) {
-//     if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-//       this.setFieldValue(newName, 'VAR');
-//     }
-//   },
-//   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
-// };
-
 Blockly.Blocks['variables_set'] = {
   /**
    * Block for variable setter.
@@ -174,6 +121,8 @@ Blockly.Blocks['variables_set'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -216,6 +165,8 @@ Blockly.Blocks['variables_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -276,6 +227,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -347,6 +300,8 @@ Blockly.Blocks['variables_array_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -388,19 +343,3 @@ Blockly.Blocks['variables_array_declare'] = {
   },
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
-
-Blockly.Blocks['variables_return'] = {
-  init : function() {
-    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
-    this.interpolateMsg(
-        // TODO: Combine these messages instead of using concatenation.
-        Blockly.Msg.VARIABLES_RETURN + ' %1 ',
-        ['VALUE', null, Blockly.ALIGN_RIGHT],
-        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-  }
-}

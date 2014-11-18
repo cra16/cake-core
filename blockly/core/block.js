@@ -1841,6 +1841,8 @@ Blockly.Block.prototype.setWarningText = function(text) {
       changedState = true;
     }
     this.warning.setText(/** @type {string} */ (text));
+    //when warning is set, the warning must be shown
+    this.warning.setVisible(true);
   } else {
     if (this.warning) {
       this.warning.dispose();

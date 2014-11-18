@@ -104,7 +104,7 @@ Blockly.cake['logic_negate'] = function(block) {
 
 Blockly.cake['logic_boolean'] = function(block) {
   // Boolean values true and false.
-  var code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  var code = (block.getFieldValue('BOOL') == 'TRUE') ? '1' : '0';
   return [code, Blockly.cake.ORDER_ATOMIC];
 };
 

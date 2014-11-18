@@ -52,8 +52,10 @@ Blockly.Blocks['library_stdio_printf'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_scanf'] = {
@@ -70,7 +72,9 @@ Blockly.Blocks['library_stdio_scanf'] = {
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-  }
+  },
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fopen'] = {
@@ -88,8 +92,10 @@ Blockly.Blocks['library_stdio_fopen'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fclose'] = {
@@ -107,8 +113,10 @@ Blockly.Blocks['library_stdio_fclose'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fprintf'] = {
@@ -126,8 +134,10 @@ Blockly.Blocks['library_stdio_fprintf'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fscanf'] = {
@@ -145,8 +155,10 @@ Blockly.Blocks['library_stdio_fscanf'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fflush'] = {
@@ -164,8 +176,10 @@ Blockly.Blocks['library_stdio_fflush'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_fread'] = {
@@ -183,8 +197,10 @@ Blockly.Blocks['library_stdio_fread'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 
@@ -203,8 +219,10 @@ Blockly.Blocks['library_stdio_fwrite'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_getchar'] = {
@@ -222,8 +240,10 @@ Blockly.Blocks['library_stdio_getchar'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_putchar'] = {
@@ -241,8 +261,10 @@ Blockly.Blocks['library_stdio_putchar'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_gets'] = {
@@ -260,8 +282,10 @@ Blockly.Blocks['library_stdio_gets'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };
 
 Blockly.Blocks['library_stdio_puts'] = {
@@ -279,6 +303,8 @@ Blockly.Blocks['library_stdio_puts'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
+  },
   //text block's newQuote replaces this.newQuote
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
 };

@@ -63,6 +63,8 @@ Blockly.Blocks['controls_if'] = {
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Create XML to represent the number of else-if and else inputs.
    * @return {Element} XML storage element.
@@ -297,7 +299,9 @@ Blockly.Blocks['logic_compare'] = {
       };
       return TOOLTIPS[op];
     });
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['logic_operation'] = {
@@ -328,7 +332,9 @@ Blockly.Blocks['logic_operation'] = {
       };
       return TOOLTIPS[op];
     });
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['logic_negate'] = {
@@ -344,7 +350,9 @@ Blockly.Blocks['logic_negate'] = {
                         ['BOOL', 'Boolean', Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['logic_boolean'] = {
@@ -362,7 +370,9 @@ Blockly.Blocks['logic_boolean'] = {
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
     this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['logic_null'] = {
@@ -377,7 +387,9 @@ Blockly.Blocks['logic_null'] = {
     this.appendDummyInput()
         .appendField(Blockly.Msg.LOGIC_NULL);
     this.setTooltip(Blockly.Msg.LOGIC_NULL_TOOLTIP);
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['logic_ternary'] = {
@@ -397,5 +409,7 @@ Blockly.Blocks['logic_ternary'] = {
         .appendField(Blockly.Msg.LOGIC_TERNARY_IF_FALSE);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.LOGIC_TERNARY_TOOLTIP);
-  }
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };

@@ -20,6 +20,8 @@ Blockly.Blocks['library_func_paren'] = {
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
 
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Create an image of an open or closed quote.
    * @param {boolean} open True if open quote, false if closed.
@@ -52,8 +54,10 @@ Blockly.Blocks['library_stdlib_rand'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
-  //text block's newQuote replaces this.newQuote
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
 };
 
 Blockly.Blocks['library_stdlib_srand'] = {
@@ -71,8 +75,9 @@ Blockly.Blocks['library_stdlib_srand'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
-  //text block's newQuote replaces this.newQuote
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['library_stdlib_malloc'] = {
@@ -90,8 +95,9 @@ Blockly.Blocks['library_stdlib_malloc'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
-  //text block's newQuote replaces this.newQuote
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['library_stdlib_free'] = {
@@ -109,8 +115,9 @@ Blockly.Blocks['library_stdlib_free'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
-  //text block's newQuote replaces this.newQuote
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };
 
 Blockly.Blocks['library_stdlib_exit'] = {
@@ -128,6 +135,7 @@ Blockly.Blocks['library_stdlib_exit'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  }
-  //text block's newQuote replaces this.newQuote
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
 };

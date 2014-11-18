@@ -58,7 +58,6 @@ Blockly.Blocks['main_block'] = {
     this.arguments_[0] = 'argc';
     this.arguments_[1] = 'argv';
     this.statementConnection_ = null;
-    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   }
 }
