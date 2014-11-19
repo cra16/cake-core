@@ -194,6 +194,24 @@ function getFields(block) {
           fields.push('new Blockly.FieldVariable(' + varname + '), ' +
               escapeString(block.getFieldValue('FIELDNAME')));
           break;
+
+        case 'field_variable_pointer':
+          // Result:
+          // new Blockly.FieldVariablePointer('item'), 'VAR'
+          var varname = block.getFieldValue('TEXT');
+          varname = varname ? escapeString(varname) : 'null';
+          fields.push('new Blockly.FieldVariablePointer(' + varname + '), ' +
+              escapeString(block.getFieldValue('FIELDNAME')));
+          break;
+        case 'field_variable_array':
+          // Result:
+          // new Blockly.FieldVariableArray('item'), 'VAR'
+          var varname = block.getFieldValue('TEXT');
+          varname = varname ? escapeString(varname) : 'null';
+          fields.push('new Blockly.FieldVariableArray(' + varname + '), ' +
+              escapeString(block.getFieldValue('FIELDNAME')));
+          break;
+
         case 'field_dropdown':
           // Result:
           // new Blockly.FieldDropdown([['yes', '1'], ['no', '0']]), 'TOGGLE'
