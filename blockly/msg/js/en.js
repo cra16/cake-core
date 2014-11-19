@@ -427,5 +427,6 @@ Blockly.Msg.FUNCTION_SET_TYPE_LONG = 'long';
 Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG = 'long long';
 Blockly.Msg.FUNCTION_SET_TYPE_SHORT = 'short';
 Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
+Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
 
 Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';

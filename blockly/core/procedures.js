@@ -31,7 +31,8 @@ goog.provide('Blockly.Procedures');
 goog.require('Blockly.FieldVariable');
 goog.require('Blockly.Names');
 goog.require('Blockly.Workspace');
-
+goog.require('Blockly.Block');
+goog.require('Blockly.Connection');
 
 /**
  * Category to separate procedure names from variables and generated functions.
@@ -282,4 +283,22 @@ Blockly.Procedures.getDefinition = function(name, workspace) {
     }
   }
   return null;
+};
+
+Blockly.Procedures.typeCheck = function(){
+  var type = ['int','float','double','long','short','long','char'];
+  var pointer_iteration = ['Normal','Double','Triple'];
+};
+/**
+ * Check return value is proper type in that function
+ * @param {string} returnType Return type of function
+ * @param {string, integer, float, double, etc} returnValue Actual return value of function
+ */
+Blockly.Procedures.returnTypeCheck = function(returnType, returnValue){
+  var available = true;
+
+  //if return value is not proper, block show the warning meesage
+  if(!available){
+    Blockly.Block.setWarningText('Warning: return value is not proper.\nPlease confirm the return type');
+  }
 };
