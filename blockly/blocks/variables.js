@@ -52,7 +52,7 @@ Blockly.Blocks['variables_get'] = {
     this.setColour(330);
     this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-        .appendField(new Blockly.FieldVariable('--Select--', null, 'variables'), 'VAR')
+        .appendField(new Blockly.FieldVariable('--Select--', null), 'VAR')
         .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -154,7 +154,7 @@ Blockly.Blocks['variables_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, 'variables')],
+        ['VAR', new Blockly.FieldVariable('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -260,7 +260,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     this.setColour(45);
     this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-        .appendField(new Blockly.FieldVariable('--Select--', null, 'pointer'), 'VAR')
+        .appendField(new Blockly.FieldVariablePointer('--Select--', null), 'VAR')
         .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -317,7 +317,7 @@ Blockly.Blocks['variables_pointer_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, 'pointer')],
+        ['VAR', new Blockly.FieldVariablePointer('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
@@ -436,7 +436,7 @@ Blockly.Blocks['variables_array_get'] = {
     this.setColour(90);
     this.appendDummyInput()
         .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-        .appendField(new Blockly.FieldVariable('--Select--', null, 'array'), 'VAR')
+        .appendField(new Blockly.FieldVariableArray('--Select--', null), 'VAR')
         .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -493,7 +493,7 @@ Blockly.Blocks['variables_array_set'] = {
         // TODO: Combine these messages instead of using concatenation.
         Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
         Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, 'array')],
+        ['VAR', new Blockly.FieldVariableArray('--Select--', null)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
         Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
