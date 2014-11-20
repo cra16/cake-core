@@ -439,3 +439,6 @@ Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
 Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
+
+Blockly.Msg.CONTROLS_SWITCH = 'switch ';
+Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';

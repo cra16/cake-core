@@ -96,7 +96,7 @@ Blockly.cake.ORDER_NONE = 99;          // (...)
 Blockly.cake.INFINITE_LOOP_TRAP = null;
 
 /**
- * Initialise the database of variable names.
+ * Initialize the database of variable names.
  */
 Blockly.cake.init = function() {
   // Create a dictionary of definitions to be printed before the code.

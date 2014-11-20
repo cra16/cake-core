@@ -33,12 +33,12 @@ Blockly.cake['controls_if'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
   var argument = Blockly.cake.valueToCode(block, 'IF' + n,
-      Blockly.cake.ORDER_NONE) || 'false';
+    Blockly.cake.ORDER_NONE) || '0';
   var branch = Blockly.cake.statementToCode(block, 'DO' + n);
   var code = 'if (' + argument + ') {\n' + branch + '}';
   for (n = 1; n <= block.elseifCount_; n++) {
     argument = Blockly.cake.valueToCode(block, 'IF' + n,
-        Blockly.cake.ORDER_NONE) || 'false';
+      Blockly.cake.ORDER_NONE) || '0';
     branch = Blockly.cake.statementToCode(block, 'DO' + n);
     code += ' else if (' + argument + ') {\n' + branch + '}';
   }
@@ -61,7 +61,7 @@ Blockly.cake['logic_compare'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('OP')];
   var order = (operator == '==' || operator == '!=') ?
-      Blockly.cake.ORDER_EQUALITY : Blockly.cake.ORDER_RELATIONAL;
+    Blockly.cake.ORDER_EQUALITY : Blockly.cake.ORDER_RELATIONAL;
   var argument0 = Blockly.cake.valueToCode(block, 'A', order) || '0';
   var argument1 = Blockly.cake.valueToCode(block, 'B', order) || '0';
   var code = argument0 + ' ' + operator + ' ' + argument1;
@@ -72,16 +72,16 @@ Blockly.cake['logic_operation'] = function(block) {
   // Operations 'and', 'or'.
   var operator = (block.getFieldValue('OP') == 'AND') ? '&&' : '||';
   var order = (operator == '&&') ? Blockly.cake.ORDER_LOGICAL_AND :
-      Blockly.cake.ORDER_LOGICAL_OR;
+    Blockly.cake.ORDER_LOGICAL_OR;
   var argument0 = Blockly.cake.valueToCode(block, 'A', order);
   var argument1 = Blockly.cake.valueToCode(block, 'B', order);
   if (!argument0 && !argument1) {
     // If there are no arguments, then the return value is false.
-    argument0 = 'false';
-    argument1 = 'false';
+    argument0 = '0';
+    argument1 = '0';
   } else {
     // Single missing arguments have no effect on the return value.
-    var defaultArgument = (operator == '&&') ? 'true' : 'false';
+    var defaultArgument = (operator == '&&') ? '1' : '0';
     if (!argument0) {
       argument0 = defaultArgument;
     }
@@ -97,7 +97,7 @@ Blockly.cake['logic_negate'] = function(block) {
   // Negation.
   var order = Blockly.cake.ORDER_LOGICAL_NOT;
   var argument0 = Blockly.cake.valueToCode(block, 'BOOL', order) ||
-      'true';
+    '1';
   var code = '!' + argument0;
   return [code, order];
 };
@@ -116,11 +116,28 @@ Blockly.cake['logic_null'] = function(block) {
 Blockly.cake['logic_ternary'] = function(block) {
   // Ternary operator.
   var value_if = Blockly.cake.valueToCode(block, 'IF',
-      Blockly.cake.ORDER_CONDITIONAL) || 'false';
+    Blockly.cake.ORDER_CONDITIONAL) || '0';
   var value_then = Blockly.cake.valueToCode(block, 'THEN',
-      Blockly.cake.ORDER_CONDITIONAL) || 'null';
+    Blockly.cake.ORDER_CONDITIONAL) || 'null';
   var value_else = Blockly.cake.valueToCode(block, 'ELSE',
-      Blockly.cake.ORDER_CONDITIONAL) || 'null';
+    Blockly.cake.ORDER_CONDITIONAL) || 'null';
   var code = value_if + ' ? ' + value_then + ' : ' + value_else
   return [code, Blockly.cake.ORDER_CONDITIONAL];
+};
+
+Blockly.cake['controls_switch'] = function(block) {
+  // If/elseif/else condition.
+  var n = 0;
+  var condition = Blockly.cake.valueToCode(block, 'SWITCH', Blockly.cake.ORDER_NONE) || '0';
+  var argument = Blockly.cake.valueToCode(block, 'CASE' + n,
+    Blockly.cake.ORDER_NONE) || n;
+  var branch = Blockly.cake.statementToCode(block, 'DO' + n);
+  var code = 'switch (' + condition + ') {\ncase: ' + argument +'\n{\n'+ branch + '}';
+  for (n = 1; n <= block.caseCount_; n++) {
+    argument = Blockly.cake.valueToCode(block, 'CASE' + n,
+      Blockly.cake.ORDER_NONE) || n;
+    branch = Blockly.cake.statementToCode(block, 'DO' + n);
+    code += '\ncase :' + argument + '\n{\n' + branch + '}';
+  }
+  return code + '\n';
 };

@@ -45,6 +45,12 @@ Blockly.cake['define_declare'] = function(block) {
   return define + ' ' + varName + ' ' + argument0 + '\n';
 };
 
+Blockly.cake['text'] = function(block) {
+  // Text value.
+  var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+  return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
 Blockly.cake['variables_get'] = function(block) {
   // Variable getter.
   var code = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),
