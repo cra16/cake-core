@@ -258,7 +258,7 @@ Blockly.Procedures.disposeCallers = function(name, workspace) {
  * @param {!Array.<string>} paramIds Array of unique parameter IDs.
  */
 Blockly.Procedures.mutateCallers = function(name, types, workspace,
-                                            paramNames, paramTypes, paramIds) {
+  paramNames, paramTypes, paramIds) {
   var callers = Blockly.Procedures.getCallers(name, workspace);
   for (var x = 0; x < callers.length; x++) {
     callers[x].setProcedureParameters(paramNames, paramTypes, paramIds);
@@ -285,20 +285,20 @@ Blockly.Procedures.getDefinition = function(name, workspace) {
   return null;
 };
 
-Blockly.Procedures.typeCheck = function(){
-  var type = ['int','float','double','long','short','long','char'];
-  var pointer_iteration = ['Normal','Double','Triple'];
+Blockly.Procedures.typeCheck = function() {
+  var type = ['int', 'float', 'double', 'long', 'short', 'long', 'char'];
+  var pointer_iteration = ['Normal', 'Double', 'Triple'];
 };
 /**
  * Check return value is proper type in that function
  * @param {string} returnType Return type of function
  * @param {string, integer, float, double, etc} returnValue Actual return value of function
  */
-Blockly.Procedures.returnTypeCheck = function(returnType, returnValue){
+Blockly.Procedures.returnTypeCheck = function(returnType, returnValue) {
   var available = true;
 
   //if return value is not proper, block show the warning meesage
-  if(!available){
+  if (!available) {
     Blockly.Block.setWarningText('Warning: return value is not proper.\nPlease confirm the return type');
   }
 };

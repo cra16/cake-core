@@ -73,9 +73,11 @@ function updateLanguage() {
       code.push('    this.setColour(' + hue + ');');
     }
     // Generate inputs.
-    var TYPES = {'input_value': 'appendValueInput',
-                 'input_statement': 'appendStatementInput',
-                 'input_dummy': 'appendDummyInput'};
+    var TYPES = {
+      'input_value': 'appendValueInput',
+      'input_statement': 'appendStatementInput',
+      'input_dummy': 'appendDummyInput'
+    };
     var inputVarDefined = false;
     var contentsBlock = rootBlock.getInputTargetBlock('INPUTS');
     while (contentsBlock) {
@@ -89,7 +91,7 @@ function updateLanguage() {
         }
         var check = getOptTypesFrom(contentsBlock, 'TYPE');
         code.push('    this.' + TYPES[contentsBlock.type] +
-            '(' + name + ')');
+          '(' + name + ')');
         if (check && check != 'null') {
           code.push('        .setCheck(' + check + ')');
         }
@@ -103,7 +105,7 @@ function updateLanguage() {
         code[code.length - 1] += ';';
       }
       contentsBlock = contentsBlock.nextConnection &&
-          contentsBlock.nextConnection.targetBlock();
+        contentsBlock.nextConnection.targetBlock();
     }
     // Generate inline/external switch.
     if (rootBlock.getFieldValue('INLINE') == 'INT') {
@@ -165,26 +167,26 @@ function getFields(block) {
         case 'field_input':
           // Result: new Blockly.FieldTextInput('Hello'), 'GREET'
           fields.push('new Blockly.FieldTextInput(' +
-              escapeString(block.getFieldValue('TEXT')) + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('TEXT')) + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
         case 'field_angle':
           // Result: new Blockly.FieldAngle(90), 'ANGLE'
           fields.push('new Blockly.FieldAngle(' +
-              escapeString(block.getFieldValue('ANGLE')) + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('ANGLE')) + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
         case 'field_checkbox':
           // Result: new Blockly.FieldCheckbox('TRUE'), 'CHECK'
           fields.push('new Blockly.FieldCheckbox(' +
-              escapeString(block.getFieldValue('CHECKED')) + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('CHECKED')) + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
         case 'field_colour':
           // Result: new Blockly.FieldColour('#ff0000'), 'COLOUR'
           fields.push('new Blockly.FieldColour(' +
-              escapeString(block.getFieldValue('COLOUR')) + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('COLOUR')) + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
         case 'field_variable':
           // Result:
@@ -192,7 +194,7 @@ function getFields(block) {
           var varname = block.getFieldValue('TEXT');
           varname = varname ? escapeString(varname) : 'null';
           fields.push('new Blockly.FieldVariable(' + varname + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
 
         case 'field_variable_pointer':
@@ -201,15 +203,25 @@ function getFields(block) {
           var varname = block.getFieldValue('TEXT');
           varname = varname ? escapeString(varname) : 'null';
           fields.push('new Blockly.FieldVariablePointer(' + varname + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
+
         case 'field_variable_array':
           // Result:
           // new Blockly.FieldVariableArray('item'), 'VAR'
           var varname = block.getFieldValue('TEXT');
           varname = varname ? escapeString(varname) : 'null';
           fields.push('new Blockly.FieldVariableArray(' + varname + '), ' +
-              escapeString(block.getFieldValue('FIELDNAME')));
+            escapeString(block.getFieldValue('FIELDNAME')));
+          break;
+
+        case 'field_variable_define':
+          // Result:
+          // new Blockly.FieldVariableArray('item'), 'VAR'
+          var varname = block.getFieldValue('TEXT');
+          varname = varname ? escapeString(varname) : 'null';
+          fields.push('new Blockly.FieldVariableDefine(' + varname + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
           break;
 
         case 'field_dropdown':
@@ -218,12 +230,12 @@ function getFields(block) {
           var options = [];
           for (var x = 0; x < block.optionCount_; x++) {
             options[x] = '[' + escapeString(block.getFieldValue('USER' + x)) +
-                ', ' + escapeString(block.getFieldValue('CPU' + x)) + ']';
+              ', ' + escapeString(block.getFieldValue('CPU' + x)) + ']';
           }
           if (options.length) {
             fields.push('new Blockly.FieldDropdown([' +
-                options.join(', ') + ']), ' +
-                escapeString(block.getFieldValue('FIELDNAME')));
+              options.join(', ') + ']), ' +
+              escapeString(block.getFieldValue('FIELDNAME')));
           }
           break;
         case 'field_image':
@@ -233,7 +245,7 @@ function getFields(block) {
           var height = Number(block.getFieldValue('HEIGHT'));
           var alt = escapeString(block.getFieldValue('ALT'));
           fields.push('new Blockly.FieldImage(' +
-              src + ', ' + width + ', ' + height + ', ' + alt + ')');
+            src + ', ' + width + ', ' + height + ', ' + alt + ')');
           break;
       }
     }
@@ -319,7 +331,7 @@ function updateGenerator() {
   var language = document.getElementById('language').value;
   var code = [];
   code.push("Blockly." + language + "['" + blockType +
-            "'] = function(block) {");
+    "'] = function(block) {");
   var rootBlock = getRootBlock();
   if (rootBlock) {
     // Loop through every block, and generate getters for any fields or inputs.
@@ -332,46 +344,46 @@ function updateGenerator() {
         case 'field_input':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('text', name) +
-                    " = block.getFieldValue('" + name + "');");
+            " = block.getFieldValue('" + name + "');");
           break;
         case 'field_angle':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('angle', name) +
-                    " = block.getFieldValue('" + name + "');");
+            " = block.getFieldValue('" + name + "');");
           break;
         case 'field_dropdown':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('dropdown', name) +
-                    " = block.getFieldValue('" + name + "');");
+            " = block.getFieldValue('" + name + "');");
           break;
         case 'field_checkbox':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('checkbox', name) +
-                    " = block.getFieldValue('" + name + "') == 'TRUE';");
+            " = block.getFieldValue('" + name + "') == 'TRUE';");
           break;
         case 'field_colour':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('colour', name) +
-                    " = block.getFieldValue('" + name + "');");
+            " = block.getFieldValue('" + name + "');");
           break;
         case 'field_variable':
           var name = block.getFieldValue('FIELDNAME');
           code.push(makeVar('variable', name) +
-                    " = Blockly." + language +
-                    ".variableDB_.getName(block.getFieldValue('" + name +
-                    "'), Blockly.Variables.NAME_TYPE);");
+            " = Blockly." + language +
+            ".variableDB_.getName(block.getFieldValue('" + name +
+            "'), Blockly.Variables.NAME_TYPE);");
           break;
         case 'input_value':
           var name = block.getFieldValue('INPUTNAME');
           code.push(makeVar('value', name) +
-                    " = Blockly." + language + ".valueToCode(block, '" + name +
-                    "', Blockly." + language + ".ORDER_ATOMIC);");
+            " = Blockly." + language + ".valueToCode(block, '" + name +
+            "', Blockly." + language + ".ORDER_ATOMIC);");
           break;
         case 'input_statement':
           var name = block.getFieldValue('INPUTNAME');
           code.push(makeVar('statements', name) +
-                    " = Blockly." + language + ".statementToCode(block, '" +
-                    name + "');");
+            " = Blockly." + language + ".statementToCode(block, '" +
+            name + "');");
           break;
       }
     }
@@ -439,13 +451,13 @@ function getRootBlock() {
 function init() {
   if ('BlocklyStorage' in window) {
     BlocklyStorage.HTTPREQUEST_ERROR =
-        'There was a problem with the request.\n';
+      'There was a problem with the request.\n';
     BlocklyStorage.LINK_ALERT =
-        'Share your blocks with this link:\n\n%1';
+      'Share your blocks with this link:\n\n%1';
     BlocklyStorage.HASH_ERROR =
-        'Sorry, "%1" doesn\'t correspond with any saved Blockly file.';
-    BlocklyStorage.XML_ERROR = 'Could not load your saved file.\n'+
-        'Perhaps it was created with a different version of Blockly?';
+      'Sorry, "%1" doesn\'t correspond with any saved Blockly file.';
+    BlocklyStorage.XML_ERROR = 'Could not load your saved file.\n' +
+      'Perhaps it was created with a different version of Blockly?';
     var linkButton = document.getElementById('linkButton');
     linkButton.style.display = 'inline-block';
     linkButton.addEventListener('click', BlocklyStorage.link);
@@ -467,8 +479,10 @@ function init() {
   window.addEventListener('resize', onresize);
 
   var toolbox = document.getElementById('toolbox');
-  Blockly.inject(document.getElementById('blockly'),
-                 {path: '../../', toolbox: toolbox});
+  Blockly.inject(document.getElementById('blockly'), {
+    path: '../../',
+    toolbox: toolbox
+  });
 
   // Create the root block.
   if ('BlocklyStorage' in window && window.location.hash.length > 1) {
@@ -483,8 +497,8 @@ function init() {
 
   Blockly.addChangeListener(onchange);
   document.getElementById('direction')
-      .addEventListener('change', updatePreview);
+    .addEventListener('change', updatePreview);
   document.getElementById('language')
-      .addEventListener('change', updateGenerator);
+    .addEventListener('change', updateGenerator);
 }
 window.addEventListener('load', init);

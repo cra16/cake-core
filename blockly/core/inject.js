@@ -101,7 +101,7 @@ Blockly.parseOptions_ = function(options) {
   } else {
     var tree = Blockly.parseToolboxTree_(options['toolbox']);
     var hasCategories = Boolean(tree &&
-        tree.getElementsByTagName('category').length);
+      tree.getElementsByTagName('category').length);
     var hasTrashcan = options['trashcan'];
     if (hasTrashcan === undefined) {
       hasTrashcan = hasCategories;
@@ -192,21 +192,43 @@ Blockly.createDom_ = function(container) {
                    k1="0" k2="1" k3="1" k4="0"/>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter', {'id': 'blocklyEmboss'}, defs);
-  Blockly.createSvgElement('feGaussianBlur',
-      {'in': 'SourceAlpha', 'stdDeviation': 1, 'result': 'blur'}, filter);
-  feSpecularLighting = Blockly.createSvgElement('feSpecularLighting',
-      {'in': 'blur', 'surfaceScale': 1, 'specularConstant': 0.5,
-      'specularExponent': 10, 'lighting-color': 'white', 'result': 'specOut'},
-      filter);
-  Blockly.createSvgElement('fePointLight',
-      {'x': -5000, 'y': -10000, 'z': 20000}, feSpecularLighting);
-  Blockly.createSvgElement('feComposite',
-      {'in': 'specOut', 'in2': 'SourceAlpha', 'operator': 'in',
-      'result': 'specOut'}, filter);
-  Blockly.createSvgElement('feComposite',
-      {'in': 'SourceGraphic', 'in2': 'specOut', 'operator': 'arithmetic',
-      'k1': 0, 'k2': 1, 'k3': 1, 'k4': 0}, filter);
+  filter = Blockly.createSvgElement('filter', {
+    'id': 'blocklyEmboss'
+  }, defs);
+  Blockly.createSvgElement('feGaussianBlur', {
+    'in': 'SourceAlpha',
+    'stdDeviation': 1,
+    'result': 'blur'
+  }, filter);
+  feSpecularLighting = Blockly.createSvgElement('feSpecularLighting', {
+      'in': 'blur',
+      'surfaceScale': 1,
+      'specularConstant': 0.5,
+      'specularExponent': 10,
+      'lighting-color': 'white',
+      'result': 'specOut'
+    },
+    filter);
+  Blockly.createSvgElement('fePointLight', {
+    'x': -5000,
+    'y': -10000,
+    'z': 20000
+  }, feSpecularLighting);
+  Blockly.createSvgElement('feComposite', {
+    'in': 'specOut',
+    'in2': 'SourceAlpha',
+    'operator': 'in',
+    'result': 'specOut'
+  }, filter);
+  Blockly.createSvgElement('feComposite', {
+    'in': 'SourceGraphic',
+    'in2': 'specOut',
+    'operator': 'arithmetic',
+    'k1': 0,
+    'k2': 1,
+    'k3': 1,
+    'k4': 0
+  }, filter);
   /*
     <filter id="blocklyTrashcanShadowFilter">
       <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
@@ -217,23 +239,38 @@ Blockly.createDom_ = function(container) {
       </feMerge>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter',
-      {'id': 'blocklyTrashcanShadowFilter'}, defs);
-  Blockly.createSvgElement('feGaussianBlur',
-      {'in': 'SourceAlpha', 'stdDeviation': 2, 'result': 'blur'}, filter);
-  Blockly.createSvgElement('feOffset',
-      {'in': 'blur', 'dx': 1, 'dy': 1, 'result': 'offsetBlur'}, filter);
+  filter = Blockly.createSvgElement('filter', {
+    'id': 'blocklyTrashcanShadowFilter'
+  }, defs);
+  Blockly.createSvgElement('feGaussianBlur', {
+    'in': 'SourceAlpha',
+    'stdDeviation': 2,
+    'result': 'blur'
+  }, filter);
+  Blockly.createSvgElement('feOffset', {
+    'in': 'blur',
+    'dx': 1,
+    'dy': 1,
+    'result': 'offsetBlur'
+  }, filter);
   feMerge = Blockly.createSvgElement('feMerge', {}, filter);
-  Blockly.createSvgElement('feMergeNode', {'in': 'offsetBlur'}, feMerge);
-  Blockly.createSvgElement('feMergeNode', {'in': 'SourceGraphic'}, feMerge);
+  Blockly.createSvgElement('feMergeNode', {
+    'in': 'offsetBlur'
+  }, feMerge);
+  Blockly.createSvgElement('feMergeNode', {
+    'in': 'SourceGraphic'
+  }, feMerge);
   /*
     <filter id="blocklyShadowFilter">
       <feGaussianBlur stdDeviation="2"/>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter',
-      {'id': 'blocklyShadowFilter'}, defs);
-  Blockly.createSvgElement('feGaussianBlur', {'stdDeviation': 2}, filter);
+  filter = Blockly.createSvgElement('filter', {
+    'id': 'blocklyShadowFilter'
+  }, defs);
+  Blockly.createSvgElement('feGaussianBlur', {
+    'stdDeviation': 2
+  }, filter);
   /*
     <pattern id="blocklyDisabledPattern" patternUnits="userSpaceOnUse"
              width="10" height="10">
@@ -241,16 +278,24 @@ Blockly.createDom_ = function(container) {
       <path d="M 0 0 L 10 10 M 10 0 L 0 10" stroke="#cc0" />
     </pattern>
   */
-  pattern = Blockly.createSvgElement('pattern',
-      {'id': 'blocklyDisabledPattern', 'patternUnits': 'userSpaceOnUse',
-       'width': 10, 'height': 10}, defs);
-  Blockly.createSvgElement('rect',
-      {'width': 10, 'height': 10, 'fill': '#aaa'}, pattern);
-  Blockly.createSvgElement('path',
-      {'d': 'M 0 0 L 10 10 M 10 0 L 0 10', 'stroke': '#cc0'}, pattern);
+  pattern = Blockly.createSvgElement('pattern', {
+    'id': 'blocklyDisabledPattern',
+    'patternUnits': 'userSpaceOnUse',
+    'width': 10,
+    'height': 10
+  }, defs);
+  Blockly.createSvgElement('rect', {
+    'width': 10,
+    'height': 10,
+    'fill': '#aaa'
+  }, pattern);
+  Blockly.createSvgElement('path', {
+    'd': 'M 0 0 L 10 10 M 10 0 L 0 10',
+    'stroke': '#cc0'
+  }, pattern);
   Blockly.mainWorkspace = new Blockly.Workspace(
-      Blockly.getMainWorkspaceMetrics_,
-      Blockly.setMainWorkspaceMetrics_);
+    Blockly.getMainWorkspaceMetrics_,
+    Blockly.setMainWorkspaceMetrics_);
   svg.appendChild(Blockly.mainWorkspace.createDom());
   Blockly.mainWorkspace.maxBlocks = Blockly.maxBlocks;
 
@@ -275,12 +320,12 @@ Blockly.createDom_ = function(container) {
         if (Blockly.Block.dragMode_ == 0) {
           var metrics = Blockly.mainWorkspace.getMetrics();
           if (metrics.contentTop < 0 ||
-              metrics.contentTop + metrics.contentHeight >
-              metrics.viewHeight + metrics.viewTop ||
-              metrics.contentLeft < (Blockly.RTL ? metrics.viewLeft : 0) ||
-              metrics.contentLeft + metrics.contentWidth > (Blockly.RTL ?
-                  metrics.viewWidth :
-                  metrics.viewWidth + metrics.viewLeft)) {
+            metrics.contentTop + metrics.contentHeight >
+            metrics.viewHeight + metrics.viewTop ||
+            metrics.contentLeft < (Blockly.RTL ? metrics.viewLeft : 0) ||
+            metrics.contentLeft + metrics.contentWidth > (Blockly.RTL ?
+              metrics.viewWidth :
+              metrics.viewWidth + metrics.viewLeft)) {
             // One or more blocks is out of bounds.  Bump them back in.
             var MARGIN = 25;
             var blocks = Blockly.mainWorkspace.getTopBlocks(false);
@@ -289,32 +334,32 @@ Blockly.createDom_ = function(container) {
               var blockHW = block.getHeightWidth();
               // Bump any block that's above the top back inside.
               var overflow = metrics.viewTop + MARGIN - blockHW.height -
-                  blockXY.y;
+                blockXY.y;
               if (overflow > 0) {
                 block.moveBy(0, overflow);
               }
               // Bump any block that's below the bottom back inside.
               var overflow = metrics.viewTop + metrics.viewHeight - MARGIN -
-                  blockXY.y;
+                blockXY.y;
               if (overflow < 0) {
                 block.moveBy(0, overflow);
               }
               // Bump any block that's off the left back inside.
               var overflow = MARGIN + metrics.viewLeft - blockXY.x -
-                  (Blockly.RTL ? 0 : blockHW.width);
+                (Blockly.RTL ? 0 : blockHW.width);
               if (overflow > 0) {
                 block.moveBy(overflow, 0);
               }
               // Bump any block that's off the right back inside.
               var overflow = metrics.viewLeft + metrics.viewWidth - MARGIN -
-                  blockXY.x + (Blockly.RTL ? blockHW.width : 0);
+                blockXY.x + (Blockly.RTL ? blockHW.width : 0);
               if (overflow < 0) {
                 block.moveBy(overflow, 0);
               }
               // Delete any block that's sitting on top of the flyout.
               if (block.isDeletable() && (Blockly.RTL ?
-                  blockXY.x - metrics.viewWidth :
-                  -blockXY.x) > MARGIN * 2) {
+                blockXY.x - metrics.viewWidth :
+                -blockXY.x) > MARGIN * 2) {
                 block.dispose(false, true);
               }
             }
@@ -337,15 +382,15 @@ Blockly.createDom_ = function(container) {
   Blockly.WidgetDiv.DIV.style.direction = Blockly.RTL ? 'rtl' : 'ltr';
   document.body.appendChild(Blockly.WidgetDiv.DIV);
 
-  var block = Blockly.Block.obtain(Blockly.mainWorkspace,'main_block');
+  var block = Blockly.Block.obtain(Blockly.mainWorkspace, 'main_block');
   var xmlBlock = Blockly.Xml.blockToDom_(block);
-  
+
   //main_block attribute setting
-  xmlBlock.setAttribute('deletable',false);
-  xmlBlock.setAttribute('movable',false);
-  xmlBlock.setAttribute('editable',false);
-  
-  Blockly.Xml.domToBlock(Blockly.mainWorkspace,xmlBlock).moveBy(0,250);
+  xmlBlock.setAttribute('deletable', false);
+  xmlBlock.setAttribute('movable', false);
+  xmlBlock.setAttribute('editable', false);
+
+  Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(0, 250);
 
 };
 
@@ -377,7 +422,7 @@ Blockly.init_ = function() {
   Blockly.bindEvent_(Blockly.svg, 'mousemove', null, Blockly.onMouseMove_);
   Blockly.bindEvent_(Blockly.svg, 'contextmenu', null, Blockly.onContextMenu_);
   Blockly.bindEvent_(Blockly.WidgetDiv.DIV, 'contextmenu', null,
-                     Blockly.onContextMenu_);
+    Blockly.onContextMenu_);
 
   if (!Blockly.documentEventsBound_) {
     // Only bind the window/document events once.
@@ -412,12 +457,12 @@ Blockly.init_ = function() {
       var translation = 'translate(' + Blockly.mainWorkspace.scrollX + ', 0)';
       Blockly.mainWorkspace.getCanvas().setAttribute('transform', translation);
       Blockly.mainWorkspace.getBubbleCanvas().setAttribute('transform',
-                                                           translation);
+        translation);
     }
   }
   if (Blockly.hasScrollbars) {
     Blockly.mainWorkspace.scrollbar =
-        new Blockly.ScrollbarPair(Blockly.mainWorkspace);
+      new Blockly.ScrollbarPair(Blockly.mainWorkspace);
     Blockly.mainWorkspace.scrollbar.resize();
   }
 
@@ -425,9 +470,9 @@ Blockly.init_ = function() {
 
   // Load the sounds.
   Blockly.loadAudio_(
-      ['media/click.mp3', 'media/click.wav', 'media/click.ogg'], 'click');
+    ['media/click.mp3', 'media/click.wav', 'media/click.ogg'], 'click');
   Blockly.loadAudio_(
-      ['media/delete.mp3', 'media/delete.ogg', 'media/delete.wav'], 'delete');
+    ['media/delete.mp3', 'media/delete.ogg', 'media/delete.wav'], 'delete');
 };
 
 /**

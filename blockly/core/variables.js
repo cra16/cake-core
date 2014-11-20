@@ -54,18 +54,19 @@ Blockly.Variables.allVariables = function(opt_block) {
   var variableHash = Object.create(null);
   // Iterate through every block and add each variable to the hash.
   for (var x = 0; x < blocks.length; x++) {
-    var func = blocks[x].getDeclare;
+    var funcVar = blocks[x].getDeclare;
+    var funcPro = blocks[x].getParamInfo;
     // window.alert(func);
-    if (func) {
-      var blockVariablesName = func.call(blocks[x]);
-      var funcType = blocks[x].getTypes;
-      var blockVariablesType = funcType.call(blocks[x]);
-      var funcDist = blocks[x].getDist;
-      var blockDistribute = funcDist.call(blocks[x]);
+    if (funcVar) {
+      var blockVariablesName = funcVar.call(blocks[x]);
+      var funcVarType = blocks[x].getTypes;
+      var blockVariablesType = funcVarType.call(blocks[x]);
+      var funcVarDist = blocks[x].getDist;
+      var blockDistribute = funcVarDist.call(blocks[x]);
       // window.alert(blockVariablesName);
       // window.alert(blockVariablesType);
       // window.alert(blockDistribute);
-      for (var w = 0; w < blockDistribute.length; w++){
+      for (var w = 0; w < blockDistribute.length; w++) {
         var varDist = blockDistribute[w];
       }
       for (var z = 0; z < blockVariablesType.length; z++) {
@@ -79,7 +80,7 @@ Blockly.Variables.allVariables = function(opt_block) {
         // }
       }
       if (varName) {
-          variableHash[varName.toLowerCase()] = [varType, varName, varDist];
+        variableHash[varName.toLowerCase()] = [varType, varName, varDist];
       }
     }
   }
@@ -128,10 +129,10 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
       continue;
     }
     var getBlock = Blockly.Blocks['variables_get'] ?
-        Blockly.Block.obtain(workspace, 'variables_get') : null;
+      Blockly.Block.obtain(workspace, 'variables_get') : null;
     getBlock && getBlock.initSvg();
     var setBlock = Blockly.Blocks['variables_set'] ?
-        Blockly.Block.obtain(workspace, 'variables_set') : null;
+      Blockly.Block.obtain(workspace, 'variables_set') : null;
     setBlock && setBlock.initSvg();
     if (variableList[i][1] === null) {
       defaultVariable = (getBlock || setBlock).getVars()[0];
@@ -150,17 +151,20 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
 };
 
 /**
-* Return a new variable name that is not yet being used. This will try to
-* generate single letter variable names in the range 'i' to 'z' to start with.
-* If no unique name is located it will try 'i1' to 'z1', then 'i2' to 'z2' etc.
-* @return {string} New variable name.
-*/
+ * Return a new variable name that is not yet being used. This will try to
+ * generate single letter variable names in the range 'i' to 'z' to start with.
+ * If no unique name is located it will try 'i1' to 'z1', then 'i2' to 'z2' etc.
+ * @return {string} New variable name.
+ */
 Blockly.Variables.generateUniqueName = function() {
   var variableList = Blockly.Variables.allVariables();
   var newName = '';
   if (variableList.length) {
     variableList.sort(goog.string.caseInsensitiveCompare);
-    var nameSuffix = 0, potName = 'i', i = 0, inUse = false;
+    var nameSuffix = 0,
+      potName = 'i',
+      i = 0,
+      inUse = false;
     while (!newName) {
       i = 0;
       inUse = false;

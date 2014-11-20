@@ -353,7 +353,7 @@ Blockly.Msg.VARIABLES_DEFAULT_NAME = "item";
 Blockly.Msg.VARIABLES_GET_CREATE_SET = "Create 'set %1'";
 Blockly.Msg.VARIABLES_GET_HELPURL = "https://code.google.com/p/blockly/wiki/Variables#Get";
 Blockly.Msg.VARIABLES_GET_TAIL = "";
-Blockly.Msg.VARIABLES_GET_TITLE = "";
+Blockly.Msg.VARIABLES_GET_TITLE = "variable";
 Blockly.Msg.VARIABLES_GET_TOOLTIP = "Returns the value of this variable.";
 Blockly.Msg.VARIABLES_SET_CREATE_GET = "Create 'get %1'";
 Blockly.Msg.VARIABLES_SET_HELPURL = "https://code.google.com/p/blockly/wiki/Variables#Set";
@@ -420,6 +420,9 @@ Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'type';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
 
+Blockly.Msg.POINTER_GET_TITLE = "pointer";
+Blockly.Msg.ARRAY_GET_TITLE = "array";
+
 Blockly.Msg.FUNCTION_SET_TYPE_INT = 'int';
 Blockly.Msg.FUNCTION_SET_TYPE_FLOAT = 'float';
 Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE = 'double';
@@ -428,5 +431,11 @@ Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG = 'long long';
 Blockly.Msg.FUNCTION_SET_TYPE_SHORT = 'short';
 Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
 Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
+
+Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
+Blockly.Msg.DEFINE_DECLARE_INIT = 'is';
+Blockly.Msg.DEFINE_GET_TITLE = '#define';
+Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
+Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
 Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';

@@ -94,18 +94,18 @@ Blockly.Blocks.addTemplate = function(details) {
   // Validate inputs.  TODO: Add more.
   goog.asserts.assert(details.blockName);
   goog.asserts.assert(Blockly.Blocks[details.blockName],
-      'Blockly.Blocks already has a field named ', details.blockName);
+    'Blockly.Blocks already has a field named ', details.blockName);
   goog.asserts.assert(details.message);
   goog.asserts.assert(details.colour && typeof details.colour == 'number' &&
-      details.colour >= 0 && details.colour < 360,
-     'details.colour must be a number from 0 to 360 (exclusive)');
+    details.colour >= 0 && details.colour < 360,
+    'details.colour must be a number from 0 to 360 (exclusive)');
   if (details.output != 'undefined') {
     goog.asserts.assert(!details.previousStatement,
-        'When details.output is defined, ' +
-        'details.previousStatement must not be true.');
+      'When details.output is defined, ' +
+      'details.previousStatement must not be true.');
     goog.asserts.assert(!details.nextStatement,
-        'When details.output is defined, ' +
-        'details.nextStatement must not be true.');
+      'When details.output is defined, ' +
+      'details.nextStatement must not be true.');
   }
 
   // Build up template.
@@ -127,11 +127,11 @@ Blockly.Blocks.addTemplate = function(details) {
       this.setOutput(true, details.output);
     } else {
       this.setPreviousStatement(
-          typeof details.previousStatement == 'undefined' ?
-              true : details.previousStatement);
+        typeof details.previousStatement == 'undefined' ?
+        true : details.previousStatement);
       this.setNextStatement(
-          typeof details.nextStatement == 'undefined' ?
-              true : details.nextStatement);
+        typeof details.nextStatement == 'undefined' ?
+        true : details.nextStatement);
     }
     // Build up arguments in the format expected by interpolateMsg.
     var interpArgs = [];
@@ -142,9 +142,9 @@ Blockly.Blocks.addTemplate = function(details) {
         goog.asserts.assert(arg.check != 'undefined');
         if (arg.type == 'undefined' || arg.type == Blockly.INPUT_VALUE) {
           interpArgs.push([arg.name,
-                           arg.check,
-                           typeof arg.align == 'undefined' ? Blockly.ALIGN_RIGHT
-                               : arg.align]);
+            arg.check,
+            typeof arg.align == 'undefined' ? Blockly.ALIGN_RIGHT : arg.align
+          ]);
         } else {
           // TODO: Write code for other input types.
           goog.asserts.fail('addTemplate() can only handle value inputs.');
@@ -163,8 +163,7 @@ Blockly.Blocks.addTemplate = function(details) {
   // Create mutationToDom if needed.
   if (details.switchable) {
     block.mutationToDom = function() {
-      var container = details.mutationToDomFunc ? details.mutatationToDomFunc()
-          : document.createElement('mutation');
+      var container = details.mutationToDomFunc ? details.mutatationToDomFunc() : document.createElement('mutation');
       container.setAttribute('is_statement', this['isStatement'] || false);
       return container;
     };
@@ -190,5 +189,17 @@ Blockly.Blocks.requireInFunction = function() {
     this.setWarningText(null);
   } else {
     this.setWarningText('Warning: Place this block inside a function.');
+  }
+}
+
+Blockly.Blocks.requireOutFunction=function(){
+  if (!this.workspace) {
+    // Block has been deleted.
+    return;
+  }
+  if (!this.getSurroundParent()) {
+    this.setWarningText(null);
+  } else {
+    this.setWarningText('Warning: Place this block out of a function.');
   }
 }

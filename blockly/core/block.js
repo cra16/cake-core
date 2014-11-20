@@ -80,14 +80,14 @@ Blockly.genUid = function() {
 };
 
 /**
-* Class for one block.
-* @constructor
-*/
+ * Class for one block.
+ * @constructor
+ */
 Blockly.Block = function() {
   // We assert this here because there may be users of the previous form of
   // this constructor, which took arguments.
   goog.asserts.assert(arguments.length == 0,
-      'Please use Blockly.Block.obtain.');
+    'Please use Blockly.Block.obtain.');
 };
 
 /**
@@ -120,7 +120,7 @@ Blockly.Block.prototype.initialize = function(workspace, prototypeName) {
   // Bind an onchange function, if it exists.
   if (goog.isFunction(this.onchange)) {
     Blockly.bindEvent_(workspace.getCanvas(), 'blocklyWorkspaceChange', this,
-        this.onchange);
+      this.onchange);
   }
 };
 
@@ -155,7 +155,7 @@ Blockly.Block.prototype.fill = function(workspace, prototypeName) {
     this.type = prototypeName;
     var prototype = Blockly.Blocks[prototypeName];
     goog.asserts.assertObject(prototype,
-        'Error: "%s" is an unknown language block.', prototypeName);
+      'Error: "%s" is an unknown language block.', prototypeName);
     goog.mixin(this, prototype);
   }
   // Call an initialization function, if it exists.
@@ -229,7 +229,7 @@ Blockly.Block.prototype.initSvg = function() {
   this.svg_.init();
   if (!Blockly.readOnly) {
     Blockly.bindEvent_(this.svg_.getRootElement(), 'mousedown', this,
-                       this.onMouseDown_);
+      this.onMouseDown_);
   }
   this.workspace.getCanvas().appendChild(this.svg_.getRootElement());
 };
@@ -291,7 +291,7 @@ Blockly.Block.terminateDrag_ = function() {
       selected.setDragging_(false);
       selected.render();
       goog.Timer.callOnce(
-          selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
+        selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
       // Fire an event to allow scrollbars to resize.
       Blockly.fireUiEvent(window, 'resize');
     }
@@ -336,7 +336,7 @@ Blockly.Block.prototype.unselect = function() {
  *     from the workspace's list of top blocks.
  */
 Blockly.Block.prototype.dispose = function(healStack, animate,
-                                           dontRemoveFromWorkspace) {
+  dontRemoveFromWorkspace) {
   // Switch off rerendering.
   this.rendered = false;
   this.unplug(healStack);
@@ -459,7 +459,10 @@ Blockly.Block.prototype.getRelativeToSurfaceXY = function() {
       element = element.parentNode;
     } while (element && element != this.workspace.getCanvas());
   }
-  return {x: x, y: y};
+  return {
+    x: x,
+    y: y
+  };
 };
 
 /**
@@ -470,7 +473,7 @@ Blockly.Block.prototype.getRelativeToSurfaceXY = function() {
 Blockly.Block.prototype.moveBy = function(dx, dy) {
   var xy = this.getRelativeToSurfaceXY();
   this.svg_.getRootElement().setAttribute('transform',
-      'translate(' + (xy.x + dx) + ', ' + (xy.y + dy) + ')');
+    'translate(' + (xy.x + dx) + ', ' + (xy.y + dy) + ')');
   this.moveConnections_(dx, dy);
   Blockly.Realtime.blockChanged(this);
 };
@@ -487,10 +490,13 @@ Blockly.Block.prototype.getHeightWidth = function() {
   var nextBlock = this.getNextBlock();
   if (nextBlock) {
     var nextHeightWidth = nextBlock.getHeightWidth();
-    height += nextHeightWidth.height - 4;  // Height of tab.
+    height += nextHeightWidth.height - 4; // Height of tab.
     width = Math.max(width, nextHeightWidth.width);
   }
-  return {height: height, width: width};
+  return {
+    height: height,
+    width: width
+  };
 };
 
 /**
@@ -528,9 +534,9 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
     this.startDragMouseY = e.clientY;
     Blockly.Block.dragMode_ = 1;
     Blockly.Block.onMouseUpWrapper_ = Blockly.bindEvent_(document,
-        'mouseup', this, this.onMouseUp_);
+      'mouseup', this, this.onMouseUp_);
     Blockly.Block.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
-        'mousemove', this, this.onMouseMove_);
+      'mousemove', this, this.onMouseMove_);
     // Build a list of bubbles that need to be moved and where they started.
     this.draggedBubbles_ = [];
     var descendants = this.getDescendants();
@@ -613,7 +619,8 @@ Blockly.Block.prototype.duplicate_ = function() {
   var xmlBlock = Blockly.Xml.blockToDom_(this);
   Blockly.Xml.deleteNext(xmlBlock);
   var newBlock = Blockly.Xml.domToBlock(
-      /** @type {!Blockly.Workspace} */ (this.workspace), xmlBlock);
+    /** @type {!Blockly.Workspace} */
+    (this.workspace), xmlBlock);
   // Move the duplicate next to the old block.
   var xy = this.getRelativeToSurfaceXY();
   if (Blockly.RTL) {
@@ -656,7 +663,9 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
 
     if (this.isEditable() && !this.collapsed_) {
       // Option to add/remove a comment.
-      var commentOption = {enabled: true};
+      var commentOption = {
+        enabled: true
+      };
       if (this.comment) {
         commentOption.text = Blockly.Msg.REMOVE_COMMENT;
         commentOption.callback = function() {
@@ -676,9 +685,11 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
       for (var i = 0; i < this.inputList.length; i++) {
         if (this.inputList[i].type == Blockly.INPUT_VALUE) {
           // Only display this option if there is a value input on the block.
-          var inlineOption = {enabled: true};
+          var inlineOption = {
+            enabled: true
+          };
           inlineOption.text = this.inputsInline ? Blockly.Msg.EXTERNAL_INPUTS :
-                                                  Blockly.Msg.INLINE_INPUTS;
+            Blockly.Msg.INLINE_INPUTS;
           inlineOption.callback = function() {
             block.setInputsInline(!block.inputsInline);
           };
@@ -691,14 +702,18 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
     if (Blockly.collapse) {
       // Option to collapse/expand block.
       if (this.collapsed_) {
-        var expandOption = {enabled: true};
+        var expandOption = {
+          enabled: true
+        };
         expandOption.text = Blockly.Msg.EXPAND_BLOCK;
         expandOption.callback = function() {
           block.setCollapsed(false);
         };
         options.push(expandOption);
       } else {
-        var collapseOption = {enabled: true};
+        var collapseOption = {
+          enabled: true
+        };
         collapseOption.text = Blockly.Msg.COLLAPSE_BLOCK;
         collapseOption.callback = function() {
           block.setCollapsed(true);
@@ -710,7 +725,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
     // Option to disable/enable block.
     var disableOption = {
       text: this.disabled ?
-          Blockly.Msg.ENABLE_BLOCK : Blockly.Msg.DISABLE_BLOCK,
+        Blockly.Msg.ENABLE_BLOCK : Blockly.Msg.DISABLE_BLOCK,
       enabled: !this.getInheritedDisabled(),
       callback: function() {
         block.setDisabled(!block.disabled);
@@ -727,8 +742,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
       descendantCount -= nextBlock.getDescendants().length;
     }
     var deleteOption = {
-      text: descendantCount == 1 ? Blockly.Msg.DELETE_BLOCK :
-          Blockly.Msg.DELETE_X_BLOCKS.replace('%1', String(descendantCount)),
+      text: descendantCount == 1 ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace('%1', String(descendantCount)),
       enabled: true,
       callback: function() {
         block.dispose(true, true);
@@ -739,7 +753,9 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
 
   // Option to get help.
   var url = goog.isFunction(this.helpUrl) ? this.helpUrl() : this.helpUrl;
-  var helpOption = {enabled: !!url};
+  var helpOption = {
+    enabled: !!url
+  };
   helpOption.text = Blockly.Msg.HELP;
   helpOption.callback = function() {
     block.showHelp_();
@@ -839,7 +855,7 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
   var this_ = this;
   Blockly.doCommand(function() {
     if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
-        e.button == 0) {
+      e.button == 0) {
       /* HACK:
        Safari Mobile 6.0 and Chrome for Android 18.0 fire rogue mousemove events
        on certain touch actions. Ignore events with these signatures.
@@ -867,12 +883,12 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       var x = this_.startDragX + dx;
       var y = this_.startDragY + dy;
       this_.svg_.getRootElement().setAttribute('transform',
-          'translate(' + x + ', ' + y + ')');
+        'translate(' + x + ', ' + y + ')');
       // Drag all the nested bubbles.
       for (var i = 0; i < this_.draggedBubbles_.length; i++) {
         var commentData = this_.draggedBubbles_[i];
         commentData.bubble.setIconLocation(commentData.x + dx,
-            commentData.y + dy);
+          commentData.y + dy);
       }
 
       // Check to see if any of this block's connections are within range of
@@ -893,14 +909,14 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
 
       // Remove connection highlighting if needed.
       if (Blockly.highlightedConnection_ &&
-          Blockly.highlightedConnection_ != closestConnection) {
+        Blockly.highlightedConnection_ != closestConnection) {
         Blockly.highlightedConnection_.unhighlight();
         Blockly.highlightedConnection_ = null;
         Blockly.localConnection_ = null;
       }
       // Add connection highlighting if needed.
       if (closestConnection &&
-          closestConnection != Blockly.highlightedConnection_) {
+        closestConnection != Blockly.highlightedConnection_) {
         closestConnection.highlight();
         Blockly.highlightedConnection_ = closestConnection;
         Blockly.localConnection_ = localConnection;
@@ -1041,7 +1057,7 @@ Blockly.Block.prototype.setParent = function(newParent) {
     var xy = this.getRelativeToSurfaceXY();
     this.workspace.getCanvas().appendChild(this.svg_.getRootElement());
     this.svg_.getRootElement().setAttribute('transform',
-        'translate(' + xy.x + ', ' + xy.y + ')');
+      'translate(' + xy.x + ', ' + xy.y + ')');
 
     // Disconnect from superior blocks.
     this.parentBlock_ = null;
@@ -1274,18 +1290,18 @@ Blockly.Block.prototype.setTooltip = function(newTip) {
 Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
   if (this.previousConnection) {
     goog.asserts.assert(!this.previousConnection.targetConnection,
-        'Must disconnect previous statement before removing connection.');
+      'Must disconnect previous statement before removing connection.');
     this.previousConnection.dispose();
     this.previousConnection = null;
   }
   if (newBoolean) {
     goog.asserts.assert(!this.outputConnection,
-        'Remove output connection prior to adding previous connection.');
+      'Remove output connection prior to adding previous connection.');
     if (opt_check === undefined) {
       opt_check = null;
     }
     this.previousConnection =
-        new Blockly.Connection(this, Blockly.PREVIOUS_STATEMENT);
+      new Blockly.Connection(this, Blockly.PREVIOUS_STATEMENT);
     this.previousConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1303,7 +1319,7 @@ Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
 Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
   if (this.nextConnection) {
     goog.asserts.assert(!this.nextConnection.targetConnection,
-        'Must disconnect next statement before removing connection.');
+      'Must disconnect next statement before removing connection.');
     this.nextConnection.dispose();
     this.nextConnection = null;
   }
@@ -1312,7 +1328,7 @@ Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
       opt_check = null;
     }
     this.nextConnection =
-        new Blockly.Connection(this, Blockly.NEXT_STATEMENT);
+      new Blockly.Connection(this, Blockly.NEXT_STATEMENT);
     this.nextConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1331,18 +1347,18 @@ Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
 Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
   if (this.outputConnection) {
     goog.asserts.assert(!this.outputConnection.targetConnection,
-        'Must disconnect output value before removing connection.');
+      'Must disconnect output value before removing connection.');
     this.outputConnection.dispose();
     this.outputConnection = null;
   }
   if (newBoolean) {
     goog.asserts.assert(!this.previousConnection,
-        'Remove previous connection prior to adding output connection.');
+      'Remove previous connection prior to adding output connection.');
     if (opt_check === undefined) {
       opt_check = null;
     }
     this.outputConnection =
-        new Blockly.Connection(this, Blockly.OUTPUT_VALUE);
+      new Blockly.Connection(this, Blockly.OUTPUT_VALUE);
     this.outputConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1361,7 +1377,7 @@ Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
  */
 Blockly.Block.prototype.changeOutput = function(check) {
   goog.asserts.assert(this.outputConnection,
-      'Only use changeOutput() on blocks that already have an output.');
+    'Only use changeOutput() on blocks that already have an output.');
   this.outputConnection.setCheck(check);
 };
 
@@ -1567,10 +1583,10 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   goog.asserts.assertString(msg);
   var dummyAlign = arguments[arguments.length - 1];
   goog.asserts.assert(
-      dummyAlign === Blockly.ALIGN_LEFT ||
-      dummyAlign === Blockly.ALIGN_CENTRE ||
-      dummyAlign === Blockly.ALIGN_RIGHT,
-      'Illegal final argument "%d" is not an alignment.', dummyAlign);
+    dummyAlign === Blockly.ALIGN_LEFT ||
+    dummyAlign === Blockly.ALIGN_CENTRE ||
+    dummyAlign === Blockly.ALIGN_RIGHT,
+    'Illegal final argument "%d" is not an alignment.', dummyAlign);
   arguments.length = arguments.length - 1;
 
   var tokens = msg.split(this.interpolateMsg.SPLIT_REGEX_);
@@ -1587,17 +1603,17 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
       var number = parseInt(symbol.substring(1), 10);
       var tuple = arguments[number];
       goog.asserts.assertArray(tuple,
-          'Message symbol "%s" is out of range.', symbol);
+        'Message symbol "%s" is out of range.', symbol);
       goog.asserts.assertArray(tuple,
-          'Argument "%s" is not a tuple.', symbol);
+        'Argument "%s" is not a tuple.', symbol);
       if (tuple[1] instanceof Blockly.Field) {
         fields.push([tuple[0], tuple[1]]);
       } else {
         input = this.appendValueInput(tuple[0])
-            .setCheck(tuple[1])
-            .setAlign(tuple[2]);
+          .setCheck(tuple[1])
+          .setAlign(tuple[2]);
       }
-      arguments[number] = null;  // Inputs may not be reused.
+      arguments[number] = null; // Inputs may not be reused.
     } else if (symbol == '\n' && fields.length) {
       // Create a dummy input.
       input = this.appendDummyInput();
@@ -1611,14 +1627,14 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   // If any fields remain, create a trailing dummy input.
   if (fields.length) {
     var input = this.appendDummyInput()
-        .setAlign(dummyAlign);
+      .setAlign(dummyAlign);
     fields.forEach(addFieldToInput, input);
   }
 
   // Verify that all inputs were used.
   for (var i = 1; i < arguments.length - 1; i++) {
     goog.asserts.assert(arguments[i] === null,
-        'Input "%%s" not used in message: "%s"', i, msg);
+      'Input "%%s" not used in message: "%s"', i, msg);
   }
   // Make the inputs inline unless there is only one input and
   // no text follows it.
@@ -1682,7 +1698,7 @@ Blockly.Block.prototype.moveInputBefore = function(name, refName) {
   }
   goog.asserts.assert(inputIndex != -1, 'Named input "%s" not found.', name);
   goog.asserts.assert(refIndex != -1, 'Reference input "%s" not found.',
-                      refName);
+    refName);
   this.moveNumberedInputBefore(inputIndex, refIndex);
 };
 
@@ -1692,13 +1708,13 @@ Blockly.Block.prototype.moveInputBefore = function(name, refName) {
  * @param {number} refIndex Index of input that should be after the moved input.
  */
 Blockly.Block.prototype.moveNumberedInputBefore = function(
-    inputIndex, refIndex) {
+  inputIndex, refIndex) {
   // Validate arguments.
   goog.asserts.assert(inputIndex != refIndex, 'Can\'t move input to itself.');
   goog.asserts.assert(inputIndex < this.inputList.length,
-                      'Input index ' + inputIndex + ' out of bounds.');
+    'Input index ' + inputIndex + ' out of bounds.');
   goog.asserts.assert(refIndex <= this.inputList.length,
-                      'Reference input ' + refIndex + ' out of bounds.');
+    'Reference input ' + refIndex + ' out of bounds.');
   // Remove input.
   var input = this.inputList[inputIndex];
   this.inputList.splice(inputIndex, 1);
@@ -1810,7 +1826,7 @@ Blockly.Block.prototype.setCommentText = function(text) {
       this.comment = new Blockly.Comment(this);
       changedState = true;
     }
-    this.comment.setText(/** @type {string} */ (text));
+    this.comment.setText( /** @type {string} */ (text));
   } else {
     if (this.comment) {
       this.comment.dispose();
@@ -1840,7 +1856,7 @@ Blockly.Block.prototype.setWarningText = function(text) {
       this.warning = new Blockly.Warning(this);
       changedState = true;
     }
-    this.warning.setText(/** @type {string} */ (text));
+    this.warning.setText( /** @type {string} */ (text));
     //when warning is set, the warning must be shown
     this.warning.setVisible(true);
   } else {
@@ -1862,7 +1878,7 @@ Blockly.Block.prototype.setWarningText = function(text) {
  */
 Blockly.Block.prototype.render = function() {
   goog.asserts.assertObject(this.svg_,
-      'Uninitialized block cannot be rendered.  Call block.initSvg()');
+    'Uninitialized block cannot be rendered.  Call block.initSvg()');
   this.svg_.render();
   Blockly.Realtime.blockChanged(this);
 };
@@ -1870,15 +1886,15 @@ Blockly.Block.prototype.render = function() {
 
 Blockly.Blocks.CNameValidator = function(newVar) {
   //Regex tests whether name is a valid C identifier
-  if(!new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$').test(newVar)) {
+  if (!new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$').test(newVar)) {
     return null;
   }
   //Don't allow names that could be used as loop counters
-  if(new RegExp('^index[0-9]+$').test(newVar)) {
+  if (new RegExp('^index[0-9]+$').test(newVar)) {
     return null;
   }
   //Avoid clobbering global names
-  if(Blockly.cake.RESERVED_WORDS_.indexOf(',' + newVar + ',') !== -1) {
+  if (Blockly.cake.RESERVED_WORDS_.indexOf(',' + newVar + ',') !== -1) {
     return null;
   };
   return newVar;

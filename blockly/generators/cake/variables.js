@@ -28,6 +28,22 @@ goog.provide('Blockly.cake.variables');
 
 goog.require('Blockly.cake');
 
+Blockly.cake['define_get'] = function(block) {
+  // Variable getter.
+  var code = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),
+      Blockly.Variables.NAME_TYPE);
+  return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['define_declare'] = function(block) {
+  // Variable declare.
+  var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+      Blockly.cake.ORDER_ASSIGNMENT) || '0';
+  var varName = Blockly.cake.variableDB_.getName(
+      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+  var define = '#define';
+  return define + ' ' + varName + ' ' + argument0 + '\n';
+};
 
 Blockly.cake['variables_get'] = function(block) {
   // Variable getter.
