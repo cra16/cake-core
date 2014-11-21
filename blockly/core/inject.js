@@ -390,7 +390,7 @@ Blockly.createDom_ = function(container) {
   xmlBlock.setAttribute('movable', false);
   xmlBlock.setAttribute('editable', false);
 
-  Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(0, 250);
+  Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
 
 };
 

@@ -408,14 +408,14 @@ Blockly.Msg.VARIABLES_SET_TYPE_LONG = 'long';
 Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG = 'long long';
 Blockly.Msg.VARIABLES_SET_TYPE_SHORT = 'short';
 Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE = 'long double';
-Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL = 'Normal';
-Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE = 'Double';
-Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = 'Triple';
+Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL = '*';
+Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE = '**';
+Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';
 Blockly.Msg.VARIABLES_DECLARE_TITLE = 'type';
 Blockly.Msg.VARIABLES_DECLARE_NAME = 'name';
 Blockly.Msg.VARIABLES_DECLARE_INIT = 'initial value';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = 'type';
-Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '중첩';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'type';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
@@ -442,3 +442,15 @@ Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
 
 Blockly.Msg.CONTROLS_SWITCH = 'switch ';
 Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
+
+Blockly.Msg.STRUCTURE_DEFINE_TITLE = 'structure type name';
+Blockly.Msg.STRUCTURE_DEFINE_NAME = 'myStructure';
+Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE = 'members';
+Blockly.Msg.STRUCTURE_MUTATORARG_TITLE = 'member type';
+Blockly.Msg.STRUCTURE_MUTATORARG_NAME = 'name';
+
+Blockly.Msg.STRUCTURE_DECLARE_TITLE = 'type';
+Blockly.Msg.STRUCTURE_DECLARE_TALE = 'name';
+Blockly.Msg.STRUCTURE_DECLARE_NAME = 'myStructure1';
+
+Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';

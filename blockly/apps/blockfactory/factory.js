@@ -224,6 +224,15 @@ function getFields(block) {
             escapeString(block.getFieldValue('FIELDNAME')));
           break;
 
+        case 'field_structure':
+          // Result:
+          // new Blockly.FieldVariableArray('item'), 'VAR'
+          var varname = block.getFieldValue('TEXT');
+          varname = varname ? escapeString(varname) : 'null';
+          fields.push('new Blockly.FieldStructure(' + varname + '), ' +
+            escapeString(block.getFieldValue('FIELDNAME')));
+          break;
+
         case 'field_dropdown':
           // Result:
           // new Blockly.FieldDropdown([['yes', '1'], ['no', '0']]), 'TOGGLE'
