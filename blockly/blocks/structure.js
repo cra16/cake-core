@@ -329,8 +329,6 @@ Blockly.Blocks['structure_get'] = {
       .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-    // console.log(this.getInput('struct').fieldRow);
-    // this.getInput('struct').removeField('Mem');
   },
   //when the block is changed, 
   onchange: function() {
