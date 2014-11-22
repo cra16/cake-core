@@ -28,7 +28,8 @@ goog.provide('Blockly.FieldStructureMember');
 
 goog.require('Blockly.FieldDropdown');
 goog.require('Blockly.Msg');
-goog.require('Blockly.Variables');
+goog.require('Blockly.Structure');
+goog.require('Blockly.Field');
 
 
 /**
@@ -42,10 +43,10 @@ goog.require('Blockly.Variables');
  * @constructor
  */
 
-Blockly.FieldStructureMember = function(varname, opt_changeHandler) {
+Blockly.FieldStructureMember = function(varname, opt_changeHandler, block) {
 
   Blockly.FieldStructureMember.superClass_.constructor.call(this,
-    Blockly.FieldStructureMember.dropdownCreate, opt_changeHandler);
+    Blockly.FieldStructureMember.dropdownCreate, opt_changeHandler, block);
 
   if (varname) {
     this.setValue(varname);
@@ -88,26 +89,34 @@ Blockly.FieldStructureMember.prototype.setValue = function(text) {
  * @return {!Array.<string>} Array of variable names.
  * @this {!Blockly.FieldStructureMember}
  */
-Blockly.FieldStructureMember.dropdownCreate = function() {
-  var variableList = Blockly.Variables.allVariables();
-  var variableListPop = []; // 보여줄 리스트 거를 것.
-
-  for (var temp = 0; temp < variableList.length; temp++) {
-    if (variableList[temp][2] == 'sd')
-      variableListPop.push(variableList[temp][1]);
+Blockly.FieldStructureMember.dropdownCreate = function(block) {
+  var structureList = Blockly.Structure.allStructure();
+  var structureListPop = []; // 보여줄 리스트 거를 것.
+  var structName = block.getInput('struct').fieldRow[0].text_;
+  for (var temp = 0; temp < structureList[1].length; temp++) {
+    if (structureList[1][temp][2] == structName) {
+      for (var temp2 = 0; temp2 < structureList[1][temp][4].length; temp2++)
+        structureListPop.push(structureList[1][temp][4][temp2])
+    }
   }
-
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
-  if (name && variableListPop.indexOf(name) == -1) {
-    variableListPop.push(name);
-  } else variableListPop.push('--Select--');
-  variableListPop.sort(goog.string.caseInsensitiveCompare);
-
+  if (name && structureListPop.indexOf(name) == -1) {
+    structureListPop.push(name);
+  } else structureListPop.push('--Select--');
+  structureListPop.push('Itself');
+  structureListPop.sort(goog.string.caseInsensitiveCompare);
   var options = [];
-  for (var x = 0; x < variableListPop.length; x++) {
-    options[x] = [variableListPop[x], variableListPop[x]];
+  for (var x = 0; x < structureListPop.length; x++) {
+    options[x] = [structureListPop[x], structureListPop[x]];
   }
+
+  // console.log(options);
   return options;
 
 };
+
+Blockly.FieldStructureMember.dropdownChange = function(block) {
+  block.getInput('struct').removeField('Mem');
+  block.getInput('struct').appendField(new Blockly.FieldStructureMember('--Select--', null, block), 'Mem')
+}

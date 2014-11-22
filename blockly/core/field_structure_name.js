@@ -1,4 +1,3 @@
-
 /**
  * @license
  * Visual Blocks Editor
@@ -84,24 +83,24 @@ Blockly.FieldStructureName.prototype.setValue = function(text) {
  * @this {!Blockly.FieldStructure}
  */
 Blockly.FieldStructureName.dropdownCreate = function() {
-  var variableList = Blockly.Variables.allVariables();
-  var variableListPop = []; // 보여줄 리스트 거를 것.
+  var structureList = Blockly.Structure.allStructure();
+  var structureListPop = []; // 보여줄 리스트 거를 것.
 
-  for (var temp = 0; temp < variableList.length; temp++) {
-    if (variableList[temp][2] == 'sn')
-      variableListPop.push(variableList[temp][1]);
+  for (var temp = 0; temp < structureList[1].length; temp++) {
+    if (structureList[1][temp][0] == 'sd')
+      structureListPop.push(structureList[1][temp][1]);
   }
 
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
-  if (name && variableListPop.indexOf(name) == -1) {
-    variableListPop.push(name);
-  } else variableListPop.push('--Select--');
-  variableListPop.sort(goog.string.caseInsensitiveCompare);
+  if (name && structureListPop.indexOf(name) == -1) {
+    structureListPop.push(name);
+  } else structureListPop.push('--Select--');
+  structureListPop.sort(goog.string.caseInsensitiveCompare);
 
   var options = [];
-  for (var x = 0; x < variableListPop.length; x++) {
-    options[x] = [variableListPop[x], variableListPop[x]];
+  for (var x = 0; x < structureListPop.length; x++) {
+    options[x] = [structureListPop[x], structureListPop[x]];
   }
   return options;
 

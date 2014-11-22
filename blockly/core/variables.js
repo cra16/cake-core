@@ -56,8 +56,6 @@ Blockly.Variables.allVariables = function(opt_block) {
   for (var x = 0; x < blocks.length; x++) {
     var funcVar = blocks[x].getDeclare;
     var funcParamInfo = blocks[x].getParamInfo;
-    var funcStructDefine = blocks[x].getStructDefine;
-    var funcStructDeclare = blocks[x].getStructDeclare;
 
     // window.alert(func);
     if (funcVar) {
@@ -83,55 +81,7 @@ Blockly.Variables.allVariables = function(opt_block) {
       }
     } else if (funcParamInfo) {
 
-    } else if (funcStructDefine) {
-      var blockStructureType = funcStructDefine.call(blocks[x]);
-      var funcStructDist = blocks[x].getDist;
-      var blockStructDist = funcStructDist.call(blocks[x]);
-      //structure member
-      var funcStructMem = blocks[x].getMems;
-      var blockStructMem = funcStructMem.call(blocks[x]);
-      //structure type
-      var funcStructType = blocks[x].getTypes;
-      var blockStructMemType = funcStructType.call(blocks[x]);
-
-      for (var w = 0; w < blockStructDist.length; w++) {
-        var structDist = blockStructDist[w];
-      }
-      for (var y = 0; y < blockStructureType.length; y++) {
-        var structType = blockStructureType[y];
-      }
-      for (var z = 0; z < blockStructMemType.length; z++) {
-        var structMemType = blockStructMemType[z];
-      }
-      for (var v = 0; v < blockStructMem.length; v++) {
-        var structMem = blockStructMem[v];
-      }
-
-      if (structType) {
-        variableHash[structType.toLowerCase()] = [
-          [structMemType, structMem], structType, structDist
-        ];
-      }
     } 
-    else if (funcStructDeclare) {
-      var blockStructName = funcStructDeclare.call(blocks[x]);
-      var funcStructType = blocks[x].getTypes;
-      var blockStructType = funcStructType.call(blocks[x]);
-      var funcStructDist = blocks[x].getDist;
-      var blockStructDist = funcStructDist.call(blocks[x]);
-      for (var w = 0; w < blockStructDist.length; w++) {
-        var structDist = blockStructDist[w];
-      }
-      for (var z = 0; z < blockStructType.length; z++) {
-        var structType = blockStructType[z];
-      }
-      for (var y = 0; y < blockStructName.length; y++) {
-        var structName = blockStructName[y];
-      }
-      if (structName) {
-        variableHash[structName.toLowerCase()] = [structType, structName, structDist];
-      }
-    }
   }
   // Flatten the hash into a list.
   var variableList = [];

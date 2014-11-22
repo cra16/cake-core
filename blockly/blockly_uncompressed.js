@@ -43,6 +43,7 @@ goog.addDependency("../../../" + dir + "/core/field_label.js", ['Blockly.FieldLa
 goog.addDependency("../../../" + dir + "/core/field_textinput.js", ['Blockly.FieldTextInput'], ['Blockly.Field', 'Blockly.Msg', 'goog.asserts', 'goog.userAgent']);
 goog.addDependency("../../../" + dir + "/core/field_variable.js", ['Blockly.FieldVariable'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
 goog.addDependency("../../../" + dir + "/core/field_structure.js", ['Blockly.FieldStructure'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
+goog.addDependency("../../../" + dir + "/core/field_structure_member.js", ['Blockly.FieldStructureMember'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
 goog.addDependency("../../../" + dir + "/core/field_variable_pointer.js", ['Blockly.FieldVariablePointer'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
 goog.addDependency("../../../" + dir + "/core/field_variable_array.js", ['Blockly.FieldVariableArray'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
 goog.addDependency("../../../" + dir + "/core/field_variable_define.js", ['Blockly.FieldVariableDefine'], ['Blockly.FieldDropdown', 'Blockly.Msg', 'Blockly.Variables']);
@@ -55,6 +56,7 @@ goog.addDependency("../../../" + dir + "/core/msg.js", ['Blockly.Msg'], []);
 goog.addDependency("../../../" + dir + "/core/mutator.js", ['Blockly.Mutator'], ['Blockly.Bubble', 'Blockly.Icon']);
 goog.addDependency("../../../" + dir + "/core/names.js", ['Blockly.Names'], []);
 goog.addDependency("../../../" + dir + "/core/procedures.js", ['Blockly.Procedures'], ['Blockly.FieldVariable', 'Blockly.Names', 'Blockly.Workspace']);
+goog.addDependency("../../../" + dir + "/core/structure.js", ['Blockly.Structure'], ['Blockly.FieldVariable', 'Blockly.Names', 'Blockly.Workspace']);
 goog.addDependency("../../../" + dir + "/core/realtime-client-utils.js", ['rtclient'], []);
 goog.addDependency("../../../" + dir + "/core/realtime.js", ['Blockly.Realtime'], ['goog.array', 'goog.dom', 'goog.style', 'rtclient']);
 goog.addDependency("../../../" + dir + "/core/scrollbar.js", ['Blockly.Scrollbar', 'Blockly.ScrollbarPair'], ['goog.userAgent']);

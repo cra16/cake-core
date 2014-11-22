@@ -337,6 +337,10 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     // Special category for procedures.
     Blockly.Procedures.flyoutCategory(blocks, gaps, margin,
         /** @type {!Blockly.Workspace} */ (this.workspace_));
+  } else if (xmlList == Blockly.Structure.NAME_TYPE) {
+    // Special category for procedures.
+    Blockly.Structure.flyoutCategory(blocks, gaps, margin,
+        /** @type {!Blockly.Workspace} */ (this.workspace_));
   } else {
     for (var i = 0, xml; xml = xmlList[i]; i++) {
       if (xml.tagName && xml.tagName.toUpperCase() == 'BLOCK') {

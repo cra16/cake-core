@@ -47,12 +47,13 @@ goog.require('goog.ui.MenuItem');
  * @extends {Blockly.Field}
  * @constructor
  */
-Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler) {
+Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler, block) {
   this.menuGenerator_ = menuGenerator;
   this.changeHandler_ = opt_changeHandler;
   this.trimOptions_();
-  var firstTuple = this.getOptions_()[0];
+  var firstTuple = this.getOptions_(block)[0];
   this.value_ = firstTuple[1];
+  this.block = block;
 
   // Add dropdown arrow: "option ▾" (LTR) or "▾ אופציה" (RTL)
   // Android can't (in 2014) display "▾", so use "▼" instead.
@@ -60,7 +61,6 @@ Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler) {
   this.arrow_ = Blockly.createSvgElement('tspan', {}, null);
   this.arrow_.appendChild(document.createTextNode(
       Blockly.RTL ? arrowChar + ' ' : ' ' + arrowChar));
-
   // Call parent's constructor.
   Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[0]);
 };
@@ -112,7 +112,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   }
 
   var menu = new goog.ui.Menu();
-  var options = this.getOptions_();
+  var options = this.getOptions_(this.block);
   for (var x = 0; x < options.length; x++) {
     var text = options[x][0];  // Human-readable text.
     var value = options[x][1]; // Language-neutral value.
@@ -208,9 +208,9 @@ Blockly.FieldDropdown.prototype.trimOptions_ = function() {
  *     (human-readable text, language-neutral name).
  * @private
  */
-Blockly.FieldDropdown.prototype.getOptions_ = function() {
+Blockly.FieldDropdown.prototype.getOptions_ = function(block) {
   if (goog.isFunction(this.menuGenerator_)) {
-    return this.menuGenerator_.call(this);
+    return this.menuGenerator_.call(this, block);
   }
   return /** @type {!Array.<!Array.<string>>} */ (this.menuGenerator_);
 };

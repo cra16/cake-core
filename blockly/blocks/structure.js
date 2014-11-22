@@ -28,6 +28,7 @@ goog.provide('Blockly.Blocks.structure');
 
 goog.require('Blockly.Blocks');
 goog.require('Blockly.FieldStructure');
+goog.require('Blockly.FieldStructureMember');
 
 var TYPE =
   [
@@ -55,6 +56,7 @@ Blockly.Blocks['structure_define'] = {
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
     this.members_ = [];
     this.types_ = [];
+    this.dist_ = [];
     this.statementConnection_ = null;
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
@@ -119,8 +121,6 @@ Blockly.Blocks['structure_define'] = {
       }
     }
     this.updateParams_();
-
-    
   },
   /**
    * Populate the mutator's dialog with this block's components.
@@ -133,7 +133,7 @@ Blockly.Blocks['structure_define'] = {
       'structure_mutatorcontainer');
     containerBlock.initSvg();
 
-    
+
     // Parameter list.
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 0; x < this.members_.length; x++) {
@@ -224,7 +224,7 @@ Blockly.Blocks['structure_define'] = {
   getMems: function() {
     return this.members_;
   },
-  getTypes: function(){
+  getTypes: function() {
     return this.types_;
   },
   /**
@@ -260,7 +260,7 @@ Blockly.Blocks['structure_define'] = {
     return ['sd'];
   },
   getStructDefine: function() {
-    return [this.getFieldValue('NAME')];
+    return ['sd', this.getFieldValue('NAME'), this.types_, this.members_];
   },
   callType_: 'procedures_callnoreturn'
 }
@@ -278,9 +278,7 @@ Blockly.Blocks['structure_declare'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.STRUCTURE_DECLARE_TITLE + ' %1 ' +
-      Blockly.Msg.STRUCTURE_DECLARE_TALE + ' %2', 
-      ['TYPES', new Blockly.FieldStructure('--Select--', null)],
-      ['NAME', new Blockly.FieldTextInput(name, Blockly.Procedures.rename), Blockly.ALIGN_RIGHT],
+      Blockly.Msg.STRUCTURE_DECLARE_TALE + ' %2', ['TYPES', new Blockly.FieldStructure('--Select--', null)], ['NAME', new Blockly.FieldTextInput(name, Blockly.Procedures.rename), Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -325,35 +323,61 @@ Blockly.Blocks['structure_get'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
     this.setColour(330);
-    this.appendDummyInput()
-      .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-      .appendField(new Blockly.FieldStructureName('--Select--', null), 'Name')
-      .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
+    this.appendDummyInput('struct')
+      .appendField('', 'NAME')
+      .appendField(Blockly.Msg.STRUCTURE_GET_MEMBER)
+      .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
     this.setOutput(true);
-    this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);    
+    this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
+    // console.log(this.getInput('struct').fieldRow);
+    // this.getInput('struct').removeField('Mem');
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
-  /**
-   * Return all variables referenced by this block.
-   * @return {!Array.<string>} List of variable names.
-   * @this Blockly.Block
-   */
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
+  onchange: function() {
+    Blockly.Blocks.requireInFunction();
+  },
+
+  getStructureCall: function() {
+    // The NAME field is guaranteed to exist, null will never be returned.
+    return /** @type {string} */ (this.getFieldValue('NAME'));
   },
   /**
-   * Notification that a variable is renaming.
-   * If the name matches one of this block's variables, rename it.
-   * @param {string} oldName Previous name of variable.
-   * @param {string} newName Renamed variable.
+   * Notification that a procedure is renaming.
+   * If the name matches this block's procedure, rename it.
+   * @param {string} oldName Previous name of procedure.
+   * @param {string} newName Renamed procedure.
    * @this Blockly.Block
    */
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setFieldValue(newName, 'VAR');
+  renameProcedure: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getStructureCall())) {
+      this.setFieldValue(newName, 'NAME');
+      this.setTooltip(
+        (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+        .replace('%1', newName));
     }
-  }
+  },
+  /**
+   * Create XML to represent the (non-editable) name and arguments.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('name', this.getStructureCall());
+    return container;
+  },
+  /**
+   * Parse XML to restore the (non-editable) name and parameters.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    var name = xmlElement.getAttribute('name');
+    this.setFieldValue(name, 'NAME');
+    this.setTooltip(
+      (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+
+  },
 };
 
 Blockly.Blocks['structure_set'] = {
@@ -364,37 +388,62 @@ Blockly.Blocks['structure_set'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(330);
-    this.interpolateMsg(
-      // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariable('--Select--', null)], ['VALUE', null, Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);
+    this.appendDummyInput('struct')
+      .appendField('', 'NAME')
+      .appendField(Blockly.Msg.STRUCTURE_SET_MEMBER)
+      .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
+    this.appendValueInput('VALUE');
+    this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
-  /**
-   * Return all variables referenced by this block.
-   * @return {!Array.<string>} List of variable names.
-   * @this Blockly.Block
-   */
-  getVars: function() {
-    return [this.getFieldValue('VAR')];
+  onchange: function() {
+    Blockly.Blocks.requireInFunction();
+  },
+
+  getStructureCall: function() {
+    // The NAME field is guaranteed to exist, null will never be returned.
+    return /** @type {string} */ (this.getFieldValue('NAME'));
   },
   /**
-   * Notification that a variable is renaming.
-   * If the name matches one of this block's variables, rename it.
-   * @param {string} oldName Previous name of variable.
-   * @param {string} newName Renamed variable.
+   * Notification that a procedure is renaming.
+   * If the name matches this block's procedure, rename it.
+   * @param {string} oldName Previous name of procedure.
+   * @param {string} newName Renamed procedure.
    * @this Blockly.Block
    */
-  renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
-      this.setFieldValue(newName, 'VAR');
+  renameProcedure: function(oldName, newName) {
+    if (Blockly.Names.equals(oldName, this.getStructureCall())) {
+      this.setFieldValue(newName, 'NAME');
+      this.setTooltip(
+        (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+        .replace('%1', newName));
     }
-  }
+  },
+  /**
+   * Create XML to represent the (non-editable) name and arguments.
+   * @return {Element} XML storage element.
+   * @this Blockly.Block
+   */
+  mutationToDom: function() {
+    var container = document.createElement('mutation');
+    container.setAttribute('name', this.getStructureCall());
+    return container;
+  },
+  /**
+   * Parse XML to restore the (non-editable) name and parameters.
+   * @param {!Element} xmlElement XML storage element.
+   * @this Blockly.Block
+   */
+  domToMutation: function(xmlElement) {
+    var name = xmlElement.getAttribute('name');
+    this.setFieldValue(name, 'NAME');
+    this.setTooltip(
+      (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+
+  },
 };
 
 Blockly.Blocks['structure_mutatorcontainer'] = {

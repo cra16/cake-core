@@ -453,4 +453,10 @@ Blockly.Msg.STRUCTURE_DECLARE_TITLE = 'type';
 Blockly.Msg.STRUCTURE_DECLARE_TALE = 'name';
 Blockly.Msg.STRUCTURE_DECLARE_NAME = 'myStructure1';
 
+Blockly.Msg.STRUCTURE_SET_NAME = 'name';
+Blockly.Msg.STRUCTURE_SET_MEMBER = 'member';
+
+Blockly.Msg.STRUCTURE_GET_NAME = 'name';
+Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
+
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';

@@ -115,6 +115,7 @@ Blockly.cake.init = function() {
 
     var defvars = [];
     var variables = Blockly.Variables.allVariables();
+    var structures = Blockly.Structure.allStructure();
     for (var x = 0; x < variables.length; x++) {
       if(variables[x][2] == 'global')
       defvars[x] = variables[x][0] + ' ' +
