@@ -400,6 +400,12 @@ Blockly.Msg.STDLIB_SRAND_TITLE = 'srand %1';
 Blockly.Msg.STDLIB_MALLOC_TITLE = 'malloc %1';
 Blockly.Msg.STDLIB_FREE_TITLE = 'free %1';
 Blockly.Msg.STDLIB_EXIT_TITLE = 'exit %1';
+Blockly.Msg.MATH_SIN_TITLE = 'sin %1';
+Blockly.Msg.MATH_COS_TITLE = 'cos %1';
+Blockly.Msg.MATH_TAN_TITLE = 'tan %1';
+Blockly.Msg.MATH_POW_TITLE = 'pow %1';
+Blockly.Msg.MATH_SQRT_TITLE = 'sqrt %1';
+Blockly.Msg.MATH_ABS_TITLE = 'abs %1';
 
 Blockly.Msg.VARIABLES_SET_TYPE_INT = 'int';
 Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = 'float';

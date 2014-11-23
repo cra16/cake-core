@@ -68,3 +68,62 @@ Blockly.cake['math_modulo'] = function(block) {
   var code = argument0 + ' % ' + argument1;
   return [code, Blockly.cake.ORDER_MODULUS];
 };
+
+Blockly.cake['library_func_paren'] = function(block) {
+  // Text value.
+  var code = block.getFieldValue('TEXT');
+  return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['library_math_sin'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'sin(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_math_cos'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'cos(' + argument0 + ');\n';
+};
+Blockly.cake['library_math_tan'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'tan(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_math_pow'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'pow(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_math_sqrt'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'sqrt(' + argument0 + ');\n';
+};
+
+Blockly.cake['library_math_abs'] = function(block) {
+  // Scan statement.
+  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+      Blockly.cake.ORDER_NONE) || '\'\'';
+  Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+  return 'abs(' + argument0 + ');\n';
+};

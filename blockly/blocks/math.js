@@ -106,23 +106,141 @@ Blockly.Blocks['math_modulo'] = {
   onchange: Blockly.Blocks.requireInFunction,
 };
 
-Blockly.Blocks['math_constrain'] = {
+//Down from here, #include math.h 관련 block
+
+Blockly.Blocks['library_func_paren'] = {
   /**
-   * Block for constraining a number between two limits.
+   * Block for text value.
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.MATH_CONSTRAIN_HELPURL);
-    this.setColour(230);
-    this.setOutput(true, 'Number');
-    this.interpolateMsg(Blockly.Msg.MATH_CONSTRAIN_TITLE,
-                        ['VALUE', 'Number', Blockly.ALIGN_RIGHT],
-                        ['LOW', 'Number', Blockly.ALIGN_RIGHT],
-                        ['HIGH', 'Number', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT)
-    this.setInputsInline(true);
-    this.setTooltip(Blockly.Msg.MATH_CONSTRAIN_TOOLTIP);
+    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
+    this.setColour(700);
+    this.appendDummyInput()
+        .appendField(this.newBracket_(true))
+        .appendField(new Blockly.FieldTextInput(' '), 'TEXT')
+        .appendField(this.newBracket_(false));
+    this.setOutput(true, 'INBRACKET');
+    this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction,
+  /**
+   * Create an image of an open or closed quote.
+   * @param {boolean} open True if open quote, false if closed.
+   * @return {!Blockly.FieldImage} The field image of the quote.
+   * @private
+   */
+  newBracket_: function(open) {
+    if (open == Blockly.RTL) {
+      var file = 'rightBracket.png';
+    } else {
+      var file = 'leftBracket.png';
+    }
+    return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+                                  15, 15, '"');
+  }
+};
+
+Blockly.Blocks['library_math_sin'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_SIN_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
+};
+
+Blockly.Blocks['library_math_cos'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_COS_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
+};
+
+Blockly.Blocks['library_math_tan'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_TAN_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
+};
+
+Blockly.Blocks['library_math_pow'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
+};
+
+Blockly.Blocks['library_math_sqrt'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
+};
+
+Blockly.Blocks['library_math_abs'] = {
+  init: function() {
+    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+    this.setColour(300);
+    this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
+                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+                        Blockly.ALIGN_RIGHT);
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+
+  },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction,
+  
 };

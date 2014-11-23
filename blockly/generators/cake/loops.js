@@ -33,8 +33,8 @@ Blockly.cake['controls_whileUntil'] = function(block) {
   // Do while/until loop.
   var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.cake.valueToCode(block, 'BOOL',
-      until ? Blockly.cake.ORDER_LOGICAL_NOT :
-      Blockly.cake.ORDER_NONE) || 'false';
+    until ? Blockly.cake.ORDER_LOGICAL_NOT :
+    Blockly.cake.ORDER_NONE) || 'false';
   var branch = Blockly.cake.statementToCode(block, 'DO');
   branch = Blockly.cake.addLoopTrap(branch, block.id);
   if (until) {
@@ -46,23 +46,23 @@ Blockly.cake['controls_whileUntil'] = function(block) {
 Blockly.cake['controls_for'] = function(block) {
   // For loop.
   var variable0 = Blockly.cake.variableDB_.getName(
-      block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.cake.valueToCode(block, 'FROM',
-      Blockly.cake.ORDER_ASSIGNMENT) || '0';
+    Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var argument1 = Blockly.cake.valueToCode(block, 'TO',
-      Blockly.cake.ORDER_ASSIGNMENT) || '0';
+    Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var increment = Blockly.cake.valueToCode(block, 'BY',
-      Blockly.cake.ORDER_ASSIGNMENT) || '1';
+    Blockly.cake.ORDER_ASSIGNMENT) || '1';
   var branch = Blockly.cake.statementToCode(block, 'DO');
   branch = Blockly.cake.addLoopTrap(branch, block.id);
   var code;
   if (Blockly.isNumber(argument0) && Blockly.isNumber(argument1) &&
-      Blockly.isNumber(increment)) {
+    Blockly.isNumber(increment)) {
     // All arguments are simple numbers.
     var up = parseFloat(argument0) <= parseFloat(argument1);
     code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
-        variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
-        variable0;
+      variable0 + (up ? ' <= ' : ' >= ') + argument1 + '; ' +
+      variable0;
     var step = Math.abs(parseFloat(increment));
     if (step == 1) {
       code += up ? '++' : '--';
@@ -76,34 +76,36 @@ Blockly.cake['controls_for'] = function(block) {
     var startVar = argument0;
     if (!argument0.match(/^\w+$/) && !Blockly.isNumber(argument0)) {
       var startVar = Blockly.cake.variableDB_.getDistinctName(
-          variable0 + '_start', Blockly.Variables.NAME_TYPE);
-      code += 'var ' + startVar + ' = ' + argument0 + ';\n';
+        variable0 + '_start', Blockly.Variables.NAME_TYPE);
+      code += 'int ' + startVar + ' = ' + argument0 + ';\n';
     }
     var endVar = argument1;
     if (!argument1.match(/^\w+$/) && !Blockly.isNumber(argument1)) {
       var endVar = Blockly.cake.variableDB_.getDistinctName(
-          variable0 + '_end', Blockly.Variables.NAME_TYPE);
-      code += 'var ' + endVar + ' = ' + argument1 + ';\n';
+        variable0 + '_end', Blockly.Variables.NAME_TYPE);
+      code += 'int ' + endVar + ' = ' + argument1 + ';\n';
     }
     // Determine loop direction at start, in case one of the bounds
     // changes during loop execution.
     var incVar = Blockly.cake.variableDB_.getDistinctName(
-        variable0 + '_inc', Blockly.Variables.NAME_TYPE);
-    code += 'var ' + incVar + ' = ';
+      variable0 + '_inc', Blockly.Variables.NAME_TYPE);
+    code += 'int ' + incVar + ' = ';
     if (Blockly.isNumber(increment)) {
       code += Math.abs(increment) + ';\n';
     } else {
-      code += 'Math.abs(' + increment + ');\n';
+      Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+      code += 'abs(' + increment + ');\n';
     }
     code += 'if (' + startVar + ' > ' + endVar + ') {\n';
-    code += Blockly.cake.INDENT + incVar + ' = -' + incVar +';\n';
+    code += Blockly.cake.INDENT + incVar + ' = -' + incVar + ';\n';
     code += '}\n';
     code += 'for (' + variable0 + ' = ' + startVar + ';\n' +
-        '     '  + incVar + ' >= 0 ? ' +
-        variable0 + ' <= ' + endVar + ' : ' +
-        variable0 + ' >= ' + endVar + ';\n' +
-        '     ' + variable0 + ' += ' + incVar + ') {\n' +
-        branch + '}\n';
+      '     ' + incVar + ' >= 0 ? ' +
+      variable0 + ' <= ' + endVar + ' : ' +
+      variable0 + ' >= ' + endVar + ';\n' +
+      '     ' + variable0 + ' += ' + incVar + ') {\n' +
+      branch + '}\n';
   }
   return code;
 };
