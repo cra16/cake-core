@@ -46,8 +46,7 @@ Blockly.cake['structure_get'] = function(block) {
 };
 
 Blockly.cake['structure_set'] = function(block) {
-  var name = Blockly.cake.variableDB_.getName(
-    block.getFieldValue('NAME'), null);
+  var name = block.getFieldValue('NAME');
   var structMem = Blockly.cake.variableDB_.getName(
     block.getFieldValue('Mem'), Blockly.Variables.NAME_TYPE);
   var argument0 = Blockly.cake.valueToCode(block, 'VALUE',

@@ -55,7 +55,7 @@ var DEFINE =
 Blockly.Blocks['define_get'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
-    this.setColour(330);
+    this.setColour(160);
     this.appendDummyInput()
       .appendField(Blockly.Msg.DEFINE_GET_TITLE)
       .appendField(new Blockly.FieldVariableDefine('--Select--', null), 'VAR')
@@ -110,7 +110,7 @@ Blockly.Blocks['define_get'] = {
 Blockly.Blocks['define_declare'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setColour(160);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.DEFINE_DECLARE_TITLE + ' %1 ' +
@@ -418,7 +418,9 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariablePointer('--Select--', null)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', 
+      ['VAR', null, Blockly.ALIGN_RIGHT], 
+      ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -458,7 +460,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
       Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE + ' %1 ' +
       Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['ITERATION', new Blockly.FieldDropdown(ITERATION)], ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['ITERATION', new Blockly.FieldTextInput('*')], ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -524,6 +526,28 @@ Blockly.Blocks['variables_pointer_declare'] = {
   customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
 };
 
+Blockly.Blocks['variables_pointer_&'] = {
+  init: function(){
+    this.setColour(45);
+    this.interpolateMsg(
+      '&' + ' %1 ', 
+      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.ALIGN_RIGHT);
+    this.setOutput(true);
+  }
+}
+
+Blockly.Blocks['variables_pointer_*'] = {
+  init: function(){
+    this.setColour(45);
+    this.interpolateMsg(
+      '*' + ' %1 ', 
+      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.ALIGN_RIGHT);
+    this.setOutput(true);
+  }
+}
+
 Blockly.Blocks['variables_array_get'] = {
   /**
    * Block for array getter.
@@ -535,6 +559,9 @@ Blockly.Blocks['variables_array_get'] = {
     this.appendDummyInput()
       .appendField(Blockly.Msg.ARRAY_GET_TITLE)
       .appendField(new Blockly.FieldVariableArray('--Select--', null), 'VAR')
+      .appendField(new Blockly.FieldTextInput('1'), 'LENGTH_1')
+      .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
+      .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
       .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -591,8 +618,13 @@ Blockly.Blocks['variables_array_set'] = {
     this.setColour(90);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariableArray('--Select--', null)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +' %2' +'%3' +'%4 ' +
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', 
+      ['VAR', new Blockly.FieldVariableArray('--Select--', null)], 
+      ['LENGTH_1', new Blockly.FieldTextInput('1')], 
+      ['LENGTH_2', new Blockly.FieldTextInput('')], 
+      ['LENGTH_3', new Blockly.FieldTextInput('')], 
+      ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -631,8 +663,13 @@ Blockly.Blocks['variables_array_declare'] = {
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-      Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)], ['LENGTH', new Blockly.FieldTextInput('1')], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ' +
+      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6', ['TYPES', new Blockly.FieldDropdown(TYPE)], 
+      ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)], 
+      ['LENGTH_1', new Blockly.FieldTextInput('1')], 
+      ['LENGTH_2', new Blockly.FieldTextInput('')], 
+      ['LENGTH_3', new Blockly.FieldTextInput('')], 
+      ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -647,7 +684,10 @@ Blockly.Blocks['variables_array_declare'] = {
     return 'a';
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: function() {
+    Blockly.Blocks.requireInFunction();
+    Blockly.Blocks.arrayTestFunction(this, this.getFieldValue('LENGTH_1'), this.getFieldValue('LENGTH_2'), this.getFieldValue('LENGTH_3'));
+  },
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -657,7 +697,7 @@ Blockly.Blocks['variables_array_declare'] = {
     return [this.getFieldValue('TYPES')];
   },
   getLength: function() {
-    return [this.getFieldValue('LENGTH')];
+    return [this.getFieldValue('LENGTH_1')];
   },
   /**
    * Return all variables referenced by this block.

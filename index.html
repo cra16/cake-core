@@ -166,17 +166,34 @@
     </div>
     <xml id="toolbox">
       <category name="Variables">
-        <block type="variables_declare"></block>
-        <block type="variables_get"></block>
-        <block type="variables_set"></block>
-        <block type="variables_pointer_declare"></block>
-        <block type="variables_pointer_get"></block>
-        <block type="variables_pointer_set"></block>
-        <block type="variables_array_declare"></block>
-        <block type="variables_array_get"></block>
-        <block type="variables_array_set"></block>
-        <block type="define_declare"><value name="VALUE"><block type="text"></block></value></block>
-        <block type="define_get"></block>
+        <category name="#Define">
+          <block type="define_declare"><value name="VALUE"><block type="text"></block></value></block>
+          <block type="define_get"></block>
+        </category>
+        <category name="Variable">
+          <block type="variables_declare"></block>
+          <block type="variables_get"></block>
+          <block type="variables_set"></block>
+        </category>
+        <category name="Pointer">
+          <block type="variables_pointer_declare"></block>
+          <block type="variables_pointer_get"></block>
+          <block type="variables_pointer_set">          
+            <value name="VAR">
+              <block type="variables_pointer_*">
+                <value name="VALUE">
+                  <block type="variables_pointer_get">
+                  </block>
+                </value></block>
+            </value></block>
+          <block type="variables_pointer_&"></block>
+          <block type="variables_pointer_*"></block>
+        </category>
+        <category name="Array">
+          <block type="variables_array_declare"></block>
+          <block type="variables_array_get"></block>
+          <block type="variables_array_set"></block>
+        </category>        
       </category>
       <category name="Arithmetics">
         <block type="math_number"></block>

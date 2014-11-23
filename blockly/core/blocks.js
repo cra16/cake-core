@@ -203,3 +203,15 @@ Blockly.Blocks.requireOutFunction=function(){
     this.setWarningText('Warning: Place this block out of a function.');
   }
 }
+
+Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
+  
+  if(len1 != 0 && len2 == 0 && len3 == 0)
+    block.setWarningText(null);
+  else if(len1 != 0 && len2 != 0 && len3 == 0)
+    block.setWarningText(null);
+  else if(len1 != 0 && len2 != 0 && len3 != 0)
+    block.setWarningText(null);
+  else
+    block.setWarningText('Warning: Array length must be writen by order.');
+}

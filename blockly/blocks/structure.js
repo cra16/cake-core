@@ -44,7 +44,7 @@ var TYPE =
 Blockly.Blocks['structure_define'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
-    this.setColour(290);
+    this.setColour(370);
     var name = Blockly.Procedures.findLegalName(
       Blockly.Msg.STRUCTURE_DEFINE_NAME, this);
     this.appendDummyInput()
@@ -272,7 +272,7 @@ Blockly.Blocks['structure_declare'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(45);
+    this.setColour(370);
     var name = Blockly.Procedures.findLegalName(
       Blockly.Msg.STRUCTURE_DECLARE_NAME, this);
     this.interpolateMsg(
@@ -322,7 +322,7 @@ Blockly.Blocks['structure_get'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
-    this.setColour(330);
+    this.setColour(370);
     this.appendDummyInput('struct')
       .appendField('', 'NAME')
       .appendField(Blockly.Msg.STRUCTURE_GET_MEMBER)
@@ -385,7 +385,7 @@ Blockly.Blocks['structure_set'] = {
    */
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
+    this.setColour(370);
     this.appendDummyInput('struct')
       .appendField('', 'NAME')
       .appendField(Blockly.Msg.STRUCTURE_SET_MEMBER)
@@ -450,7 +450,7 @@ Blockly.Blocks['structure_mutatorcontainer'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(290);
+    this.setColour(370);
     this.appendDummyInput()
       .appendField(Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE);
     this.appendStatementInput('STACK');
@@ -465,7 +465,7 @@ Blockly.Blocks['structure_mutatormem'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(290);
+    this.setColour(370);
     this.appendDummyInput()
       .appendField(Blockly.Msg.STRUCTURE_MUTATORARG_TITLE)
       .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
