@@ -312,7 +312,8 @@ Blockly.Blocks['structure_declare'] = {
   getStructDeclare: function() {
     return [this.getFieldValue('NAME')];
   },
-  // customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['structure_get'] = {
@@ -329,10 +330,6 @@ Blockly.Blocks['structure_get'] = {
       .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-  },
-  //when the block is changed, 
-  onchange: function() {
-    Blockly.Blocks.requireInFunction();
   },
 
   getStructureCall: function() {
@@ -376,6 +373,8 @@ Blockly.Blocks['structure_get'] = {
       (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
 
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['structure_set'] = {
@@ -396,10 +395,6 @@ Blockly.Blocks['structure_set'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
   },
-  //when the block is changed, 
-  onchange: function() {
-    Blockly.Blocks.requireInFunction();
-  },
 
   getStructureCall: function() {
     // The NAME field is guaranteed to exist, null will never be returned.
@@ -442,6 +437,8 @@ Blockly.Blocks['structure_set'] = {
       (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
 
   },
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['structure_mutatorcontainer'] = {

@@ -64,8 +64,6 @@ Blockly.Blocks['controls_if'] = {
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Create XML to represent the number of else-if and else inputs.
    * @return {Element} XML storage element.
@@ -209,7 +207,10 @@ Blockly.Blocks['controls_if'] = {
       clauseBlock = clauseBlock.nextConnection &&
         clauseBlock.nextConnection.targetBlock();
     }
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['controls_if_if'] = {
@@ -449,8 +450,6 @@ Blockly.Blocks['controls_switch'] = {
     });
     this.caseCount_ = 0;
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Create XML to represent the number of else-if and else inputs.
    * @return {Element} XML storage element.
@@ -563,7 +562,10 @@ Blockly.Blocks['controls_switch'] = {
       clauseBlock = clauseBlock.nextConnection &&
         clauseBlock.nextConnection.targetBlock();
     }
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['controls_switch_switch'] = {

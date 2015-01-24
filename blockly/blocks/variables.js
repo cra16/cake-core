@@ -65,8 +65,6 @@ Blockly.Blocks['define_get'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -104,7 +102,10 @@ Blockly.Blocks['define_get'] = {
     xmlBlock.setAttribute('type', this.contextMenuType_);
     option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
     options.push(option);
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 }
 
 Blockly.Blocks['define_declare'] = {
@@ -126,8 +127,6 @@ Blockly.Blocks['define_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'define_get';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireOutFunction,
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -166,7 +165,10 @@ Blockly.Blocks['define_declare'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['define_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 }
 
 Blockly.Blocks['text'] = {
@@ -201,8 +203,6 @@ Blockly.Blocks['variables_get'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -240,7 +240,10 @@ Blockly.Blocks['variables_get'] = {
     xmlBlock.setAttribute('type', this.contextMenuType_);
     option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
     options.push(option);
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_set'] = {
@@ -262,8 +265,6 @@ Blockly.Blocks['variables_set'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -284,7 +285,10 @@ Blockly.Blocks['variables_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_declare'] = {
@@ -303,8 +307,6 @@ Blockly.Blocks['variables_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return 'variables'.
    */
@@ -347,7 +349,10 @@ Blockly.Blocks['variables_declare'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_pointer_get'] = {
@@ -404,7 +409,10 @@ Blockly.Blocks['variables_pointer_get'] = {
     xmlBlock.setAttribute('type', this.contextMenuType_);
     option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
     options.push(option);
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_pointer_set'] = {
@@ -448,7 +456,10 @@ Blockly.Blocks['variables_pointer_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_pointer_declare'] = {
@@ -474,8 +485,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
   getDist: function() {
     return 'p';
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -523,7 +532,10 @@ Blockly.Blocks['variables_pointer_declare'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_pointer_&'] = {
@@ -605,7 +617,10 @@ Blockly.Blocks['variables_array_get'] = {
     xmlBlock.setAttribute('type', this.contextMenuType_);
     option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
     options.push(option);
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_array_set'] = {
@@ -652,7 +667,10 @@ Blockly.Blocks['variables_array_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
+  customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['variables_array_declare'] = {
@@ -683,11 +701,14 @@ Blockly.Blocks['variables_array_declare'] = {
   getDist: function() {
     return 'a';
   },
+  
   //when the block is changed, 
-  onchange: function() {
-    Blockly.Blocks.requireInFunction();
-    Blockly.Blocks.arrayTestFunction(this, this.getFieldValue('LENGTH_1'), this.getFieldValue('LENGTH_2'), this.getFieldValue('LENGTH_3'));
-  },
+  onchange: Blockly.Blocks.requireInFunction,
+  //when the block is changed, 
+  // onchange: function() {
+  //   Blockly.Blocks.requireInFunction();
+  //   Blockly.Blocks.arrayTestFunction(this, this.getFieldValue('LENGTH_1'), this.getFieldValue('LENGTH_2'), this.getFieldValue('LENGTH_3'));
+  // },
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.

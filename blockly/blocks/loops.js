@@ -90,8 +90,6 @@ Blockly.Blocks['controls_for'] = {
           thisBlock.getFieldValue('VAR'));
     });
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -129,7 +127,10 @@ Blockly.Blocks['controls_for'] = {
       option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
       options.push(option);
     }
-  }
+  },
+
+  //when the block is changed, 
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['controls_flow_statements'] = {

@@ -67,7 +67,7 @@ Blockly.Blocks['main_block'] = {
     this.arguments_[1] = 'argv';
     this.statementConnection_ = null;
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
-  },
+  }
   // getParamInfo: function() {
   //   return [
   //     [int, argc],
