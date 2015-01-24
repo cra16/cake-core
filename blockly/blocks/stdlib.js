@@ -56,7 +56,7 @@ Blockly.Blocks['library_stdlib_rand'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -77,7 +77,7 @@ Blockly.Blocks['library_stdlib_srand'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_stdlib_malloc'] = {
@@ -97,7 +97,7 @@ Blockly.Blocks['library_stdlib_malloc'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_stdlib_free'] = {
@@ -117,7 +117,7 @@ Blockly.Blocks['library_stdlib_free'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_stdlib_exit'] = {
@@ -137,5 +137,5 @@ Blockly.Blocks['library_stdlib_exit'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };

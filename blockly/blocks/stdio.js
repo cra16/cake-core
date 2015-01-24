@@ -54,7 +54,7 @@ Blockly.Blocks['library_stdio_printf'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -73,7 +73,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
   },
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -94,7 +94,7 @@ Blockly.Blocks['library_stdio_fopen'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -115,7 +115,7 @@ Blockly.Blocks['library_stdio_fclose'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -136,7 +136,7 @@ Blockly.Blocks['library_stdio_fprintf'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -157,7 +157,7 @@ Blockly.Blocks['library_stdio_fscanf'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -178,7 +178,7 @@ Blockly.Blocks['library_stdio_fflush'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -199,7 +199,7 @@ Blockly.Blocks['library_stdio_fread'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -221,7 +221,7 @@ Blockly.Blocks['library_stdio_fwrite'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -242,7 +242,7 @@ Blockly.Blocks['library_stdio_getchar'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -263,7 +263,7 @@ Blockly.Blocks['library_stdio_putchar'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -284,7 +284,7 @@ Blockly.Blocks['library_stdio_gets'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };
 
@@ -305,6 +305,6 @@ Blockly.Blocks['library_stdio_puts'] = {
 
   },
   //text block's newQuote replaces this.newQuote
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   //when the block is changed, 
 };

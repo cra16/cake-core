@@ -44,7 +44,7 @@ Blockly.Blocks['math_number'] = {
     this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['math_arithmetic'] = {
@@ -83,7 +83,7 @@ Blockly.Blocks['math_arithmetic'] = {
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['math_modulo'] = {
@@ -103,7 +103,7 @@ Blockly.Blocks['math_modulo'] = {
     this.setTooltip(Blockly.Msg.MATH_MODULO_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 //Down from here, #include math.h 관련 block
@@ -156,7 +156,7 @@ Blockly.Blocks['library_math_sin'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -173,7 +173,7 @@ Blockly.Blocks['library_math_cos'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -190,7 +190,7 @@ Blockly.Blocks['library_math_tan'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -207,7 +207,7 @@ Blockly.Blocks['library_math_pow'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -224,7 +224,7 @@ Blockly.Blocks['library_math_sqrt'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };
 
@@ -241,6 +241,6 @@ Blockly.Blocks['library_math_abs'] = {
 
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
   
 };

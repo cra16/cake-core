@@ -302,7 +302,7 @@ Blockly.Blocks['logic_compare'] = {
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['logic_operation'] = {
@@ -337,7 +337,7 @@ Blockly.Blocks['logic_operation'] = {
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['logic_negate'] = {
@@ -354,7 +354,7 @@ Blockly.Blocks['logic_negate'] = {
     this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['logic_boolean'] = {
@@ -376,7 +376,7 @@ Blockly.Blocks['logic_boolean'] = {
     this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['logic_null'] = {
@@ -393,7 +393,7 @@ Blockly.Blocks['logic_null'] = {
     this.setTooltip(Blockly.Msg.LOGIC_NULL_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['logic_ternary'] = {
@@ -415,7 +415,7 @@ Blockly.Blocks['logic_ternary'] = {
     this.setTooltip(Blockly.Msg.LOGIC_TERNARY_TOOLTIP);
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['controls_switch'] = {

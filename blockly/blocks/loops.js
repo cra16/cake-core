@@ -59,7 +59,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['controls_for'] = {
