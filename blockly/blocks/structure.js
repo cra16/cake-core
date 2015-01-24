@@ -27,8 +27,6 @@
 goog.provide('Blockly.Blocks.structure');
 
 goog.require('Blockly.Blocks');
-goog.require('Blockly.FieldStructure');
-goog.require('Blockly.FieldStructureMember');
 
 var TYPE =
   [
