@@ -28,29 +28,6 @@ goog.provide('Blockly.Blocks.variables');
 
 goog.require('Blockly.Blocks');
 
-var TYPE =
-  [
-    [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
-    [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
-  ];
-
-var ITERATION =
-  [
-    [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, 'Normal'],
-    [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, 'Double'],
-    [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, 'Triple']
-  ];
-
-var DEFINE =
-  [
-    [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
-    [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
-  ];
 
 Blockly.Blocks['define_get'] = {
   init: function() {
@@ -110,16 +87,18 @@ Blockly.Blocks['define_get'] = {
 
 Blockly.Blocks['define_declare'] = {
   init: function() {
+    var DEFINE =
+      [
+        [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
+        [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
+      ];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(160);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.DEFINE_DECLARE_TITLE + ' %1 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-      Blockly.Msg.DEFINE_DECLARE_INIT + ' %3', 
-      ['DEFINES', new Blockly.FieldDropdown(DEFINE)], 
-      ['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)], 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.DEFINE_DECLARE_INIT + ' %3', ['DEFINES', new Blockly.FieldDropdown(DEFINE)], ['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -140,9 +119,9 @@ Blockly.Blocks['define_declare'] = {
     return 'd';
   },
   /*
-  * Return Name
-  */
-  getDeclare: function(){
+   * Return Name
+   */
+  getDeclare: function() {
     return [this.getFieldValue('VAR')];
   },
   /**
@@ -180,7 +159,7 @@ Blockly.Blocks['text'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(160);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput('0'), 'TEXT')
+      .appendField(new Blockly.FieldTextInput('0'), 'TEXT')
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
   }
@@ -293,6 +272,16 @@ Blockly.Blocks['variables_set'] = {
 
 Blockly.Blocks['variables_declare'] = {
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(330);
     this.interpolateMsg(
@@ -426,9 +415,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', 
-      ['VAR', null, Blockly.ALIGN_RIGHT], 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', null, Blockly.ALIGN_RIGHT], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -464,6 +451,16 @@ Blockly.Blocks['variables_pointer_set'] = {
 
 Blockly.Blocks['variables_pointer_declare'] = {
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(45);
     this.interpolateMsg(
@@ -539,22 +536,20 @@ Blockly.Blocks['variables_pointer_declare'] = {
 };
 
 Blockly.Blocks['variables_pointer_&'] = {
-  init: function(){
+  init: function() {
     this.setColour(45);
     this.interpolateMsg(
-      '&' + ' %1 ', 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      '&' + ' %1 ', ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setOutput(true);
   }
 }
 
 Blockly.Blocks['variables_pointer_*'] = {
-  init: function(){
+  init: function() {
     this.setColour(45);
     this.interpolateMsg(
-      '*' + ' %1 ', 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      '*' + ' %1 ', ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setOutput(true);
   }
@@ -633,13 +628,8 @@ Blockly.Blocks['variables_array_set'] = {
     this.setColour(90);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +' %2' +'%3' +'%4 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', 
-      ['VAR', new Blockly.FieldVariableArray('--Select--', null)], 
-      ['LENGTH_1', new Blockly.FieldTextInput('1')], 
-      ['LENGTH_2', new Blockly.FieldTextInput('')], 
-      ['LENGTH_3', new Blockly.FieldTextInput('')], 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' + ' %2' + '%3' + '%4 ' +
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null)], ['LENGTH_1', new Blockly.FieldTextInput('1')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -675,6 +665,16 @@ Blockly.Blocks['variables_array_set'] = {
 
 Blockly.Blocks['variables_array_declare'] = {
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(90);
     this.interpolateMsg(
@@ -682,12 +682,7 @@ Blockly.Blocks['variables_array_declare'] = {
       Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
       Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6', ['TYPES', new Blockly.FieldDropdown(TYPE)], 
-      ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)], 
-      ['LENGTH_1', new Blockly.FieldTextInput('1')], 
-      ['LENGTH_2', new Blockly.FieldTextInput('')], 
-      ['LENGTH_3', new Blockly.FieldTextInput('')], 
-      ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)], ['LENGTH_1', new Blockly.FieldTextInput('1')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -701,7 +696,7 @@ Blockly.Blocks['variables_array_declare'] = {
   getDist: function() {
     return 'a';
   },
-  
+
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction,
   //when the block is changed, 

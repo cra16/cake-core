@@ -28,22 +28,6 @@ goog.provide('Blockly.Blocks.procedures');
 
 goog.require('Blockly.Blocks');
 
-var TYPE =
-  [
-    [Blockly.Msg.FUNCTION_SET_TYPE_INT, 'int'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_FLOAT, 'float'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE, 'double'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_LONG, 'long'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG, 'long long'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_SHORT, 'short'],
-    [Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE, 'long double']
-  ];
-var ITERATION =
-  [
-    [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, 'Normal'],
-    [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, 'Double'],
-    [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, 'Triple']
-  ];
 
 Blockly.Blocks['main_block'] = {
   init: function() {
@@ -146,7 +130,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
       var parameter = document.createElement('arg');
       parameter.setAttribute('name', this.arguments_[x]);
       parameter.setAttribute('types', this.types_[x]);
-      parameter.setAttribute('dist',this.dist_[x]);
+      parameter.setAttribute('dist', this.dist_[x]);
       container.appendChild(parameter);
     }
 
@@ -203,7 +187,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
       paramBlock.initSvg();
       paramBlock.setFieldValue(this.arguments_[x], 'NAME');
       paramBlock.setFieldValue(this.types_[x], 'TYPES');
-      paramBlock.setFieldValue(this.dist_[x],'DIST');
+      paramBlock.setFieldValue(this.dist_[x], 'DIST');
 
       // Store the old location.
       paramBlock.oldLocation = x;
@@ -324,12 +308,10 @@ Blockly.Blocks['procedures_defnoreturn'] = {
           if (block.type == 'procedures_mutatorarg' &&
             Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
             block.setFieldValue(newName, 'NAME');
-          }
-          else if (block.type == 'procedures_mutatorarg_pointer' &&
+          } else if (block.type == 'procedures_mutatorarg_pointer' &&
             Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
             block.setFieldValue(newName, 'NAME');
-          }
-          else if (block.type == 'procedures_mutatorarg_array' &&
+          } else if (block.type == 'procedures_mutatorarg_array' &&
             Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
             block.setFieldValue(newName, 'NAME');
           }
@@ -387,6 +369,16 @@ Blockly.Blocks['procedures_defreturn'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
     this.setColour(290);
     var name = Blockly.Procedures.findLegalName(
@@ -460,13 +452,23 @@ Blockly.Blocks['procedures_mutatorarg'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setColour(290);
     this.appendDummyInput()
       .appendField('variable')
       .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
       .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
       .appendField(new Blockly.FieldTextInput('x', Blockly.Blocks.CNameValidator), 'NAME')
-      .appendField('','DIST');
+      .appendField('', 'DIST');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
@@ -496,6 +498,16 @@ Blockly.Blocks['procedures_mutatorarg_array'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
     this.setColour(290);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
@@ -531,6 +543,22 @@ Blockly.Blocks['procedures_mutatorarg_pointer'] = {
    * @this Blockly.Block
    */
   init: function() {
+    var TYPE =
+      [
+        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
+      ];
+    var ITERATION =
+      [
+        [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, 'Normal'],
+        [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, 'Double'],
+        [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, 'Triple']
+      ];
     this.setColour(290);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
