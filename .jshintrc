@@ -5,7 +5,7 @@
 	"bitwise": false, // Prohibit bitwise operators (&, |, ^, etc.).
 	"camelcase": false, // Permit only camelcase for `var` and `object indexes`.
 	"curly": false, // Require {} for every new block or scope.
-	"eqeqeq": true, // Require triple equals i.e. `===`.
+	"eqeqeq": false, // Require triple equals i.e. `===`.
 	"immed": true, // Require immediate invocations to be wrapped in parens e.g. `( function(){}() );`
 	"latedef": true, // Prohibit variable use before definition.
 	"newcap": true, // Require capitalization of all constructor functions e.g. `new F()`.
