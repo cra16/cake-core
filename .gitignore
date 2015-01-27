@@ -257,5 +257,7 @@ crashlytics-build.properties
 
 # Linux trash folder which might appear on any partition or disk
 .Trash-*
+
+# Google Closue Library auto generated files
 common.pyc
 calcdeps.pyc
