@@ -51,7 +51,10 @@ Blockly.Blocks['main_block'] = {
     this.arguments_[1] = 'argv';
     this.statementConnection_ = null;
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
-  }
+  },
+    getName: function(){
+        return ['Main'];
+    }
   // getParamInfo: function() {
   //   return [
   //     [int, argc],
@@ -84,6 +87,9 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
+    getName: function(){
+      return [this.getFieldValue('NAME')];
+    },
   /**
    * Update the display of parameters for this procedure definition block.
    * Display a warning if there are duplicately named parameters.
@@ -402,6 +408,9 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
+    getName: function(){
+        return [this.getFieldValue('NAME')];
+    },
   updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
   domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,

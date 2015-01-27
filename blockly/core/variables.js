@@ -59,25 +59,42 @@ Blockly.Variables.allVariables = function(opt_block) {
 
     // window.alert(func);
     if (funcVar) {
-      var blockVariablesName = funcVar.call(blocks[x]);
-      var funcVarType = blocks[x].getTypes;
-      var blockVariablesType = funcVarType.call(blocks[x]);
-      var funcVarDist = blocks[x].getDist;
-      var blockDistribute = funcVarDist.call(blocks[x]);
-      // window.alert(blockVariablesName);
-      // window.alert(blockVariablesType);
-      // window.alert(blockDistribute);
-      for (var w = 0; w < blockDistribute.length; w++) {
-        var varDist = blockDistribute[w];
-      }
-      for (var z = 0; z < blockVariablesType.length; z++) {
-        var varType = blockVariablesType[z];
-      }
-      for (var y = 0; y < blockVariablesName.length; y++) {
-        var varName = blockVariablesName[y];
-      }
+        var blockVariablesName = funcVar.call(blocks[x]);
+
+        var funcVarType = blocks[x].getTypes;
+        var blockVariablesType = funcVarType.call(blocks[x]);
+
+        var funcVarDist = blocks[x].getDist;
+        var blockDistribute = funcVarDist.call(blocks[x]);
+
+        var funcVarScope = blocks[x].getScope;
+        var blockScope = funcVarScope.call(blocks[x]);
+
+        var funcVarPos = blocks[x].getPos;
+        var blockPosition = funcVarPos.call(blocks[x]);
+
+        var funcVarSpec = blocks[x].getSpec;
+        var blockSpecifics = funcVarSpec.call(blocks[x]);
+
+        for (var w = 0; w < blockDistribute.length; w++) {
+            var varDist = blockDistribute[w];
+        }
+        for (var z = 0; z < blockVariablesType.length; z++) {
+            var varType = blockVariablesType[z];
+        }
+        for (var y = 0; y < blockVariablesName.length; y++) {
+            var varName = blockVariablesName[y];
+        }
+        for (var y = 0; y < blockScope.length; y++) {
+            var varScope = blockScope[y];
+        }
+        var varPos = blockPosition;
+        if(varDist !='v' && varDist !='d') {
+            var varSpec = blockSpecifics;
+        }
+
       if (varName) {
-        variableHash[varName.toLowerCase()] = [varType, varName, varDist];
+        variableHash[varName.toLowerCase()] = [varType, varDist, varName, varScope, varPos, varSpec];
       }
     } else if (funcParamInfo) {
 
@@ -86,7 +103,7 @@ Blockly.Variables.allVariables = function(opt_block) {
   // Flatten the hash into a list.
   var variableList = [];
   for (var name in variableHash) {
-    variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2]]);
+    variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2], variableHash[name][3], variableHash[name][4], variableHash[name][5]]);
   }
   return variableList;
 };
