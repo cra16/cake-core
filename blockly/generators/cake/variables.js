@@ -126,21 +126,32 @@ Blockly.cake['variables_array_get'] = function(block) {
   var length_1 = block.getFieldValue('LENGTH_1');
   var length_2 = block.getFieldValue('LENGTH_2');
   var length_3 = block.getFieldValue('LENGTH_3');
-  length_1 = length_1 * 1;
-  length_2 = length_2 * 1;
-  length_3 = length_3 * 1;
+
+  length_1 = (length_1 == '' ? -1 :length_1 * 1);
+  length_2 = (length_2 == '' ? -1 :length_2 * 1);
+  length_3 = (length_3 == '' ? -1 :length_3 * 1);
+
   var code;
   if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
     window.alert('Error, you have to enter the number in length');
-  } else if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-    code = varName + '[' + length_1 + ']';
-  else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-    code = varName + '[' + length_1 + ']' + '[' + length_2 + ']';
-  else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-    code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']';
-  else
-    window.alert('Please confirm array index');
-  return [code, Blockly.cake.ORDER_ATOMIC];
+  }
+  else {
+      var isAvbNum1, isAvbNum2, isAvbNum3;
+
+      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, 3);
+      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, 3);
+      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, 3);
+
+      if (isAvbNum1 == true && isAvbNum2 == false && isAvbNum3 == false)
+          code = varName + '[' + length_1 + ']';
+      else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
+          code = varName + '[' + length_1 + ']' + '[' + length_2 + ']';
+      else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
+          code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']';
+      else
+          window.alert('Please confirm array index');
+  }
+    return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
 Blockly.cake['variables_array_set'] = function(block) {
@@ -149,24 +160,39 @@ Blockly.cake['variables_array_set'] = function(block) {
     Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+
+
   var length_1 = block.getFieldValue('LENGTH_1');
   var length_2 = block.getFieldValue('LENGTH_2');
   var length_3 = block.getFieldValue('LENGTH_3');
-  length_1 = length_1 * 1;
-  length_2 = length_2 * 1;
-  length_3 = length_3 * 1;
+
+  // if no-input : regarded as -1 to distinguish with 0
+  length_1 = (length_1 == '' ? -1 :length_1 * 1);
+  length_2 = (length_2 == '' ? -1 :length_2 * 1);
+  length_3 = (length_3 == '' ? -1 :length_3 * 1);
+
   var code;
   if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
     window.alert('Error, you have to enter the number in length');
-  } else if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-    code = varName + '[' + length_1 + ']' + ' = ' + argument0 + ';\n';
-  else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-    code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
-  else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-    code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
-  else
-    window.alert('Please confirm array index');
-  return code;
+  }
+  else {
+      var isAvbNum1, isAvbNum2, isAvbNum3;
+
+      var definedIdx = 5;
+      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, definedIdx);
+      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, definedIdx);
+      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, definedIdx);
+
+      if (isAvbNum1 == true && isAvbNum2 == false && isAvbNum3 == false)
+          code = varName + '[' + length_1 + ']' + ' = ' + argument0 + ';\n';
+      else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
+          code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
+      else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
+          code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
+      else
+          window.alert('Please confirm array index');
+  }
+    return code;
 };
 
 Blockly.cake['variables_array_declare'] = function(block) {
@@ -183,14 +209,16 @@ Blockly.cake['variables_array_declare'] = function(block) {
   length_2 = length_2 * 1;
   length_3 = length_3 * 1;
   var code;
+
+  // must: idx > 0 , no-input: regarded as 0
   if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
     window.alert('Error, you have to enter the number in length');
-  } else if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-    code = varType + '[' + length_1 + '] ' + varName + ' = ' + argument0 + ';\n';
-  else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-    code = varType + '[' + length_1 + ']' + '[' + length_2 + '] ' + varName + ' = ' + argument0 + ';\n';
-  else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-    code = varType + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + '] ' + varName + ' = ' + argument0 + ';\n';
+  } else if (length_1 > 0 && length_2 == 0 && length_3 == 0)
+      code = varType + ' ' + varName + '[' + length_1 + ']' + ' = {' + argument0 + '}' + ';\n';
+  else if (length_1 > 0 && length_2 > 0 && length_3 == 0)
+    code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '] ' + ' = {' + argument0 + '}'  + ';\n';
+  else if (length_1 > 0 && length_2 > 0 && length_3 > 0)
+    code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = {' + argument0 + '}'  + ';\n';
   else
     window.alert('Please confirm array index');
   return code;

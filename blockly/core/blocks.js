@@ -32,7 +32,6 @@ goog.require('Blockly.Warning');
  * Blocks.addTemplate().
  */
 goog.provide('Blockly.Blocks');
-
 /**
  * Create a block template and add it as a field to Blockly.Blocks with the
  * name details.blockName.
@@ -202,6 +201,16 @@ Blockly.Blocks.requireOutFunction=function(){
   } else {
     this.setWarningText('Warning: Place this block out of a function.');
   }
+}
+
+
+Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
+    if ((inputNum < 0) || (inputNum >= arrayIdx)) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
