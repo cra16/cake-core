@@ -42,5 +42,5 @@
 	"devel": true, // Allow development statements e.g. `console.log();`.
 	"noempty": true, // Prohibit use of empty blocks.
 	"sub": true, // This option suppresses warnings about using [] notation when it can be expressed in dot notation: person['name'] vs. person.name.
-	"shadow": false // This option suppresses warnings about variable shadowing i.e. declaring a variable that had been already declared somewhere in the outer scope.
+	"shadow": true // This option suppresses warnings about variable shadowing i.e. declaring a variable that had been already declared somewhere in the outer scope.
 }
