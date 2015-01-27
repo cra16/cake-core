@@ -113,8 +113,8 @@ Blockly.FieldVariable.dropdownCreate = function() {
   var variableListPop = []; // 보여줄 리스트 거를 것.
 
     for (var temp = 0; temp < variableList.length; temp++){
-      if(variableList[temp][2]=='v')
-        variableListPop.push(variableList[temp][1]);
+      if(variableList[temp][1]=='v')
+        variableListPop.push(variableList[temp][2]);
     }
 
   // Ensure that the currently selected variable is an option.

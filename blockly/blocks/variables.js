@@ -81,7 +81,7 @@ Blockly.Blocks['define_get'] = {
     options.push(option);
   },
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 }
 
@@ -118,6 +118,24 @@ Blockly.Blocks['define_declare'] = {
   getDist: function() {
     return 'd';
   },
+    /**
+     * Return Variable's Scope
+     */
+    getScope: function() {
+        return this.getSurroundParent().getName();
+    },
+    /**
+     * Return Variable's Scope
+     */
+    getSpec: function() {
+        return null;
+    },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY();
+    },
   /*
    * Return Name
    */
@@ -146,7 +164,7 @@ Blockly.Blocks['define_declare'] = {
   },
   customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 }
 
@@ -221,7 +239,7 @@ Blockly.Blocks['variables_get'] = {
     options.push(option);
   },
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 };
 
@@ -266,7 +284,7 @@ Blockly.Blocks['variables_set'] = {
   },
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 };
 
@@ -280,9 +298,8 @@ Blockly.Blocks['variables_declare'] = {
         [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
         [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
         [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
-      ];
-    this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']];
+      this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(330);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
@@ -302,6 +319,24 @@ Blockly.Blocks['variables_declare'] = {
   getDist: function() {
     return 'v';
   },
+    /**
+     * Return Variable's Scope
+     */
+    getScope: function() {
+        return this.getSurroundParent().getName();
+    },
+    /**
+     * Return Variable's Scope
+     */
+    getSpec: function() {
+        return null;
+    },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY();
+    },
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -340,7 +375,7 @@ Blockly.Blocks['variables_declare'] = {
   },
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 };
 
@@ -476,20 +511,39 @@ Blockly.Blocks['variables_pointer_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
   },
-  /**
-   * Return 'pointer'.
-   */
-  getDist: function() {
-    return 'p';
-  },
-  /**
-   * Return all variables's types referenced by this block.
-   * @return {!Array.<string>} List of variable types.
-   * @this Blockly.Block
-   */
-  getTypes: function() {
-    return [this.getFieldValue('TYPES')];
-  },
+    /**
+     * Return 'pointer'.
+     */
+    getDist: function() {
+        return 'p';
+    },
+    /**
+     * Return pointer's specfic.
+     * specific means their iteration(*, **, or ***)
+     */
+    getSpec: function() {
+        return this.getFieldValue('ITERATION');
+    },
+    /**
+     * Return all variables's types referenced by this block.
+     * @return {!Array.<string>} List of variable types.
+     * @this Blockly.Block
+     */
+    getTypes: function() {
+        return [this.getFieldValue('TYPES')];
+    },
+    /**
+     * Return Pointer's Scope
+     */
+    getScope: function() {
+        return this.getSurroundParent().getName();
+    },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY();
+    },
   // getIteration: function(){
   //   var num_iteration;
   //   if(this.getFieldValue('ITERATION') = Normal)
@@ -499,7 +553,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
   //   else if(getFieldValue('ITERATION') = Triple)
   //     return 3;
   //   else
-  //     return 0;    
+  //     return 0;
   // },
   /**
    * Return all variables referenced by this block.
@@ -696,7 +750,37 @@ Blockly.Blocks['variables_array_declare'] = {
   getDist: function() {
     return 'a';
   },
+    /**
+     * Return Array's Scope
+     */
+    getScope: function() {
+        return this.getSurroundParent().getName();
+    },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY();
+    },
+    /**
+     * Return array's specfic.
+     * specific means their Index
+     */
+    getSpec: function() {
+        var length_1 = this.getFieldValue('LENGTH_1');
+        var length_2 = this.getFieldValue('LENGTH_2');
+        var length_3 = this.getFieldValue('LENGTH_3');
+        length_1 = length_1 * 1;
+        length_2 = length_2 * 1;
+        length_3 = length_3 * 1;
 
+        if (length_1 != 0 && length_2 == 0 && length_3 == 0)
+            return [1, length_1];
+        else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
+            return [2, length_1, length_2];
+        else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
+            return [3, length_1, length_2, length_3];
+    },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction,
   //when the block is changed, 
