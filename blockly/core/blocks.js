@@ -204,16 +204,7 @@ Blockly.Blocks.requireOutFunction=function(){
 }
 
 Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
-    /*if ((inputNum < 0) || (inputNum >= arrayIdx)) {
-        return false;
-    }
-    else {
-        return true;
-    }
-    */
     if ((inputNum < 0) || (arrayIdx < 0) || (inputNum >= arrayIdx)) {
-        console.log('false:: input: ' + inputNum + ', arrayIdx: ' + arrayIdx);
-
         return false;
     }
     else
@@ -258,7 +249,6 @@ Blockly.Blocks.getIndexArray = function(arrList, arrName) {
         }
     }
     idxList.push(fixedIdx1, fixedIdx2, fixedIdx3);
-    console.log('idxList; ' + idxList);
     return idxList;
 }
 
