@@ -293,17 +293,15 @@ Blockly.Blocks['variables_declare'] = {
     var TYPE =
       [
         [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+        [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
         [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
         [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']];
+        [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
       this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(330);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_DECLARE_TITLE + ' %1 ' +
+      ' %1 ' +Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
       Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
@@ -486,21 +484,18 @@ Blockly.Blocks['variables_pointer_set'] = {
 
 Blockly.Blocks['variables_pointer_declare'] = {
   init: function() {
-    var TYPE =
-      [
-        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
-      ];
+      var TYPE =
+          [
+              [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(45);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE + ' %1 ' +
+      ' %1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
       Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
       Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['ITERATION', new Blockly.FieldTextInput('*')], ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
@@ -719,21 +714,18 @@ Blockly.Blocks['variables_array_set'] = {
 
 Blockly.Blocks['variables_array_declare'] = {
   init: function() {
-    var TYPE =
-      [
-        [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONG, 'long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGLONG, 'long long'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_SHORT, 'short'],
-        [Blockly.Msg.VARIABLES_SET_TYPE_LONGDOUBLE, 'long double']
-      ];
+      var TYPE =
+          [
+              [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+              [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(90);
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' +
+      ' %1 ' +Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' '+
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
       Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ' +
       Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)], ['LENGTH_1', new Blockly.FieldTextInput('1')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],

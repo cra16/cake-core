@@ -73,14 +73,17 @@ Blockly.Structure.allStructure = function() {
       var structMemName;
       var structMemType;
       var structMemDist;
+        var strutcMemSpec;
       for (var y = 0; y < structureDefine.length; y++) {
         if (structureDefine[y][1] == structType) {
           structMemType = structureDefine[y][2];
-          structMemName = structureDefine[y][3];
+            structMemName = structureDefine[y][3];
+            structMemDist = structureDefine[y][4];
+            strutcMemSpec = structureDefine[y][5];
         } else
           continue;
       }
-      var tuple = ['sn', structType, structName, structMemType, structMemName];
+      var tuple = ['sn', structType, structName, structMemType, structMemName, structMemDist, strutcMemSpec];
       structureDeclare.push(tuple);
     }
   }
