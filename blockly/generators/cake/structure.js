@@ -11,12 +11,25 @@ Blockly.cake['structure_define'] = function(block) {
 
   var mems = [];
   var memTypes = [];
+    var memDist = [];
+    var memSpec = [];
   var typePlusMems = [];
   for (var x = 0; x < block.members_.length; x++) {
     mems[x] = Blockly.cake.variableDB_.getName(block.members_[x],
       Blockly.Variables.NAME_TYPE);
-    memTypes[x] = block.types_[x];
-    typePlusMems[x] = memTypes[x] + ' ' + mems[x] + ';\n';
+      memTypes[x] = block.types_[x];
+      memDist[x] = block.dist_[x];
+      memSpec[x] = block.spec_[x];
+      if(memDist[x] == 'v'){
+          typePlusMems[x] = memTypes[x] + ' ' + mems[x] + ';\n';
+      }
+      else if(memDist[x] =='a'){
+          typePlusMems[x] = memTypes[x] + ' ' + mems[x] + '[' + memSpec[x] + '];\n';
+      }
+      else if(memDist[x] =='p'){
+          typePlusMems[x] = memTypes[x] + memSpec[x] + ' ' + mems[x] + ';\n';
+      }
+
   }
   var structDef = 'typedef struct\n';
   var code = structDef + '{\n' + typePlusMems.join('') + '} ' + funcName + ';\n';

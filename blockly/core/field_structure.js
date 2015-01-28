@@ -101,7 +101,7 @@ Blockly.FieldStructure.dropdownCreate = function() {
   var name = this.getText();
   if (name && structureListPop.indexOf(name) == -1) {
     structureListPop.push(name);
-  } else structureListPop.push('--Select--');
+  } else structureListPop.push('-Type-');
   structureListPop.sort(goog.string.caseInsensitiveCompare);
 
   var options = [];

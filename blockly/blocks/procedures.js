@@ -84,6 +84,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     this.arguments_ = [];
     this.types_ = [];
     this.dist_ = [];
+      this.spec_ =[];
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
@@ -228,10 +229,6 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             paramBlock.initSvg();
             paramBlock.setFieldValue(this.arguments_[x], 'NAME');
             paramBlock.setFieldValue(this.types_[x], 'TYPES');
-            // Store the old location.
-            paramBlock.oldLocation = x;
-            connection.connect(paramBlock.previousConnection);
-            connection = paramBlock.nextConnection;
         }
         else if(this.dist_[x]=='a'){
             paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg_array');
@@ -239,10 +236,6 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             paramBlock.setFieldValue(this.arguments_[x], 'NAME');
             paramBlock.setFieldValue(this.types_[x], 'TYPES');
             paramBlock.setFieldValue(this.spec_[x], 'LENGTH');
-            // Store the old location.
-            paramBlock.oldLocation = x;
-            connection.connect(paramBlock.previousConnection);
-            connection = paramBlock.nextConnection;
         }
         else if(this.dist_[x]=='p'){
             paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg_pointer');
@@ -250,11 +243,11 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             paramBlock.setFieldValue(this.arguments_[x], 'NAME');
             paramBlock.setFieldValue(this.types_[x], 'TYPES');
             paramBlock.setFieldValue(this.spec_[x], 'ITERATION');
-            // Store the old location.
-            paramBlock.oldLocation = x;
-            connection.connect(paramBlock.previousConnection);
-            connection = paramBlock.nextConnection;
         }
+        // Store the old location.
+        paramBlock.oldLocation = x;
+        connection.connect(paramBlock.previousConnection);
+        connection = paramBlock.nextConnection;
     }
     // Initialize procedure's callers with blank IDs.
     Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
@@ -536,8 +529,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
       .appendField('variable')
       .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
       .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
-      .appendField(new Blockly.FieldTextInput('x', Blockly.Blocks.CNameValidator), 'NAME')
-      .appendField('', 'DIST');
+      .appendField(new Blockly.FieldTextInput('x', Blockly.Blocks.CNameValidator), 'NAME');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
@@ -789,8 +781,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
         else if(this.dist_[x]=='p'){
             input = this.appendValueInput('ARG' + x)
                 .setAlign(Blockly.ALIGN_RIGHT)
-                .appendField(this.types_[x])
-                .appendField(this.spec_[x])
+                .appendField(this.types_[x] + this.spec_[x])
                 .appendField(this.arguments_[x]);
         }
 

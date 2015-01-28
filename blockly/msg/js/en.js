@@ -450,7 +450,9 @@ Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
 Blockly.Msg.STRUCTURE_DEFINE_TITLE = 'structure type name';
 Blockly.Msg.STRUCTURE_DEFINE_NAME = 'myStructure';
 Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE = 'members';
-Blockly.Msg.STRUCTURE_MUTATORARG_TITLE = 'member type';
+Blockly.Msg.STRUCTURE_MUTATORMEM_VAR= '변수 type';
+Blockly.Msg.STRUCTURE_MUTATORMEM_POINTER= '포인터 type';
+Blockly.Msg.STRUCTURE_MUTATORMEM_ARRAY= '배열 type';
 Blockly.Msg.STRUCTURE_MUTATORARG_NAME = 'name';
 
 Blockly.Msg.STRUCTURE_DECLARE_TITLE = 'type';
