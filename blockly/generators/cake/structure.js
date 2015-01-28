@@ -29,7 +29,6 @@ Blockly.cake['structure_define'] = function(block) {
       else if(memDist[x] =='p'){
           typePlusMems[x] = memTypes[x] + memSpec[x] + ' ' + mems[x] + ';\n';
       }
-
   }
   var structDef = 'typedef struct\n';
   var code = structDef + '{\n' + typePlusMems.join('') + '} ' + funcName + ';\n';
