@@ -105,7 +105,7 @@ Blockly.Variables.allVariables = function(opt_block) {
   for (var name in variableHash) {
     variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2], variableHash[name][3], variableHash[name][4], variableHash[name][5]]);
   }
-  return variableList;
+    return variableList;
 };
 
 /**

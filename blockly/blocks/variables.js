@@ -615,7 +615,7 @@ Blockly.Blocks['variables_array_get'] = {
     this.appendDummyInput()
       .appendField(Blockly.Msg.ARRAY_GET_TITLE)
       .appendField(new Blockly.FieldVariableArray('--Select--', null), 'VAR')
-      .appendField(new Blockly.FieldTextInput('1'), 'LENGTH_1')
+      .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
       .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
       .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
       .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
@@ -663,6 +663,28 @@ Blockly.Blocks['variables_array_get'] = {
     options.push(option);
   },
 
+    /**
+     * If index is over, initialize the field of index with 0
+     * @param withinIdx1
+     * @param withinIdx2
+     * @param withinIdx3
+     */
+    initIdx: function(withinIdx1, withinIdx2, withinIdx3) {
+        var initVal = 0;
+        if (withinIdx1 == false) {
+            this.setFieldValue(initVal, 'LENGTH_1');
+        }
+        else if (withinIdx2 == false) {
+            this.setFieldValue(initVal, 'LENGTH_2');
+        }
+        else {
+            this.setFieldValue(initVal, 'LENGTH_3');
+        }
+
+        return;
+
+    },
+
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
 };
@@ -678,7 +700,7 @@ Blockly.Blocks['variables_array_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' + ' %2' + '%3' + '%4 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null)], ['LENGTH_1', new Blockly.FieldTextInput('1')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null)], ['LENGTH_1', new Blockly.FieldTextInput('0')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -705,6 +727,27 @@ Blockly.Blocks['variables_array_set'] = {
     if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
       this.setFieldValue(newName, 'VAR');
     }
+  },
+    /**
+     * If index is over, initialize the field of index with 0
+     * @param withinIdx1
+     * @param withinIdx2
+     * @param withinIdx3
+     */
+  initIdx: function(withinIdx1, withinIdx2, withinIdx3) {
+      var initVal = 0;
+      if (withinIdx1 == false) {
+          this.setFieldValue(initVal, 'LENGTH_1');
+      }
+      else if (withinIdx2 == false) {
+          this.setFieldValue(initVal, 'LENGTH_2');
+      }
+      else {
+          this.setFieldValue(initVal, 'LENGTH_3');
+      }
+
+      return;
+
   },
   customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
 

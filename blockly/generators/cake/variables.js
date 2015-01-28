@@ -131,25 +131,38 @@ Blockly.cake['variables_array_get'] = function(block) {
   length_2 = (length_2 == '' ? -1 :length_2 * 1);
   length_3 = (length_3 == '' ? -1 :length_3 * 1);
 
-  var code;
+  // get array list
+  var arrList = Blockly.Blocks.getWantedBlockArray('a');
+
+  // get index of array from array list
+  var idxList = Blockly.Blocks.getIndexArray(arrList, varName);
+
+
+    var code;
   if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
     window.alert('Error, you have to enter the number in length');
   }
   else {
       var isAvbNum1, isAvbNum2, isAvbNum3;
 
-      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, 3);
-      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, 3);
-      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, 3);
+      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, idxList[0]);
+      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, idxList[1]);
+      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, idxList[2]);
 
-      if (isAvbNum1 == true && isAvbNum2 == false && isAvbNum3 == false)
+      // index over -> msg
+      if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
+          window.alert('인덱스 초과');
+          block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
+      }
+
+      else if (isAvbNum1 == true && isAvbNum2 == false && isAvbNum3 == false)
           code = varName + '[' + length_1 + ']';
       else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
           code = varName + '[' + length_1 + ']' + '[' + length_2 + ']';
       else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
           code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']';
       else
-          window.alert('Please confirm array index');
+          block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
   }
     return [code, Blockly.cake.ORDER_ATOMIC];
 };
@@ -171,6 +184,13 @@ Blockly.cake['variables_array_set'] = function(block) {
   length_2 = (length_2 == '' ? -1 :length_2 * 1);
   length_3 = (length_3 == '' ? -1 :length_3 * 1);
 
+
+  // get array list
+  var arrList = Blockly.Blocks.getWantedBlockArray('a');
+
+  // get index of array from array list
+  var idxList = Blockly.Blocks.getIndexArray(arrList, varName);
+
   var code;
   if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
     window.alert('Error, you have to enter the number in length');
@@ -178,19 +198,24 @@ Blockly.cake['variables_array_set'] = function(block) {
   else {
       var isAvbNum1, isAvbNum2, isAvbNum3;
 
-      var definedIdx = 5;
-      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, definedIdx);
-      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, definedIdx);
-      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, definedIdx);
+      isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, idxList[0]);
+      isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, idxList[1]);
+      isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, idxList[2]);
 
-      if (isAvbNum1 == true && isAvbNum2 == false && isAvbNum3 == false)
+      // index over -> msg
+      if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
+          window.alert('인덱스 초과');
+          block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
+      }
+      else if (isAvbNum1 == true && isAvbNum2 == false)
           code = varName + '[' + length_1 + ']' + ' = ' + argument0 + ';\n';
       else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
           code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
       else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
           code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
       else
-          window.alert('Please confirm array index');
+          block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
+
   }
     return code;
 };

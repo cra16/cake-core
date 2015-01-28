@@ -203,15 +203,65 @@ Blockly.Blocks.requireOutFunction=function(){
   }
 }
 
-
 Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
-    if ((inputNum < 0) || (inputNum >= arrayIdx)) {
+    /*if ((inputNum < 0) || (inputNum >= arrayIdx)) {
         return false;
     }
     else {
         return true;
     }
+    */
+    if ((inputNum < 0) || (arrayIdx < 0) || (inputNum >= arrayIdx)) {
+        console.log('false:: input: ' + inputNum + ', arrayIdx: ' + arrayIdx);
+
+        return false;
+    }
+    else
+        return true;
 }
+
+Blockly.Blocks.getWantedBlockArray = function(wantedType) {
+    var varList = Blockly.Variables.allVariables();
+    var wantedList = [];
+    for (var temp = 0 ; temp < varList.length ; temp++ ){
+        if (varList[temp][1] == wantedType) {
+            wantedList.push([varList[temp][0], varList[temp][1], varList[temp][2], varList[temp][3], varList[temp][4], varList[temp][5]]);
+        }
+    }
+
+    return wantedList;
+}
+
+Blockly.Blocks.getIndexArray = function(arrList, arrName) {
+    var idxList = [];
+    var fixedIdx1, fixedIdx2, fixedIdx3;
+    for (var temp = 0 ; temp < arrList.length ; temp++) {
+        if (arrList[temp][2] == arrName) {
+            fixedIdx1 = arrList[temp][5][1];
+            fixedIdx2 = arrList[temp][5][2];
+            fixedIdx3 = arrList[temp][5][3];
+
+
+            switch(arrList[temp][5][0]) {
+
+                case 1:
+                    fixedIdx2 = -1;
+                    fixedIdx3 = -1;
+                    break;
+                case 2:
+                    fixedIdx3 = -1;
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    }
+    idxList.push(fixedIdx1, fixedIdx2, fixedIdx3);
+    console.log('idxList; ' + idxList);
+    return idxList;
+}
+
 
 Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
   
