@@ -55,7 +55,7 @@ Blockly.Procedures.allProcedures = function() {
     if (func) {
       var tuple = func.call(blocks[x]);
       if (tuple) {
-        if (tuple[4]) {
+        if (tuple[6]) {
           proceduresReturn.push(tuple);
         } else {
           proceduresNoReturn.push(tuple);
@@ -201,7 +201,7 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
       for (var t = 0; t < procedureList[x][2].length; t++) {
         tempIds[t] = 'ARG' + t;
       }
-      block.setProcedureParameters(procedureList[x][2], procedureList[x][3], tempIds);
+      block.setProcedureParameters(procedureList[x][2], procedureList[x][3], procedureList[x][4], procedureList[x][5], tempIds);
       block.initSvg();
       blocks.push(block);
       gaps.push(margin * 2);
@@ -258,10 +258,10 @@ Blockly.Procedures.disposeCallers = function(name, workspace) {
  * @param {!Array.<string>} paramIds Array of unique parameter IDs.
  */
 Blockly.Procedures.mutateCallers = function(name, types, workspace,
-  paramNames, paramTypes, paramDist, paramIds) {
+  paramNames, paramTypes, paramDist, paramSpec, paramIds) {
   var callers = Blockly.Procedures.getCallers(name, workspace);
   for (var x = 0; x < callers.length; x++) {
-    callers[x].setProcedureParameters(paramNames, paramTypes, paramDist, paramIds);
+    callers[x].setProcedureParameters(paramNames, paramTypes, paramDist, paramSpec, paramIds);
   }
 };
 
