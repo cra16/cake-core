@@ -230,18 +230,18 @@ Blockly.Blocks['library_math_sqrt'] = {
 };
 
 Blockly.Blocks['library_math_abs'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
 
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true);
+        this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
+            ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
+

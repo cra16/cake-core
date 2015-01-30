@@ -382,5 +382,90 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO = Blockly.Msg.CONTROLS_REPEAT_INPUT_DO;
 Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF = Blockly.Msg.CONTROLS_IF_MSG_ELSEIF;
 Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = Blockly.Msg.CONTROLS_IF_MSG_ELSE;
-Blockly.Msg.STDIO_PRINTF_TITLE = 'printf %1';
-Blockly.Msg.STDIO_SCANF_TITLE = 'scanf %1';
+Blockly.Msg.STDIO_PRINTF_TITLE = '출력 %1';
+Blockly.Msg.STDIO_SCANF_TITLE = '입력 %1';
+Blockly.Msg.STDIO_FOPEN_TITLE = 'fopen %1'; // not use
+Blockly.Msg.STDIO_FCLOSE_TITLE = 'fclose %1'; // not use
+Blockly.Msg.STDIO_FPRINTF_TITLE = 'fprintf %1'; // not use
+Blockly.Msg.STDIO_FSCANF_TITLE = 'fscanf %1'; // not use
+Blockly.Msg.STDIO_FFLUSH_TITLE = 'fflush %1'; // not use
+Blockly.Msg.STDIO_FREAD_TITLE = 'fread %1'; // not use
+Blockly.Msg.STDIO_FWRITE_TITLE = 'fwrite %1'; // not use
+Blockly.Msg.STDIO_GETCHAR_TITLE = 'getchar %1'; // not use
+Blockly.Msg.STDIO_PUTCHAR_TITLE = 'putchar %1'; // not use
+Blockly.Msg.STDIO_GETS_TITLE = 'gets %1'; // not use
+Blockly.Msg.STDIO_PUTS_TITLE = 'puts %1'; // not use
+Blockly.Msg.STDLIB_RAND_TITLE = '임의의 수 %1';
+Blockly.Msg.STDLIB_RANDSCOPE_TITLE = "범위:%1~%2";
+Blockly.Msg.STDLIB_SRAND_TITLE = 'srand %1'; // not use
+Blockly.Msg.STDLIB_MALLOC_TITLE = '메모리 동적 할당 %1';
+Blockly.Msg.STDLIB_FREE_TITLE = '메모리 반환 %1';
+Blockly.Msg.STDLIB_EXIT_TITLE = '종료 %1';
+Blockly.Msg.MATH_SIN_TITLE = 'sin %1'; // not use
+Blockly.Msg.MATH_COS_TITLE = 'cos %1'; // not use
+Blockly.Msg.MATH_TAN_TITLE = 'tan %1'; // not use
+Blockly.Msg.MATH_POW_TITLE = '%1제곱';//'%1의 %2 제곱';
+Blockly.Msg.MATH_EXP_TITLE = 'e의 %1 제곱';
+Blockly.Msg.MATH_SQRT_TITLE = '%1의 제곱근';
+Blockly.Msg.MATH_ABS_TITLE = '절댓값 %1'; // not use
+//Blockly.Msg.MATH_MACROONEPARA_TITLE = '%1은(는) ';
+
+Blockly.Msg.VARIABLES_SET_TYPE_INT = '정수';
+Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= '양의 정수';
+Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = '실수(float)';
+Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE = '실수(double)';
+Blockly.Msg.VARIABLES_SET_TYPE_CHAR= '문자';
+Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL = '*';
+Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE = '**';
+Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';
+Blockly.Msg.VARIABLES_DECLARE_TITLE = '변수';
+Blockly.Msg.VARIABLES_DECLARE_NAME = '이름';
+Blockly.Msg.VARIABLES_DECLARE_INIT = '초기값';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = '포인터';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '';
+Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = '배열';
+Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = '길이';
+Blockly.Msg.VARIABLES_RETURN = '다음을 반환 ';
+
+Blockly.Msg.POINTER_GET_TITLE = "";
+Blockly.Msg.ARRAY_GET_TITLE = "";
+
+Blockly.Msg.FUNCTION_SET_TYPE_INT = 'int';
+Blockly.Msg.FUNCTION_SET_TYPE_FLOAT = 'float';
+Blockly.Msg.FUNCTION_SET_TYPE_DOUBLE = 'double';
+Blockly.Msg.FUNCTION_SET_TYPE_LONG = 'long';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGLONG = 'long long';
+Blockly.Msg.FUNCTION_SET_TYPE_SHORT = 'short';
+Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
+Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
+
+Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
+Blockly.Msg.DEFINE_DECLARE_INIT = 'is';
+Blockly.Msg.DEFINE_GET_TITLE = '';
+Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
+Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
+
+Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
+
+Blockly.Msg.CONTROLS_SWITCH = 'switch ';
+Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
+
+Blockly.Msg.STRUCTURE_DEFINE_TITLE = 'structure type name';
+Blockly.Msg.STRUCTURE_DEFINE_NAME = 'myStructure';
+Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE = 'members';
+Blockly.Msg.STRUCTURE_MUTATORMEM_VAR= '변수 type';
+Blockly.Msg.STRUCTURE_MUTATORMEM_POINTER= '포인터 type';
+Blockly.Msg.STRUCTURE_MUTATORMEM_ARRAY= '배열 type';
+Blockly.Msg.STRUCTURE_MUTATORARG_NAME = 'name';
+
+Blockly.Msg.STRUCTURE_DECLARE_TITLE = 'type';
+Blockly.Msg.STRUCTURE_DECLARE_TALE = 'name';
+Blockly.Msg.STRUCTURE_DECLARE_NAME = 'myStructure1';
+
+Blockly.Msg.STRUCTURE_SET_NAME = 'name';
+Blockly.Msg.STRUCTURE_SET_MEMBER = 'member';
+
+Blockly.Msg.STRUCTURE_GET_NAME = 'name';
+Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
+
+Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
