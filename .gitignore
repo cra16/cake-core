@@ -261,3 +261,6 @@ crashlytics-build.properties
 # Google Closue Library auto generated files
 common.pyc
 calcdeps.pyc
+
+# compressed.js and uncompressed.js file
+*compressed.js
