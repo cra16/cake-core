@@ -171,7 +171,10 @@
                     <block type="define_get"></block>
                 </category>
                 <category name="Variable">
-                    <block type="variables_declare"></block>
+                    <block type="variables_declare">
+                        <b><mutation divisor_input="true"></mutation></b>
+                        <filed name="PROPERTY">DIVISIBLE_BY</filed>
+                    </block>
                     <block type="variables_get"></block>
                     <block type="variables_set"></block>
                 </category>
@@ -200,6 +203,10 @@
                 <block type="math_number"></block>
                 <block type="math_arithmetic"></block>
                 <block type="math_modulo"></block>
+               <block type="math_number_property">
+                    <b><mutation divisor_input="true"></mutation></b>
+                    <filed name="PROPERTY">DIVISIBLE_BY</filed>
+               </block>
             </category>
             <category name="Loops">
                 <block type="controls_whileUntil"></block>

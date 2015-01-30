@@ -100,6 +100,7 @@ Blockly.Blocks['define_declare'] = {
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
       Blockly.Msg.DEFINE_DECLARE_INIT + ' %3', ['DEFINES', new Blockly.FieldDropdown(DEFINE)], ['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
+
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
@@ -311,8 +312,8 @@ Blockly.Blocks['variables_declare'] = {
         [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
         [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
       this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
-    this.setColour(330);
-    this.interpolateMsg(
+      this.setColour(330);
+    /*this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       ' %1 ' +Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
@@ -320,13 +321,85 @@ Blockly.Blocks['variables_declare'] = {
         ['TYPES', new Blockly.FieldDropdown(TYPE)],
         ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
         ['VALUE', null, Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);
+      Blockly.ALIGN_RIGHT);*/
+      var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
+          var inputVal;
+          if (option == 'char') {
+              inputVal = 1;
+          }
+          else {
+              inputVal = 0;
+          }
+          this.sourceBlock_.updateShape_(inputVal);
+      });
+      this.appendDummyInput().appendField(dropdown, 'TYPES');
+      this.interpolateMsg(
+       // TODO: Combine these messages instead of using concatenation.
+       //' %1 ' +
+       Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
+       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
+       Blockly.Msg.VARIABLES_DECLARE_INIT,
+       ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
+       //['VALUE', Blockly.FieldVariable.limitVariable, Blockly.ALIGN_RIGHT],
+       Blockly.ALIGN_RIGHT);
+
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+
+    /**
+     * Create XML to represent whether the 'divisorInput' should be present.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function() {
+        var container = document.createElement('mutation');
+        var InputType = (this.getFieldValue('TYPES') == 'char');
+        container.setAttribute('char_type', InputType);
+        return container;
+    },
+    /**
+     * Parse XML to restore the 'divisorInput'.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function(xmlElement) {
+        var Input_type = (xmlElement.getAttribute('char_type') == 'true');
+        this.updateShape_(Input_type);
+    },
+    /**
+     * Modify this block to have (or not have) an input for 'is divisible by'.
+     * @param {boolean} divisorInput True if this block has a divisor input.
+     * @private
+     * @this Blockly.Block
+     */
+    updateShape_: function(isChar) {
+        // input == 'char' : isChar = 1
+        // else : isChar = 0
+        // Add or remove a Value Input.
+
+        var inputExists = this.getInput('VALUE');
+        console.log('isChar: ' + isChar);
+        console.log('inputExists: ' + inputExists);
+
+        // remove input
+        if(inputExists) {
+            this.removeInput('VALUE');
+        }
+        // recreate input
+        if(isChar) {
+            this.appendValueInput('VALUE')
+                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+        }
+        else {
+            this.appendValueInput('VALUE')
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+        }
+
+    },
   /**
    * Return 'variables'.
    */
@@ -521,7 +594,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
               [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(45);
-    this.interpolateMsg(
+  /*  this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       ' %1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
       Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
@@ -531,13 +604,88 @@ Blockly.Blocks['variables_pointer_declare'] = {
         ['ITERATION', new Blockly.FieldTextInput('*')],
         ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
         ['VALUE', ['Address', 'Variable', 'Array'], Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
+      Blockly.ALIGN_RIGHT);*/
+      var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
+          var inputVal;
+          if (option == 'char') {
+              inputVal = 1;
+          }
+          else {
+              inputVal = 0;
+          }
+          this.sourceBlock_.updateShape_(inputVal);
+      });
+      this.appendDummyInput().appendField(dropdown, 'TYPES');
+      this.interpolateMsg(
+          // TODO: Combine these messages instead of using concatenation.
+          //' %1 ' +
+          Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
+          Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %1 ' +
+          Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
+          Blockly.Msg.VARIABLES_DECLARE_INIT,
+          //+ ' %3',
+          //['TYPES', new Blockly.FieldDropdown(TYPE)],
+          ['ITERATION', new Blockly.FieldTextInput('*')],
+          ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
+          //['VALUE', ['Address', 'Variable', 'Array'], Blockly.ALIGN_RIGHT],
+          Blockly.ALIGN_RIGHT);
+
+      this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
   },
+    /**
+     * Create XML to represent whether the 'divisorInput' should be present.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function() {
+        var container = document.createElement('mutation');
+        var InputType = (this.getFieldValue('TYPES') == 'char');
+        container.setAttribute('char_type', InputType);
+        return container;
+    },
+    /**
+     * Parse XML to restore the 'divisorInput'.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function(xmlElement) {
+        var Input_type = (xmlElement.getAttribute('char_type') == 'true');
+        this.updateShape_(Input_type);
+    },
+    /**
+     * Modify this block to have (or not have) an input for 'is divisible by'.
+     * @param {boolean} divisorInput True if this block has a divisor input.
+     * @private
+     * @this Blockly.Block
+     */
+    updateShape_: function(isChar) {
+        // input == 'char' : isChar = 1
+        // else : isChar = 0
+        // Add or remove a Value Input.
+
+        var inputExists = this.getInput('VALUE');
+        console.log('isChar: ' + isChar);
+        console.log('inputExists: ' + inputExists);
+
+        // remove input
+        if(inputExists) {
+            this.removeInput('VALUE');
+        }
+        // recreate input
+        if(isChar) {
+            this.appendValueInput('VALUE')
+                .setCheck(['Address', 'Pointer']);
+        }
+        else {
+            this.appendValueInput('VALUE')
+                .setCheck(['Address', 'Pointer']);
+        }
+
+    },
     /**
      * Return 'pointer'.
      */
@@ -620,7 +768,7 @@ Blockly.Blocks['variables_pointer_&'] = {
   init: function() {
     this.setColour(45);
     this.interpolateMsg(
-      '&' + ' %1 ', ['VALUE', ['Variable', 'Array'], Blockly.ALIGN_RIGHT],
+      '&' + ' %1 ', ['VALUE', ['Variable', 'Array', 'Pointer'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setOutput(true, 'Address');
   }
@@ -814,19 +962,22 @@ Blockly.Blocks['variables_array_declare'] = {
       // TODO: Combine these messages instead of using concatenation.
       ' %1 ' +Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' '+
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-      Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)],
+      Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
+      //+ Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6',
+        ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)],
         ['LENGTH_1', new Blockly.FieldTextInput('1', Blockly.FieldTextInput.numberValidator)],
         ['LENGTH_2', new Blockly.FieldTextInput('')],
         ['LENGTH_3', new Blockly.FieldTextInput('')],
-        ['VALUE', null, Blockly.ALIGN_RIGHT],
+      //  ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
+
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_array_get';
   },
+
   /**
    * Return 'array'.
    */

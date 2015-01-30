@@ -245,3 +245,72 @@ Blockly.Blocks['library_math_abs'] = {
   onchange: Blockly.Blocks.requireInFunction
   
 };
+
+
+Blockly.Blocks['math_number_property'] = {
+    /**
+     * Block for checking if a number is even, odd, prime, whole, positive,
+     * negative or if it is divisible by certain number.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var PROPERTIES =
+            [[Blockly.Msg.MATH_IS_EVEN, 'EVEN'],
+                [Blockly.Msg.MATH_IS_ODD, 'ODD'],
+                [Blockly.Msg.MATH_IS_PRIME, 'PRIME'],
+                [Blockly.Msg.MATH_IS_WHOLE, 'WHOLE'],
+                [Blockly.Msg.MATH_IS_POSITIVE, 'POSITIVE'],
+                [Blockly.Msg.MATH_IS_NEGATIVE, 'NEGATIVE'],
+                [Blockly.Msg.MATH_IS_DIVISIBLE_BY, 'DIVISIBLE_BY']];
+        this.setColour(230);
+        this.appendValueInput('NUMBER_TO_CHECK')
+            .setCheck('Number');
+        var dropdown = new Blockly.FieldDropdown(PROPERTIES, function(option) {
+            var divisorInput = (option == 'DIVISIBLE_BY');
+            this.sourceBlock_.updateShape_(divisorInput);
+        });
+        this.appendDummyInput()
+            .appendField(dropdown, 'PROPERTY');
+        this.setInputsInline(true);
+        this.setOutput(true, 'Boolean');
+        this.setTooltip(Blockly.Msg.MATH_IS_TOOLTIP);
+    },
+    /**
+     * Create XML to represent whether the 'divisorInput' should be present.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function() {
+        var container = document.createElement('mutation');
+        var divisorInput = (this.getFieldValue('PROPERTY') == 'DIVISIBLE_BY');
+        container.setAttribute('divisor_input', divisorInput);
+        return container;
+    },
+    /**
+     * Parse XML to restore the 'divisorInput'.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function(xmlElement) {
+        var divisorInput = (xmlElement.getAttribute('divisor_input') == 'true');
+        this.updateShape_(divisorInput);
+    },
+    /**
+     * Modify this block to have (or not have) an input for 'is divisible by'.
+     * @param {boolean} divisorInput True if this block has a divisor input.
+     * @private
+     * @this Blockly.Block
+     */
+    updateShape_: function(divisorInput) {
+        // Add or remove a Value Input.
+        var inputExists = this.getInput('DIVISOR');
+        if (divisorInput) {
+            if (!inputExists) {
+                this.appendValueInput('DIVISOR')
+                    .setCheck('Number');
+            }
+        } else if (inputExists) {
+            this.removeInput('DIVISOR');
+        }
+    }
+};
