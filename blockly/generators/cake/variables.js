@@ -74,6 +74,7 @@ Blockly.cake['variables_declare'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var varType = block.getFieldValue('TYPES');
+    console.log('varType: ' + varType);
   return varType + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 
@@ -113,12 +114,12 @@ Blockly.cake['variables_pointer_declare'] = function(block) {
 Blockly.cake['variables_pointer_&'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'VALUE', Blockly.cake.ORDER_ASSIGNMENT);
   return ['&' + argument0, Blockly.cake.ORDER_ATOMIC];
-}
+};
 
 Blockly.cake['variables_pointer_*'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'VALUE', Blockly.cake.ORDER_ASSIGNMENT);
   return ['*' + argument0, Blockly.cake.ORDER_ATOMIC];
-}
+};
 
 Blockly.cake['variables_array_get'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),

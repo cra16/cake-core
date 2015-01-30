@@ -279,4 +279,5 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
     block.setWarningText(null);
   else
     block.setWarningText('Warning: Array length must be writen by order.');
+
 };

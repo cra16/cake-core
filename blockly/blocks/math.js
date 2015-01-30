@@ -244,4 +244,3 @@ Blockly.Blocks['library_math_abs'] = {
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
 };
-
