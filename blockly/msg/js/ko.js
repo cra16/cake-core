@@ -469,3 +469,6 @@ Blockly.Msg.STRUCTURE_GET_NAME = 'name';
 Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
+
+Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 함수 안에 넣어주세요.';
+Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
