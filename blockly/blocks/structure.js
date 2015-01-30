@@ -365,7 +365,7 @@ Blockly.Blocks['structure_declare'] = {
     return [this.getFieldValue('NAME')];
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Blocks.variablePlaceCheck
 };
 
 Blockly.Blocks['structure_get'] = {

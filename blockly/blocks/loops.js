@@ -72,7 +72,7 @@ Blockly.Blocks['controls_for'] = {
     this.setColour(120);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
-        .appendField(new Blockly.FieldVariable('--Select--', null), 'VAR');
+        .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR');
     this.interpolateMsg(Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
                         ['FROM', 'Number', Blockly.ALIGN_RIGHT],
                         ['TO', 'Number', Blockly.ALIGN_RIGHT],

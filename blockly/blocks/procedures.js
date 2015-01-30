@@ -91,6 +91,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     getName: function(){
       return [this.getFieldValue('NAME')];
     },
+    onchange: Blockly.Blocks.requireOutFunction,
   /**
    * Update the display of parameters for this procedure definition block.
    * Display a warning if there are duplicately named parameters.
@@ -490,7 +491,8 @@ Blockly.Blocks['procedures_defreturn'] = {
   getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
   customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
-  callType_: 'procedures_callreturn'
+  callType_: 'procedures_callreturn',
+    onchange: Blockly.Blocks.requireOutFunction
 };
 
 Blockly.Blocks['procedures_mutatorcontainer'] = {

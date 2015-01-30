@@ -180,28 +180,44 @@ The Function to set warning text and show it when the block
 that must be in function is out of function.
 */
 Blockly.Blocks.requireInFunction = function() {
-  if (!this.workspace) {
-    // Block has been deleted.
-    return;
-  }
-  if (this.getSurroundParent()) {
-    this.setWarningText(null);
-  } else {
-    this.setWarningText('Warning: Place this block inside a function.');
-  }
-}
+    if (!this.workspace) {
+        // Block has been deleted.
+        return;
+    }
+    if(this.getSurroundParent()) {
+        this.setWarningText(null);
+    } else {
+        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+    }
+};
+/*
+The Function to check if variable, array, #define, or pointer declare block's position is legal or illegal.
+ */
+Blockly.Blocks.variablePlaceCheck = function() {
+    if (!this.workspace) {
+        // Block has been deleted.
+        return;
+    }
+    if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+        this.setWarningText(null);
+    } else if(this.getSurroundParent()) {
+        this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+    } else {
+        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+    }
+};
 
 Blockly.Blocks.requireOutFunction=function(){
   if (!this.workspace) {
     // Block has been deleted.
     return;
   }
-  if (!this.getSurroundParent()) {
-    this.setWarningText(null);
+  if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+      this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
   } else {
-    this.setWarningText('Warning: Place this block out of a function.');
+      this.setWarningText(null);
   }
-}
+};
 
 Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
     if ((inputNum < 0) || (arrayIdx < 0) || (inputNum >= arrayIdx)) {
@@ -209,7 +225,7 @@ Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
     }
     else
         return true;
-}
+};
 
 Blockly.Blocks.getWantedBlockArray = function(wantedType) {
     var varList = Blockly.Variables.allVariables();
@@ -221,7 +237,7 @@ Blockly.Blocks.getWantedBlockArray = function(wantedType) {
     }
 
     return wantedList;
-}
+};
 
 Blockly.Blocks.getIndexArray = function(arrList, arrName) {
     var idxList = [];
@@ -250,7 +266,7 @@ Blockly.Blocks.getIndexArray = function(arrList, arrName) {
     }
     idxList.push(fixedIdx1, fixedIdx2, fixedIdx3);
     return idxList;
-}
+};
 
 
 Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
@@ -263,10 +279,5 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
     block.setWarningText(null);
   else
     block.setWarningText('Warning: Array length must be writen by order.');
-}
 
-/* get Available type list with input of users
-Blockly.Blocks.getAvbTypeList = function (inputType) {
-
-}
-    */
+};
