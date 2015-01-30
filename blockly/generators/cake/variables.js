@@ -113,12 +113,12 @@ Blockly.cake['variables_pointer_declare'] = function(block) {
 Blockly.cake['variables_pointer_&'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'VALUE', Blockly.cake.ORDER_ASSIGNMENT);
   return ['&' + argument0, Blockly.cake.ORDER_ATOMIC];
-}
+};
 
 Blockly.cake['variables_pointer_*'] = function(block) {
   var argument0 = Blockly.cake.valueToCode(block, 'VALUE', Blockly.cake.ORDER_ASSIGNMENT);
   return ['*' + argument0, Blockly.cake.ORDER_ATOMIC];
-}
+};
 
 Blockly.cake['variables_array_get'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),

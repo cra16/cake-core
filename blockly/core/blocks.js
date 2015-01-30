@@ -264,3 +264,9 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
   else
     block.setWarningText('Warning: Array length must be writen by order.');
 }
+
+/* get Available type list with input of users
+Blockly.Blocks.getAvbTypeList = function (inputType) {
+
+}
+    */
