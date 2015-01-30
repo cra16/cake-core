@@ -42,30 +42,10 @@ goog.require('Blockly.Variables');
  * @constructor
  */
 
-Blockly.FieldVariableArray = function(varname, opt_changeHandler) {
-  // var changeHandler;
-  // if (opt_changeHandler) {
-  //   // Wrap the user's change handler together with the variable rename handler.
-  //   var thisObj = this;
-  //   changeHandler = function(value) {
-  //     var retVal = Blockly.FieldVariableArray.dropdownChange.call(thisObj, value);
-  //     var newVal;
-  //     if (retVal === undefined) {
-  //       newVal = value;  // Existing variable selected.
-  //     } else if (retVal === null) {
-  //       newVal = thisObj.getValue();  // Abort, no change.
-  //     } else {
-  //       newVal = retVal;  // Variable name entered.
-  //     }
-  //     opt_changeHandler.call(thisObj, newVal);
-  //     return retVal;
-  //   };
-  // } else {
-  //   changeHandler = Blockly.FieldVariableArray.dropdownChange;
-  // }
+Blockly.FieldVariableArray = function(varname, opt_changeHandler, block) {
 
   Blockly.FieldVariableArray.superClass_.constructor.call(this,
-      Blockly.FieldVariableArray.dropdownCreate, opt_changeHandler);
+      Blockly.FieldVariableArray.dropdownCreate, opt_changeHandler, block);
 
   if (varname) {
     this.setValue(varname);
@@ -108,13 +88,24 @@ Blockly.FieldVariableArray.prototype.setValue = function(text) {
  * @return {!Array.<string>} Array of variable names.
  * @this {!Blockly.FieldVariableArray}
  */
-Blockly.FieldVariableArray.dropdownCreate = function() {
+Blockly.FieldVariableArray.dropdownCreate = function(block) {
   var variableList = Blockly.Variables.allVariables();
   var variableListPop = []; // 보여줄 리스트 거를 것.
+    var thisPosition = block.getRelativeToSurfaceXY().y;
+    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
+    && block.getSurroundParent().type != 'procedures_defreturn'){
+        block = block.getSurroundParent();
+    }
+    if(block.getSurroundParent())
+        var scope = block.getSurroundParent().getName();
 
     for (var temp = 0; temp < variableList.length; temp++){
-      if(variableList[temp][1]=='a')
-        variableListPop.push(variableList[temp][2]);
+      if(variableList[temp][1]=='a') {
+          if (variableList[temp][3] == scope) {
+              if (variableList[temp][4] < thisPosition)
+                  variableListPop.push(variableList[temp][2]);
+          }
+      }
     }
 
   // Ensure that the currently selected variable is an option.
@@ -124,32 +115,11 @@ Blockly.FieldVariableArray.dropdownCreate = function() {
   }
   else variableListPop.push('--Select--');
   variableListPop.sort(goog.string.caseInsensitiveCompare);
-  // variableList.push(Blockly.Msg.RENAME_VARIABLE);
-  // variableList.push(Blockly.Msg.NEW_VARIABLE);
-  // Variables are not language-specific, use the name as both the user-facing
-  // text and the internal representation.
   var options = [];
   for (var x = 0; x < variableListPop.length; x++) {
       options[x] = [variableListPop[x], variableListPop[x]];
    }
   return options;
-
-  // // Ensure that the currently selected variable is an option.
-  // var name = this.getText();
-  // if (name && variableList.indexOf(name) == -1) {
-  //   variableList.push(['',name]);
-  // }
-  // else variableList.push(['','--Select--']);
-  // variableList.sort(goog.string.caseInsensitiveCompare);
-  // // variableList.push(Blockly.Msg.RENAME_VARIABLE);
-  // // variableList.push(Blockly.Msg.NEW_VARIABLE);
-  // // Variables are not language-specific, use the name as both the user-facing
-  // // text and the internal representation.
-  // var options = [];
-  // for (var x = 0; x < variableList.length; x++) {
-  //     options[x] = [variableList[x][1], variableList[x][1]];
-  //  }
-  // return options;
 };
 
 /**

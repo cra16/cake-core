@@ -466,3 +466,6 @@ Blockly.Msg.STRUCTURE_GET_NAME = 'name';
 Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
+
+Blockly.Msg.PLZ_OUT_OF_BLOCK = 'Warning: This block can be placed out of other blocks except function block.';
+Blockly.Msg.PLZ_INSIDE_FUNCTION = 'Warning: Place this block inside a function.';

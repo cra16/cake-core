@@ -35,7 +35,7 @@ Blockly.Blocks['define_get'] = {
     this.setColour(160);
     this.appendDummyInput()
       .appendField(Blockly.Msg.DEFINE_GET_TITLE)
-      .appendField(new Blockly.FieldVariableDefine('--Select--', null), 'VAR')
+      .appendField(new Blockly.FieldVariableDefine('--Select--', null, this), 'VAR')
       .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -134,7 +134,7 @@ Blockly.Blocks['define_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /*
    * Return Name
@@ -193,7 +193,7 @@ Blockly.Blocks['variables_get'] = {
     this.setColour(330);
     this.appendDummyInput()
       .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-      .appendField(new Blockly.FieldVariable('--Select--', null), 'VAR')
+      .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR')
       .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -208,6 +208,12 @@ Blockly.Blocks['variables_get'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -254,7 +260,7 @@ Blockly.Blocks['variables_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariable('--Select--', null)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariable('--Select--', null, this)], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -270,6 +276,12 @@ Blockly.Blocks['variables_set'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -333,7 +345,7 @@ Blockly.Blocks['variables_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Return all variables's types referenced by this block.
@@ -374,7 +386,7 @@ Blockly.Blocks['variables_declare'] = {
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
 
   //when the block is changed,
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Blocks.variablePlaceCheck
 };
 
 Blockly.Blocks['variables_pointer_get'] = {
@@ -387,7 +399,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     this.setColour(45);
     this.appendDummyInput()
       .appendField(Blockly.Msg.POINTER_GET_TITLE)
-      .appendField(new Blockly.FieldVariablePointer('--Select--', null), 'VAR')
+      .appendField(new Blockly.FieldVariablePointer('--Select--', null, this), 'VAR')
       .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -402,6 +414,12 @@ Blockly.Blocks['variables_pointer_get'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -464,6 +482,12 @@ Blockly.Blocks['variables_pointer_set'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -537,7 +561,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   // getIteration: function(){
   //   var num_iteration;
@@ -581,7 +605,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
   customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
 
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Blocks.variablePlaceCheck
 };
 
 Blockly.Blocks['variables_pointer_&'] = {
@@ -614,7 +638,7 @@ Blockly.Blocks['variables_array_get'] = {
     this.setColour(90);
     this.appendDummyInput()
       .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-      .appendField(new Blockly.FieldVariableArray('--Select--', null), 'VAR')
+      .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
       .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
       .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
       .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -632,6 +656,12 @@ Blockly.Blocks['variables_array_get'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -700,7 +730,7 @@ Blockly.Blocks['variables_array_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' + ' %2' + '%3' + '%4 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null)], ['LENGTH_1', new Blockly.FieldTextInput('0')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null, this)], ['LENGTH_1', new Blockly.FieldTextInput('0')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -716,6 +746,12 @@ Blockly.Blocks['variables_array_set'] = {
   getVars: function() {
     return [this.getFieldValue('VAR')];
   },
+    /**
+     * Return this block's position
+     */
+    getPos: function(){
+        return this.getRelativeToSurfaceXY().y;
+    },
   /**
    * Notification that a variable is renaming.
    * If the name matches one of this block's variables, rename it.
@@ -795,7 +831,7 @@ Blockly.Blocks['variables_array_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
     /**
      * Return array's specfic.
@@ -817,7 +853,7 @@ Blockly.Blocks['variables_array_declare'] = {
             return [3, length_1, length_2, length_3];
     },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction,
+  onchange: Blockly.Blocks.variablePlaceCheck,
   //when the block is changed, 
   // onchange: function() {
   //   Blockly.Blocks.requireInFunction();

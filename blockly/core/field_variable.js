@@ -42,30 +42,10 @@ goog.require('Blockly.Variables');
  * @constructor
  */
 
-Blockly.FieldVariable = function(varname, opt_changeHandler) {
-  // var changeHandler;
-  // if (opt_changeHandler) {
-  //   // Wrap the user's change handler together with the variable rename handler.
-  //   var thisObj = this;
-  //   changeHandler = function(value) {
-  //     var retVal = Blockly.FieldVariable.dropdownChange.call(thisObj, value);
-  //     var newVal;
-  //     if (retVal === undefined) {
-  //       newVal = value;  // Existing variable selected.
-  //     } else if (retVal === null) {
-  //       newVal = thisObj.getValue();  // Abort, no change.
-  //     } else {
-  //       newVal = retVal;  // Variable name entered.
-  //     }
-  //     opt_changeHandler.call(thisObj, newVal);
-  //     return retVal;
-  //   };
-  // } else {
-  //   changeHandler = Blockly.FieldVariable.dropdownChange;
-  // }
+Blockly.FieldVariable = function(varname, opt_changeHandler, block) {
 
   Blockly.FieldVariable.superClass_.constructor.call(this,
-      Blockly.FieldVariable.dropdownCreate, opt_changeHandler);
+      Blockly.FieldVariable.dropdownCreate, opt_changeHandler, block);
 
   if (varname) {
     this.setValue(varname);
@@ -108,13 +88,24 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
  * @return {!Array.<string>} Array of variable names.
  * @this {!Blockly.FieldVariable}
  */
-Blockly.FieldVariable.dropdownCreate = function() {
+Blockly.FieldVariable.dropdownCreate = function(block) {
   var variableList = Blockly.Variables.allVariables();
   var variableListPop = []; // 보여줄 리스트 거를 것.
+    var thisPosition = block.getRelativeToSurfaceXY().y;
+    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
+    && block.getSurroundParent().type != 'procedures_defreturn'){
+        block = block.getSurroundParent();
+    }
+    if(block.getSurroundParent())
+        var scope = block.getSurroundParent().getName();
 
     for (var temp = 0; temp < variableList.length; temp++){
-      if(variableList[temp][1]=='v')
-        variableListPop.push(variableList[temp][2]);
+      if(variableList[temp][1]=='v'){
+          if(variableList[temp][3] == scope){
+              if(variableList[temp][4] < thisPosition)
+                  variableListPop.push(variableList[temp][2]);
+          }
+      }
     }
 
   // Ensure that the currently selected variable is an option.
@@ -162,31 +153,31 @@ Blockly.FieldVariable.dropdownCreate = function() {
  *     handled (rename), or undefined if an existing variable was chosen.
  * @this {!Blockly.FieldVariable}
  */
-// Blockly.FieldVariable.dropdownChange = function(text) {
-//   function promptName(promptText, defaultText) {
-//     Blockly.hideChaff();
-//     var newVar = window.prompt(promptText, defaultText);
-//     // Merge runs of whitespace.  Strip leading and trailing whitespace.
-//     // Beyond this, all names are legal.
-//     return newVar && newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
-//   }
-//   if (text == Blockly.Msg.RENAME_VARIABLE) {
-//     var oldVar = this.getText();
-//     text = promptName(Blockly.Msg.RENAME_VARIABLE_TITLE.replace('%1', oldVar),
-//                       oldVar);
-//     if (text) {
-//       Blockly.Variables.renameVariable(oldVar, text);
-//     }
-//     return null;
-//   } else if (text == Blockly.Msg.NEW_VARIABLE) {
-//     text = promptName(Blockly.Msg.NEW_VARIABLE_TITLE, '');
-//     // Since variables are case-insensitive, ensure that if the new variable
-//     // matches with an existing variable, the new case prevails throughout.
-//     if (text) {
-//       Blockly.Variables.renameVariable(text, text);
-//       return text;
-//     }
-//     return null;
-//   }
-//   return undefined;
-// };
+Blockly.FieldVariable.dropdownChange = function(text) {
+   function promptName(promptText, defaultText) {
+     Blockly.hideChaff();
+     var newVar = window.prompt(promptText, defaultText);
+     // Merge runs of whitespace.  Strip leading and trailing whitespace.
+     // Beyond this, all names are legal.
+     return newVar && newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
+   }
+   if (text == Blockly.Msg.RENAME_VARIABLE) {
+     var oldVar = this.getText();
+     text = promptName(Blockly.Msg.RENAME_VARIABLE_TITLE.replace('%1', oldVar),
+                       oldVar);
+     if (text) {
+       Blockly.Variables.renameVariable(oldVar, text);
+     }
+     return null;
+   } else if (text == Blockly.Msg.NEW_VARIABLE) {
+     text = promptName(Blockly.Msg.NEW_VARIABLE_TITLE, '');
+     // Since variables are case-insensitive, ensure that if the new variable
+     // matches with an existing variable, the new case prevails throughout.
+     if (text) {
+       Blockly.Variables.renameVariable(text, text);
+       return text;
+     }
+     return null;
+   }
+   return undefined;
+};
