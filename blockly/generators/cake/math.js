@@ -121,9 +121,10 @@ Blockly.cake['library_math_sqrt'] = function(block) {
 
 Blockly.cake['library_math_abs'] = function(block) {
   // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+  var argument0 = Blockly.cake.valueToCode(block, 'VAR',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-  return 'abs(' + argument0 + ');\n';
+  var code = 'abs(' + argument0 + ')';
+    return  [code, Blockly.cake.ORDER_NONE];
 };
