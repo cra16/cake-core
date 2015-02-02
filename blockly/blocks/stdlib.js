@@ -20,7 +20,7 @@ Blockly.Blocks['library_func_paren'] = {
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
 
   },
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction,
   /**
    * Create an image of an open or closed quote.

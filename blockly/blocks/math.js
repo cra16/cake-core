@@ -108,40 +108,20 @@ Blockly.Blocks['math_modulo'] = {
 
 //Down from here, #include math.h 관련 block
 
-Blockly.Blocks['library_func_paren'] = {
-  /**
-   * Block for text value.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(700);
-    this.appendDummyInput()
-        .appendField(this.newBracket_(true))
-        .appendField(new Blockly.FieldTextInput(' '), 'TEXT')
-        .appendField(this.newBracket_(false));
-    this.setOutput(true, 'INBRACKET');
-    this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+Blockly.Blocks['library_math_abs'] = {
 
-  },
-  /**
-   * Create an image of an open or closed quote.
-   * @param {boolean} open True if open quote, false if closed.
-   * @return {!Blockly.FieldImage} The field image of the quote.
-   * @private
-   */
-  newBracket_: function(open) {
-    if (open == Blockly.RTL) {
-      var file = 'rightBracket.png';
-    } else {
-      var file = 'leftBracket.png';
-    }
-    return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
-                                  15, 15, '"');
-  },
-
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true);
+        this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
+            ['VAR', null, Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_math_sin'] = {
@@ -229,18 +209,3 @@ Blockly.Blocks['library_math_sqrt'] = {
   
 };
 
-Blockly.Blocks['library_math_abs'] = {
-
-    init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-        this.setColour(300);
-        this.setOutput(true);
-        this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
-            ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
-        this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-    },
-    //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
-};
