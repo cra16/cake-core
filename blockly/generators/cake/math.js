@@ -162,3 +162,32 @@ Blockly.cake['library_math_sqrt'] = function(block) {
     var code = 'sqrt(' + argument0 + ')';
     return  [code, Blockly.cake.ORDER_NONE];
 };
+
+Blockly.cake['library_math_round'] = function(block) {
+    // Math operators with single operand.
+    var operator = block.getFieldValue('OP');
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'NUM',
+            Blockly.cake.ORDER_NONE) || '0';
+    // First, handle cases which generate values that don't need parentheses
+    // wrapping the code.
+    switch (operator) {
+        case 'ROUND':
+            code = 'round(' + arg + ')';
+            break;
+        case 'CEIL':
+            code = 'ceil(' + arg + ')';
+            break;
+        case 'FLOOR':
+            code = 'floor(' + arg + ')';
+            break;
+        case 'TRUNC':
+            code = 'trunc(' + arg + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    return [code, Blockly.cake.ORDER_NONE];
+};

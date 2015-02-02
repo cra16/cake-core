@@ -228,3 +228,23 @@ Blockly.Blocks['library_math_sqrt'] = {
     onchange: Blockly.Blocks.requireInFunction
 };
 
+Blockly.Blocks['library_math_round'] = {
+    /**
+     * Block for rounding functions.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [[Blockly.Msg.MATH_ROUND_OPERATOR_ROUND, 'ROUND'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_CEIL, 'CEIL'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_FLOOR, 'FLOOR'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_TRUNC, 'TRUNC']];
+        this.setHelpUrl(Blockly.Msg.MATH_ROUND_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Number');
+        this.appendValueInput('NUM')
+            .setCheck('Number')
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+        this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
+    }
+};
