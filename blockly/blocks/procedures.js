@@ -41,7 +41,7 @@ Blockly.Blocks['main_block'] = {
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
     this.appendValueInput('RETURN')
       .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+      .appendField(Blockly.Msg.MAIN_BLOCK_RETURN);
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
     this.arguments_ = [];
     this.types_ = [];
@@ -447,7 +447,6 @@ Blockly.Blocks['procedures_defreturn'] = {
     var name = Blockly.Procedures.findLegalName(
       Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
     this.appendDummyInput()
-      .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_TITLE)
       .appendField(new Blockly.FieldTextInput(name,
         Blockly.Procedures.rename), 'NAME')
@@ -455,6 +454,7 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.appendStatementInput('STACK')
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
     this.appendValueInput('RETURN')
+        .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
       .setAlign(Blockly.ALIGN_RIGHT)
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));

@@ -271,11 +271,11 @@ Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS = "사용:";
 Blockly.Msg.PROCEDURES_CREATE_DO = "'%1' 생성";
 Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "함수 이름";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수";
+Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "func";
+Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수이름";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "다음을 돌려줌";
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "을(를) 돌려줌 값:";
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "경고: 이 함수에는, 같은 이름을 사용하는 매개 변수들이 있습니다.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "함수 정의 찾기";
@@ -445,10 +445,11 @@ Blockly.Msg.DEFINE_GET_TITLE = '';
 Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
-Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
+Blockly.Msg.MAIN_BLOCK = '함수이름: main 사용: int argc, char** argv';
+Blockly.Msg.MAIN_BLOCK_RETURN = "정수를 돌려줌 값:";
 
-Blockly.Msg.CONTROLS_SWITCH = 'switch ';
-Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
+Blockly.Msg.CONTROLS_SWITCH = '다음 값이 ';
+Blockly.Msg.CONTROLS_SWITCH_CASE = '~와 같은 경우';
 
 Blockly.Msg.STRUCTURE_DEFINE_TITLE = 'structure type name';
 Blockly.Msg.STRUCTURE_DEFINE_NAME = 'myStructure';
@@ -470,5 +471,6 @@ Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 
-Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 함수 안에 넣어주세요.';
+Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
+Blockly.Msg.PLZ_OUT_OF_FUNCTION = '경고: 블럭을 함수 밖에 위치해주세요.';
