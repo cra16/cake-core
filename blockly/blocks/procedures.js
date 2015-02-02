@@ -46,7 +46,7 @@ Blockly.Blocks['main_block'] = {
     this.arguments_ = [];
     this.types_ = [];
     this.types_[0] = 'int';
-    this.types_[1] = 'char**'
+    this.types_[1] = 'char**';
     this.arguments_[0] = 'argc';
     this.arguments_[1] = 'argv';
     this.statementConnection_ = null;
@@ -61,7 +61,7 @@ Blockly.Blocks['main_block'] = {
   //     [char, argv]
   //   ];
   // }
-}
+};
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
