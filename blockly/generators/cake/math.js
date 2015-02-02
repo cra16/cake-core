@@ -154,10 +154,11 @@ Blockly.cake['library_math_exp'] = function(block) {
 };
 
 Blockly.cake['library_math_sqrt'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
+    // Scan statement.
+    var argument0 = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-  return 'sqrt(' + argument0 + ');\n';
+    var code = 'sqrt(' + argument0 + ')';
+    return  [code, Blockly.cake.ORDER_NONE];
 };

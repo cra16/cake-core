@@ -109,7 +109,6 @@ Blockly.Blocks['math_modulo'] = {
 //Down from here, #include math.h 관련 block
 
 Blockly.Blocks['library_math_abs'] = {
-
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
@@ -215,19 +214,17 @@ Blockly.Blocks['library_math_exp'] = {
 };
 
 Blockly.Blocks['library_math_sqrt'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true);
+        this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
+            ['VAR', null, Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ROOT);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
