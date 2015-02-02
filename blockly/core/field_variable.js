@@ -91,7 +91,7 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
 Blockly.FieldVariable.dropdownCreate = function(block) {
   var variableList = Blockly.Variables.allVariables();
   var variableListPop = []; // 보여줄 리스트 거를 것.
-    var thisPosition = block.getRelativeToSurfaceXY();
+    var thisPosition = block.getRelativeToSurfaceXY().y;
     while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
     && block.getSurroundParent().type != 'procedures_defreturn'){
         block = block.getSurroundParent();
@@ -102,7 +102,7 @@ Blockly.FieldVariable.dropdownCreate = function(block) {
     for (var temp = 0; temp < variableList.length; temp++){
       if(variableList[temp][1]=='v'){
           if(variableList[temp][3] == scope){
-              if(variableList[temp][4].y < thisPosition.y - 10)
+              if(variableList[temp][4] < thisPosition - 10)
                   variableListPop.push(variableList[temp][2]);
           }
       }

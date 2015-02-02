@@ -213,7 +213,7 @@ Blockly.Blocks.requireOutFunction=function(){
     return;
   }
   if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-      this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+      this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
   } else {
       this.setWarningText(null);
   }

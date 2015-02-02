@@ -277,7 +277,7 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "do something";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "Name";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "Creates a function with no output.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "return";
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "type return value:";
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "Creates a function with an output.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "Warning: This function has duplicate parameters.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "Highlight function definition";
@@ -425,20 +425,20 @@ Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = 'less or greater';
 Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = 'unordered';
 Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
 
-Blockly.Msg.VARIABLES_SET_TYPE_INT = '정수';
-Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= '양의 정수';
-Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = '실수(float)';
-Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE = '실수(double)';
-Blockly.Msg.VARIABLES_SET_TYPE_CHAR= '문자';
+Blockly.Msg.VARIABLES_SET_TYPE_INT = 'integer';
+Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= 'unsigned int';
+Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = 'real number(float)';
+Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE = 'real number(double)';
+Blockly.Msg.VARIABLES_SET_TYPE_CHAR= 'character';
 Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL = '*';
 Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE = '**';
 Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';
-Blockly.Msg.VARIABLES_DECLARE_TITLE = '변수';
+Blockly.Msg.VARIABLES_DECLARE_TITLE = 'variable';
 Blockly.Msg.VARIABLES_DECLARE_NAME = 'name';
 Blockly.Msg.VARIABLES_DECLARE_INIT = 'initial value';
-Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = '포인터';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = 'pointer';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '';
-Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = '배열';
+Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'array';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
 
@@ -460,7 +460,8 @@ Blockly.Msg.DEFINE_GET_TITLE = '';
 Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
-Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
+Blockly.Msg.MAIN_BLOCK = 'main with: int argc, char** argv';
+Blockly.Msg.MAIN_BLOCK_RETURN = "int type return value:";
 
 Blockly.Msg.CONTROLS_SWITCH = 'switch ';
 Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
@@ -487,3 +488,4 @@ Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 
 Blockly.Msg.PLZ_OUT_OF_BLOCK = 'Warning: This block can be placed out of other blocks except function block.';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = 'Warning: Place this block inside a function.';
+Blockly.Msg.PLZ_OUT_OF_FUNCTION = 'Warning: Place this block out of a function.';
