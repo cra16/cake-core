@@ -191,3 +191,69 @@ Blockly.cake['library_math_round'] = function(block) {
         '#include <math.h>';
     return [code, Blockly.cake.ORDER_NONE];
 };
+
+Blockly.cake['library_math_numcheck'] = function(block) {
+    // Math operators with single operand.
+    var operator = block.getFieldValue('CONDITIONS');
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '';
+    // First, handle cases which generate values that don't need parentheses
+    // wrapping the code.
+    switch (operator) {
+        case 'ISFINITE':
+            code = 'isfinite(' + arg + ')';
+            break;
+        case 'ISINF':
+            code = 'isinf(' + arg + ')';
+            break;
+        case 'SIGNBIT':
+            code = 'signbit(' + arg + ')';
+            break;
+        case 'ISNAN':
+            code = 'isnan(' + arg + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_math_numcompare'] = function(block) {
+    // Math operators with two operand.
+    var operator = block.getFieldValue('CONDITIONS');
+    var code;
+    var arg1 = Blockly.cake.valueToCode(block, 'VAR1',
+            Blockly.cake.ORDER_NONE) || '';
+    var arg2 = Blockly.cake.valueToCode(block, 'VAR2',
+            Blockly.cake.ORDER_NONE) || '';
+    // First, handle cases which generate values that don't need parentheses
+    // wrapping the code.
+    switch (operator) {
+        case 'ISGREATER':
+            code = 'isgreater(' + arg1 + ',' + arg2 + ')';
+            break;
+        case 'ISLESS':
+            code = 'isless(' + arg1 + ',' + arg2 + ')';
+            break;
+        case 'ISGREQ':
+            code = 'isgreaterequal(' + arg1 + ',' + arg2 + ')';
+            break;
+        case 'ISLEEQ':
+            code = 'islessequal(' + arg1 + ',' + arg2 + ')';
+            break;
+        case 'ISLEGR':
+            code = 'islessgreater(' + arg1 + ',' + arg2 + ')';
+            break;
+        case 'ISUNORDER':
+            code = 'isunordered(' + arg1 + ',' + arg2 + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    return [code, Blockly.cake.ORDER_NONE];
+};

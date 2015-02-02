@@ -248,3 +248,52 @@ Blockly.Blocks['library_math_round'] = {
         this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
     }
 };
+
+Blockly.Blocks['library_math_numcheck'] = {
+    init: function() {
+        var CONDITION =
+            [
+                [Blockly.Msg.MATH_NUMCHECK_ISFINITE, 'ISFINITE'],
+                [Blockly.Msg.MATH_NUMCHECK_ISINF, 'ISINF'],
+                [Blockly.Msg.MATH_NUMCHECK_SIGNBIT, 'SIGNBIT'],
+                [Blockly.Msg.MATH_NUMCHECK_ISNAN, 'ISNAN']
+            ];
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Boolean');
+        this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
+            ['VAR', null, Blockly.ALIGN_RIGHT],
+            ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_NUMCHECK_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
+Blockly.Blocks['library_math_numcompare'] = {
+    init: function() {
+        var CONDITION =
+            [
+                [Blockly.Msg.MATH_NUMCOMPARE_ISGREATER, 'ISGREATER'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLESS, 'ISLESS'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISGREQ, 'ISGREQ'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ, 'ISLEEQ'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLEGR, 'ISLEGR'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER, 'ISUNORDER']
+            ];
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Boolean');
+        this.interpolateMsg(Blockly.Msg.MATH_NUMCOMPARE_TITLE,
+            ['VAR1', null, Blockly.ALIGN_RIGHT],
+            ['VAR2', null, Blockly.ALIGN_RIGHT],
+            ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
