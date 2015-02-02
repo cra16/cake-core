@@ -115,12 +115,15 @@ Blockly.cake['library_math_trig'] = function(block) {
 };
 
 Blockly.cake['library_math_pow'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
+    // Scan statement.
+    var argument0 = Blockly.cake.valueToCode(block, 'BASE',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    var argument1 = Blockly.cake.valueToCode(block, 'EXPO',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-  return 'pow(' + argument0 + ');\n';
+    var code = 'pow(' + argument0 + ',' + argument1 + ')';
+    return  [code, Blockly.cake.ORDER_NONE];
 };
 
 Blockly.cake['library_math_sqrt'] = function(block) {

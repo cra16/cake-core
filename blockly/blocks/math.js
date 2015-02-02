@@ -118,7 +118,7 @@ Blockly.Blocks['library_math_abs'] = {
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+        this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ABS);
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -155,20 +155,18 @@ Blockly.Blocks['library_math_trig'] = {
 };
 
 Blockly.Blocks['library_math_pow'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true);
+        this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
+            ['BASE', null, Blockly.ALIGN_RIGHT],['EXPO', null, Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_POW);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_math_sqrt'] = {
