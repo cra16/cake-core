@@ -83,14 +83,8 @@ Blockly.cake['library_math_trig'] = function(block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('OP');
     var code;
-    var arg;
-    if (operator == 'SIN' || operator == 'COS' || operator == 'TAN') {
-        arg = Blockly.cake.valueToCode(block, 'NUM',
-            Blockly.cake.ORDER_DIVISION) || '0';
-    } else {
-        arg = Blockly.cake.valueToCode(block, 'NUM',
+    var arg = Blockly.cake.valueToCode(block, 'NUM',
             Blockly.cake.ORDER_NONE) || '0';
-    }
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -106,12 +100,35 @@ Blockly.cake['library_math_trig'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    if (code) {
-        return [code, Blockly.cake.ORDER_DIVISION];
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_math_logs'] = function(block) {
+    // Math operators with single operand.
+    var operator = block.getFieldValue('OP');
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'NUM',
+            Blockly.cake.ORDER_NONE) || '0';
+    // First, handle cases which generate values that don't need parentheses
+    // wrapping the code.
+    switch (operator) {
+        case 'LOG':
+            code = 'log(' + arg + ')';
+            break;
+        case 'LOG10':
+            code = 'log10(' + arg + ')';
+            break;
+        case 'LOG2':
+            code = 'log2(' + arg + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_DIVISION];
+    return [code, Blockly.cake.ORDER_NONE];
 };
 
 Blockly.cake['library_math_pow'] = function(block) {

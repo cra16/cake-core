@@ -154,6 +154,36 @@ Blockly.Blocks['library_math_trig'] = {
     }
 };
 
+Blockly.Blocks['library_math_logs'] = {
+    /**
+     * Block for advanced math operators with single operand.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [['log', 'LOG'],
+                ['log10', 'LOG10'],
+                ['log2', 'LOG2']];
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Number');
+        this.appendValueInput('NUM')
+            .setCheck('Number')
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+        // Assign 'this' to a variable for use in the tooltip closure below.
+        var thisBlock = this;
+        this.setTooltip(function() {
+            var mode = thisBlock.getFieldValue('OP');
+            var TOOLTIPS = {
+                'LOG': Blockly.Msg.MATH_SINGLE_TOOLTIP_LOG,
+                'LOG10': Blockly.Msg.MATH_SINGLE_TOOLTIP_LOG10,
+                'LOG2': Blockly.Msg.MATH_SINGLE_TOOLTIP_LOG2
+            };
+            return TOOLTIPS[mode];
+        });
+    }
+};
+
 Blockly.Blocks['library_math_pow'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
