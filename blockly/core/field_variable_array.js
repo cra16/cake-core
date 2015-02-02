@@ -102,7 +102,7 @@ Blockly.FieldVariableArray.dropdownCreate = function(block) {
     for (var temp = 0; temp < variableList.length; temp++){
       if(variableList[temp][1]=='a') {
           if (variableList[temp][3] == scope) {
-              if (variableList[temp][4] < thisPosition)
+              if (variableList[temp][4] < thisPosition - 10)
                   variableListPop.push(variableList[temp][2]);
           }
       }
