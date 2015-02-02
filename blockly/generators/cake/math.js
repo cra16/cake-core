@@ -69,36 +69,49 @@ Blockly.cake['math_modulo'] = function(block) {
   return [code, Blockly.cake.ORDER_MODULUS];
 };
 
-Blockly.cake['library_func_paren'] = function(block) {
-  // Text value.
-  var code = block.getFieldValue('TEXT');
-  return [code, Blockly.cake.ORDER_ATOMIC];
+Blockly.cake['library_math_abs'] = function(block) {
+    // Scan statement.
+    var argument0 = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    var code = 'abs(' + argument0 + ')';
+    return  [code, Blockly.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_sin'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
+Blockly.cake['library_math_trig'] = function(block) {
+    // Math operators with single operand.
+    var operator = block.getFieldValue('OP');
+    var code;
+    var arg;
+    if (operator == 'SIN' || operator == 'COS' || operator == 'TAN') {
+        arg = Blockly.cake.valueToCode(block, 'NUM',
+            Blockly.cake.ORDER_DIVISION) || '0';
+    } else {
+        arg = Blockly.cake.valueToCode(block, 'NUM',
+            Blockly.cake.ORDER_NONE) || '0';
+    }
+    // First, handle cases which generate values that don't need parentheses
+    // wrapping the code.
+    switch (operator) {
+        case 'SIN':
+            code = 'sin(' + arg + ')';
+            break;
+        case 'COS':
+            code = 'cos(' + arg + ')';
+            break;
+        case 'TAN':
+            code = 'tan(' + arg + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    if (code) {
+        return [code, Blockly.cake.ORDER_DIVISION];
+    }
+    Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-  return 'sin(' + argument0 + ');\n';
-};
-
-Blockly.cake['library_math_cos'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
-  return 'cos(' + argument0 + ');\n';
-};
-Blockly.cake['library_math_tan'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
-  return 'tan(' + argument0 + ');\n';
+    return [code, Blockly.cake.ORDER_DIVISION];
 };
 
 Blockly.cake['library_math_pow'] = function(block) {
@@ -117,14 +130,4 @@ Blockly.cake['library_math_sqrt'] = function(block) {
   Blockly.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
   return 'sqrt(' + argument0 + ');\n';
-};
-
-Blockly.cake['library_math_abs'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'VAR',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
-  var code = 'abs(' + argument0 + ')';
-    return  [code, Blockly.cake.ORDER_NONE];
 };

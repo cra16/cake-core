@@ -124,55 +124,34 @@ Blockly.Blocks['library_math_abs'] = {
     onchange: Blockly.Blocks.requireInFunction
 };
 
-Blockly.Blocks['library_math_sin'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_SIN_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
-};
-
-Blockly.Blocks['library_math_cos'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_COS_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
-};
-
-Blockly.Blocks['library_math_tan'] = {
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.MATH_TAN_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
-  },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
-  
+Blockly.Blocks['library_math_trig'] = {
+    /**
+     * Block for trigonometry operators.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [[Blockly.Msg.MATH_TRIG_SIN, 'SIN'],
+                [Blockly.Msg.MATH_TRIG_COS, 'COS'],
+                [Blockly.Msg.MATH_TRIG_TAN, 'TAN']];
+        this.setHelpUrl(Blockly.Msg.MATH_TRIG_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Number');
+        this.appendValueInput('NUM')
+            .setCheck('Number')
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+        // Assign 'this' to a variable for use in the tooltip closure below.
+        var thisBlock = this;
+        this.setTooltip(function() {
+            var mode = thisBlock.getFieldValue('OP');
+            var TOOLTIPS = {
+                'SIN': Blockly.Msg.MATH_TRIG_TOOLTIP_SIN,
+                'COS': Blockly.Msg.MATH_TRIG_TOOLTIP_COS,
+                'TAN': Blockly.Msg.MATH_TRIG_TOOLTIP_TAN
+            };
+            return TOOLTIPS[mode];
+        });
+    }
 };
 
 Blockly.Blocks['library_math_pow'] = {
