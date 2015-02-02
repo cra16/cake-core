@@ -112,7 +112,7 @@ Blockly.Blocks['library_math_abs'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -187,7 +187,7 @@ Blockly.Blocks['library_math_pow'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
             ['BASE', null, Blockly.ALIGN_RIGHT],['EXPO', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -202,7 +202,7 @@ Blockly.Blocks['library_math_exp'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
             ['EXPO', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -217,7 +217,7 @@ Blockly.Blocks['library_math_sqrt'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
