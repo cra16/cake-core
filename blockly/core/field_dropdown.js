@@ -280,3 +280,81 @@ Blockly.FieldDropdown.prototype.dispose = function() {
   Blockly.WidgetDiv.hideIfOwner(this);
   Blockly.FieldDropdown.superClass_.dispose.call(this);
 };
+
+Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
+
+    var parentType = null;
+
+    if (curBlock.getParent()) {
+        console.log('getParent: ' + curBlock.getParent());
+        if (curBlock.getParent().type == (strDist+'_declare')) {
+            if (curBlock.getParent().getDeclare()) {
+                parentType = curBlock.getParent().getTypes();
+            }
+        }
+    }
+
+    return parentType;
+
+}
+
+Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
+    var variableList = Blockly.Variables.allVariables();
+    var variableListPop = []; // 보여줄 리스트 거를 것.
+    var thisPosition = block.getRelativeToSurfaceXY().y;
+
+    var charDist, strDist;
+    switch(varDist) {
+        case 0:
+            charDist = 'd';
+            strDist = 'define';
+            break;
+        case 1:
+            charDist = 'v';
+            strDist = 'variables'
+            break;
+        case 2:
+            charDist = 'p';
+            strDist = 'variables_pointer';
+            break;
+        case 3:
+            charDist = 'a';
+            strDist = 'variables_array';
+            break;
+        default:
+            break;
+
+    }
+
+    var parentType = Blockly.FieldDropdown.prototype.getParentType(block, strDist);
+
+    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
+    && block.getSurroundParent().type != 'procedures_defreturn'){
+        block = block.getSurroundParent();
+    }
+    if(block.getSurroundParent()) {
+        var scope = block.getSurroundParent().getName();
+    }
+
+
+    for (var temp = 0; temp < variableList.length; temp++){
+
+        if(variableList[temp][1] == charDist){
+            if(variableList[temp][3] == scope){
+                if(variableList[temp][4].y < (thisPosition - 10)) {
+                    if (parentType != null) {
+                        if (variableList[temp][0] == parentType) {
+                            variableListPop.push(variableList[temp][2]);
+                        }
+                    }
+                    else {
+                        variableListPop.push(variableList[temp][2]);
+                    }
+
+                }
+            }
+        }
+    }
+
+    return variableListPop;
+}

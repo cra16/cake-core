@@ -89,26 +89,28 @@ Blockly.FieldVariablePointer.prototype.setValue = function(text) {
  * @this {!Blockly.FieldVariablePointer}
  */
 Blockly.FieldVariablePointer.dropdownCreate = function(block) {
-  var variableList = Blockly.Variables.allVariables();
-  var variableListPop = []; // 보여줄 리스트 거를 것.
-    var thisPosition = block.getRelativeToSurfaceXY().y;
-    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
-    && block.getSurroundParent().type != 'procedures_defreturn'){
-        block = block.getSurroundParent();
-    }
-    if(block.getSurroundParent())
-        var scope = block.getSurroundParent().getName();
+    var variableListPop = Blockly.FieldDropdown.prototype.listCreate(block, 2);
 
-
-    for (var temp = 0; temp < variableList.length; temp++){
-      if(variableList[temp][1]=='p') {
-          if (variableList[temp][3] == scope) {
-              if (variableList[temp][4] < thisPosition)
-                  variableListPop.push(variableList[temp][2]);
-          }
+    /*var variableList = Blockly.Variables.allVariables();
+    var variableListPop = []; // 보여줄 리스트 거를 것.
+      var thisPosition = block.getRelativeToSurfaceXY().y;
+      while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
+      && block.getSurroundParent().type != 'procedures_defreturn'){
+          block = block.getSurroundParent();
       }
-    }
+      if(block.getSurroundParent())
+          var scope = block.getSurroundParent().getName();
 
+
+      for (var temp = 0; temp < variableList.length; temp++){
+        if(variableList[temp][1]=='p') {
+            if (variableList[temp][3] == scope) {
+                if (variableList[temp][4] < thisPosition)
+                    variableListPop.push(variableList[temp][2]);
+            }
+        }
+      }
+  */
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
   if (name && variableListPop.indexOf(name) == -1) {
