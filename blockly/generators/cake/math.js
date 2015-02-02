@@ -126,6 +126,16 @@ Blockly.cake['library_math_pow'] = function(block) {
     return  [code, Blockly.cake.ORDER_NONE];
 };
 
+Blockly.cake['library_math_exp'] = function(block) {
+    // Scan statement.
+    var argument0 = Blockly.cake.valueToCode(block, 'EXPO',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_math'] =
+        '#include <math.h>';
+    var code = 'exp(' + argument0 + ')';
+    return  [code, Blockly.cake.ORDER_NONE];
+};
+
 Blockly.cake['library_math_sqrt'] = function(block) {
   // Scan statement.
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',

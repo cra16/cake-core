@@ -169,6 +169,21 @@ Blockly.Blocks['library_math_pow'] = {
     onchange: Blockly.Blocks.requireInFunction
 };
 
+Blockly.Blocks['library_math_exp'] = {
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true);
+        this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
+            ['EXPO', null, Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_EXP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
 Blockly.Blocks['library_math_sqrt'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
