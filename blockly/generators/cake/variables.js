@@ -74,7 +74,6 @@ Blockly.cake['variables_declare'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var varType = block.getFieldValue('TYPES');
-    console.log('varType: ' + varType);
   return varType + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 

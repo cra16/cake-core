@@ -135,7 +135,7 @@ Blockly.Blocks['define_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /*
    * Return Name
@@ -213,7 +213,7 @@ Blockly.Blocks['variables_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -281,7 +281,7 @@ Blockly.Blocks['variables_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -382,8 +382,6 @@ Blockly.Blocks['variables_declare'] = {
         // Add or remove a Value Input.
 
         var inputExists = this.getInput('VALUE');
-        console.log('isChar: ' + isChar);
-        console.log('inputExists: ' + inputExists);
 
         // remove input
         if(inputExists) {
@@ -422,7 +420,7 @@ Blockly.Blocks['variables_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Return all variables's types referenced by this block.
@@ -495,7 +493,7 @@ Blockly.Blocks['variables_pointer_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -563,7 +561,7 @@ Blockly.Blocks['variables_pointer_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -668,8 +666,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
         // Add or remove a Value Input.
 
         var inputExists = this.getInput('VALUE');
-        console.log('isChar: ' + isChar);
-        console.log('inputExists: ' + inputExists);
 
         // remove input
         if(inputExists) {
@@ -717,7 +713,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   // getIteration: function(){
   //   var num_iteration;
@@ -816,7 +812,7 @@ Blockly.Blocks['variables_array_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -906,7 +902,7 @@ Blockly.Blocks['variables_array_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
   /**
    * Notification that a variable is renaming.
@@ -994,7 +990,7 @@ Blockly.Blocks['variables_array_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY().y;
+        return this.getRelativeToSurfaceXY();
     },
     /**
      * Return array's specfic.
