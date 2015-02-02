@@ -182,7 +182,7 @@ Blockly.Blocks['text'] = {
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
   }
-}
+};
 
 Blockly.Blocks['variables_get'] = {
   /**
