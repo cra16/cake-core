@@ -33,30 +33,47 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
   return 'rand(' + argument0 + ');\n';
 };
 
-Blockly.cake['library_stdlib_srand'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_stdlib'] =
-        '#include <stdlib.h>';
-  return 'srand(' + argument0 + ');\n';
-};
 Blockly.cake['library_stdlib_malloc'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_stdlib'] =
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-  return 'malloc(' + argument0 + ');\n';
+    code = 'malloc(' + arg + ')';
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_stdlib_sizeof_forMalloc'] = function(block) {
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    code = 'sizeof(' + arg + ')';
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_stdlib_arithmetic_forMalloc'] = function(block) {
+    // Basic arithmetic operators.
+    var argument0 = Blockly.cake.valueToCode(block, 'A', Blockly.cake.ORDER_NONE) || '0';
+    var argument1 = Blockly.cake.valueToCode(block, 'B', Blockly.cake.ORDER_NONE) || '0';
+    var code;
+    // Power in cake requires a special case since it has no operator.
+    code = argument0 + ' x ' + argument1;
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_stdlib_number_forMalloc'] = function(block) {
+    // Numeric value.
+    var code = parseFloat(block.getFieldValue('NUM'));
+    return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
 Blockly.cake['library_stdlib_free'] = function(block) {
   // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
+  var arg = Blockly.cake.valueToCode(block, 'VAR',
       Blockly.cake.ORDER_NONE) || '\'\'';
   Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-  return 'free(' + argument0 + ');\n';
+  return 'free(' + arg + ');\n';
 };
 
 Blockly.cake['library_stdlib_exit'] = function(block) {
