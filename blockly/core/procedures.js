@@ -55,6 +55,7 @@ Blockly.Procedures.allProcedures = function() {
     if (func) {
       var tuple = func.call(blocks[x]);
       if (tuple) {
+          console.log(tuple[5]);
         if (tuple[6]) {
           proceduresReturn.push(tuple);
         } else {

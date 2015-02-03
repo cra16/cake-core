@@ -135,7 +135,7 @@ Blockly.Blocks['define_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /*
    * Return Name
@@ -213,7 +213,7 @@ Blockly.Blocks['variables_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -283,7 +283,7 @@ Blockly.Blocks['variables_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -412,7 +412,7 @@ Blockly.Blocks['variables_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Return all variables's types referenced by this block.
@@ -485,7 +485,7 @@ Blockly.Blocks['variables_pointer_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -556,7 +556,7 @@ Blockly.Blocks['variables_pointer_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -693,7 +693,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   // getIteration: function(){
   //   var num_iteration;
@@ -792,7 +792,7 @@ Blockly.Blocks['variables_array_get'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -885,7 +885,7 @@ Blockly.Blocks['variables_array_set'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
   /**
    * Notification that a variable is renaming.
@@ -973,7 +973,7 @@ Blockly.Blocks['variables_array_declare'] = {
      * Return this block's position
      */
     getPos: function(){
-        return this.getRelativeToSurfaceXY();
+        return this.getRelativeToSurfaceXY().y;
     },
     /**
      * Return array's specfic.
@@ -996,11 +996,6 @@ Blockly.Blocks['variables_array_declare'] = {
     },
   //when the block is changed, 
   onchange: Blockly.Blocks.variablePlaceCheck,
-  //when the block is changed, 
-  // onchange: function() {
-  //   Blockly.Blocks.requireInFunction();
-  //   Blockly.Blocks.arrayTestFunction(this, this.getFieldValue('LENGTH_1'), this.getFieldValue('LENGTH_2'), this.getFieldValue('LENGTH_3'));
-  // },
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.

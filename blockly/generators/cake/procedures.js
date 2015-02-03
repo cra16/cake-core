@@ -97,7 +97,12 @@ Blockly.cake['procedures_defreturn'] = function(block) {
           typePlusArgs[x] = argTypes[x] + ' ' + args[x];
       }
       else if(argDist[x] =='a'){
-          typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x] + ']';
+          if(argSpec[x][0] == 1)
+              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']';
+          else if(argSpec[x][0] == 2)
+              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']';
+          else if(argSpec[x][0] == 3)
+              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']' + '[' + argSpec[x][2] + ']';
       }
       else if(argDist[x] =='p'){
           typePlusArgs[x] = argTypes[x] + argSpec[x] + ' ' + args[x];
@@ -149,7 +154,12 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
             typePlusArgs[x] = argTypes[x] + ' ' + args[x];
         }
         else if(argDist[x] =='a'){
-            typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x] + ']';
+            if(argSpec[x][0] == 1)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']';
+            else if(argSpec[x][0] == 2)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']';
+            else if(argSpec[x][0] == 3)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']' + '[' + argSpec[x][2] + ']';
         }
         else if(argDist[x] =='p'){
             typePlusArgs[x] = argTypes[x] + argSpec[x] + ' ' + args[x];

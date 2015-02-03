@@ -38,7 +38,7 @@ Blockly.Blocks['controls_if'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(210);
     this.appendValueInput('IF0')
-      .setCheck('Boolean')
+      .setCheck(['Boolean', 'Number'])
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -92,7 +92,7 @@ Blockly.Blocks['controls_if'] = {
     this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-        .setCheck('Boolean')
+        .setCheck(['Boolean', 'Number'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -149,7 +149,7 @@ Blockly.Blocks['controls_if'] = {
         case 'controls_if_elseif':
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-            .setCheck('Boolean')
+            .setCheck(['Boolean', 'Number'])
             .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -321,9 +321,9 @@ Blockly.Blocks['logic_operation'] = {
     this.setColour(210);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A')
-      .setCheck('Boolean');
+      .setCheck(['Boolean', 'Number']);
     this.appendValueInput('B')
-      .setCheck('Boolean')
+      .setCheck(['Boolean', 'Number'])
       .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -350,7 +350,7 @@ Blockly.Blocks['logic_negate'] = {
     this.setHelpUrl(Blockly.Msg.LOGIC_NEGATE_HELPURL);
     this.setColour(210);
     this.setOutput(true, 'Boolean');
-    this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', 'Boolean', Blockly.ALIGN_RIGHT],
+    this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
   },
@@ -406,7 +406,7 @@ Blockly.Blocks['logic_ternary'] = {
     this.setHelpUrl(Blockly.Msg.LOGIC_TERNARY_HELPURL);
     this.setColour(210);
     this.appendValueInput('IF')
-      .setCheck('Boolean')
+      .setCheck(['Boolean', 'Number'])
       .appendField(Blockly.Msg.LOGIC_TERNARY_CONDITION);
     this.appendValueInput('THEN')
       .appendField(Blockly.Msg.LOGIC_TERNARY_IF_TRUE);
@@ -424,10 +424,9 @@ Blockly.Blocks['controls_switch'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(210);
     this.appendValueInput('SWITCH')
-      .setCheck('Boolean')
       .appendField(Blockly.Msg.CONTROLS_SWITCH);
     this.appendValueInput('CASE0')
-    .setCheck('Boolean')
+    .setCheck('Number')
     .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);      
     this.appendStatementInput('DO0')
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -474,7 +473,7 @@ Blockly.Blocks['controls_switch'] = {
     this.caseCount_ = parseInt(xmlElement.getAttribute('case'), 10);
     for (var x = 1; x <= this.caseCount_; x++) {
       this.appendValueInput('CASE' + x)
-        .setCheck('Boolean')
+        .setCheck(['Boolean', 'Number'])
         .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
       this.appendStatementInput('DO' + x)
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -518,7 +517,7 @@ Blockly.Blocks['controls_switch'] = {
         case 'controls_switch_case':
           this.caseCount_++;
           var ifInput = this.appendValueInput('CASE' + this.caseCount_)
-            .setCheck('Boolean')
+            .setCheck('Number')
             .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
           var doInput = this.appendStatementInput('DO' + this.caseCount_);
           doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);

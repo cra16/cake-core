@@ -34,7 +34,7 @@ Blockly.cake['controls_whileUntil'] = function(block) {
   var until = block.getFieldValue('MODE') == 'UNTIL';
   var argument0 = Blockly.cake.valueToCode(block, 'BOOL',
     until ? Blockly.cake.ORDER_LOGICAL_NOT :
-    Blockly.cake.ORDER_NONE) || 'false';
+    Blockly.cake.ORDER_NONE) || '0';
   var branch = Blockly.cake.statementToCode(block, 'DO');
   branch = Blockly.cake.addLoopTrap(branch, block.id);
   if (until) {

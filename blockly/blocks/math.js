@@ -112,7 +112,7 @@ Blockly.Blocks['library_math_abs'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -187,7 +187,7 @@ Blockly.Blocks['library_math_pow'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
             ['BASE', null, Blockly.ALIGN_RIGHT],['EXPO', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -202,7 +202,7 @@ Blockly.Blocks['library_math_exp'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
             ['EXPO', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -217,7 +217,7 @@ Blockly.Blocks['library_math_sqrt'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
-        this.setOutput(true);
+        this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
@@ -228,3 +228,72 @@ Blockly.Blocks['library_math_sqrt'] = {
     onchange: Blockly.Blocks.requireInFunction
 };
 
+Blockly.Blocks['library_math_round'] = {
+    /**
+     * Block for rounding functions.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [[Blockly.Msg.MATH_ROUND_OPERATOR_ROUND, 'ROUND'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_CEIL, 'CEIL'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_FLOOR, 'FLOOR'],
+                [Blockly.Msg.MATH_ROUND_OPERATOR_TRUNC, 'TRUNC']];
+        this.setHelpUrl(Blockly.Msg.MATH_ROUND_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Number');
+        this.appendValueInput('NUM')
+            .setCheck('Number')
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+        this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
+    }
+};
+
+Blockly.Blocks['library_math_numcheck'] = {
+    init: function() {
+        var CONDITION =
+            [
+                [Blockly.Msg.MATH_NUMCHECK_ISFINITE, 'ISFINITE'],
+                [Blockly.Msg.MATH_NUMCHECK_ISINF, 'ISINF'],
+                [Blockly.Msg.MATH_NUMCHECK_SIGNBIT, 'SIGNBIT'],
+                [Blockly.Msg.MATH_NUMCHECK_ISNAN, 'ISNAN']
+            ];
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Boolean');
+        this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
+            ['VAR', null, Blockly.ALIGN_RIGHT],
+            ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_NUMCHECK_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
+Blockly.Blocks['library_math_numcompare'] = {
+    init: function() {
+        var CONDITION =
+            [
+                [Blockly.Msg.MATH_NUMCOMPARE_ISGREATER, 'ISGREATER'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLESS, 'ISLESS'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISGREQ, 'ISGREQ'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ, 'ISLEEQ'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISLEGR, 'ISLEGR'],
+                [Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER, 'ISUNORDER']
+            ];
+        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Boolean');
+        this.interpolateMsg(Blockly.Msg.MATH_NUMCOMPARE_TITLE,
+            ['VAR1', null, Blockly.ALIGN_RIGHT],
+            ['VAR2', null, Blockly.ALIGN_RIGHT],
+            ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
+            Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
+        this.setTooltip(Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};

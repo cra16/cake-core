@@ -229,9 +229,10 @@ Blockly.Msg.MATH_RANDOM_INT_TITLE = "랜덤정수(%1<= n <=%2)";
 Blockly.Msg.MATH_RANDOM_INT_TOOLTIP = "두 주어진 제한된 범위 사이의 임의 정수값을 돌려줍니다.";
 Blockly.Msg.MATH_ROUND_HELPURL = "https://en.wikipedia.org/wiki/Rounding";
 Blockly.Msg.MATH_ROUND_OPERATOR_ROUND = "반올림";
-Blockly.Msg.MATH_ROUND_OPERATOR_ROUNDDOWN = "버림";
-Blockly.Msg.MATH_ROUND_OPERATOR_ROUNDUP = "올림";
-Blockly.Msg.MATH_ROUND_TOOLTIP = "어떤 수를 반올림/올림/버림한 결과를, 정수값으로 돌려줍니다.";
+Blockly.Msg.MATH_ROUND_OPERATOR_CEIL = "올림";
+Blockly.Msg.MATH_ROUND_OPERATOR_FLOOR = "내림";
+Blockly.Msg.MATH_ROUND_OPERATOR_TRUNC = "버림";
+Blockly.Msg.MATH_ROUND_TOOLTIP = "어떤 수를 반올림/올림/내림/버림한 결과를 돌려줍니다.";
 Blockly.Msg.MATH_SINGLE_HELPURL = "https://en.wikipedia.org/wiki/Square_root";
 Blockly.Msg.MATH_SINGLE_OP_ABSOLUTE = "절대값";
 Blockly.Msg.MATH_SINGLE_OP_ROOT = "제곱근";
@@ -272,11 +273,11 @@ Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS = "사용:";
 Blockly.Msg.PROCEDURES_CREATE_DO = "'%1' 생성";
 Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "function name";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수";
+Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "func";
+Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수이름";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "다음을 돌려줌";
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "을(를) 돌려줌 값:";
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "경고: 이 함수에는, 같은 이름을 사용하는 매개 변수들이 있습니다.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "함수 정의 찾기";
@@ -409,7 +410,20 @@ Blockly.Msg.MATH_POW_TITLE = '%1의 %2 제곱';//'%1의 %2 제곱';
 Blockly.Msg.MATH_EXP_TITLE = 'e의 %1 제곱';
 Blockly.Msg.MATH_SQRT_TITLE = '%1의 제곱근';
 Blockly.Msg.MATH_ABS_TITLE = '절댓값 %1'; // not use
-//Blockly.Msg.MATH_MACROONEPARA_TITLE = '%1은(는) ';
+Blockly.Msg.MATH_NUMCHECK_TITLE = '%1은(는) %2 ?';
+Blockly.Msg.MATH_NUMCHECK_ISFINITE = '유한한 수';
+Blockly.Msg.MATH_NUMCHECK_ISINF = '무한한 수';
+Blockly.Msg.MATH_NUMCHECK_SIGNBIT = '음수';
+Blockly.Msg.MATH_NUMCHECK_ISNAN = '불가능한 수';
+Blockly.Msg.MATH_NUMCHECK_TOOLTIP = '';
+Blockly.Msg.MATH_NUMCOMPARE_TITLE = '%1이(가) %2보다 %3 ?';
+Blockly.Msg.MATH_NUMCOMPARE_ISGREATER = '큰가';
+Blockly.Msg.MATH_NUMCOMPARE_ISLESS = '작은가';
+Blockly.Msg.MATH_NUMCOMPARE_ISGREQ = '크거나 같은가';
+Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ = '작거나 같은가';
+Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = '작거나 큰가';
+Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = '내림차순인가';
+Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
 
 Blockly.Msg.VARIABLES_SET_TYPE_INT = '정수';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= '양의 정수';
@@ -441,17 +455,18 @@ Blockly.Msg.FUNCTION_SET_TYPE_LONGDOUBLE = 'long double';
 Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
 
 Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
-Blockly.Msg.DEFINE_DECLARE_INIT = 'is';
+Blockly.Msg.DEFINE_DECLARE_INIT = '은(는)';
 Blockly.Msg.DEFINE_GET_TITLE = '';
 Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
-Blockly.Msg.MAIN_BLOCK = 'int main with: int argc, char **argv';
+Blockly.Msg.MAIN_BLOCK = '함수이름: main 사용: int argc, char** argv';
+Blockly.Msg.MAIN_BLOCK_RETURN = "정수를 돌려줌 값:";
 
-Blockly.Msg.CONTROLS_SWITCH = 'switch ';
-Blockly.Msg.CONTROLS_SWITCH_CASE = 'case';
+Blockly.Msg.CONTROLS_SWITCH = '다음 값이 ';
+Blockly.Msg.CONTROLS_SWITCH_CASE = '~와 같은 경우';
 
-Blockly.Msg.STRUCTURE_DEFINE_TITLE = 'structure type name';
+Blockly.Msg.STRUCTURE_DEFINE_TITLE = '구조체 정의 이름:';
 Blockly.Msg.STRUCTURE_DEFINE_NAME = 'myStructure';
 Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE = 'members';
 Blockly.Msg.STRUCTURE_MUTATORMEM_VAR= '변수 type';
@@ -459,8 +474,8 @@ Blockly.Msg.STRUCTURE_MUTATORMEM_POINTER= '포인터 type';
 Blockly.Msg.STRUCTURE_MUTATORMEM_ARRAY= '배열 type';
 Blockly.Msg.STRUCTURE_MUTATORARG_NAME = 'name';
 
-Blockly.Msg.STRUCTURE_DECLARE_TITLE = 'type';
-Blockly.Msg.STRUCTURE_DECLARE_TALE = 'name';
+Blockly.Msg.STRUCTURE_DECLARE_TITLE = '구조체 선언';
+Blockly.Msg.STRUCTURE_DECLARE_TALE = '이름:';
 Blockly.Msg.STRUCTURE_DECLARE_NAME = 'myStructure1';
 
 Blockly.Msg.STRUCTURE_SET_NAME = 'name';
@@ -471,5 +486,6 @@ Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 
-Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 함수 안에 넣어주세요.';
+Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
+Blockly.Msg.PLZ_OUT_OF_FUNCTION = '경고: 블럭을 함수 밖에 위치해주세요.';

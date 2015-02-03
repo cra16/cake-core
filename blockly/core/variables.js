@@ -57,7 +57,6 @@ Blockly.Variables.allVariables = function(opt_block) {
     var funcVar = blocks[x].getDeclare;
     var funcParamInfo = blocks[x].getParamInfo;
 
-    // window.alert(func);
     if (funcVar) {
         var blockVariablesName = funcVar.call(blocks[x]);
 
@@ -96,8 +95,18 @@ Blockly.Variables.allVariables = function(opt_block) {
       if (varName) {
         variableHash[varName.toLowerCase()] = [varType, varDist, varName, varScope, varPos, varSpec];
       }
-    } else if (funcParamInfo) {
-
+    }
+    /**
+    * save function parameter as a variable into variableHash and then variableList.
+    * using getParamInfo function in all function blocks.
+    */
+    else if (funcParamInfo) {
+        var tuple = funcParamInfo.call(blocks[x]);
+        if(tuple){
+            for(var i = 0; i<tuple.length; i++) {
+                variableHash[tuple[i][2].toLowerCase()] = [tuple[i][0], tuple[i][1], tuple[i][2], tuple[i][3], tuple[i][4], tuple[i][5]];
+            }
+        }
     } 
   }
   // Flatten the hash into a list.

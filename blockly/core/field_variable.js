@@ -91,43 +91,7 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
 Blockly.FieldVariable.dropdownCreate = function(block) {
 
     var variableListPop = Blockly.FieldDropdown.prototype.listCreate(block, 1);
-/*
-    var variableList = Blockly.Variables.allVariables();
-    var variableListPop = []; // 보여줄 리스트 거를 것.
-    var thisPosition = block.getRelativeToSurfaceXY();
 
-    var parentType = Blockly.FieldDropdown.prototype.getParentType(block, 1);
-
-    while (block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
-    && block.getSurroundParent().type != 'procedures_defreturn') {
-        block = block.getSurroundParent();
-
-    }
-
-    if (block.getSurroundParent()) {
-        var scope = block.getSurroundParent().getName();
-    }
-
-    for (var temp = 0; temp < variableList.length; temp++){
-      if(variableList[temp][1]=='v'){
-          if(variableList[temp][3] == scope){
-              if(variableList[temp][4].y < thisPosition.y - 10) {
-                  if (parentType != null) {
-                      if (variableList[temp][0] == parentType) {
-
-                          console.log('varList: ' + variableList[temp][0] + ', parentType: ' + parentType);
-                          variableListPop.push(variableList[temp][2]);
-                      }
-                  }
-                  else {
-                      variableListPop.push(variableList[temp][2]);
-                  }
-
-              }
-          }
-      }
-    }
-*/
   // Ensure that the currently selected variable is an option.
   var name = this.getText();
   if (name && variableListPop.indexOf(name) == -1) {
