@@ -89,7 +89,6 @@ Blockly.FieldVariableArray.prototype.setValue = function(text) {
  * @this {!Blockly.FieldVariableArray}
  */
 Blockly.FieldVariableArray.dropdownCreate = function(block) {
-<<<<<<< HEAD
 
     var variableListPop = Blockly.FieldDropdown.prototype.listCreate(block, 3);
 
