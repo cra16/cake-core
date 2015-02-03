@@ -168,7 +168,7 @@ Blockly.cake['library_math_round'] = function(block) {
     var operator = block.getFieldValue('OP');
     var code;
     var arg = Blockly.cake.valueToCode(block, 'NUM',
-            Blockly.cake.ORDER_NONE) || '0';
+            Blockly.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -197,7 +197,7 @@ Blockly.cake['library_math_numcheck'] = function(block) {
     var operator = block.getFieldValue('CONDITIONS');
     var code;
     var arg = Blockly.cake.valueToCode(block, 'VAR',
-            Blockly.cake.ORDER_NONE) || '';
+            Blockly.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -226,9 +226,9 @@ Blockly.cake['library_math_numcompare'] = function(block) {
     var operator = block.getFieldValue('CONDITIONS');
     var code;
     var arg1 = Blockly.cake.valueToCode(block, 'VAR1',
-            Blockly.cake.ORDER_NONE) || '';
+            Blockly.cake.ORDER_NONE) || '\'\'';
     var arg2 = Blockly.cake.valueToCode(block, 'VAR2',
-            Blockly.cake.ORDER_NONE) || '';
+            Blockly.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
