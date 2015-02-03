@@ -4,6 +4,28 @@ goog.provide('Blockly.Blocks.stdlib');
 
 goog.require('Blockly.Blocks');
 
+Blockly.Blocks['library_stdlib_convert'] = {
+    /**
+     * Block for atoi(), atof()
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [
+                [Blockly.Msg.STDLIB_CONVERT_INT, 'INT'],
+                [Blockly.Msg.STDLIB_CONVERT_DOUBLE, 'DOUBLE']
+            ];
+        this.setHelpUrl(Blockly.Msg.STDLIB_CONVERT_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'Number');
+        this.interpolateMsg(Blockly.Msg.STDLIB_CONVERT_TITLE,
+            ['VAR', null, Blockly.ALIGN_RIGHT],
+            ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
+            Blockly.ALIGN_RIGHT);
+        this.setTooltip(Blockly.Msg.STDLIB_CONVERT_HELPURL);
+    }
+};
+
 Blockly.Blocks['library_stdlib_rand'] = {
   /**
    * Block for [printf function] in c

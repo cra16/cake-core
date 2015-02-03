@@ -1,9 +1,28 @@
-
 'use strict';
 
 goog.provide('Blockly.cake.stdlib');
 
 goog.require('Blockly.cake');
+
+Blockly.cake['library_stdlib_convert'] = function(block) {
+    var operator = block.getFieldValue('OPERATORS');
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    switch (operator) {
+        case 'INT':
+            code = 'atoi(' + arg + ')';
+            break;
+        case 'DOUBLE':
+            code = 'atof(' + arg + ')';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    Blockly.cake.definitions_['include_cake_stdlib'] =
+        '#include <stdlib.h>';
+    return [code, Blockly.cake.ORDER_NONE];
+};
 
 Blockly.cake['library_stdlib_rand'] = function(block) {
   // Scan statement.
