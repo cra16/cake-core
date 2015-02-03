@@ -401,7 +401,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-    return [this.getFieldValue('NAME'), this.getFieldValue('TYEPS'), this.arguments_, this.types_, this.dist_, this.spec_, false];
+    return [this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, false];
   },
   /**
    * Return all variables referenced by this block.
@@ -520,8 +520,7 @@ Blockly.Blocks['procedures_defreturn'] = {
       Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
     this.appendDummyInput()
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_TITLE)
-      .appendField(new Blockly.FieldTextInput(name,
-        Blockly.Procedures.rename), 'NAME')
+      .appendField(new Blockly.FieldTextInput(name, Blockly.Procedures.rename), 'NAME')
       .appendField('', 'PARAMS');
     this.appendStatementInput('STACK')
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);

@@ -94,11 +94,18 @@ Blockly.Blocks['define_declare'] = {
       ];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(160);
+      var name = Blockly.Procedures.findLegalName(
+          Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME, this);
+
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.DEFINE_DECLARE_TITLE + ' %1 ' +
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-      Blockly.Msg.DEFINE_DECLARE_INIT + ' %3', ['DEFINES', new Blockly.FieldDropdown(DEFINE)], ['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.DEFINE_DECLARE_INIT + ' %3',
+        ['DEFINES', new Blockly.FieldDropdown(DEFINE)],
+        ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
+        //['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)],
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
 
     this.setPreviousStatement(true);
@@ -107,6 +114,14 @@ Blockly.Blocks['define_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'define_get';
   },
+    /**
+     * Return the signature of this pointer_declare definition.
+     * for prohibiting redundancy of variable names
+     */
+
+    getProcedureDef: function() {
+        return [this.getFieldValue('VAR')]
+    },
   /**
    * Return all variables's types referenced by this block.
    * @return {!Array.<string>} List of variable types.
@@ -315,6 +330,9 @@ Blockly.Blocks['variables_declare'] = {
         [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
       this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
       this.setColour(330);
+      var name = Blockly.Procedures.findLegalName(
+          Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
+
       var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
           var inputVal;
           if (option == 'char') {
@@ -332,7 +350,9 @@ Blockly.Blocks['variables_declare'] = {
        Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
        Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
        Blockly.Msg.VARIABLES_DECLARE_INIT,
-       ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
+       ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
+
+//          ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
        Blockly.ALIGN_RIGHT);
 
     this.setPreviousStatement(true);
@@ -341,7 +361,14 @@ Blockly.Blocks['variables_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+    /**
+     * Return the signature of this pointer_declare definition.
+     * for prohibiting redundancy of variable names
+     */
 
+    getProcedureDef: function() {
+        return [this.getFieldValue('VAR')]
+    },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
      * @return {Element} XML storage element.
@@ -587,6 +614,9 @@ Blockly.Blocks['variables_pointer_declare'] = {
               [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(45);
+      var name = Blockly.Procedures.findLegalName(
+          Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
+
       var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
           var inputVal;
           if (option == 'char') {
@@ -605,7 +635,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
           Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
           Blockly.Msg.VARIABLES_DECLARE_INIT,
           ['ITERATION', new Blockly.FieldTextInput('*')],
-          ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
+          ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
+          //['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
           Blockly.ALIGN_RIGHT);
 
       this.setPreviousStatement(true);
@@ -614,6 +645,14 @@ Blockly.Blocks['variables_pointer_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
   },
+    /**
+     * Return the signature of this pointer_declare definition.
+     * for prohibiting redundancy of variable names
+     */
+
+    getProcedureDef: function() {
+        return [this.getFieldValue('VAR')]
+    },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
      * @return {Element} XML storage element.
@@ -937,13 +976,19 @@ Blockly.Blocks['variables_array_declare'] = {
               [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(90);
-    this.interpolateMsg(
+      var name = Blockly.Procedures.findLegalName(
+          Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
+
+      this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       ' %1 ' +Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' '+
       Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
       Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
       //+ Blockly.Msg.VARIABLES_DECLARE_INIT + ' %6',
-        ['TYPES', new Blockly.FieldDropdown(TYPE)], ['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)],
+        ['TYPES', new Blockly.FieldDropdown(TYPE)],
+        ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
+
+        //['VAR', new Blockly.FieldTextInput('myArray', Blockly.Blocks.CNameValidator)],
         ['LENGTH_1', new Blockly.FieldTextInput('1', Blockly.FieldTextInput.numberValidator)],
         ['LENGTH_2', new Blockly.FieldTextInput('')],
         ['LENGTH_3', new Blockly.FieldTextInput('')],
@@ -956,7 +1001,14 @@ Blockly.Blocks['variables_array_declare'] = {
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_array_get';
   },
+    /**
+     * Return the signature of this pointer_declare definition.
+     * for prohibiting redundancy of variable names
+     */
 
+    getProcedureDef: function() {
+        return [this.getFieldValue('VAR')]
+    },
   /**
    * Return 'array'.
    */

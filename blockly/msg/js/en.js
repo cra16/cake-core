@@ -436,10 +436,13 @@ Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';
 Blockly.Msg.VARIABLES_DECLARE_TITLE = 'variable';
 Blockly.Msg.VARIABLES_DECLARE_NAME = 'name';
 Blockly.Msg.VARIABLES_DECLARE_INIT = 'initial value';
+Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME = 'myVariable';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = 'pointer';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME = 'myPointer';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = 'array';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = 'length';
+Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME = 'myArray';
 Blockly.Msg.VARIABLES_RETURN = 'return ';
 
 Blockly.Msg.POINTER_GET_TITLE = "";
@@ -456,6 +459,7 @@ Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
 
 Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
 Blockly.Msg.DEFINE_DECLARE_INIT = 'is';
+Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME = 'myMacro';
 Blockly.Msg.DEFINE_GET_TITLE = '';
 Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';

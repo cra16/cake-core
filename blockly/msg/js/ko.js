@@ -436,11 +436,15 @@ Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';
 Blockly.Msg.VARIABLES_DECLARE_TITLE = '변수';
 Blockly.Msg.VARIABLES_DECLARE_NAME = '이름';
 Blockly.Msg.VARIABLES_DECLARE_INIT = '초기값';
+Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME = 'myVariable';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE = '포인터';
 Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION = '';
+Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME = 'myPointer';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = '배열';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = '길이';
+Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME = 'myArray';
 Blockly.Msg.VARIABLES_RETURN = '다음을 반환 ';
+
 
 Blockly.Msg.POINTER_GET_TITLE = "";
 Blockly.Msg.ARRAY_GET_TITLE = "";
@@ -456,6 +460,7 @@ Blockly.Msg.FUNCTION_SET_TYPE_CHAR = 'char';
 
 Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
 Blockly.Msg.DEFINE_DECLARE_INIT = '은(는)';
+Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME = 'myMacro';
 Blockly.Msg.DEFINE_GET_TITLE = '';
 Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';

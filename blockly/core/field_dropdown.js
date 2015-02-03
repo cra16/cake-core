@@ -369,7 +369,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
 
         if(variableList[temp][1] == charDist){
             if(variableList[temp][3] == scope){
-                if(variableList[temp][4].y < (thisPosition - 10)) {
+                if(variableList[temp][4] < (thisPosition - 10)) {
                     if (parentType != null) {
                         if (variableList[temp][0] == parentType) {
                             variableListPop.push(variableList[temp][2]);
