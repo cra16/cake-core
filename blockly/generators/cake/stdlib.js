@@ -5,12 +5,6 @@ goog.provide('Blockly.cake.stdlib');
 
 goog.require('Blockly.cake');
 
-Blockly.cake['library_func_paren'] = function(block) {
-  // Text value.
-  var code = block.getFieldValue('TEXT');
-  return [code, Blockly.cake.ORDER_ATOMIC];
-};
-
 Blockly.cake['library_stdlib_rand'] = function(block) {
   // Scan statement.
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
@@ -47,10 +41,19 @@ Blockly.cake['library_stdlib_free'] = function(block) {
 };
 
 Blockly.cake['library_stdlib_exit'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_stdlib'] =
+    var operator = block.getFieldValue('OPERATORS');
+    var code;
+    switch (operator) {
+        case 'SUCCESS':
+            code = 'exit(0);\n';
+            break;
+        case 'FAILURE':
+            code = 'exit(1);\n';
+            break;
+        default:
+            throw 'Unknown math operator: ' + operator;
+    }
+    Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-  return 'exit(' + argument0 + ');\n';
+  return code;
 };
