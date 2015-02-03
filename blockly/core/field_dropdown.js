@@ -281,21 +281,49 @@ Blockly.FieldDropdown.prototype.dispose = function() {
   Blockly.FieldDropdown.superClass_.dispose.call(this);
 };
 
+
+/* 너무 지저분 해 ~_~*/
 Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
 
     if (curBlock.getParent()) {
-        console.log('getParent: ' + curBlock.getParent());
-        if (curBlock.getParent().type == (strDist+'_declare')) {
+
+        if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
+            && curBlock.getParent().getParent()) {
+
+            if (curBlock.getParent().getParent().getVars()){
+                parentType = curBlock.getParent().getParent().getTypes();
+
+            }
+        }
+
+        if ((curBlock.type == (strDist+'_get')) && (curBlock.getParent().type == (strDist+'_set'))) {
+            var ParentVars = curBlock.getParent().getVars();
+
+            // when pointer_set block
+            if (strDist == 'variables_pointer'){
+                ParentVars = ParentVars.toString().replace("* ", "");
+            }
+
+            var variableList = Blockly.Variables.allVariables();
+
+            for (var temp = 0; temp < variableList.length; temp++){
+                // coincide with the name of variables
+                if(variableList[temp][2] == ParentVars){
+                    parentType = (variableList[temp][0]);
+                }
+            }
+        }
+        else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type == (strDist+'_declare'))) {
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }
         }
+
+
     }
-
     return parentType;
-
 }
 
 Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {

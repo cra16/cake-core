@@ -261,7 +261,9 @@ Blockly.Blocks['variables_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', new Blockly.FieldVariable('--Select--', null, this)], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+        ['VAR', new Blockly.FieldVariable('--Select--', null, this)],
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -313,15 +315,6 @@ Blockly.Blocks['variables_declare'] = {
         [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
       this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
       this.setColour(330);
-    /*this.interpolateMsg(
-      // TODO: Combine these messages instead of using concatenation.
-      ' %1 ' +Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
-      Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3',
-        ['TYPES', new Blockly.FieldDropdown(TYPE)],
-        ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
-        ['VALUE', null, Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);*/
       var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
           var inputVal;
           if (option == 'char') {
@@ -340,7 +333,6 @@ Blockly.Blocks['variables_declare'] = {
        Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
        Blockly.Msg.VARIABLES_DECLARE_INIT,
        ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
-       //['VALUE', Blockly.FieldVariable.limitVariable, Blockly.ALIGN_RIGHT],
        Blockly.ALIGN_RIGHT);
 
     this.setPreviousStatement(true);
@@ -526,7 +518,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     options.push(option);
   },
 
-  //when the block is changed, 
+  //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
 };
 
@@ -541,7 +533,10 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2', ['VAR', null, Blockly.ALIGN_RIGHT], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
+        //['VAR', new Blockly.FieldVariablePointer('--Select--', null, this)],
+        ['VAR', null, Blockly.ALIGN_RIGHT],
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
@@ -555,7 +550,7 @@ Blockly.Blocks['variables_pointer_set'] = {
    * @this Blockly.Block
    */
   getVars: function() {
-    return [this.getFieldValue('VAR')];
+    return [this.getInputTargetBlock('VAR')];
   },
     /**
      * Return this block's position
@@ -592,17 +587,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
               [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(45);
-  /*  this.interpolateMsg(
-      // TODO: Combine these messages instead of using concatenation.
-      ' %1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
-      Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
-      Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
-      Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4',
-        ['TYPES', new Blockly.FieldDropdown(TYPE)],
-        ['ITERATION', new Blockly.FieldTextInput('*')],
-        ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
-        ['VALUE', ['Address', 'Variable', 'Array'], Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);*/
       var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
           var inputVal;
           if (option == 'char') {
@@ -616,16 +600,12 @@ Blockly.Blocks['variables_pointer_declare'] = {
       this.appendDummyInput().appendField(dropdown, 'TYPES');
       this.interpolateMsg(
           // TODO: Combine these messages instead of using concatenation.
-          //' %1 ' +
           Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
           Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %1 ' +
           Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
           Blockly.Msg.VARIABLES_DECLARE_INIT,
-          //+ ' %3',
-          //['TYPES', new Blockly.FieldDropdown(TYPE)],
           ['ITERATION', new Blockly.FieldTextInput('*')],
           ['VAR', new Blockly.FieldTextInput('myPointer', Blockly.Blocks.CNameValidator)],
-          //['VALUE', ['Address', 'Variable', 'Array'], Blockly.ALIGN_RIGHT],
           Blockly.ALIGN_RIGHT);
 
       this.setPreviousStatement(true);
@@ -882,7 +862,10 @@ Blockly.Blocks['variables_array_set'] = {
     this.interpolateMsg(
       // TODO: Combine these messages instead of using concatenation.
       Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' + ' %2' + '%3' + '%4 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %5', ['VAR', new Blockly.FieldVariableArray('--Select--', null, this)], ['LENGTH_1', new Blockly.FieldTextInput('0')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')], ['VALUE', null, Blockly.ALIGN_RIGHT],
+      Blockly.Msg.VARIABLES_SET_TAIL + ' %5',
+        ['VAR', new Blockly.FieldVariableArray('--Select--', null, this)],
+        ['LENGTH_1', new Blockly.FieldTextInput('0')], ['LENGTH_2', new Blockly.FieldTextInput('')], ['LENGTH_3', new Blockly.FieldTextInput('')],
+        ['VALUE', null, Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
