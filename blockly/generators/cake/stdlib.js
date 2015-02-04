@@ -25,12 +25,35 @@ Blockly.cake['library_stdlib_convert'] = function(block) {
 };
 
 Blockly.cake['library_stdlib_rand'] = function(block) {
-  // Scan statement.
-  var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-      Blockly.cake.ORDER_NONE) || '\'\'';
-  Blockly.cake.definitions_['include_cake_stdlib'] =
+    var code;
+    var arg = Blockly.cake.valueToCode(block, 'VAR',
+            Blockly.cake.ORDER_NONE) || '\'\'';
+    Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-  return 'rand(' + argument0 + ');\n';
+    code = 'rand(' + arg + ')';
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_stdlib_rand_scope'] = function(block) {
+    // Basic arithmetic operators.
+    var argument0 = Blockly.cake.valueToCode(block, 'A', Blockly.cake.ORDER_NONE) || '0';
+    var argument1 = Blockly.cake.valueToCode(block, 'B', Blockly.cake.ORDER_NONE) || '0';
+    var code;
+    // Power in cake requires a special case since it has no operator.
+    code = argument0 + ' * ' + argument1;
+    return [code, Blockly.cake.ORDER_NONE];
+};
+
+Blockly.cake['library_stdlib_number_forRandScope1'] = function(block) {
+    // Numeric value.
+    var code = parseFloat(block.getFieldValue('NUM'));
+    return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['library_stdlib_number_forRandScope100'] = function(block) {
+    // Numeric value.
+    var code = parseFloat(block.getFieldValue('NUM'));
+    return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
 Blockly.cake['library_stdlib_malloc'] = function(block) {
