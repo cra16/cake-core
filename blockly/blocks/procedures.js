@@ -555,7 +555,7 @@ Blockly.Blocks['procedures_defreturn'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-      return [this.getFieldValue('NAME'), this.getFieldValue('TYEPS'), this.arguments_, this.types_, this.dist_, this.spec_, true];
+      return [this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, true];
   },
   getType: function() {
     return [this.getFieldValue('TYPES')];

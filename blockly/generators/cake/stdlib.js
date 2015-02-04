@@ -35,11 +35,12 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
 
 Blockly.cake['library_stdlib_malloc'] = function(block) {
     var code;
+    var type = Blockly.FieldDropdown.prototype.getParentType(block, 'variables_pointer');
     var arg = Blockly.cake.valueToCode(block, 'VAR',
             Blockly.cake.ORDER_NONE) || '\'\'';
     Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-    code = 'malloc(' + arg + ')';
+    code = '(' + type + ' *)malloc(' + arg + ')';
     return [code, Blockly.cake.ORDER_NONE];
 };
 
