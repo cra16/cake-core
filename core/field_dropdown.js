@@ -298,7 +298,9 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             }
         }
 
-        if ((curBlock.type == (strDist+'_get')) && (curBlock.getParent().type == (strDist+'_set'))) {
+        if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
+            && (curBlock.getParent().type == (strDist+'_set'))) {
+
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
