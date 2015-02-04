@@ -41,8 +41,7 @@ Blockly.cake['math_arithmetic'] = function(block) {
     'ADD': [' + ', Blockly.cake.ORDER_ADDITION],
     'MINUS': [' - ', Blockly.cake.ORDER_SUBTRACTION],
     'MULTIPLY': [' * ', Blockly.cake.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.cake.ORDER_DIVISION],
-    'POWER': [null, Blockly.cake.ORDER_COMMA]  // Handle power separately.
+    'DIVIDE': [' / ', Blockly.cake.ORDER_DIVISION]
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
@@ -51,10 +50,10 @@ Blockly.cake['math_arithmetic'] = function(block) {
   var argument1 = Blockly.cake.valueToCode(block, 'B', order) || '0';
   var code;
   // Power in cake requires a special case since it has no operator.
-  if (!operator) {
-    code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
-    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
-  }
+  //if (!operator) {
+  //  code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
+  //  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+  //}
   code = argument0 + operator + argument1;
   return [code, order];
 };

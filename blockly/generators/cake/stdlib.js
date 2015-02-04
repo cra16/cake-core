@@ -57,7 +57,7 @@ Blockly.cake['library_stdlib_arithmetic_forMalloc'] = function(block) {
     var argument1 = Blockly.cake.valueToCode(block, 'B', Blockly.cake.ORDER_NONE) || '0';
     var code;
     // Power in cake requires a special case since it has no operator.
-    code = argument0 + ' x ' + argument1;
+    code = argument0 + ' * ' + argument1;
     return [code, Blockly.cake.ORDER_NONE];
 };
 
