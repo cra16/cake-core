@@ -27,7 +27,7 @@ Blockly.cake['library_stdlib_convert'] = function(block) {
 Blockly.cake['library_stdlib_rand'] = function(block) {
     var code;
     var arg = Blockly.cake.valueToCode(block, 'VAR',
-            Blockly.cake.ORDER_NONE) || '\'\'';
+            Blockly.cake.ORDER_NONE) || '';
     Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
     code = 'rand(' + arg + ')';
