@@ -120,7 +120,7 @@ Blockly.Blocks['define_declare'] = {
      */
 
     getProcedureDef: function() {
-        return [this.getFieldValue('VAR')]
+        return [this.getFieldValue('VAR')];
     },
   /**
    * Return all variables's types referenced by this block.
@@ -193,7 +193,7 @@ Blockly.Blocks['text'] = {
     this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(160);
     this.appendDummyInput()
-      .appendField(new Blockly.FieldTextInput('0'), 'TEXT')
+      .appendField(new Blockly.FieldTextInput('0'), 'TEXT');
     this.setOutput(true, 'String');
     this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
   }
@@ -273,19 +273,79 @@ Blockly.Blocks['variables_set'] = {
   init: function() {
     this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
     this.setColour(330);
-    this.interpolateMsg(
-      // TODO: Combine these messages instead of using concatenation.
-      Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-      Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-        ['VAR', new Blockly.FieldVariable('--Select--', null, this)],
-        ['VALUE', null, Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);
+
+      var dropdown = new Blockly.FieldVariable('--Select--', function(option) {
+          var type = Blockly.FieldDropdown.prototype.getSetterType(option);
+          var inputVal;
+          if (type == 'char') {
+              inputVal = 1;
+          }
+          else {
+              inputVal = 0;
+          }
+          this.sourceBlock_.updateShape_(inputVal);
+      }, this);
+
+      this.appendDummyInput()
+          .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
+          .appendField(dropdown, 'VAR')
+          .appendField(Blockly.Msg.VARIABLES_SET_TAIL);
+      this.setInputsInline(true);
+
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
   },
+    /**
+     * Create XML to represent whether the 'divisorInput' should be present.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function() {
+        var container = document.createElement('mutation');
+        var InputType = (this.getFieldValue('TYPES') == 'char');
+        container.setAttribute('char_type', InputType);
+        return container;
+    },
+    /**
+     * Parse XML to restore the 'divisorInput'.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function(xmlElement) {
+        var Input_type = (xmlElement.getAttribute('char_type') == 'true');
+        this.updateShape_(Input_type);
+    },
+    /**
+     * Modify this block to have (or not have) an input for 'is divisible by'.
+     * @param {boolean} divisorInput True if this block has a divisor input.
+     * @private
+     * @this Blockly.Block
+     */
+    updateShape_: function(isChar) {
+        // input == 'char' : isChar = 1
+        // else : isChar = 0
+        // Add or remove a Value Input.
+
+        var inputExists = this.getInput('VALUE');
+
+        // remove input
+        if(inputExists) {
+            this.removeInput('VALUE');
+        }
+        // recreate input
+        if(isChar) {
+            this.appendValueInput('VALUE')
+                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+        }
+        else {
+            this.appendValueInput('VALUE')
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+        }
+
+    },
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -346,12 +406,10 @@ Blockly.Blocks['variables_declare'] = {
       this.appendDummyInput().appendField(dropdown, 'TYPES');
       this.interpolateMsg(
        // TODO: Combine these messages instead of using concatenation.
-       //' %1 ' +
        Blockly.Msg.VARIABLES_DECLARE_TITLE + ' '+
        Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
        Blockly.Msg.VARIABLES_DECLARE_INIT,
        ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-
 //          ['VAR', new Blockly.FieldTextInput('myVariable', Blockly.Blocks.CNameValidator)],
        Blockly.ALIGN_RIGHT);
 
@@ -787,7 +845,7 @@ Blockly.Blocks['variables_pointer_&'] = {
       Blockly.ALIGN_RIGHT);
     this.setOutput(true, 'Address');
   }
-}
+};
 
 Blockly.Blocks['variables_pointer_*'] = {
   init: function() {

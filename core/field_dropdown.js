@@ -281,8 +281,31 @@ Blockly.FieldDropdown.prototype.dispose = function() {
   Blockly.FieldDropdown.superClass_.dispose.call(this);
 };
 
+/**
+ * get type of variable at setter block
+ * @param blockVars
+ * @returns {*}
+ */
+Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
+    var blockType;
+    var variableList = Blockly.Variables.allVariables();
+
+    for (var temp = 0; temp < variableList.length; temp++) {
+        if (variableList[temp][2] == blockVars) {
+            blockType = variableList[temp][0];
+
+        }
+    }
+    return blockType;
+}
 
 /* 너무 지저분 해 ~_~*/
+/**
+ * get parent type of block
+ * @param curBlock
+ * @param strDist
+ * @returns {*}
+ */
 Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
@@ -300,7 +323,6 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
         if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
             && (curBlock.getParent().type == (strDist+'_set'))) {
-
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
