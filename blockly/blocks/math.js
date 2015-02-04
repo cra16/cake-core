@@ -148,7 +148,9 @@ Blockly.Blocks['library_math_trig'] = {
             };
             return TOOLTIPS[mode];
         });
-    }
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_math_logs'] = {
@@ -178,7 +180,9 @@ Blockly.Blocks['library_math_logs'] = {
             };
             return TOOLTIPS[mode];
         });
-    }
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_math_pow'] = {
@@ -244,7 +248,9 @@ Blockly.Blocks['library_math_round'] = {
             .setCheck('Number')
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
         this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
-    }
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_math_numcheck'] = {

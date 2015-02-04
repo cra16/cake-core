@@ -23,28 +23,82 @@ Blockly.Blocks['library_stdlib_convert'] = {
             ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.STDLIB_CONVERT_HELPURL);
-    }
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_stdlib_rand'] = {
   /**
-   * Block for [printf function] in c
+   * Block for rand()
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
-    this.setColour(300);
-    this.interpolateMsg(Blockly.Msg.STDLIB_RAND_TITLE,
-                        ['TEXT', 'INBRACKET', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-
+      this.setHelpUrl(Blockly.Msg.STDLIB_RAND_HELPURL);
+      this.setColour(300);
+      this.setOutput(true);
+      this.interpolateMsg(Blockly.Msg.STDLIB_RAND_TITLE,
+          ['VAR', 'SCOPE', Blockly.ALIGN_RIGHT],
+          Blockly.ALIGN_RIGHT);
+      this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
-  
+};
+
+Blockly.Blocks['library_stdlib_rand_scope'] = {
+    /**
+     * Scope Block for rand()
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.STDLIB_RANDSCOPE_HELPURL);
+        this.setColour(300);
+        this.setOutput(true, 'SCOPE');
+        this.interpolateMsg(Blockly.Msg.STDLIB_RANDSCOPE_TITLE,
+            ['A', 'Number', Blockly.ALIGN_RIGHT],
+            ['B', 'Number', Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
+Blockly.Blocks['library_stdlib_number_forRandScope1'] = {
+    /**
+     * Block for numeric value.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
+        this.setColour(230);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput('1',
+                Blockly.FieldTextInput.numberValidator), 'NUM');
+        this.setOutput(true, 'Number');
+        this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
+Blockly.Blocks['library_stdlib_number_forRandScope100'] = {
+    /**
+     * Block for numeric value.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
+        this.setColour(230);
+        this.appendDummyInput()
+            .appendField(new Blockly.FieldTextInput('100',
+                Blockly.FieldTextInput.numberValidator), 'NUM');
+        this.setOutput(true, 'Number');
+        this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
 };
 
 Blockly.Blocks['library_stdlib_malloc'] = {

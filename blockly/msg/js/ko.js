@@ -403,7 +403,11 @@ Blockly.Msg.STDLIB_CONVERT_DOUBLE = '실수';
 Blockly.Msg.STDLIB_CONVERT_TOOLTIP = '문자를 해당 type으로 변환합니다.';
 Blockly.Msg.STDLIB_CONVERT_HELPURL = '';
 Blockly.Msg.STDLIB_RAND_TITLE = '임의의 수 %1';
+Blockly.Msg.STDLIB_RAND_TOOLTIP = '임의의 수를 할당합니다.';
+Blockly.Msg.STDLIB_RAND_HELPURL = '';
 Blockly.Msg.STDLIB_RANDSCOPE_TITLE = "범위:%1~%2";
+Blockly.Msg.STDLIB_RANDSCOPE_TOOLTIP = '임의의 수를 할당할 범위를 지정합니다.';
+Blockly.Msg.STDLIB_RANDSCOPE_HELPURL = '';
 Blockly.Msg.STDLIB_SRAND_TITLE = 'srand %1'; // not use
 Blockly.Msg.STDLIB_MALLOC_TITLE = '메모리 동적 할당 %1';
 Blockly.Msg.STDLIB_MALLOC_TOOLTIP = '메모리를 동적으로 할당합니다.';
@@ -461,7 +465,6 @@ Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE = '배열';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH = '길이';
 Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME = 'myArray';
 Blockly.Msg.VARIABLES_RETURN = '다음을 반환 ';
-
 
 Blockly.Msg.POINTER_GET_TITLE = "";
 Blockly.Msg.ARRAY_GET_TITLE = "";
