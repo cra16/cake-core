@@ -145,7 +145,7 @@ Blockly.cake.finish = function(code) {
   for (var name in Blockly.cake.definitions_) {
     var def = Blockly.cake.definitions_[name];
     var nameInclude = 'include';
-    var nameFunc = 'Func'
+    var nameFunc = 'Func';
     if (name.match(nameInclude)) {
       includes.push(def);
     } 
@@ -160,8 +160,8 @@ Blockly.cake.finish = function(code) {
   //definitions--> function def, #def
   var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
   var allFuncs = func_definitions.join('\n\n');
-  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
-}
+  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
+};
 
 Blockly.cake.finishFull = function(code) {
   // Convert the definitions dictionary into a list.
