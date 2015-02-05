@@ -6,7 +6,12 @@
     "Joshua Jung <wbqdinno@gmail.com>"
   ],
   "description": "Visual Programming Editor for C Language based on Blockly.",
-  "main": "blockly/blockly_compressed.js",
+  "main": [
+    "blockly_compressed.js",
+    "blocks_compressed.js",
+    "cake_compressed.js",
+    "msg/js/en.js"
+  ],
   "keywords": [
     "C",
     "Blockly",
@@ -19,11 +24,11 @@
     "blockly/**"
     "bower_components",
     "COPYING",
-    "css/**",
-    "fonts/**",
-    "js/**",
-    "node_modules/**",
-    "test/**",
-    "tests/**"
+    "css",
+    "fonts",
+    "js",
+    "node_modules",
+    "test",
+    "tests"
   ]
 }
