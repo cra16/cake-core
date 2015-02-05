@@ -236,7 +236,7 @@ Blockly.Structure.flyoutCategory = function(blocks, gaps, margin, workspace) {
 
   var tuple = Blockly.Structure.allStructure();
   populateStructureSet(tuple[1], 'structure_set');
-  populateStructureGet(tuple[1], 'structure_get')
+  populateStructureGet(tuple[1], 'structure_get');
 };
 
 /**

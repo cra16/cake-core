@@ -92,92 +92,92 @@ Blockly.cake['lists_indexOf'] = function(block) {
 };
 
 Blockly.cake['lists_getIndex'] = function(block) {
-  // Get element at index.
-  // Note: Until January 2013 this block did not have MODE or WHERE inputs.
-  var mode = block.getFieldValue('MODE') || 'GET';
-  var where = block.getFieldValue('WHERE') || 'FROM_START';
-  var at = Blockly.cake.valueToCode(block, 'AT',
-      Blockly.cake.ORDER_UNARY_NEGATION) || '1';
-  var list = Blockly.cake.valueToCode(block, 'VALUE',
-      Blockly.cake.ORDER_MEMBER) || '[]';
-
-  if (where == 'FIRST') {
-    if (mode == 'GET') {
-      var code = list + '[0]';
-      return [code, Blockly.cake.ORDER_MEMBER];
-    } else if (mode == 'GET_REMOVE') {
-      var code = list + '.shift()';
-      return [code, Blockly.cake.ORDER_MEMBER];
-    } else if (mode == 'REMOVE') {
-      return list + '.shift();\n';
-    }
-  } else if (where == 'LAST') {
-    if (mode == 'GET') {
-      var code = list + '.slice(-1)[0]';
-      return [code, Blockly.cake.ORDER_MEMBER];
-    } else if (mode == 'GET_REMOVE') {
-      var code = list + '.pop()';
-      return [code, Blockly.cake.ORDER_MEMBER];
-    } else if (mode == 'REMOVE') {
-      return list + '.pop();\n';
-    }
-  } else if (where == 'FROM_START') {
-    // Blockly uses one-based indicies.
-    if (Blockly.isNumber(at)) {
-      // If the index is a naked number, decrement it right now.
-      at = parseFloat(at) - 1;
-    } else {
-      // If the index is dynamic, decrement it in code.
-      at += ' - 1';
-    }
-    if (mode == 'GET') {
-      var code = list + '[' + at + ']';
-      return [code, Blockly.cake.ORDER_MEMBER];
-    } else if (mode == 'GET_REMOVE') {
-      var code = list + '.splice(' + at + ', 1)[0]';
-      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
-    } else if (mode == 'REMOVE') {
-      return list + '.splice(' + at + ', 1);\n';
-    }
-  } else if (where == 'FROM_END') {
-    if (mode == 'GET') {
-      var code = list + '.slice(-' + at + ')[0]';
-      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
-    } else if (mode == 'GET_REMOVE' || mode == 'REMOVE') {
-      var functionName = Blockly.cake.provideFunction_(
-          'lists_remove_from_end',
-          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
-              '(list, x) {',
-            '  x = list.length - x;',
-            '  return list.splice(x, 1)[0];',
-            '}']);
-      code = functionName + '(' + list + ', ' + at + ')';
-      if (mode == 'GET_REMOVE') {
-        return [code, Blockly.cake.ORDER_FUNCTION_CALL];
-      } else if (mode == 'REMOVE') {
-        return code + ';\n';
+    // Get element at index.
+    // Note: Until January 2013 this block did not have MODE or WHERE inputs.
+    var mode = block.getFieldValue('MODE') || 'GET';
+    var where = block.getFieldValue('WHERE') || 'FROM_START';
+    var at = Blockly.cake.valueToCode(block, 'AT',
+            Blockly.cake.ORDER_UNARY_NEGATION) || '1';
+    var list = Blockly.cake.valueToCode(block, 'VALUE',
+            Blockly.cake.ORDER_MEMBER) || '[]';
+    var code;
+    if (where == 'FIRST') {
+        if (mode == 'GET') {
+            code = list + '[0]';
+            return [code, Blockly.cake.ORDER_MEMBER];
+        } else if (mode == 'GET_REMOVE') {
+            code = list + '.shift()';
+            return [code, Blockly.cake.ORDER_MEMBER];
+        } else if (mode == 'REMOVE') {
+            return list + '.shift();\n';
+        }
+    } else if (where == 'LAST') {
+        if (mode == 'GET') {
+            code = list + '.slice(-1)[0]';
+            return [code, Blockly.cake.ORDER_MEMBER];
+        } else if (mode == 'GET_REMOVE') {
+            code = list + '.pop()';
+            return [code, Blockly.cake.ORDER_MEMBER];
+        } else if (mode == 'REMOVE') {
+            return list + '.pop();\n';
+        }
+    } else if (where == 'FROM_START') {
+        // Blockly uses one-based indicies.
+      if (Blockly.isNumber(at)) {
+          // If the index is a naked number, decrement it right now.
+          at = parseFloat(at) - 1;
+      } else {
+          // If the index is dynamic, decrement it in code.
+          at += ' - 1';
       }
-    }
+      if (mode == 'GET') {
+          code = list + '[' + at + ']';
+          return [code, Blockly.cake.ORDER_MEMBER];
+      } else if (mode == 'GET_REMOVE') {
+          code = list + '.splice(' + at + ', 1)[0]';
+          return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+      } else if (mode == 'REMOVE') {
+          return list + '.splice(' + at + ', 1);\n';
+      }
+  } else if (where == 'FROM_END') {
+      if (mode == 'GET') {
+          code = list + '.slice(-' + at + ')[0]';
+          return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+      } else if (mode == 'GET_REMOVE' || mode == 'REMOVE') {
+          var functionName = Blockly.cake.provideFunction_(
+              'lists_remove_from_end',
+              [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
+              '(list, x) {',
+                  '  x = list.length - x;',
+                  '  return list.splice(x, 1)[0];',
+                  '}']);
+          code = functionName + '(' + list + ', ' + at + ')';
+          if (mode == 'GET_REMOVE') {
+              return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+          } else if (mode == 'REMOVE') {
+              return code + ';\n';
+          }
+      }
   } else if (where == 'RANDOM') {
-    var functionName = Blockly.cake.provideFunction_(
-        'lists_get_random_item',
-        [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
-            '(list, remove) {',
-          '  var x = Math.floor(Math.random() * list.length);',
-          '  if (remove) {',
-          '    return list.splice(x, 1)[0];',
-          '  } else {',
-          '    return list[x];',
-          '  }',
-          '}']);
-    code = functionName + '(' + list + ', ' + (mode != 'GET') + ')';
-    if (mode == 'GET' || mode == 'GET_REMOVE') {
-      return [code, Blockly.cake.ORDER_FUNCTION_CALL];
-    } else if (mode == 'REMOVE') {
-      return code + ';\n';
-    }
+      var functionName = Blockly.cake.provideFunction_(
+          'lists_get_random_item',
+          [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
+          '(list, remove) {',
+              '  var x = Math.floor(Math.random() * list.length);',
+              '  if (remove) {',
+              '    return list.splice(x, 1)[0];',
+              '  } else {',
+              '    return list[x];',
+              '  }',
+              '}']);
+      code = functionName + '(' + list + ', ' + (mode != 'GET') + ')';
+      if (mode == 'GET' || mode == 'GET_REMOVE') {
+          return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+      } else if (mode == 'REMOVE') {
+          return code + ';\n';
+      }
   }
-  throw 'Unhandled combination (lists_getIndex).';
+    throw 'Unhandled combination (lists_getIndex).';
 };
 
 Blockly.cake['lists_setIndex'] = function(block) {
@@ -259,42 +259,43 @@ Blockly.cake['lists_setIndex'] = function(block) {
 };
 
 Blockly.cake['lists_getSublist'] = function(block) {
-  // Get sublist.
-  var list = Blockly.cake.valueToCode(block, 'LIST',
-      Blockly.cake.ORDER_MEMBER) || '[]';
-  var where1 = block.getFieldValue('WHERE1');
-  var where2 = block.getFieldValue('WHERE2');
-  var at1 = Blockly.cake.valueToCode(block, 'AT1',
-      Blockly.cake.ORDER_NONE) || '1';
-  var at2 = Blockly.cake.valueToCode(block, 'AT2',
-      Blockly.cake.ORDER_NONE) || '1';
-  if (where1 == 'FIRST' && where2 == 'LAST') {
-    var code = list + '.concat()';
-  } else {
-    var functionName = Blockly.cake.provideFunction_(
-        'lists_get_sublist',
-        [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
+    // Get sublist.
+    var list = Blockly.cake.valueToCode(block, 'LIST',
+            Blockly.cake.ORDER_MEMBER) || '[]';
+    var where1 = block.getFieldValue('WHERE1');
+    var where2 = block.getFieldValue('WHERE2');
+    var at1 = Blockly.cake.valueToCode(block, 'AT1',
+            Blockly.cake.ORDER_NONE) || '1';
+    var at2 = Blockly.cake.valueToCode(block, 'AT2',
+            Blockly.cake.ORDER_NONE) || '1';
+    var code;
+    if (where1 == 'FIRST' && where2 == 'LAST') {
+        code = list + '.concat()';
+    } else {
+        var functionName = Blockly.cake.provideFunction_(
+            'lists_get_sublist',
+            [ 'function ' + Blockly.cake.FUNCTION_NAME_PLACEHOLDER_ +
             '(list, where1, at1, where2, at2) {',
-          '  function getAt(where, at) {',
-          '    if (where == \'FROM_START\') {',
-          '      at--;',
-          '    } else if (where == \'FROM_END\') {',
-          '      at = list.length - at;',
-          '    } else if (where == \'FIRST\') {',
-          '      at = 0;',
-          '    } else if (where == \'LAST\') {',
-          '      at = list.length - 1;',
-          '    } else {',
-          '      throw \'Unhandled option (lists_getSublist).\';',
-          '    }',
-          '    return at;',
-          '  }',
-          '  at1 = getAt(where1, at1);',
-          '  at2 = getAt(where2, at2) + 1;',
-          '  return list.slice(at1, at2);',
-          '}']);
-    var code = functionName + '(' + list + ', \'' +
-        where1 + '\', ' + at1 + ', \'' + where2 + '\', ' + at2 + ')';
-  }
-  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+                '  function getAt(where, at) {',
+                '    if (where == \'FROM_START\') {',
+                '      at--;',
+                '    } else if (where == \'FROM_END\') {',
+                '      at = list.length - at;',
+                '    } else if (where == \'FIRST\') {',
+                '      at = 0;',
+                '    } else if (where == \'LAST\') {',
+                '      at = list.length - 1;',
+                '    } else {',
+                '      throw \'Unhandled option (lists_getSublist).\';',
+                '    }',
+                '    return at;',
+                '  }',
+                '  at1 = getAt(where1, at1);',
+                '  at2 = getAt(where2, at2) + 1;',
+                '  return list.slice(at1, at2);',
+                '}']);
+        code = functionName + '(' + list + ', \'' +
+            where1 + '\', ' + at1 + ', \'' + where2 + '\', ' + at2 + ')';
+    }
+    return [code, Blockly.cake.ORDER_FUNCTION_CALL];
 };
