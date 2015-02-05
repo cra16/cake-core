@@ -30,7 +30,9 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
             Blockly.cake.ORDER_NONE) || '';
     Blockly.cake.definitions_['include_cake_stdlib'] =
         '#include <stdlib.h>';
-    code = 'rand(' + arg + ')';
+    Blockly.cake.definitions_['include_cake_time'] =
+        '#include <time.h>';
+    code = 'rand()' + arg;
     return [code, Blockly.cake.ORDER_NONE];
 };
 
@@ -40,7 +42,11 @@ Blockly.cake['library_stdlib_rand_scope'] = function(block) {
     var argument1 = Blockly.cake.valueToCode(block, 'B', Blockly.cake.ORDER_NONE) || '0';
     var code;
     // Power in cake requires a special case since it has no operator.
-    code = argument0 + ' * ' + argument1;
+    if (argument0 == 1){
+        code = ' % ' + argument1 + ' + ' + argument0;
+    } else {
+        code = ' % (' + argument1 + '-' + argument0 + '+1) + ' + argument0;
+    }
     return [code, Blockly.cake.ORDER_NONE];
 };
 

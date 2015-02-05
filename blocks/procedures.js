@@ -67,6 +67,7 @@ Blockly.Blocks['main_block'] = {
       return paramList;
   }
 };
+
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
