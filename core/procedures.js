@@ -303,3 +303,34 @@ Blockly.Procedures.returnTypeCheck = function(returnType, returnValue) {
     Blockly.Block.setWarningText('Warning: return value is not proper.\nPlease confirm the return type');
   }
 };
+
+Blockly.Procedures.getTypePlusArgs = function(block) {
+    var args = [];
+    var argTypes = [];
+    var argDist = [];
+    var argSpec = [];
+    var typePlusArgs = [];
+
+    for (var x = 0; x < block.arguments_.length; x++) {
+        args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
+            Blockly.Variables.NAME_TYPE);
+        argTypes[x] = block.types_[x];
+        argDist[x] = block.dist_[x];
+        argSpec[x] = block.spec_[x];
+        if(argDist[x] == 'v'){
+            typePlusArgs[x] = argTypes[x] + ' ' + args[x];
+        }
+        else if(argDist[x] =='a'){
+            if(argSpec[x][0] == 1)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']';
+            else if(argSpec[x][0] == 2)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']';
+            else if(argSpec[x][0] == 3)
+                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']' + '[' + argSpec[x][2] + ']';
+        }
+        else if(argDist[x] =='p'){
+            typePlusArgs[x] = argTypes[x] + argSpec[x] + ' ' + args[x];
+        }
+    }
+    return typePlusArgs;
+};

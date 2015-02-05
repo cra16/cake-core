@@ -855,7 +855,7 @@ Blockly.Blocks['variables_pointer_*'] = {
       Blockly.ALIGN_RIGHT);
     this.setOutput(true, 'Aster');
   }
-}
+};
 
 Blockly.Blocks['variables_array_get'] = {
   /**

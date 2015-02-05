@@ -315,7 +315,7 @@ Blockly.Blocks['structure_define'] = {
     return ['sd', this.getFieldValue('NAME'), this.types_, this.members_, this.dist_, this.spec_];
   },
   callType_: 'procedures_callnoreturn'
-}
+};
 
 Blockly.Blocks['structure_declare'] = {
   /**
