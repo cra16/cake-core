@@ -1,6 +1,6 @@
 {
   "name": "cake-core",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "homepage": "https://github.com/cra16/cake-core",
   "authors": [
     "Joshua Jung <wbqdinno@gmail.com>"
@@ -26,7 +26,7 @@
     "COPYING",
     "css",
     "fonts",
-    "js",
+    "/js",
     "node_modules",
     "test",
     "tests"
