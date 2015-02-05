@@ -122,6 +122,7 @@ Blockly.Toolbox.init = function() {
   goog.events.listen(window, goog.events.EventType.RESIZE,
                      Blockly.Toolbox.position_);
   Blockly.Toolbox.position_();
+    Blockly.Blocks.searchTag('#define');
 };
 
 /**

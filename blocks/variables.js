@@ -41,7 +41,15 @@ Blockly.Blocks['define_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
+      this.tag = ['#define'];
   },
+    /**
+     * Return this block's tags.
+     * @returns {Array} List of block tag.
+     */
+    getTags: function(){
+        return this.tag;
+    },
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.

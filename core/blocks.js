@@ -281,3 +281,62 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
     block.setWarningText('Warning: Array length must be writen by order.');
 
 };
+
+/*
+searching tag from all blocks
+return block array that have the tag
+ */
+Blockly.Blocks.searchTag = function(tag){
+    console.log(Blockly.Toolbox.tree_);
+    var tree = Blockly.Toolbox.tree_;
+    var blocks = [];
+    for (var i = 0; i<tree.children_.length; i++) {
+        var tree_i =tree.children_[i];
+        if(tree_i.blocks == 'PROCEDURE'){
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_defreturn");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_ifreturn");
+            blocks.push(block);
+        }
+        else if(tree_i.blocks =='STRUCTURE'){
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "structure_define");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "structure_declare");
+            blocks.push(block);
+        }
+        else if(tree_i.blocks.length){
+            for(var j =0;j<tree_i.blocks.length;j++){
+                var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_i.blocks[j]);
+                blocks.push(block);
+            }
+        }
+        else if(tree_i.children_.length){
+            for(var j=0;j<tree_i.children_.length;j++){
+                var tree_j=tree_i.children_[j];
+                if(tree_j.blocks){
+                    for(var k=0;k<tree_j.blocks.length;k++){
+                        var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_j.blocks[k]);
+                        blocks.push(block);
+                    }
+                }
+            }
+        }
+    }
+    console.log(blocks);
+
+}
