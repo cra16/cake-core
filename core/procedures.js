@@ -126,16 +126,26 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
   var blocks = workspace.getAllBlocks();
   // Iterate through every block and check the name.
   for (var x = 0; x < blocks.length; x++) {
-    if (blocks[x] == opt_exclude) {
-      continue;
-    }
-    var func = blocks[x].getProcedureDef;
-    if (func) {
-      var procName = func.call(blocks[x]);
-      if (Blockly.Names.equals(procName[0], name)) {
-        return false;
+      if (blocks[x] == opt_exclude) {
+          continue;
       }
-    }
+      var func;
+      if (blocks[x].type == 'procedures_defreturn' || blocks[x].type == 'procedures_defnoreturn') {
+          func = blocks[x].getProcedureDef;
+      }
+      else if (blocks[x].type == 'structure_define') {
+          func = blocks[x].getName;
+      }
+      else {
+          func = blocks[x].getDeclare;
+      }
+
+      if (func) {
+          var procName = func.call(blocks[x]);
+          if (Blockly.Names.equals(procName[0], name)) {
+              return false;
+          }
+      }
   }
   return true;
 };
