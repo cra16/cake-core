@@ -445,6 +445,9 @@ Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ = 'less or equal';
 Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = 'less or greater';
 Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = 'unordered';
 Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
+Blockly.Msg.STRING_STRLEN_TITLE = 'string length %1';
+Blockly.Msg.STRING_STRLEN_TOOLTIP = '문자열의 길이를 구합니다.';
+Blockly.Msg.STRING_STRLEN_HELPURL = '';
 
 Blockly.Msg.VARIABLES_SET_TYPE_INT = 'integer';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= 'unsigned int';

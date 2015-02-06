@@ -445,6 +445,9 @@ Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ = '작거나 같은가';
 Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = '작거나 큰가';
 Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = '내림차순인가';
 Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
+Blockly.Msg.STRING_STRLEN_TITLE = '문자열 %1의 길이';
+Blockly.Msg.STRING_STRLEN_TOOLTIP = '문자열의 길이를 구합니다.';
+Blockly.Msg.STRING_STRLEN_HELPURL = '';
 
 Blockly.Msg.VARIABLES_SET_TYPE_INT = '정수';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= '양의 정수';

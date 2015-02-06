@@ -180,11 +180,7 @@
         <block type="variables_pointer_get"></block>
         <block type="variables_pointer_set">
         <value name="VAR">
-        <block type="variables_pointer_*">
-        <value name="VALUE">
-        <block type="variables_pointer_get">
-        </block>
-        </value></block>
+        <block type="variables_pointer_get"></block>
         </value></block>
         <block type="variables_pointer_&"></block>
         <block type="variables_pointer_*"></block>
@@ -226,30 +222,44 @@
         <block type="library_stdio_scanf"></block>
         </category>
         <category name="Stdlib">
-        <block type="library_stdlib_convert"></block>
-        <block type="library_stdlib_rand"></block>
-        <block type="library_stdlib_malloc">
-        <value name="VAR">
-        <block type="library_stdlib_arithmetic_forMalloc">
-        <value name="A">
-        <block type="library_stdlib_sizeof_forMalloc"></block>
-        </value>
-        <value name="B">
-        <block type="library_stdlib_number_forMalloc"></block>
-        </value>
-        </block>
-        </value>
-        </block>
-        <block type="library_stdlib_arithmetic_forMalloc">
-        <value name="A">
-        <block type="library_stdlib_sizeof_forMalloc"></block>
-        </value>
-        <value name="B">
-        <block type="library_stdlib_number_forMalloc"></block>
-        </value>
-        </block>
-        <block type="library_stdlib_free"></block>
-        <block type="library_stdlib_exit"></block>
+            <block type="library_stdlib_convert"></block>
+            <block type="library_stdlib_rand">
+                <value name="VAR">
+                    <block type="library_stdlib_rand_scope">
+                        <value name="A">
+                            <block type="library_stdlib_number_forRandScope1"></block>
+                        </value>
+                        <value name="B">
+                            <block type="library_stdlib_number_forRandScope100"></block>
+                        </value>
+                    </block>
+                </value>
+            </block>
+            <block type="library_stdlib_malloc">
+                <value name="VAR">
+                    <block type="library_stdlib_arithmetic_forMalloc">
+                        <value name="A">
+                            <block type="library_stdlib_sizeof_forMalloc"></block>
+                        </value>
+                        <value name="B">
+                            <block type="library_stdlib_number_forMalloc"></block>
+                        </value>
+                    </block>
+                </value>
+            </block>
+            <block type="library_stdlib_arithmetic_forMalloc">
+                <value name="A">
+                    <block type="library_stdlib_sizeof_forMalloc"></block>
+                </value>
+                <value name="B">
+                    <block type="library_stdlib_number_forMalloc"></block>
+                </value>
+            </block>
+            <block type="library_stdlib_free"></block>
+            <block type="library_stdlib_exit"></block>
+        </category>
+        <category name="String">
+            <block type="library_string_strlen"></block>
         </category>
         <category name="Math">
         <block type="library_math_abs"></block>
