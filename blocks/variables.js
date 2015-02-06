@@ -177,21 +177,6 @@ Blockly.Blocks['define_declare'] = {
   onchange: Blockly.Blocks.requireInFunction
 };
 
-Blockly.Blocks['text'] = {
-  /**
-   * Block for text value.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
-    this.setColour(160);
-    this.appendDummyInput()
-      .appendField(new Blockly.FieldTextInput('0'), 'TEXT');
-    this.setOutput(true, 'String');
-    this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
-  }
-};
-
 Blockly.Blocks['variables_get'] = {
   /**
    * Block for variable getter.

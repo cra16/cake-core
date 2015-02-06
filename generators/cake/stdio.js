@@ -20,6 +20,12 @@ Blockly.cake['library_stdio_printf'] = function(block) {
   return 'printf(' + argument0 + ');\n';
 };
 
+Blockly.cake['library_stdio_text'] = function(block) {
+    // Text value.
+    var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+    return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
 Blockly.cake['library_stdio_scanf'] = function(block) {
   // Scan statement.
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
