@@ -36,7 +36,7 @@ Blockly.Blocks['main_block'] = {
     var name = Blockly.Procedures.findLegalName(
       Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MAIN_BLOCK)
+      .appendField(Blockly.Msg.MAIN_BLOCK);
     this.appendStatementInput('STACK')
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
     this.appendValueInput('RETURN')
@@ -67,6 +67,7 @@ Blockly.Blocks['main_block'] = {
       return paramList;
   }
 };
+
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
@@ -955,6 +956,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
         }
       container.appendChild(parameter);
     }
+
     return container;
   },
   /**

@@ -121,7 +121,7 @@ Blockly.cake['logic_ternary'] = function(block) {
     Blockly.cake.ORDER_CONDITIONAL) || 'null';
   var value_else = Blockly.cake.valueToCode(block, 'ELSE',
     Blockly.cake.ORDER_CONDITIONAL) || 'null';
-  var code = value_if + ' ? ' + value_then + ' : ' + value_else
+  var code = value_if + ' ? ' + value_then + ' : ' + value_else;
   return [code, Blockly.cake.ORDER_CONDITIONAL];
 };
 

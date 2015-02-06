@@ -180,11 +180,7 @@
         <block type="variables_pointer_get"></block>
         <block type="variables_pointer_set">
         <value name="VAR">
-        <block type="variables_pointer_*">
-        <value name="VALUE">
-        <block type="variables_pointer_get">
-        </block>
-        </value></block>
+        <block type="variables_pointer_get"></block>
         </value></block>
         <block type="variables_pointer_&"></block>
         <block type="variables_pointer_*"></block>
@@ -223,6 +219,7 @@
         <category name="Library">
         <category name="Stdio">
         <block type="library_stdio_printf"></block>
+        <block type="library_stdio_text"></block>
         <block type="library_stdio_scanf"></block>
         </category>
         <category name="Stdlib">
@@ -261,6 +258,9 @@
             </block>
             <block type="library_stdlib_free"></block>
             <block type="library_stdlib_exit"></block>
+        </category>
+        <category name="String">
+            <block type="library_string_strlen"></block>
         </category>
         <category name="Math">
         <block type="library_math_abs"></block>
