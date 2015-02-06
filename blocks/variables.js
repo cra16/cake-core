@@ -826,35 +826,41 @@ Blockly.Blocks['variables_array_get'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(90);
-       /* var varOutput = new Blockly.FieldVariableArray('--Select--', function(option) {
-            var originIdxLength = Blockly.FieldVariableArray.getBlockType(option);
 
-            var inputIdxLength = 3;
-            if (originIdxLength == inputIdxLength) {
-            //    this.sourceBlock_.setOutput(true, 'Variable');
-            }
-            else if(originIdxLength < inputIdxLength) {
-              //  this.sourceBlock_.setOutput(true, 'Pointer');
-            }
-            this.sourceBlock_.setOutputType(originIdxLength);
 
+        var originIdxLength;
+        var varOutput = new Blockly.FieldVariableArray('--Select--', function(option) {
+            originIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
         }, this);
-        */
 
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            //.appendField(varOutput, 'VAR')
-            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(varOutput, 'VAR')
+            //.appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
 
+        //this.setOutput(true, this.getType(varOutput));
         this.setOutput(true, 'Array');
 
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_array_set';
+    },
+    getType: function(isVar) {
+
+        //Blockly.FieldVariableArray.getBlockInputLength(this);
+        if(isVar) {
+            console.log('set variable');
+            return 'Variable';
+        }
+        else {
+            console.log('set pointer');
+            return 'Pointer';
+        }
+
     },
     /**
      * Return all variables referenced by this block.
@@ -922,18 +928,6 @@ Blockly.Blocks['variables_array_get'] = {
         return;
 
     },
-/*
-    setOutputType: function(originIdxLength) {
-
-         var inputIdxLength = 3;
-         if (originIdxLength == inputIdxLength) {
-         this.setOutput(true, 'Variable');
-         }
-         else if(originIdxLength < inputIdxLength) {
-         this.setOutput(true, 'Pointer');
-         }
-
-    },*/
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
 

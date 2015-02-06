@@ -297,7 +297,7 @@ Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
         }
     }
     return blockType;
-}
+};
 
 /* 너무 지저분 해 ~_~*/
 /**
@@ -310,10 +310,16 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
 
+    console.log('getParentType');
     if (curBlock.getParent()) {
+        console.log(curBlock.getParent().type);
 
+
+        // type 1
+        // *Variable, &Variable
         if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
             && curBlock.getParent().getParent()) {
+            console.log('1');
 
             if (curBlock.getParent().getParent().getVars()){
                 parentType = curBlock.getParent().getParent().getTypes();
@@ -321,40 +327,69 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             }
         }
 
+        // type 2
+        // setter + (malloc or getter)
         if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
             && (curBlock.getParent().type == (strDist+'_set'))) {
+            console.log('2');
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
             if (strDist == 'variables_pointer'){
                 ParentVars = ParentVars.toString().replace("* ", "");
             }
-
-            var variableList = Blockly.Variables.allVariables();
-
-            for (var temp = 0; temp < variableList.length; temp++){
-                // coincide with the name of variables
-                if(variableList[temp][2] == ParentVars){
-                    parentType = (variableList[temp][0]);
-                }
-            }
+            parentType = getTypefromVars(ParentVars);
         }
+
+        // type 3
+        //
         else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type == (strDist+'_declare'))) {
+            console.log('3');
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }
         }
 
+        // type 4
+        // var setter + (* pointer getter)
+        else if (curBlock.getParent().type == (strDist + '_*' )) {
+            console.log('4');
+            var parentVars = curBlock.getParent().getParent().getVars();
+            parentType = getTypefromVars(parentVars);
+
+        }
+
 
     }
+
+    function getTypefromVars(ParentVars) {
+        var variableList = Blockly.Variables.allVariables();
+
+        for (var temp = 0; temp < variableList.length; temp++){
+            // coincide with the name of variables
+            if(variableList[temp][2] == ParentVars){
+                parentType = (variableList[temp][0]);
+            }
+        }
+        return parentType;
+    }
+
     return parentType;
-}
+};
+
+/**
+ * make dropdown list with adequate type
+ * @param block
+ * @param varDist
+ * @returns {Array}
+ */
 
 Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
     var variableList = Blockly.Variables.allVariables();
     var variableListPop = []; // 보여줄 리스트 거를 것.
     var thisPosition = block.getRelativeToSurfaceXY().y;
 
+    console.log('varDist: ' + varDist);
     var charDist, strDist;
     switch(varDist) {
         case 0:
@@ -363,7 +398,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
             break;
         case 1:
             charDist = 'v';
-            strDist = 'variables'
+            strDist = 'variables';
             break;
         case 2:
             charDist = 'p';
@@ -380,12 +415,13 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
 
     var parentType = Blockly.FieldDropdown.prototype.getParentType(block, strDist);
 
-    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
-    && block.getSurroundParent().type != 'procedures_defreturn'){
+    while((block.getSurroundParent()) && (block.getSurroundParent().type != 'main_block') &&
+    (block.getSurroundParent().type != 'procedures_defnoreturn') && (block.getSurroundParent().type != 'procedures_defreturn')){
         block = block.getSurroundParent();
     }
+    var scope;
     if(block.getSurroundParent()) {
-        var scope = block.getSurroundParent().getName();
+        scope = block.getSurroundParent().getName();
     }
 
 
@@ -409,4 +445,4 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
     }
 
     return variableListPop;
-}
+};
