@@ -138,28 +138,52 @@ Blockly.cake.finish = function(code) {
   }
   code = '\n' + code;
 
-  // Convert the definitions dictionary into a list.
-  var includes = [];
-  var definitions = [];
-  var func_definitions = [];
-  for (var name in Blockly.cake.definitions_) {
-    var def = Blockly.cake.definitions_[name];
-    var nameInclude = 'include';
-    var nameFunc = 'Func';
-    if (name.match(nameInclude)) {
-      includes.push(def);
-    } 
-    else if(name.match(nameFunc)){      
-      definitions.push(def);
+    // Convert the definitions dictionary into a list.
+    var includes = [];
+    var definitions = [];
+    var func_definitions = [];
+    var times = [];
+    for (var name in Blockly.cake.definitions_) {
+        var def = Blockly.cake.definitions_[name];
+        var nameInclude = 'include';
+        var nameFunc = 'Func';
+        var nameSrand = 'srand';
+        if (name.match(nameInclude)) {
+            includes.push(def);
+        }
+        else if(name.match(nameFunc)){
+            definitions.push(def);
+        }
+        else if(name.match(nameSrand)) {
+            def = this.prefixLines(def, Blockly.cake.INDENT);
+            times.push(def);
+        }
+        else{
+            func_definitions.push(def);
+        }
     }
-    else{
-      func_definitions.push(def);
+    //imports--> #include
+    //definitions--> function def, #def
+    var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
+    var allFuncs = func_definitions.join('\n\n');
+
+    // for srand
+    var time;
+    if (time = times.pop()) {
+        var idx = allFuncs.search('{');
+        var pre = allFuncs.substr(0, idx+1);
+        var post = allFuncs.substr(idx+1, allFuncs.length);
+        console.log('pre: ' + pre);
+        console.log('post: ' + post);
+
+
+        var result = pre.concat(time, post);
+        console.log('result: ' + result);
+
+        allFuncs = result;
     }
-  }
-  //imports--> #include
-  //definitions--> function def, #def
-  var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
-  var allFuncs = func_definitions.join('\n\n');
+
+
   return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
 };
 
@@ -186,8 +210,9 @@ Blockly.cake.finishFull = function(code) {
  * @return {string} Legal line of code.
  */
 Blockly.cake.scrubNakedValue = function(line) {
+    return line + ';\n';
   //ZR editor should ignore all blocks that are not children of the page's function block
-  return '';
+ // return '';
 };
 
 /**
