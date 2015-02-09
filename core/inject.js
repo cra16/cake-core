@@ -473,6 +473,7 @@ Blockly.init_ = function() {
     ['media/click.mp3', 'media/click.wav', 'media/click.ogg'], 'click');
   Blockly.loadAudio_(
     ['media/delete.mp3', 'media/delete.ogg', 'media/delete.wav'], 'delete');
+
 };
 
 /**

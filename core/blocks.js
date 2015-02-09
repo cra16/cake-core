@@ -25,6 +25,12 @@
 'use strict';
 goog.require('goog.asserts');
 goog.require('Blockly.Warning');
+goog.require('goog.events.BrowserFeature');
+goog.require('goog.html.SafeHtml');
+goog.require('goog.style');
+goog.require('goog.ui.tree.TreeControl');
+goog.require('goog.ui.tree.TreeNode');
+goog.require('goog.Disposable');
 
 /**
  * Name space for the Blocks singleton.
@@ -280,4 +286,164 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
   else
     block.setWarningText('Warning: Array length must be writen by order.');
 
+};
+
+/**
+ * block search and show the result.
+ * just use searchTag function and showResult function.
+ * @param searchingWord
+ */
+Blockly.Blocks.search = function(searchingWord){
+    var result = Blockly.Blocks.searchTag(searchingWord);
+    Blockly.Blocks.showResult(result);
+}
+
+/**
+ * searching tag from all blocks
+ * return block array that have the tag
+ * @param searchingTag
+ * @returns {Array}
+ */
+Blockly.Blocks.searchTag = function(searchingTag){
+    var tree = Blockly.Toolbox.tree_;
+    var blocks = [];
+    for (var i = 0; i<tree.children_.length; i++) {
+        var tree_i =tree.children_[i];
+        if(tree_i.blocks == 'PROCEDURE'){
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_defreturn");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "procedures_ifreturn");
+            blocks.push(block);
+        }
+        else if(tree_i.blocks =='STRUCTURE'){
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "structure_define");
+            blocks.push(block);
+
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(Blockly.mainWorkspace, "structure_declare");
+            blocks.push(block);
+        }
+        else if(tree_i.blocks.length){
+            for(var j =0;j<tree_i.blocks.length;j++){
+                var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_i.blocks[j]);
+                blocks.push(block);
+            }
+        }
+        else if(tree_i.html_.privateDoNotAccessOrElseSafeHtmlWrappedValue_ != 'result' && tree_i.children_.length){
+            for(var j=0;j<tree_i.children_.length;j++){
+                var tree_j=tree_i.children_[j];
+                if(tree_j.blocks){
+                    for(var k=0;k<tree_j.blocks.length;k++){
+                        var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_j.blocks[k]);
+                        blocks.push(block);
+                    }
+                }
+            }
+        }
+    }
+
+    var result = [];
+    for(var n=0;n<blocks.length;n++){
+        if(blocks[n].tag){
+            for(var m=0;m<blocks[n].tag.length;m++){
+                if(blocks[n].tag[m].indexOf(searchingTag) != -1){
+                    result.push(blocks[n]);
+                    break;
+                }
+            }
+        }
+    }
+    return result;
+};
+
+/**
+ * Check if type is same as one of result or not.
+ * If there is same type block among result, function return the index.
+ * If there is no same type block among result, function return -1 value.
+ * @param type: type that will be checked.
+ * @param result: list of blocks.
+ * @returns {number}
+ */
+Blockly.Blocks.checkResult = function(type, result){
+    var returnValue = -1;
+    for(var i=0;i<result.length;i++){
+        if(result[i].type.toUpperCase() == type){
+            returnValue = i;
+        }
+    }
+    return returnValue;
+}
+
+/**
+ * rendering the block into main workspace to show the result to user
+ * @param result
+ */
+Blockly.Blocks.showResult = function(result){
+
+    var tree = new Blockly.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
+        Blockly.Toolbox.CONFIG_);
+    Blockly.Toolbox.tree_ = tree;
+    tree.setShowRootNode(false);
+    tree.setShowLines(false);
+    tree.setShowExpandIcons(false);
+
+
+    var rootOut = Blockly.Toolbox.tree_;
+    rootOut.removeChildren();  // Delete any existing content.
+    rootOut.blocks = [];
+    var searchResult = rootOut.createNode("result");
+    searchResult.blocks = [];
+    function syncTrees(treeIn, treeOut) {
+        for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
+            if (!childIn.tagName) {
+                // Skip over text.
+                continue;
+            }
+            var name = childIn.tagName.toUpperCase();
+            if (name == 'CATEGORY') {
+                var childOut = rootOut.createNode(childIn.getAttribute('name'));
+                childOut.blocks = [];
+                treeOut.add(childOut);
+                var custom = childIn.getAttribute('custom');
+                if (custom) {
+                    // Variables and procedures have special categories that are dynamic.
+                    childOut.blocks = custom;
+                } else {
+                    syncTrees(childIn, childOut);
+                }
+            } else if (name == 'BLOCK') {
+                treeOut.blocks.push(childIn);
+                var check = Blockly.Blocks.checkResult(childIn.getAttribute('type').toUpperCase(), result);
+                if(check != -1){
+                    result.splice(check, 1);
+                    searchResult.blocks.push(childIn);
+                }
+            }
+        }
+    }
+    syncTrees(Blockly.languageTree, Blockly.Toolbox.tree_);
+    Blockly.Toolbox.tree_.add(searchResult);
+
+    if (rootOut.blocks.length) {
+        throw 'Toolbox cannot have both blocks and categories in the root level.';
+    }
+
+    // Fire a resize event since the toolbox may have changed width and height.
+    Blockly.fireUiEvent(window, 'resize');
+    Blockly.Toolbox.HtmlDiv.childNodes[0].remove();
+    tree.setSelectedItem(searchResult);
+    tree.render(Blockly.Toolbox.HtmlDiv);
 };

@@ -41,7 +41,15 @@ Blockly.Blocks['define_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
+      this.tag = ['#define', 'macro'];
   },
+    /**
+     * Return this block's tags.
+     * @returns {Array} List of block tag.
+     */
+    getTags: function(){
+        return this.tag;
+    },
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
@@ -113,6 +121,7 @@ Blockly.Blocks['define_declare'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'define_get';
+      this.tag = ['#define', 'macro'];
   },
 
   /**
@@ -527,6 +536,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_pointer_set';
+      this.tag = ['pointer', '포인터'];
   },
   /**
    * Return all variables referenced by this block.
@@ -598,6 +608,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
+      this.tag = ['pointer', '포인터'];
   },
   /**
    * Return all variables referenced by this block.
@@ -671,6 +682,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
+      this.tag = ['pointer', '포인터'];
   },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
