@@ -5,12 +5,6 @@ goog.provide('Blockly.cake.stdio');
 
 goog.require('Blockly.cake');
 
-Blockly.cake['library_func_paren'] = function(block) {
-  // Text value.
-  var code = block.getFieldValue('TEXT');
-  return [code, Blockly.cake.ORDER_ATOMIC];
-};
-
 Blockly.cake['library_stdio_printf'] = function(block) {
   // Print statement
   var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
@@ -24,6 +18,12 @@ Blockly.cake['library_stdio_text'] = function(block) {
     // Text value.
     var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
     return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['library_stdio_newLine'] = function(block) {
+    // new line block for '\n'
+    var code = '\\n'
+    return [code, Blockly.cake.ORDER_NONE];
 };
 
 Blockly.cake['library_stdio_scanf'] = function(block) {
