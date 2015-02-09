@@ -312,7 +312,6 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     if (curBlock.getParent()) {
 
-        console.log(strDist);
         // type 4
         // var setter + (* pointer getter)
         // pointer setter + (& variable getter)

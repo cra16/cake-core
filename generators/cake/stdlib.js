@@ -33,7 +33,19 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
     Blockly.cake.definitions_['include_cake_time'] =
         '#include <time.h>';
     code = 'rand()' + arg;
+
+    Blockly.cake.getUpperLine(block);
+
     return [code, Blockly.cake.ORDER_NONE];
+};
+
+// for srand(time(NULL))
+Blockly.cake.getUpperLine = function(curBlock) {
+    var parentBlock = curBlock.getRootBlock();
+    var time = '\nsrand(time(NULL));';
+
+    Blockly.cake.definitions_['cake_time_srand'] = time;
+
 };
 
 Blockly.cake['library_stdlib_rand_scope'] = function(block) {
