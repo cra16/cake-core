@@ -310,16 +310,24 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
 
-    console.log('getParentType');
     if (curBlock.getParent()) {
-        console.log(curBlock.getParent().type);
 
+        console.log(strDist);
+        // type 4
+        // var setter + (* pointer getter)
+        // pointer setter + (& variable getter)
+        if ((curBlock.getParent().type == (strDist + '_*' )) ||
+            ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
+            var parentVars = curBlock.getParent().getParent().getVars();
+            parentType = getTypefromVars(parentVars);
+
+        }
 
         // type 1
-        // *Variable, &Variable
-        if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
+        // variable declare + *pointer,
+        // pointer declare + &variable
+        else if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
             && curBlock.getParent().getParent()) {
-            console.log('1');
 
             if (curBlock.getParent().getParent().getVars()){
                 parentType = curBlock.getParent().getParent().getTypes();
@@ -328,10 +336,10 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         }
 
         // type 2
-        // setter + (malloc or getter)
-        if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
-            && (curBlock.getParent().type == (strDist+'_set'))) {
-            console.log('2');
+        // pointer setter + malloc
+        // setter + getter (same type)
+        else if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
+            && (curBlock.getParent().type.search('_set') > 0)) {
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
@@ -342,23 +350,12 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         }
 
         // type 3
-        //
+        // declare block + get block (same type)
         else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type == (strDist+'_declare'))) {
-            console.log('3');
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }
         }
-
-        // type 4
-        // var setter + (* pointer getter)
-        else if (curBlock.getParent().type == (strDist + '_*' )) {
-            console.log('4');
-            var parentVars = curBlock.getParent().getParent().getVars();
-            parentType = getTypefromVars(parentVars);
-
-        }
-
 
     }
 
@@ -389,7 +386,6 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
     var variableListPop = []; // 보여줄 리스트 거를 것.
     var thisPosition = block.getRelativeToSurfaceXY().y;
 
-    console.log('varDist: ' + varDist);
     var charDist, strDist;
     switch(varDist) {
         case 0:
