@@ -42,6 +42,7 @@ Blockly.Blocks['math_number'] = {
         Blockly.FieldTextInput.numberValidator), 'NUM');
     this.setOutput(true, 'Number');
     this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_MATH_NUMBER;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -69,6 +70,7 @@ Blockly.Blocks['math_arithmetic'] = {
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
+      this.tag = Blockly.Msg.TAG_MATH_ARITHMETIC;
     this.setTooltip(function() {
       var mode = thisBlock.getFieldValue('OP');
       var TOOLTIPS = {
@@ -99,6 +101,7 @@ Blockly.Blocks['math_modulo'] = {
                         Blockly.ALIGN_RIGHT);
     this.setInputsInline(true);
     this.setTooltip(Blockly.Msg.MATH_MODULO_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_MATH_MODULO;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction

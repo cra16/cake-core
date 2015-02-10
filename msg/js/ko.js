@@ -517,3 +517,42 @@ Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = '경고: 블럭을 함수 밖에 위치해주세요.';
+
+Blockly.Msg.TAG_DEFINE_DECLARE = ['매크로', '상수'];
+Blockly.Msg.TAG_DEFINE_GET = ['매크로', '상수', '사용'];
+Blockly.Msg.TAG_VARIABLE_DECLARE = ['변수', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_SET = ['변수', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_GET = ['변수', '사용'];
+Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE = ['포인터', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_POINTER_SET = ['포인터', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_POINTER_GET = ['포인터', '사용'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ADDR = ['&', 'address', '주소값'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ASTR = ['*', 'asterisk'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE = ['배열', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_SET = ['배열', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_GET = ['배열', '사용'];
+
+Blockly.Msg.TAG_STRUCTURE_DEFINE = ['구조체', 'struct', 'typedef', '정의'];
+Blockly.Msg.TAG_STRUCTURE_DECLARE = ['구조체', 'struct', '선언'];
+Blockly.Msg.TAG_STRUCTURE_GET = ['구조체', 'struct', '사용'];
+Blockly.Msg.TAG_STRUCTURE_SET = ['구조체', 'struct', '할당', '변경'];
+
+Blockly.Msg.TAG_LOGIC_IF = ['if문', 'if else'];
+Blockly.Msg.TAG_LOGIC_COMPARE = ['compare', '비교'];
+Blockly.Msg.TAG_LOGIC_OPERATION = ['연산자', 'and', 'or'];
+Blockly.Msg.TAG_LOGIC_NEGATE = ['!', '반대값'];
+Blockly.Msg.TAG_LOGIC_BOOLEAN = ['boolean', '참', '거짓'];
+Blockly.Msg.TAG_LOGIC_NULL = ['null', '널문자'];
+Blockly.Msg.TAG_LOGIC_TERNARY = ['?', '삼항연산자'];
+Blockly.Msg.TAG_LOGIC_SWITCH = ['스위치문', 'switch', '경우'];
+
+Blockly.Msg.TAG_LOOP_WHILE = ['while', '동안', '반복문'];
+Blockly.Msg.TAG_LOOP_FOR = ['for', '반복문'];
+Blockly.Msg.TAG_LOOP_FLOW = ['break', 'continue', '반복중단', '건너뛰기', '반복제어'];
+
+Blockly.Msg.TAG_PROCEDURE_DEFNORETURN = ['void함수', '함수선언', '함수정의'];
+Blockly.Msg.TAG_PROCEDURE_DEFRETURN = ['함수선언', '함수정의'];
+
+Blockly.Msg.TAG_MATH_NUMBER = ['숫자'];
+Blockly.Msg.TAG_MATH_ARITHMETIC = ['숫자연산', '더하기빼기곱하기나누기', '+-*/'];
+Blockly.Msg.TAG_MATH_MODULO = ['숫자연산', '나머지', '%'];

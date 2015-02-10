@@ -517,3 +517,42 @@ Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = 'Warning: This block can be placed out of other blocks except function block.';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = 'Warning: Place this block inside a function.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = 'Warning: Place this block out of a function.';
+
+Blockly.Msg.TAG_DEFINE_DECLARE = ['macro', 'constant'];
+Blockly.Msg.TAG_DEFINE_GET = ['macro', 'constant', 'get'];
+Blockly.Msg.TAG_VARIABLE_DECLARE = ['variables', 'declare', 'define', 'declaration', 'definition'];
+Blockly.Msg.TAG_VARIABLE_SET = ['variables', 'assignment', 'set'];
+Blockly.Msg.TAG_VARIABLE_GET = ['variables', 'get'];
+Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE = ['pointer', 'declare', 'define', 'declaration', 'definition'];
+Blockly.Msg.TAG_VARIABLE_POINTER_SET = ['pointer', 'assignment', 'set'];
+Blockly.Msg.TAG_VARIABLE_POINTER_GET = ['pointer', 'get'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ADDR = ['&', 'address'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ASTR = ['*', 'asterisk'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE = ['array', 'declare', 'define', 'declaration', 'definition'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_SET = ['array', 'assignment', 'set'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_GET = ['array', 'get'];
+
+Blockly.Msg.TAG_STRUCTURE_DEFINE = ['structure', 'typedef', 'declare', 'define', 'declaration', 'definition'];
+Blockly.Msg.TAG_STRUCTURE_DECLARE = ['structure', 'declare', 'define', 'declaration', 'definition'];
+Blockly.Msg.TAG_STRUCTURE_GET = ['structure', 'get'];
+Blockly.Msg.TAG_STRUCTURE_SET = ['structure', 'assignment', 'set'];
+
+Blockly.Msg.TAG_LOGIC_IF = ['if', 'if else', 'ifelse'];
+Blockly.Msg.TAG_LOGIC_COMPARE = ['compare'];
+Blockly.Msg.TAG_LOGIC_OPERATION = ['operation', 'and', 'or'];
+Blockly.Msg.TAG_LOGIC_NEGATE = ['!', 'negate'];
+Blockly.Msg.TAG_LOGIC_BOOLEAN = ['boolean', 'true', 'false'];
+Blockly.Msg.TAG_LOGIC_NULL = ['null', 'null character'];
+Blockly.Msg.TAG_LOGIC_TERNARY = ['?'];
+Blockly.Msg.TAG_LOGIC_SWITCH = ['switch', 'case'];
+
+Blockly.Msg.TAG_LOOP_WHILE = ['while', 'loop'];
+Blockly.Msg.TAG_LOOP_FOR = ['for', 'loop'];
+Blockly.Msg.TAG_LOOP_FLOW = ['break', 'continue'];
+
+Blockly.Msg.TAG_PROCEDURE_DEFNORETURN = ['void', 'function'];
+Blockly.Msg.TAG_PROCEDURE_DEFRETURN = ['function'];
+
+Blockly.Msg.TAG_MATH_NUMBER = ['number'];
+Blockly.Msg.TAG_MATH_ARITHMETIC = ['number', 'arithmetic', 'additionsubtractionmultiplicationdivision', '+-*/'];
+Blockly.Msg.TAG_MATH_MODULO = ['arithmetic', 'remainder', '%'];

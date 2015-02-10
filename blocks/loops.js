@@ -49,6 +49,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
+      this.tag = Blockly.Msg.TAG_LOOP_WHILE;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
@@ -85,6 +86,7 @@ Blockly.Blocks['controls_for'] = {
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
+      this.tag = Blockly.Msg.TAG_LOOP_FOR;
     this.setTooltip(function() {
       return Blockly.Msg.CONTROLS_FOR_TOOLTIP.replace('%1',
           thisBlock.getFieldValue('VAR'));
@@ -149,6 +151,7 @@ Blockly.Blocks['controls_flow_statements'] = {
     this.setPreviousStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
+      this.tag = Blockly.Msg.TAG_LOOP_FLOW;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('FLOW');
       var TOOLTIPS = {
