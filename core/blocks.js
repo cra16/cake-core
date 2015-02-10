@@ -296,7 +296,7 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
 Blockly.Blocks.search = function(searchingWord){
     var result = Blockly.Blocks.searchTag(searchingWord);
     Blockly.Blocks.showResult(result);
-}
+};
 
 /**
  * searching tag from all blocks
@@ -310,31 +310,31 @@ Blockly.Blocks.searchTag = function(searchingTag){
     for (var i = 0; i<tree.children_.length; i++) {
         var tree_i =tree.children_[i];
         if(tree_i.blocks == 'PROCEDURE'){
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
-            block.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
-            blocks.push(block);
+            var proNoReturn = new Blockly.Block();
+            proNoReturn.id = Blockly.genUid();
+            proNoReturn.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
+            blocks.push(proNoReturn);
 
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
-            block.fill(Blockly.mainWorkspace, "procedures_defreturn");
-            blocks.push(block);
+            var proReturn = new Blockly.Block();
+            proReturn.id = Blockly.genUid();
+            proReturn.fill(Blockly.mainWorkspace, "procedures_defreturn");
+            blocks.push(proReturn);
 
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
-            block.fill(Blockly.mainWorkspace, "procedures_ifreturn");
-            blocks.push(block);
+            var ifReturn = new Blockly.Block();
+            ifReturn.id = Blockly.genUid();
+            ifReturn.fill(Blockly.mainWorkspace, "procedures_ifreturn");
+            blocks.push(ifReturn);
         }
         else if(tree_i.blocks =='STRUCTURE'){
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
-            block.fill(Blockly.mainWorkspace, "structure_define");
-            blocks.push(block);
+            var structDefine = new Blockly.Block();
+            structDefine.id = Blockly.genUid();
+            structDefine.fill(Blockly.mainWorkspace, "structure_define");
+            blocks.push(structDefine);
 
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
-            block.fill(Blockly.mainWorkspace, "structure_declare");
-            blocks.push(block);
+            var structDeclare = new Blockly.Block();
+            structDeclare.id = Blockly.genUid();
+            structDeclare.fill(Blockly.mainWorkspace, "structure_declare");
+            blocks.push(structDeclare);
         }
         else if(tree_i.blocks.length){
             for(var j =0;j<tree_i.blocks.length;j++){
@@ -385,7 +385,7 @@ Blockly.Blocks.checkResult = function(type, result){
         }
     }
     return returnValue;
-}
+};
 
 /**
  * rendering the block into main workspace to show the result to user
@@ -406,6 +406,7 @@ Blockly.Blocks.showResult = function(result){
     rootOut.blocks = [];
     var searchResult = rootOut.createNode("result");
     searchResult.blocks = [];
+    Blockly.Toolbox.tree_.add(searchResult);
     function syncTrees(treeIn, treeOut) {
         for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
             if (!childIn.tagName) {
@@ -419,8 +420,20 @@ Blockly.Blocks.showResult = function(result){
                 treeOut.add(childOut);
                 var custom = childIn.getAttribute('custom');
                 if (custom) {
-                    // Variables and procedures have special categories that are dynamic.
                     childOut.blocks = custom;
+                    for(var j = 0, child; child=childIn.childNodes[j];j++){
+                        if(!child.tagName){
+                            continue;
+                        }
+                        var childName = child.tagName.toUpperCase();
+                        if(childName == 'BLOCK'){
+                            var check = Blockly.Blocks.checkResult(child.getAttribute('type').toUpperCase(), result);
+                            if(check != -1){
+                                result.splice(check, 1);
+                                searchResult.blocks.push(child);
+                            }
+                        }
+                    }
                 } else {
                     syncTrees(childIn, childOut);
                 }
@@ -435,7 +448,6 @@ Blockly.Blocks.showResult = function(result){
         }
     }
     syncTrees(Blockly.languageTree, Blockly.Toolbox.tree_);
-    Blockly.Toolbox.tree_.add(searchResult);
 
     if (rootOut.blocks.length) {
         throw 'Toolbox cannot have both blocks and categories in the root level.';
@@ -446,4 +458,26 @@ Blockly.Blocks.showResult = function(result){
     Blockly.Toolbox.HtmlDiv.childNodes[0].remove();
     tree.setSelectedItem(searchResult);
     tree.render(Blockly.Toolbox.HtmlDiv);
+};
+
+Blockly.Blocks.checkLegalName = function(msg, name){
+    var err = 0;
+
+    if(name.length>0){
+        var chk = name.substring(0,1);
+        if(!chk.match(/[a-z]|[A-Z]/)){
+            err = err+1;
+        }
+    }
+    for (var i=1; i<name.length; i++)  {
+        var chk = name.substring(i,i+1);
+        if(!chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+            err = err + 1;
+        }
+    }
+
+    if(err>0){
+        window.alert(msg);
+    }
+    return;
 };
