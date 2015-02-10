@@ -666,22 +666,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
             }
             this.sourceBlock_.updateShape_(inputVal);
         });
-/*
-        var ptrDepth = new Blockly.FieldTextInput('*', function(option) {
-            if (option == '*') {
-                console.log('*');
-            }
-            else if (option == '**') {
-                console.log('**');
-            }
-            else if (option == '***') {
-                console.log('***');
-            }
 
-
-        });
-
-*/
         this.appendDummyInput().appendField(dropdown, 'TYPES');
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
@@ -983,19 +968,13 @@ Blockly.Blocks['variables_array_set'] = {
       this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
       this.setColour(90);
       var dropdown = new Blockly.FieldVariableArray('--Select--', function(option) {
-          var type = Blockly.FieldDropdown.prototype.getSetterType(option);
-          var inputVal;
-          if (type == 'char') {
-              inputVal = 1;
-          }
-          else {
-              inputVal = 0;
-          }
-          this.sourceBlock_.updateShape_(inputVal);
+
+          this.sourceBlock_.updateShape_(option);
       }, this);
 
       this.appendDummyInput()
           .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
+     //     .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
           .appendField(dropdown, 'VAR')
           .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
           .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
@@ -1020,24 +999,25 @@ Blockly.Blocks['variables_array_set'] = {
         return container;
     },
     /**
-     * Parse XML to restore the 'divisorInput'.
-     * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
-     */
+    * Parse XML to restore the 'divisorInput'.
+    * @param {!Element} xmlElement XML storage element.
+    * @this Blockly.Block
+    */
     domToMutation: function(xmlElement) {
         var Input_type = (xmlElement.getAttribute('char_type') == 'true');
         this.updateShape_(Input_type);
     },
     /**
-     * Modify this block to have (or not have) an input for 'is divisible by'.
-     * @param {boolean} divisorInput True if this block has a divisor input.
-     * @private
-     * @this Blockly.Block
-     */
-    updateShape_: function(isChar) {
+    * Modify this block to have (or not have) an input for 'is divisible by'.
+    * @param {boolean} divisorInput True if this block has a divisor input.
+    * @private
+    * @this Blockly.Block
+    */
+    updateShape_: function(option) {
         // input == 'char' : isChar = 1
         // else : isChar = 0
         // Add or remove a Value Input.
+        var type = Blockly.FieldDropdown.prototype.getSetterType(option);
 
         var inputExists = this.getInput('VALUE');
 
@@ -1045,7 +1025,37 @@ Blockly.Blocks['variables_array_set'] = {
         if(inputExists) {
             this.removeInput('VALUE');
         }
-        // recreate input
+
+//        var arrName = this.getFieldValue('VAR');
+        var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
+
+        var inputLength = 0;
+        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
+            if(this.getFieldValue('LENGTH_'+temp)) {
+                inputLength++;
+            }
+        }
+
+        // type: variable
+        if (arrIdxLength == inputLength) {
+            // recreate input
+            if(type == 'char') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+            }
+            else {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+            }
+        }
+
+        // type: pointer
+        else {
+            this.appendValueInput('VALUE')
+                .setCheck(['Address', 'Array', 'Pointer']);
+        }
+
+        /*
         if(isChar) {
             this.appendValueInput('VALUE')
                 .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
@@ -1054,7 +1064,7 @@ Blockly.Blocks['variables_array_set'] = {
             this.appendValueInput('VALUE')
                 .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
         }
-
+    */
     },
     /**
      * Return all variables referenced by this block.
@@ -1107,6 +1117,7 @@ Blockly.Blocks['variables_array_set'] = {
 
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
+
 };
 
 Blockly.Blocks['variables_array_declare'] = {
