@@ -42,6 +42,7 @@ Blockly.cake['define_declare'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var define = '#define';
+    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
   return define + ' ' + varName + ' ' + argument0 + '\n';
 };
 
@@ -68,6 +69,7 @@ Blockly.cake['variables_declare'] = function(block) {
   var varName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var varType = block.getFieldValue('TYPES');
+    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
   return varType + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 
@@ -101,6 +103,7 @@ Blockly.cake['variables_pointer_declare'] = function(block) {
     window.alert('please confirm asterisk. that must be among *, **, and  ***.');
     return 0;
   }
+    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
   return varType + varIteration + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 
@@ -240,5 +243,7 @@ Blockly.cake['variables_array_declare'] = function(block) {
     code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = {' + argument0 + '}'  + ';\n';
   else
     window.alert('Please confirm array index');
+
+    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
   return code;
 };

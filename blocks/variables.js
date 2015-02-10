@@ -41,7 +41,7 @@ Blockly.Blocks['define_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
-      this.tag = ['#define', 'macro'];
+      this.tag = Blockly.Msg.TAG_DEFINE_GET;
   },
     /**
      * Return this block's tags.
@@ -121,7 +121,7 @@ Blockly.Blocks['define_declare'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'define_get';
-      this.tag = ['#define', 'macro'];
+      this.tag = Blockly.Msg.TAG_DEFINE_DECLARE;
   },
 
   /**
@@ -140,7 +140,7 @@ Blockly.Blocks['define_declare'] = {
      * Return Variable's Scope
      */
     getScope: function() {
-        return this.getSurroundParent().getName();
+        return ['Global'];
     },
     /**
      * Return Variable's Scope
@@ -183,7 +183,7 @@ Blockly.Blocks['define_declare'] = {
   customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
 
   //when the block is changed,
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Blocks.requireOutFunction
 };
 
 Blockly.Blocks['variables_get'] = {
@@ -202,6 +202,7 @@ Blockly.Blocks['variables_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_set';
+      this.tag = Blockly.Msg.TAG_VARIABLE_GET;
   },
   /**
    * Return all variables referenced by this block.
@@ -284,6 +285,7 @@ Blockly.Blocks['variables_set'] = {
       this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
       this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
       this.contextMenuType_ = 'variables_get';
+      this.tag = Blockly.Msg.TAG_VARIABLE_SET;
   },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
@@ -365,7 +367,6 @@ Blockly.Blocks['variables_set'] = {
   onchange: Blockly.Blocks.requireInFunction
 };
 
-
 Blockly.Blocks['variables_declare'] = {
   init: function() {
     var TYPE =
@@ -405,6 +406,7 @@ Blockly.Blocks['variables_declare'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_get';
+      this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
   },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
@@ -536,7 +538,7 @@ Blockly.Blocks['variables_pointer_get'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
     this.contextMenuType_ = 'variables_pointer_set';
-      this.tag = ['pointer', '포인터'];
+      this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_GET;
   },
   /**
    * Return all variables referenced by this block.
@@ -608,7 +610,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_pointer_get';
-      this.tag = ['pointer', '포인터'];
+      this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_SET;
   },
   /**
    * Return all variables referenced by this block.
@@ -666,22 +668,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
             }
             this.sourceBlock_.updateShape_(inputVal);
         });
-/*
-        var ptrDepth = new Blockly.FieldTextInput('*', function(option) {
-            if (option == '*') {
-                console.log('*');
-            }
-            else if (option == '**') {
-                console.log('**');
-            }
-            else if (option == '***') {
-                console.log('***');
-            }
 
-
-        });
-
-*/
         this.appendDummyInput().appendField(dropdown, 'TYPES');
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
@@ -694,14 +681,14 @@ Blockly.Blocks['variables_pointer_declare'] = {
             Blockly.ALIGN_RIGHT);
 
 
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_pointer_get';
-        this.tag = ['pointer', '포인터'];
-    },
-    /**
+      this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+    this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    this.contextMenuType_ = 'variables_pointer_get';
+      this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
+  },
+  /**
      * Create XML to represent whether the 'divisorInput' should be present.
      * @return {Element} XML storage element.
      * @this Blockly.Block
@@ -834,6 +821,7 @@ Blockly.Blocks['variables_pointer_&'] = {
       '&' + ' %1 ', ['VALUE', ['Variable', 'Array', 'Pointer'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setOutput(true, 'Address');
+      this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
   }
 };
 
@@ -844,6 +832,7 @@ Blockly.Blocks['variables_pointer_*'] = {
       '*' + ' %1 ', ['VALUE', ['Pointer'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setOutput(true, 'Aster');
+      this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
   }
 };
 
@@ -877,6 +866,7 @@ Blockly.Blocks['variables_array_get'] = {
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_array_set';
+        this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_GET;
     },
     getType: function(isVar) {
 
@@ -997,6 +987,7 @@ Blockly.Blocks['variables_array_set'] = {
       this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
       this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
       this.contextMenuType_ = 'variables_array_get';
+      this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_SET;
   },
     /**
      * Create XML to represent whether the 'divisorInput' should be present.
@@ -1130,6 +1121,7 @@ Blockly.Blocks['variables_array_declare'] = {
     this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
     this.contextMenuType_ = 'variables_array_get';
+      this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;
   },
   /**
    * Return 'array'.

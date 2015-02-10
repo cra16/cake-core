@@ -41,8 +41,8 @@ Blockly.Msg.CONTROLS_FOREACH_INPUT_INLIST_TAIL = "";
 Blockly.Msg.CONTROLS_FOREACH_INPUT_ITEM = "각 항목에 대해";
 Blockly.Msg.CONTROLS_FOREACH_TOOLTIP = "리스트 안에 들어있는 각 아이템들을, 순서대로 변수 '%1' 에 한 번씩 저장시키고, 그 때 마다 명령을 실행합니다.";
 Blockly.Msg.CONTROLS_FOR_HELPURL = "https://code.google.com/p/blockly/wiki/Loops#count_with";
-Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY = "%1에서 %3을 이용하여 %2로";
-Blockly.Msg.CONTROLS_FOR_INPUT_WITH = "으로 계산";
+Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY = "을 %1에서 %2까지 %3마다";
+Blockly.Msg.CONTROLS_FOR_INPUT_WITH = "반복";
 Blockly.Msg.CONTROLS_FOR_TOOLTIP = "변수 %1은 지정된 간격으로 시작 수에서 끝 수까지를 세어 지정된 블록을 수행해야 합니다.";
 Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP = "\"만약\" 블럭에 조건 검사를 추가합니다.";
 Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP = "\"만약\" 블럭의 마지막에, 모든 검사 결과가 거짓인 경우 실행할 부분을 추가합니다.";
@@ -511,3 +511,46 @@ Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = '경고: 블럭을 함수 밖에 위치해주세요.';
+
+Blockly.Msg.TAG_DEFINE_DECLARE = ['매크로', '상수'];
+Blockly.Msg.TAG_DEFINE_GET = ['매크로', '상수', '사용'];
+Blockly.Msg.TAG_VARIABLE_DECLARE = ['변수', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_SET = ['변수', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_GET = ['변수', '사용'];
+Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE = ['포인터', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_POINTER_SET = ['포인터', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_POINTER_GET = ['포인터', '사용'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ADDR = ['&', 'address', '주소값'];
+Blockly.Msg.TAG_VARIABLE_POINTER_ASTR = ['*', 'asterisk'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE = ['배열', '선언', '정의'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_SET = ['배열', '할당', '변경'];
+Blockly.Msg.TAG_VARIABLE_ARRAY_GET = ['배열', '사용'];
+
+Blockly.Msg.TAG_STRUCTURE_DEFINE = ['구조체', 'struct', 'typedef', '정의'];
+Blockly.Msg.TAG_STRUCTURE_DECLARE = ['구조체', 'struct', '선언'];
+Blockly.Msg.TAG_STRUCTURE_GET = ['구조체', 'struct', '사용'];
+Blockly.Msg.TAG_STRUCTURE_SET = ['구조체', 'struct', '할당', '변경'];
+
+Blockly.Msg.TAG_LOGIC_IF = ['if문', 'if else'];
+Blockly.Msg.TAG_LOGIC_COMPARE = ['compare', '비교'];
+Blockly.Msg.TAG_LOGIC_OPERATION = ['연산자', 'and', 'or'];
+Blockly.Msg.TAG_LOGIC_NEGATE = ['!', '반대값'];
+Blockly.Msg.TAG_LOGIC_BOOLEAN = ['boolean', '참', '거짓'];
+Blockly.Msg.TAG_LOGIC_NULL = ['null', '널문자'];
+Blockly.Msg.TAG_LOGIC_TERNARY = ['?', '삼항연산자'];
+Blockly.Msg.TAG_LOGIC_SWITCH = ['스위치문', 'switch', '경우'];
+
+Blockly.Msg.TAG_LOOP_WHILE = ['while', '동안', '반복문'];
+Blockly.Msg.TAG_LOOP_FOR = ['for', '반복문'];
+Blockly.Msg.TAG_LOOP_FLOW = ['break', 'continue', '반복중단', '건너뛰기', '반복제어'];
+
+Blockly.Msg.TAG_PROCEDURE_DEFNORETURN = ['void함수', '함수선언', '함수정의'];
+Blockly.Msg.TAG_PROCEDURE_DEFRETURN = ['함수선언', '함수정의'];
+
+Blockly.Msg.TAG_MATH_NUMBER = ['숫자'];
+Blockly.Msg.TAG_MATH_ARITHMETIC = ['숫자연산', '더하기빼기곱하기나누기', '+-*/'];
+Blockly.Msg.TAG_MATH_MODULO = ['숫자연산', '나머지', '%'];
+
+Blockly.Msg.PROCEDURES_ILLEGALNAME = '적절하지 못한 함수 이름입니다.';
+Blockly.Msg.VARIABLES_ILLEGALNAME = '적절하지 못한 변수 이름입니다.';
+Blockly.Msg.STRUCTURE_ILLEGALNAME = '적절하지 못한 구조체 이름입니다.';

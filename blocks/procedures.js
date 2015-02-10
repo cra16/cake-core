@@ -91,6 +91,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     this.types_ = [];
     this.dist_ = [];
       this.spec_ =[];
+      this.tag = Blockly.Msg.TAG_PROCEDURE_DEFNORETURN;
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
@@ -535,6 +536,7 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.types_ = [];
     this.dist_ = [];
       this.spec_ = [];
+      this.tag = Blockly.Msg.TAG_PROCEDURE_DEFRETURN;
     this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },

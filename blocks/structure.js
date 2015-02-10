@@ -49,6 +49,7 @@ Blockly.Blocks['structure_define'] = {
         this.statementConnection_ = null;
         this.setPreviousStatement(true);
         this.setNextStatement(true);
+        this.tag = Blockly.Msg.TAG_STRUCTURE_DEFINE;
     },
     updateParams_: function() {
         // Check for duplicated arguments.
@@ -340,6 +341,7 @@ Blockly.Blocks['structure_declare'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRUCTURE_DECLARE;
         // this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         // this.contextMenuType_ = 'variables_pointer_get';
     },
@@ -387,6 +389,7 @@ Blockly.Blocks['structure_get'] = {
             .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
         this.setOutput(true);
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRUCTURE_GET;
     },
 
     getStructureCall: function() {
@@ -451,6 +454,7 @@ Blockly.Blocks['structure_set'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRUCTURE_SET;
     },
 
     getStructureCall: function() {
