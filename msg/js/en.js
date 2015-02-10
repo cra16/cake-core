@@ -550,3 +550,7 @@ Blockly.Msg.TAG_PROCEDURE_DEFRETURN = ['function'];
 Blockly.Msg.TAG_MATH_NUMBER = ['number'];
 Blockly.Msg.TAG_MATH_ARITHMETIC = ['number', 'arithmetic', 'additionsubtractionmultiplicationdivision', '+-*/'];
 Blockly.Msg.TAG_MATH_MODULO = ['arithmetic', 'remainder', '%'];
+
+Blockly.Msg.PROCEDURES_ILLEGALNAME = 'illegal function name';
+Blockly.Msg.VARIABLES_ILLEGALNAME = 'illegal variable name';
+Blockly.Msg.STRUCTURE_ILLEGALNAME = 'illegal structure name';

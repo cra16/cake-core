@@ -459,3 +459,25 @@ Blockly.Blocks.showResult = function(result){
     tree.setSelectedItem(searchResult);
     tree.render(Blockly.Toolbox.HtmlDiv);
 };
+
+Blockly.Blocks.checkLegalName = function(msg, name){
+    var err = 0;
+
+    if(name.length>0){
+        var chk = name.substring(0,1);
+        if(!chk.match(/[a-z]|[A-Z]/)){
+            err = err+1;
+        }
+    }
+    for (var i=1; i<name.length; i++)  {
+        var chk = name.substring(i,i+1);
+        if(!chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+            err = err + 1;
+        }
+    }
+
+    if(err>0){
+        window.alert(msg);
+    }
+    return;
+};

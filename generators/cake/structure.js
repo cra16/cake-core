@@ -6,7 +6,7 @@ goog.require('Blockly.cake');
 
 
 Blockly.cake['structure_define'] = function(block) {
-  var funcName = Blockly.cake.variableDB_.getName(
+  var structName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('NAME'), null);
 
   var mems = [];
@@ -31,7 +31,8 @@ Blockly.cake['structure_define'] = function(block) {
       }
   }
   var structDef = 'typedef struct\n';
-  var code = structDef + '{\n' + typePlusMems.join('') + '} ' + funcName + ';\n';
+  var code = structDef + '{\n' + typePlusMems.join('') + '} ' + structName + ';\n';
+    Blockly.Blocks.checkLegalName(Blockly.Msg.STRUCTURE_ILLEGALNAME, structName);
   return code;
 };
 
@@ -40,6 +41,7 @@ Blockly.cake['structure_declare'] = function(block) {
     block.getFieldValue('TYPES'), null);
   var structName = Blockly.cake.variableDB_.getName(
     block.getFieldValue('NAME'), Blockly.Variables.NAME_TYPE);
+    Blockly.Blocks.checkLegalName(Blockly.Msg.STRUCTURE_ILLEGALNAME, structName);
   return type + ' ' + structName + ';\n';
 };
 

@@ -550,3 +550,7 @@ Blockly.Msg.TAG_PROCEDURE_DEFRETURN = ['함수선언', '함수정의'];
 Blockly.Msg.TAG_MATH_NUMBER = ['숫자'];
 Blockly.Msg.TAG_MATH_ARITHMETIC = ['숫자연산', '더하기빼기곱하기나누기', '+-*/'];
 Blockly.Msg.TAG_MATH_MODULO = ['숫자연산', '나머지', '%'];
+
+Blockly.Msg.PROCEDURES_ILLEGALNAME = '적절하지 못한 함수 이름입니다.';
+Blockly.Msg.VARIABLES_ILLEGALNAME = '적절하지 못한 변수 이름입니다.';
+Blockly.Msg.STRUCTURE_ILLEGALNAME = '적절하지 못한 구조체 이름입니다.';

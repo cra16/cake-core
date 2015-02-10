@@ -140,7 +140,7 @@ Blockly.Blocks['define_declare'] = {
      * Return Variable's Scope
      */
     getScope: function() {
-        return this.getSurroundParent().getName();
+        return ['Global'];
     },
     /**
      * Return Variable's Scope
@@ -183,7 +183,7 @@ Blockly.Blocks['define_declare'] = {
   customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
 
   //when the block is changed,
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Blocks.requireOutFunction
 };
 
 Blockly.Blocks['variables_get'] = {
