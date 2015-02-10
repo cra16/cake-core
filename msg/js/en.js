@@ -442,6 +442,15 @@ Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
 Blockly.Msg.STRING_STRLEN_TITLE = 'string length %1';
 Blockly.Msg.STRING_STRLEN_TOOLTIP = '문자열의 길이를 구합니다.';
 Blockly.Msg.STRING_STRLEN_HELPURL = '';
+Blockly.Msg.STRING_STRCAT_TITLE = 'string add %1 and %2';
+Blockly.Msg.STRING_STRCAT_TOOLTIP = '2개의 문자열을 이어 붙입니다.';
+Blockly.Msg.STRING_STRCAT_HELPURL = '';
+Blockly.Msg.STRING_STRCPY_TITLE = 'string copy from %1 to %2';
+Blockly.Msg.STRING_STRCPY_TOOLTIP = '첫 번째 문자열을 두 번째 문자열로 복사합니다.';
+Blockly.Msg.STRING_STRCPY_HELPURL = '';
+Blockly.Msg.STRING_STRCMP_TITLE = 'string compare %1 and %2';
+Blockly.Msg.STRING_STRCMP_TOOLTIP = '2개의 문자열을 비교합니다.';
+Blockly.Msg.STRING_STRCMP_HELPURL = '';
 
 Blockly.Msg.VARIABLES_SET_TYPE_INT = 'integer';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= 'unsigned int';
