@@ -728,11 +728,11 @@ Blockly.Blocks['variables_pointer_declare'] = {
         // recreate input
         if(isChar) {
             this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Pointer']);
+                .setCheck(['Address', 'Pointer', 'Array']);
         }
         else {
             this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Pointer']);
+                .setCheck(['Address', 'Pointer', 'Array']);
         }
 
     },
