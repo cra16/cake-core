@@ -61,7 +61,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var x = 1; x <= this.printAddCount_; x++) {
-            var printAddBlock = Blockly.Block.obtain(workspace, 'libarary_stdio_printf_add');
+            var printAddBlock = Blockly.Block.obtain(workspace, 'library_stdio_printf_add');
             printAddBlock.initSvg();
             connection.connect(printAddBlock.previousConnection);
             connection = printAddBlock.nextConnection;
