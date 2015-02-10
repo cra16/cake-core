@@ -857,15 +857,15 @@ Blockly.Blocks['variables_array_get'] = {
         this.setColour(90);
 
 
-        var originIdxLength;
+      /*  var originIdxLength;
         var varOutput = new Blockly.FieldVariableArray('--Select--', function(option) {
             originIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
         }, this);
-
+*/
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            .appendField(varOutput, 'VAR')
-            //.appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            //.appendField(varOutput, 'VAR')
+            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -877,21 +877,6 @@ Blockly.Blocks['variables_array_get'] = {
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_array_set';
-    },
-    getType: function(isVar) {
-
-        //Blockly.FieldVariableArray.getBlockInputLength(this);
-        if(isVar) {
-            console.log('set variable');
-            //this.changeOutput('Variable')
-            //return 'Variable';
-        }
-        else {
-            console.log('set pointer');
-            //this.changeOutput('Pointer');
-            //return 'Pointer';
-        }
-
     },
     /**
      * Return all variables referenced by this block.
@@ -960,7 +945,32 @@ Blockly.Blocks['variables_array_get'] = {
 
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: function() {
+
+        Blockly.Blocks.requireInFunction
+
+        var arrName = this.getFieldValue('VAR');
+        var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
+
+        var inputLength = 0;
+        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
+            if(this.getFieldValue('LENGTH_'+temp)) {
+                inputLength++;
+            }
+        }
+
+        // type: variable
+        if (arrIdxLength == inputLength) {
+            this.changeOutput('Variable');
+        }
+        // type: pointer
+        else if (arrIdxLength > inputLength) {
+            this.changeOutput('Pointer');
+        }
+        else {
+            this.changeOutput('Array');
+        }
+    }
 
 };
 
