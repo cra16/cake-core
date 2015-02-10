@@ -41,7 +41,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck(['Boolean', 'Number'])
+        .setCheck(['Boolean', 'Number', 'Variable'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
@@ -75,9 +75,9 @@ Blockly.Blocks['controls_for'] = {
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
         .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR');
     this.interpolateMsg(Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
-                        ['FROM', 'Number', Blockly.ALIGN_RIGHT],
-                        ['TO', 'Number', Blockly.ALIGN_RIGHT],
-                        ['BY', 'Number', Blockly.ALIGN_RIGHT],
+                        ['FROM', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
+                        ['TO', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
+                        ['BY', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
