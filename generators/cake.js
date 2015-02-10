@@ -166,19 +166,13 @@ Blockly.cake.finish = function(code) {
     //definitions--> function def, #def
     var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
     var allFuncs = func_definitions.join('\n\n');
-
     // for srand
     var time;
     if (time = times.pop()) {
         var idx = allFuncs.search('{');
         var pre = allFuncs.substr(0, idx+1);
         var post = allFuncs.substr(idx+1, allFuncs.length);
-        console.log('pre: ' + pre);
-        console.log('post: ' + post);
-
-
         var result = pre.concat(time, post);
-        console.log('result: ' + result);
 
         allFuncs = result;
     }

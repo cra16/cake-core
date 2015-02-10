@@ -311,6 +311,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
     var parentType = null;
 
     if (curBlock.getParent()) {
+        console.log('parnet: ' + curBlock.getParent().type);
 
         // type 4
         // var setter + (* pointer getter)
@@ -350,10 +351,22 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
         // type 3
         // declare block + get block (same type)
-        else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type == (strDist+'_declare'))) {
+        else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type.match('_declare'))) {
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }
+        }
+
+        // type 5
+        // function return type
+        else if ((curBlock.getParent().type.match('procedures'))) {
+            parentType = curBlock.getParent().getType();
+        }
+
+        // type 6
+        // main block: int
+        else if ((curBlock.getParent().type.match('main_block'))) {
+            parentType = 'int';
         }
 
     }
