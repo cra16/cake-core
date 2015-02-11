@@ -471,7 +471,7 @@ Blockly.Blocks.checkLegalName = function(msg, name){
     }
     for (var i=1; i<name.length; i++)  {
         var chk = name.substring(i,i+1);
-        if(!chk.match(/[0-9]|[a-z]|[A-Z]/)) {
+        if(!chk.match(/[0-9]|[a-z]|[A-Z]|_/)) {
             err = err + 1;
         }
     }

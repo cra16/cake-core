@@ -277,7 +277,7 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "func";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수이름";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "을(를) 돌려줌 값:";
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "다음 값을 돌려줌";
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "경고: 이 함수에는, 같은 이름을 사용하는 매개 변수들이 있습니다.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "함수 정의 찾기";
@@ -453,6 +453,18 @@ Blockly.Msg.STRING_STRCMP_TITLE = '문자열 %1과 %2를 비교';
 Blockly.Msg.STRING_STRCMP_TOOLTIP = '2개의 문자열을 비교합니다.';
 Blockly.Msg.STRING_STRCMP_HELPURL = '';
 
+Blockly.Msg.TIME_REQUIREDTIME_TITLE = '다음을 실행하는데 걸린 시간';
+Blockly.Msg.TIME_REQRUIEDTIME_TALE = 'Double형 변수 %1 에 저장';
+Blockly.Msg.TIME_TIME_CURRENT_TITLE = '현재 시각 출력';
+
+Blockly.Msg.VARIABLES_SET_DIST_VARIABLE = '변수';
+Blockly.Msg.VARIABLES_SET_DIST_POINTER = '포인터';
+Blockly.Msg.VARIABLES_SET_DIST_ARRAY = '배열';
+Blockly.Msg.VARIABLES_SET_POINTER_SPEC_ONE = '*';
+Blockly.Msg.VARIABLES_SET_POINTER_SPEC_TWO = '**';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_ONE = '[]';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_TWO = '[][]';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_THREE = '[][][]';
 Blockly.Msg.VARIABLES_SET_TYPE_INT = '정수';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= '양의 정수';
 Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = '실수(float)';

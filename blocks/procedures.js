@@ -403,7 +403,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-    return [this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, false];
+    return [false, this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_];
   },
   /**
    * Return all variables referenced by this block.
@@ -516,6 +516,11 @@ Blockly.Blocks['procedures_defreturn'] = {
               [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
               [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
               [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+      var DIST = [
+          [Blockly.Msg.VARIABLES_SET_DIST_VARIABLE, 'variable'],
+          [Blockly.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
+          [Blockly.Msg.VARIABLES_SET_DIST_ARRAY, 'array']
+      ];
     this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
     this.setColour(290);
     var name = Blockly.Procedures.findLegalName(
@@ -527,9 +532,10 @@ Blockly.Blocks['procedures_defreturn'] = {
     this.appendStatementInput('STACK')
       .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
     this.appendValueInput('RETURN')
+        .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN)
         .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
-      .setAlign(Blockly.ALIGN_RIGHT)
-      .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+        .appendField(new Blockly.FieldDropdown(DIST), 'DISTS')
+      .setAlign(Blockly.ALIGN_RIGHT);
     this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));
     this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
     this.arguments_ = [];
@@ -542,6 +548,43 @@ Blockly.Blocks['procedures_defreturn'] = {
   },
     getName: function(){
         return [this.getFieldValue('NAME')];
+    },
+    updateShape: function(){
+        var PSPEC = [
+            [Blockly.Msg.VARIABLES_SET_POINTER_SPEC_ONE, '*'],
+            [Blockly.Msg.VARIABLES_SET_POINTER_SPEC_TWO, '**']
+        ];
+        var ASPEC = [
+            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_ONE, '[]'],
+            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_TWO, '[][]'],
+            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_THREE, '[][][]']
+        ];
+        if(this.getFieldValue('DISTS') == null){
+        }
+        else if(this.getFieldValue('DISTS') == 'variable'){
+            if(this.getField_('PSPECS')){
+                this.inputList[2].removeField('PSPECS');
+            }
+            else if(this.getField_('ASPECS')){
+                this.inputList[2].removeField('ASPECS');
+            }
+        }
+        else if(this.getFieldValue('DISTS') == 'pointer'){
+            if(!this.getField_('PSPECS')){
+                this.inputList[2].appendField(new Blockly.FieldDropdown(PSPEC), 'PSPECS');
+            }
+            if(this.getField_('ASPECS')){
+                this.inputList[2].removeField('ASPECS');
+            }
+        }
+        else if(this.getFieldValue('DISTS') == 'array'){
+            if(!this.getField_('ASPECS')){
+                this.inputList[2].appendField(new Blockly.FieldDropdown(ASPEC), 'ASPECS');
+            }
+            if(this.getField_('PSPECS')){
+                this.inputList[2].removeField('PSPECS');
+            }
+        }
     },
   updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
   mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
@@ -558,7 +601,15 @@ Blockly.Blocks['procedures_defreturn'] = {
    * @this Blockly.Block
    */
   getProcedureDef: function() {
-      return [this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, true];
+      if(this.getFieldValue('DISTS') == 'variable'){
+          return [true, this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, this.getFieldValue('DISTS')];
+      }
+      else if(this.getFieldValue('DISTS') == 'pointer'){
+          return [true, this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, this.getFieldValue('DISTS'), this.getFieldValue('PSPECS')];
+      }
+      else if(this.getFieldValue('DISTS') == 'array'){
+          return [true, this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_, this.getFieldValue('DISTS'), this.getFieldValue('ASPECS')];
+      }
   },
   getType: function() {
     return [this.getFieldValue('TYPES')];
@@ -567,11 +618,15 @@ Blockly.Blocks['procedures_defreturn'] = {
   renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
   customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
   callType_: 'procedures_callreturn',
-    onchange: Blockly.Blocks.requireOutFunction,
-    /**
-     * return function's parameter information
-     * return type = [type, dist, name, scope, position, specific]
-     * */
+    onchange: function(){
+        Blockly.Blocks.requireOutFunction();
+        this.updateShape();
+    },
+
+        /**
+         * return function's parameter information
+         * return type = [type, dist, name, scope, position, specific]
+         * */
     getParamInfo: function(){
         var paramList = [];
         for(var i = 0; i<this.arguments_.length; i++){
