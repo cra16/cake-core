@@ -55,11 +55,11 @@ Blockly.Blocks['math_number'] = {
           this.changeOutput('NUMBER');
       }
       else if (num % 1 === 0 || num.match(/-/)) {
-          if (num < 0 || num.match(/-/)) {
-              this.changeOutput('NEGATIVE');
+          if (num > 0) {
+              this.changeOutput('INT');
           }
           else {
-              this.changeOutput('INT');
+              this.changeOutput('NEGATIVE');
           }
       }
       else {

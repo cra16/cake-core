@@ -281,22 +281,24 @@ Blockly.FieldDropdown.prototype.dispose = function() {
   Blockly.FieldDropdown.superClass_.dispose.call(this);
 };
 
+
 /**
- * get type of variable
- * @param blockVars: variable name
- * @returns {*} type of variable
+ * get type/dimension/ of varialbe
+ * @param blockVars: current block
+ * @param option: type = 0, dimension = 5
+ * @returns {*}
  */
-Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars) {
-    var blockType;
+Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
+
+    var wantedValue;
     var variableList = Blockly.Variables.allVariables();
 
     for (var temp = 0; temp < variableList.length; temp++) {
         if (variableList[temp][2] == blockVars) {
-            blockType = variableList[temp][0];
-
+            wantedValue = variableList[temp][option];
         }
     }
-    return blockType;
+    return wantedValue;
 };
 
 
@@ -319,7 +321,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         if ((curBlock.getParent().type == (strDist + '_*' )) ||
             ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
             var parentVars = curBlock.getParent().getParent().getVars();
-            parentType = this.getTypefromVars(parentVars);
+            parentType = this.getTypefromVars(parentVars, 0);
 
         }
 
@@ -346,12 +348,13 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             if (strDist == 'variables_pointer'){
                 ParentVars = ParentVars.toString().replace("* ", "");
             }
-            parentType = this.getTypefromVars(ParentVars);
+            parentType = this.getTypefromVars(ParentVars, 0);
         }
 
         // type 3
-        // declare block + get block (same type)
+        // declare block + get block
         else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type.match('_declare'))) {
+
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }

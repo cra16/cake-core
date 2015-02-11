@@ -253,13 +253,14 @@ Blockly.Blocks['variables_get'] = {
     onchange: function() {
         Blockly.Blocks.requireInFunction();
         var varName = this.getFieldValue('VAR');
-        var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName);
-        this.setOutputType(varType, 'VAR');
+        var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+        this.setOutputType('VAR', varType);
     },
 
-    setOutputType: function(varType, dist) {
+    setOutputType: function(dist, varType) {
         switch(varType) {
             case ("int"):
+                console.log(dist+'_INT');
                 this.changeOutput(dist+'_INT');
                 break;
             case ("unsigned int"):
@@ -269,6 +270,7 @@ Blockly.Blocks['variables_get'] = {
                 this.changeOutput(dist+'_FLOAT');
                 break;
             case ("double"):
+                console.log(dist+'_DOUBLE');
                 this.changeOutput(dist+'_DOUBLE');
                 break;
             case ("char"):
@@ -288,7 +290,7 @@ Blockly.Blocks['variables_set'] = {
         this.setColour(330);
 
         var dropdown = new Blockly.FieldVariable('--Select--', function(option) {
-            var type = Blockly.FieldDropdown.prototype.getTypefromVars(option);
+            var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
             this.sourceBlock_.updateShape_(type);
         }, this);
 
@@ -367,7 +369,8 @@ Blockly.Blocks['variables_set'] = {
                 this.appendValueInput('VALUE')
                     .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
             }
-        },/**
+        },
+    /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
      * @this Blockly.Block
@@ -568,7 +571,20 @@ Blockly.Blocks['variables_pointer_get'] = {
     },
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: function() {
+        Blockly.Blocks.requireInFunction();
+
+        var varName = this.getFieldValue('VAR');
+        var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+        var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+        if (dimension == '*') {
+            this.setOutputType('PTR', varType);
+        }
+        else if(dimension == '**') {
+            this.setOutputType('DBPTR', varType);
+        }
+    },
+    setOutputType: Blockly.Blocks['variables_get'].setOutputType
 };
 
 Blockly.Blocks['variables_pointer_set'] = {
@@ -579,14 +595,15 @@ Blockly.Blocks['variables_pointer_set'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(45);
+
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
             Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
             Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-            //['VAR', new Blockly.FieldVariablePointer('--Select--', null, this)],
             ['VAR', null, Blockly.ALIGN_RIGHT],
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
+        this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
@@ -594,6 +611,7 @@ Blockly.Blocks['variables_pointer_set'] = {
         this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_SET;
     },
+
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
@@ -623,7 +641,52 @@ Blockly.Blocks['variables_pointer_set'] = {
     customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: //Blockly.Blocks.requireInFunction
+    function() {
+        Blockly.Blocks.requireInFunction();
+
+        if(this.getInput('VAR')) {
+            var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
+            var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
+            var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 5);
+
+            switch (ptrType) {
+                case ('int'):
+                    this.getInput('VALUE').setCheck(['PTR_INT', 'Address', 'Pointer']);
+                    break;
+                case ('unsigned int'):
+                    this.getInput('VALUE').setCheck(['PTR_UNINT', 'Address', 'Pointer']);
+                    break;
+                case ('float'):
+                    this.getInput('VALUE').setCheck(['PTR_FLOAT', 'Address', 'Pointer']);
+                    break;
+                case ('double'):
+                    this.getInput('VALUE').setCheck(['PTR_DOUBLE', 'Address', 'Pointer']);
+                    break;
+                case ('char'):
+                    this.getInput('VALUE').setCheck(['PTR_CHAR', 'Address', 'Pointer']);
+                    break;
+                case ('dbint'):
+                    this.getInput('VALUE').setCheck(['DBPTR_INT', 'Address', 'Pointer']);
+                    break;
+                case ('dbunsigned int'):
+                    this.getInput('VALUE').setCheck(['DBPTR_UNINT', 'Address', 'Pointer']);
+                    break;
+                case ('dbfloat'):
+                    this.getInput('VALUE').setCheck(['DBPTR_FLOAT', 'Address', 'Pointer']);
+                    break;
+                case ('dbdouble'):
+                    this.getInput('VALUE').setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer']);
+                    break;
+                case ('dbchar'):
+                    this.getInput('VALUE').setCheck(['DBPTR_CHAR', 'Address', 'Pointer']);
+                    break;
+
+
+            }
+        }
+
+    }
 };
 
 Blockly.Blocks['variables_pointer_declare'] = {
@@ -670,17 +733,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
         this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
     },
-    /**
-     * Create XML to represent whether the 'divisorInput' should be present.
-     * @return {Element} XML storage element.
-     * @this Blockly.Block
-     */
+
     mutationToDom: Blockly.Blocks['variables_set'].mutationToDom,
-    /**
-     * Parse XML to restore the 'divisorInput'.
-     * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
-     */
     domToMutation: Blockly.Blocks['variables_set'].domToMutation,
     /**
      * Modify this block to have (or not have) an input for 'is divisible by'.
@@ -702,7 +756,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
         // recreate input
         if(isChar) {
             this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Pointer', 'Array']);
+                .setCheck(['Address', 'Pointer', 'Array', 'String']);
         }
         else {
             this.appendValueInput('VALUE')
@@ -729,7 +783,11 @@ Blockly.Blocks['variables_pointer_declare'] = {
      * @this Blockly.Block
      */
     getTypes: function() {
-        return [this.getFieldValue('TYPES')];
+        if (this.getFieldValue('ITERATION') == '**'){
+            return ['db'+ this.getFieldValue('TYPES')]
+        }else {
+            return [this.getFieldValue('TYPES')];
+        }
     },
     /**
      * Return Pointer's Scope
@@ -792,7 +850,9 @@ Blockly.Blocks['variables_pointer_&'] = {
     init: function() {
         this.setColour(45);
         this.interpolateMsg(
-            '&' + ' %1 ', ['VALUE', ['Variable', 'Array', 'Pointer'], Blockly.ALIGN_RIGHT],
+            '&' + ' %1 ', ['VALUE',
+                ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
+                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Address');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
@@ -803,7 +863,8 @@ Blockly.Blocks['variables_pointer_*'] = {
     init: function() {
         this.setColour(45);
         this.interpolateMsg(
-            '*' + ' %1 ', ['VALUE', ['Pointer'], Blockly.ALIGN_RIGHT],
+            '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Aster');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
@@ -819,12 +880,6 @@ Blockly.Blocks['variables_array_get'] = {
         this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(90);
 
-
-        /*  var originIdxLength;
-         var varOutput = new Blockly.FieldVariableArray('--Select--', function(option) {
-         originIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
-         }, this);
-         */
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
             //.appendField(varOutput, 'VAR')
@@ -834,7 +889,6 @@ Blockly.Blocks['variables_array_get'] = {
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
 
-        //this.setOutput(true, this.getType(varOutput));
         this.setOutput(true, 'Array');
 
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -926,6 +980,7 @@ Blockly.Blocks['variables_array_get'] = {
         // type: variable
         if (arrIdxLength == inputLength) {
             this.changeOutput('Variable');
+
         }
         // type: pointer
         else if (arrIdxLength > inputLength) {
@@ -978,7 +1033,7 @@ Blockly.Blocks['variables_array_set'] = {
         // input == 'char' : isChar = 1
         // else : isChar = 0
         // Add or remove a Value Input.
-        var type = Blockly.FieldDropdown.prototype.getTypefromVars(option);
+        var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
 
         var inputExists = this.getInput('VALUE');
 
