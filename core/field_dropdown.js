@@ -282,11 +282,11 @@ Blockly.FieldDropdown.prototype.dispose = function() {
 };
 
 /**
- * get type of variable at setter block
- * @param blockVars
- * @returns {*}
+ * get type of variable
+ * @param blockVars: variable name
+ * @returns {*} type of variable
  */
-Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
+Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars) {
     var blockType;
     var variableList = Blockly.Variables.allVariables();
 
@@ -298,6 +298,7 @@ Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
     }
     return blockType;
 };
+
 
 /* 너무 지저분 해 ~_~*/
 /**
@@ -318,7 +319,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         if ((curBlock.getParent().type == (strDist + '_*' )) ||
             ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
             var parentVars = curBlock.getParent().getParent().getVars();
-            parentType = getTypefromVars(parentVars);
+            parentType = this.getTypefromVars(parentVars);
 
         }
 
@@ -345,7 +346,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             if (strDist == 'variables_pointer'){
                 ParentVars = ParentVars.toString().replace("* ", "");
             }
-            parentType = getTypefromVars(ParentVars);
+            parentType = this.getTypefromVars(ParentVars);
         }
 
         // type 3
@@ -368,18 +369,6 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             parentType = 'int';
         }
 
-    }
-
-    function getTypefromVars(ParentVars) {
-        var variableList = Blockly.Variables.allVariables();
-
-        for (var temp = 0; temp < variableList.length; temp++){
-            // coincide with the name of variables
-            if(variableList[temp][2] == ParentVars){
-                parentType = (variableList[temp][0]);
-            }
-        }
-        return parentType;
     }
 
     return parentType;

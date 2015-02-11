@@ -44,8 +44,28 @@ Blockly.Blocks['math_number'] = {
     this.setTooltip(Blockly.Msg.MATH_NUMBER_TOOLTIP);
       this.tag = Blockly.Msg.TAG_MATH_NUMBER;
   },
-  //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  //when the block is changed, setOutput
+  // negative number (n<0) : NEGATIVE
+  // positivie number
+  onchange: function() {
+      Blockly.Blocks.requireInFunction
+
+      var num = this.getFieldValue('NUM');
+      if (num == 0) {
+          this.changeOutput('NUMBER');
+      }
+      else if (num % 1 === 0 || num.match(/-/)) {
+          if (num < 0 || num.match(/-/)) {
+              this.changeOutput('NEGATIVE');
+          }
+          else {
+              this.changeOutput('INT');
+          }
+      }
+      else {
+          this.changeOutput('DOUBLE');
+      }
+  }
 };
 
 Blockly.Blocks['math_arithmetic'] = {
