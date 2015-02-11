@@ -158,10 +158,3 @@ Blockly.FieldVariableArray.getBlockIdxLength = function(option) {
     }
 };
 
-
-Blockly.FieldVariableArray.getBlockInputLength = function(block) {
-    //var idx = block.getIdx;
-    //console.log('idx: ' + idx);
-};
-
-

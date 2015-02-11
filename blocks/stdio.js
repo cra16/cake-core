@@ -189,7 +189,21 @@ Blockly.Blocks['library_stdio_text'] = {
         return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
             12, 12, '"');
     },
-    onchange: Blockly.Blocks.requireInFunction
+
+    onchange: function()  {
+        Blockly.Blocks.requireInFunction();
+
+        if (this.getFieldValue('TEXT')) {
+            var txtlength = this.getFieldValue('TEXT').length;
+            if (txtlength == 1) {
+                this.changeOutput('CHAR');
+            }
+            else {
+                this.changeOutput('STR');
+            }
+        }
+
+    }
     //when the block is changed,
 };
 

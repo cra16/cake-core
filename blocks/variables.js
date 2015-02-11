@@ -260,7 +260,6 @@ Blockly.Blocks['variables_get'] = {
     setOutputType: function(dist, varType) {
         switch(varType) {
             case ("int"):
-                console.log(dist+'_INT');
                 this.changeOutput(dist+'_INT');
                 break;
             case ("unsigned int"):
@@ -270,7 +269,6 @@ Blockly.Blocks['variables_get'] = {
                 this.changeOutput(dist+'_FLOAT');
                 break;
             case ("double"):
-                console.log(dist+'_DOUBLE');
                 this.changeOutput(dist+'_DOUBLE');
                 break;
             case ("char"):
@@ -334,9 +332,9 @@ Blockly.Blocks['variables_set'] = {
      */
     updateShape_:
         function(type) {
-            // input == 'char' : isChar = 1
-            // else : isChar = 0
-            // Add or remove a Value Input.
+            if (type == false) {
+                type = 'int';
+            }
 
             var inputExists = this.getInput('VALUE');
 
@@ -363,7 +361,7 @@ Blockly.Blocks['variables_set'] = {
             }
             else if(type == 'char') {
                 this.appendValueInput('VALUE')
-                    .setCheck(['VAR_CHAR', 'String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+                    .setCheck(['VAR_CHAR', 'String', 'CHAR', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
             }
             else {
                 this.appendValueInput('VALUE')
@@ -406,7 +404,6 @@ Blockly.Blocks['variables_declare'] = {
     init: function() {
         var TYPE =
             [
-                ['--Select--', false],
                 [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
@@ -648,7 +645,6 @@ Blockly.Blocks['variables_pointer_set'] = {
         if(this.getInput('VAR')) {
             var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
             var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
-            var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 5);
 
             switch (ptrType) {
                 case ('int'):
@@ -664,7 +660,7 @@ Blockly.Blocks['variables_pointer_set'] = {
                     this.getInput('VALUE').setCheck(['PTR_DOUBLE', 'Address', 'Pointer']);
                     break;
                 case ('char'):
-                    this.getInput('VALUE').setCheck(['PTR_CHAR', 'Address', 'Pointer']);
+                    this.getInput('VALUE').setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR']);
                     break;
                 case ('dbint'):
                     this.getInput('VALUE').setCheck(['DBPTR_INT', 'Address', 'Pointer']);
@@ -679,10 +675,8 @@ Blockly.Blocks['variables_pointer_set'] = {
                     this.getInput('VALUE').setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer']);
                     break;
                 case ('dbchar'):
-                    this.getInput('VALUE').setCheck(['DBPTR_CHAR', 'Address', 'Pointer']);
+                    this.getInput('VALUE').setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR']);
                     break;
-
-
             }
         }
 
@@ -704,14 +698,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
             Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
 
         var dropdown = new Blockly.FieldDropdown(TYPE, function(option) {
-            var inputVal;
-            if (option == 'char') {
-                inputVal = 1;
-            }
-            else {
-                inputVal = 0;
-            }
-            this.sourceBlock_.updateShape_(inputVal);
+            this.sourceBlock_.updateShape_(option);
         });
 
         this.appendDummyInput().appendField(dropdown, 'TYPES');
@@ -736,31 +723,78 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
     mutationToDom: Blockly.Blocks['variables_set'].mutationToDom,
     domToMutation: Blockly.Blocks['variables_set'].domToMutation,
+
     /**
-     * Modify this block to have (or not have) an input for 'is divisible by'.
-     * @param {boolean} divisorInput True if this block has a divisor input.
+     *
+     * @param type
      * @private
-     * @this Blockly.Block
      */
-    updateShape_: function(isChar) {
-        // input == 'char' : isChar = 1
-        // else : isChar = 0
-        // Add or remove a Value Input.
+    updateShape_: function(type) {
+
+        if (type == false) {
+            type = 'int';
+        }
 
         var inputExists = this.getInput('VALUE');
 
         // remove input
-        if(inputExists) {
+        if (inputExists) {
             this.removeInput('VALUE');
         }
         // recreate input
-        if(isChar) {
-            this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Pointer', 'Array', 'String']);
+        if (this.getFieldValue('ITERATION') == '*') {
+
+            if (type == 'int') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'PTR_INT']);
+            }
+            else if (type == 'unsigned int') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'PTR_UNINT']);
+            }
+            else if (type == 'float') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'PTR_FLOAT']);
+            }
+            else if (type == 'double') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'PTR_DOUBLE']);
+            }
+            else if (type == 'char') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'PTR_CHAR', 'String', 'STR', 'CHAR']);
+            }
+            else {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'String']);
+            }
         }
-        else {
-            this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Pointer', 'Array']);
+
+        else{
+            if (type == 'int') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_INT']);
+            }
+            else if (type == 'unsigned int') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_UNINT']);
+            }
+            else if (type == 'float') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_FLOAT']);
+            }
+            else if (type == 'double') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_DOUBLE']);
+            }
+            else if (type == 'char') {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_CHAR', 'String', 'STR', 'CHAR']);
+            }
+            else {
+                this.appendValueInput('VALUE')
+                    .setCheck(['Address', 'Pointer', 'Array', 'String']);
+            }
         }
 
     },
@@ -801,17 +835,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
     getPos: function(){
         return this.getRelativeToSurfaceXY().y;
     },
-    // getIteration: function(){
-    //   var num_iteration;
-    //   if(this.getFieldValue('ITERATION') = Normal)
-    //     return 1;
-    //   else if(this.getFieldValue('ITERATION') = Double)
-    //     return 2;
-    //   else if(getFieldValue('ITERATION') = Triple)
-    //     return 3;
-    //   else
-    //     return 0;
-    // },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
@@ -969,6 +992,7 @@ Blockly.Blocks['variables_array_get'] = {
 
         var arrName = this.getFieldValue('VAR');
         var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
+        var arrType = Blockly.FieldDropdown.prototype.getTypefromVars(arrName, 0);
 
         var inputLength = 0;
         for ( var temp = 1 ; temp <= 3 ; temp++ ) {
@@ -979,17 +1003,17 @@ Blockly.Blocks['variables_array_get'] = {
 
         // type: variable
         if (arrIdxLength == inputLength) {
-            this.changeOutput('Variable');
-
+            this.setOutputType('VAR', arrType);
         }
         // type: pointer
         else if (arrIdxLength > inputLength) {
-            this.changeOutput('Pointer');
+            this.setOutputType('PTR', arrType);
         }
         else {
             this.changeOutput('Array');
         }
-    }
+    },
+    setOutputType: Blockly.Blocks['variables_get'].setOutputType
 
 };
 
@@ -1001,19 +1025,16 @@ Blockly.Blocks['variables_array_set'] = {
     init: function() {
         this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(90);
-        var dropdown = new Blockly.FieldVariableArray('--Select--', function(option) {
-
-            this.sourceBlock_.updateShape_(option);
-        }, this);
-
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-            //     .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
-            .appendField(dropdown, 'VAR')
+                 .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+           // .appendField(dropdown, 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
-            .appendField(Blockly.Msg.VARIABLES_SET_TAIL);
+            .appendField(Blockly.Msg.VARIABLES_SET_TAIL)
+        this.appendValueInput('VALUE');
+
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
@@ -1021,55 +1042,6 @@ Blockly.Blocks['variables_array_set'] = {
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_array_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_SET;
-    },
-    mutationToDom: Blockly.Blocks['variables_set'].mutationToDom,
-    domToMutation: Blockly.Blocks['variables_set'].domToMutation,
-    /**
-     *
-     * @param option
-     * @private
-     */
-    updateShape_: function(option) {
-        // input == 'char' : isChar = 1
-        // else : isChar = 0
-        // Add or remove a Value Input.
-        var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
-
-        var inputExists = this.getInput('VALUE');
-
-        // remove input
-        if(inputExists) {
-            this.removeInput('VALUE');
-        }
-
-//        var arrName = this.getFieldValue('VAR');
-        var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
-
-        var inputLength = 0;
-        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
-            if(this.getFieldValue('LENGTH_'+temp)) {
-                inputLength++;
-            }
-        }
-
-        // type: variable
-        if (arrIdxLength == inputLength) {
-            // recreate input
-            if(type == 'char') {
-                this.appendValueInput('VALUE')
-                    .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
-            }
-            else {
-                this.appendValueInput('VALUE')
-                    .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
-            }
-        }
-
-        // type: pointer
-        else {
-            this.appendValueInput('VALUE')
-                .setCheck(['Address', 'Array', 'Pointer']);
-        }
     },
     /**
      * Return all variables referenced by this block.
@@ -1107,7 +1079,80 @@ Blockly.Blocks['variables_array_set'] = {
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: function() {
+        Blockly.Blocks.requireInFunction();
+
+        if (this.getFieldValue('VAR')) {
+            var option = this.getFieldValue('VAR');
+            var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
+            var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
+
+            var inputLength = 0;
+            for ( var temp = 1 ; temp <= 3 ; temp++ ) {
+                if(this.getFieldValue('LENGTH_'+temp)) {
+                    inputLength++;
+                }
+            }
+            // type: variable
+            if (arrIdxLength == inputLength) {
+                if (type == 'int') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT']);
+                }
+                else if (type == 'unsigned int') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT']);
+                }
+                else if (type == 'float') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT']);
+                }
+                else if (type == 'double') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE']);
+                }
+                else if (type == 'char') {
+                    this.getInput('VALUE')
+                        .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR']);
+                }
+                else {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+                }
+            }
+            // type: pointer
+            else {
+                if (type == 'int') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_INT']);
+                }
+                else if (type == 'unsigned int') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_UNINT']);
+                }
+                else if (type == 'float') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_FLOAT']);
+                }
+                else if (type == 'double') {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_DOUBLE']);
+                }
+                else if (type == 'char') {
+                    this.getInput('VALUE')
+                        .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_CHAR', 'STR', 'CHAR']);
+                }
+                else {
+                    this.getInput('VALUE')
+                        .setCheck(['Number', 'String', 'Aster', 'Array', 'Boolean', 'Macro', 'Pointer']);
+                }
+            }
+
+        }
+
+        }
+
+
 
 };
 
