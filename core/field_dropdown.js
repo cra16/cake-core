@@ -302,8 +302,8 @@ Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
 /* 너무 지저분 해 ~_~*/
 /**
  * get parent type of block
- * @param curBlock
- * @param strDist
+ * @param curBlock : current block
+ * @param strDist : string dist
  * @returns {*}
  */
 Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
