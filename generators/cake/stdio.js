@@ -17,6 +17,12 @@ Blockly.cake['library_stdio_printf'] = function(block) {
 Blockly.cake['library_stdio_text'] = function(block) {
     // Text value.
     var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+    if (code.length == 1){
+        code = '\'' + code + '\'';
+    }
+    else {
+        code = '\"' + code + '\"';
+    }
     return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
