@@ -3,7 +3,7 @@
 goog.provide('Blockly.Blocks.stdio');
 
 goog.require('Blockly.Blocks');
-//****** mutator 에 대해서 주석 수정하기 ~_~ 코드 제너레이터 고고고! 오예오예 ㅎㅎㅎ
+
 Blockly.Blocks['library_stdio_printf'] = {
     /**
      * Block for [printf function] in C.
@@ -13,7 +13,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.appendValueInput('VAR0')
-            .setCheck(null)
+            .setCheck(['Variable', 'String'])
             .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
@@ -22,7 +22,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         this.printAddCount_ = 0;
     },
     /**
-     * Create XML to represent the number of else-if and else inputs.
+     * Create XML to represent the number of printf inputs.
      * @return {Element} XML storage element.
      * @this Blockly.Block
      */
@@ -37,7 +37,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         return container;
     },
     /**
-     * Parse XML to restore the else-if and else inputs.
+     * Parse XML to restore printf inputs.
      * @param {!Element} xmlElement XML storage element.
      * @this Blockly.Block
      */
