@@ -277,7 +277,7 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "do something";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "Name";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "Creates a function with no output.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
-Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "type return value:";
+Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "return";
 Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "Creates a function with an output.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "Warning: This function has duplicate parameters.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "Highlight function definition";
@@ -453,6 +453,18 @@ Blockly.Msg.STRING_STRCMP_TITLE = 'string compare %1 and %2';
 Blockly.Msg.STRING_STRCMP_TOOLTIP = '2개의 문자열을 비교합니다.';
 Blockly.Msg.STRING_STRCMP_HELPURL = '';
 
+Blockly.Msg.TIME_REQUIREDTIME_TITLE = 'time to do followings';
+Blockly.Msg.TIME_REQRUIEDTIME_TALE = 'save in double variable %1';
+Blockly.Msg.TIME_TIME_CURRENT_TITLE = 'print current time';
+
+Blockly.Msg.VARIABLES_SET_DIST_VARIABLE = 'variable';
+Blockly.Msg.VARIABLES_SET_DIST_POINTER = 'pointer';
+Blockly.Msg.VARIABLES_SET_DIST_ARRAY = 'array';
+Blockly.Msg.VARIABLES_SET_POINTER_SPEC_ONE = '*';
+Blockly.Msg.VARIABLES_SET_POINTER_SPEC_TWO = '**';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_ONE = '[]';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_TWO = '[][]';
+Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_THREE = '[][][]';
 Blockly.Msg.VARIABLES_SET_TYPE_INT = 'integer';
 Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= 'unsigned int';
 Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = 'real number(float)';

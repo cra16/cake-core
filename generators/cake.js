@@ -142,12 +142,14 @@ Blockly.cake.finish = function(code) {
     var includes = [];
     var definitions = [];
     var func_definitions = [];
-    var times = [];
+    var rand = [];
+    var time = [];
     for (var name in Blockly.cake.definitions_) {
         var def = Blockly.cake.definitions_[name];
         var nameInclude = 'include';
         var nameFunc = 'Func';
         var nameSrand = 'srand';
+        var nameTime = 'time';
         if (name.match(nameInclude)) {
             includes.push(def);
         }
@@ -156,7 +158,11 @@ Blockly.cake.finish = function(code) {
         }
         else if(name.match(nameSrand)) {
             def = this.prefixLines(def, Blockly.cake.INDENT);
-            times.push(def);
+            rand.push(def);
+        }
+        else if(name.match(nameTime)){
+            def = this.prefixLines(def, Blockly.cake.INDENT);
+            time.push(def);
         }
         else{
             func_definitions.push(def);
@@ -164,21 +170,30 @@ Blockly.cake.finish = function(code) {
     }
     //imports--> #include
     //definitions--> function def, #def
-    var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
-    var allFuncs = func_definitions.join('\n\n');
+    var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n');
+    var allFuncs = func_definitions.join('\n');
     // for srand
-    var time;
-    if (time = times.pop()) {
+    var random;
+    if (random = rand.pop()) {
         var idx = allFuncs.search('{');
         var pre = allFuncs.substr(0, idx+1);
         var post = allFuncs.substr(idx+1, allFuncs.length);
-        var result = pre.concat(time, post);
+        var result = pre.concat(random, post);
+
+        allFuncs = result;
+    }
+    var times;
+    while (times = time.pop()) {
+        var idx = allFuncs.search('{');
+        var pre = allFuncs.substr(0, idx + 1);
+        var post = allFuncs.substr(idx + 1, allFuncs.length);
+        var result = pre.concat(times, post);
 
         allFuncs = result;
     }
 
 
-  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
+  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
 };
 
 Blockly.cake.finishFull = function(code) {

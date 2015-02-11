@@ -85,8 +85,28 @@ Blockly.cake['procedures_defreturn'] = function(block) {
   var typePlusArgs = Blockly.Procedures.getTypePlusArgs(block);
 
   var returnType = block.getFieldValue('TYPES');
-  var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
-      branch + returnValue + '}';
+    var returnDist = block.getFieldValue('DISTS');
+    var returnSpec, code;
+    if(returnDist == 'pointer'){
+        returnSpec = block.getFieldValue('PSPECS');
+        if(returnSpec == null){
+            returnSpec = '*';
+        }
+        code = returnType + returnSpec + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        branch + returnValue + '}';
+    }
+    else if(returnDist == 'array'){
+        returnSpec = block.getFieldValue('ASPECS');
+        if(returnSpec == null){
+            returnSpec = '[]';
+        }
+        code = returnType + returnSpec + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        branch + returnValue + '}';
+    }
+    else{
+        code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        branch + returnValue + '}';
+    }
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =

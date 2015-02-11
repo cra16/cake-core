@@ -55,7 +55,7 @@ Blockly.Procedures.allProcedures = function() {
     if (func) {
       var tuple = func.call(blocks[x]);
       if (tuple) {
-        if (tuple[6]) {
+        if (tuple[0]) {
           proceduresReturn.push(tuple);
         } else {
           proceduresNoReturn.push(tuple);
@@ -206,15 +206,48 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
   function populateProcedures(procedureList, templateName) {
     for (var x = 0; x < procedureList.length; x++) {
       var block = Blockly.Block.obtain(workspace, templateName);
-      block.setFieldValue(procedureList[x][0], 'NAME');
+      block.setFieldValue(procedureList[x][1], 'NAME');
         if(templateName == 'procedures_callreturn'){
-            block.setOutput(procedureList[x][1]);
+            var output;
+            if(procedureList[x][2] =='int') {
+                output = 'INT';
+            }
+            else if(procedureList[x][2] =='unsigned int') {
+                output = 'UNINT';
+            }
+            else if(procedureList[x][2] =='float') {
+                output = 'FLOAT';
+            }
+            else if(procedureList[x][2] =='double') {
+                output = 'DOUBLE';
+            }
+            else if(procedureList[x][2] =='char') {
+                output = 'CHAR';
+            }
+
+            if(procedureList[x][7] == 'variable'){
+                output = 'VAR_' + output;
+            }
+            else if(procedureList[x][7] == 'pointer'){
+                if(procedureList[x][8] == '*'){
+                    output = 'PTR_' + output;
+                }
+                else if(procedureList[x][8] == '**'){
+                    output = 'DBPTR_' + output;
+                }
+            }
+            else if(procedureList[x][7] == 'array'){
+                var exOutput = output;
+                output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
+            }
+            block.setOutput(output);
+            console.log(output);
         }
       var tempIds = [];
-      for (var t = 0; t < procedureList[x][2].length; t++) {
+      for (var t = 0; t < procedureList[x][3].length; t++) {
         tempIds[t] = 'ARG' + t;
       }
-      block.setProcedureParameters(procedureList[x][2], procedureList[x][3], procedureList[x][4], procedureList[x][5], tempIds);
+      block.setProcedureParameters(procedureList[x][3], procedureList[x][4], procedureList[x][5], procedureList[x][6], tempIds);
       block.initSvg();
       blocks.push(block);
       gaps.push(margin * 2);
@@ -290,7 +323,7 @@ Blockly.Procedures.getDefinition = function(name, workspace) {
     var func = blocks[x].getProcedureDef;
     if (func) {
       var tuple = func.call(blocks[x]);
-      if (tuple && Blockly.Names.equals(tuple[0], name)) {
+      if (tuple && Blockly.Names.equals(tuple[1], name)) {
         return blocks[x];
       }
     }
