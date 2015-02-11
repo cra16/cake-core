@@ -251,7 +251,7 @@ Blockly.Blocks['variables_get'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction
+        Blockly.Blocks.requireInFunction();
         var varName = this.getFieldValue('VAR');
         var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName);
         this.setOutputType(varType, 'VAR');
@@ -911,7 +911,7 @@ Blockly.Blocks['variables_array_get'] = {
     //when the block is changed,
     onchange: function() {
 
-        Blockly.Blocks.requireInFunction
+        Blockly.Blocks.requireInFunction();
 
         var arrName = this.getFieldValue('VAR');
         var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);

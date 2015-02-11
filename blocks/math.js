@@ -48,7 +48,7 @@ Blockly.Blocks['math_number'] = {
   // negative number (n<0) : NEGATIVE
   // positivie number
   onchange: function() {
-      Blockly.Blocks.requireInFunction
+      Blockly.Blocks.requireInFunction();
 
       var num = this.getFieldValue('NUM');
       if (num == 0) {
