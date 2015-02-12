@@ -645,39 +645,8 @@ Blockly.Blocks['variables_pointer_set'] = {
         if(this.getInput('VAR')) {
             var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
             var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
+            Blockly.Blocks.setCheckPointer(this, ptrType, 'VALUE');
 
-            switch (ptrType) {
-                case ('int'):
-                    this.getInput('VALUE').setCheck(['PTR_INT', 'Address', 'Pointer']);
-                    break;
-                case ('unsigned int'):
-                    this.getInput('VALUE').setCheck(['PTR_UNINT', 'Address', 'Pointer']);
-                    break;
-                case ('float'):
-                    this.getInput('VALUE').setCheck(['PTR_FLOAT', 'Address', 'Pointer']);
-                    break;
-                case ('double'):
-                    this.getInput('VALUE').setCheck(['PTR_DOUBLE', 'Address', 'Pointer']);
-                    break;
-                case ('char'):
-                    this.getInput('VALUE').setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR']);
-                    break;
-                case ('dbint'):
-                    this.getInput('VALUE').setCheck(['DBPTR_INT', 'Address', 'Pointer']);
-                    break;
-                case ('dbunsigned int'):
-                    this.getInput('VALUE').setCheck(['DBPTR_UNINT', 'Address', 'Pointer']);
-                    break;
-                case ('dbfloat'):
-                    this.getInput('VALUE').setCheck(['DBPTR_FLOAT', 'Address', 'Pointer']);
-                    break;
-                case ('dbdouble'):
-                    this.getInput('VALUE').setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer']);
-                    break;
-                case ('dbchar'):
-                    this.getInput('VALUE').setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR']);
-                    break;
-            }
         }
 
     }
@@ -743,6 +712,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
         }
         // recreate input
         if (this.getFieldValue('ITERATION') == '*') {
+//            Blockly.Blocks.setCheckPointer(this, type, 'VALUE');
 
             if (type == 'int') {
                 this.appendValueInput('VALUE')
@@ -771,6 +741,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
         }
 
         else{
+//                Blockly.Blocks.setCheckPointer(this, 'db'+type, 'VALUE');
+
             if (type == 'int') {
                 this.appendValueInput('VALUE')
                     .setCheck(['Address', 'Pointer', 'Array', 'DBPTR_INT']);
@@ -866,7 +838,11 @@ Blockly.Blocks['variables_pointer_declare'] = {
     customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: Blockly.Blocks.variablePlaceCheck
+    onchange: function() {
+        Blockly.Blocks.variablePlaceCheck();
+
+
+    }
 };
 
 Blockly.Blocks['variables_pointer_&'] = {
@@ -1027,7 +1003,7 @@ Blockly.Blocks['variables_array_set'] = {
         this.setColour(90);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-                 .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
            // .appendField(dropdown, 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
@@ -1095,62 +1071,16 @@ Blockly.Blocks['variables_array_set'] = {
             }
             // type: variable
             if (arrIdxLength == inputLength) {
-                if (type == 'int') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT']);
-                }
-                else if (type == 'unsigned int') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT']);
-                }
-                else if (type == 'float') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT']);
-                }
-                else if (type == 'double') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE']);
-                }
-                else if (type == 'char') {
-                    this.getInput('VALUE')
-                        .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR']);
-                }
-                else {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
-                }
+                Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
             }
             // type: pointer
             else {
-                if (type == 'int') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_INT']);
-                }
-                else if (type == 'unsigned int') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_UNINT']);
-                }
-                else if (type == 'float') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_FLOAT']);
-                }
-                else if (type == 'double') {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_DOUBLE']);
-                }
-                else if (type == 'char') {
-                    this.getInput('VALUE')
-                        .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'PTR_CHAR', 'STR', 'CHAR']);
-                }
-                else {
-                    this.getInput('VALUE')
-                        .setCheck(['Number', 'String', 'Aster', 'Array', 'Boolean', 'Macro', 'Pointer']);
-                }
+                Blockly.Blocks.setCheckPointer(this, type, 'VALUE');
             }
 
         }
 
-        }
+    }
 
 
 
