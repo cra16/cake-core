@@ -283,9 +283,9 @@ Blockly.FieldDropdown.prototype.dispose = function() {
 
 
 /**
- * get type/dimension/ of varialbe
- * @param blockVars: current block
- * @param option: type = 0, dimension = 5
+ * get type/dimension/ from variables name
+ * @param blockVars: name of current block
+ * @param option: wanted value -> type = 0, dimension = 5
  * @returns {*}
  */
 Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
@@ -304,9 +304,9 @@ Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
 
 /* 너무 지저분 해 ~_~*/
 /**
- * get parent type of block
+ * get parent type of the current block
  * @param curBlock : current block
- * @param strDist : string dist
+ * @param strDist : string type of dist('variables', 'variables_pointer', 'varibles_array')
  * @returns {*}
  */
 Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
@@ -315,9 +315,9 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     if (curBlock.getParent()) {
 
-        // type 4
-        // var setter + (* pointer getter)
-        // pointer setter + (& variable getter)
+        // type 1
+        // VARIABLE setter + (* POINTER getter)
+        // POINTER setter + (& VARIABLE getter)
         if ((curBlock.getParent().type == (strDist + '_*' )) ||
             ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
             var parentVars = curBlock.getParent().getParent().getVars();
@@ -325,9 +325,9 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
         }
 
-        // type 1
-        // variable declare + *pointer,
-        // pointer declare + &variable
+        // type 2
+        // VARIABLE declare + (* POINTER getter),
+        // POINTER declare + (& VARIABLE getter)
         else if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
             && curBlock.getParent().getParent()) {
 
@@ -337,11 +337,11 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             }
         }
 
-        // type 2
-        // pointer setter + malloc
-        // setter + getter (same type)
+        // type 3
+        // POINTER setter + malloc
+        // setter + getter (any type)
         else if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
-            && (curBlock.getParent().type.search('_set') > 0)) {
+                && (curBlock.getParent().type.search('_set') > 0)) {
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
@@ -351,8 +351,8 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             parentType = this.getTypefromVars(ParentVars, 0);
         }
 
-        // type 3
-        // declare block + get block
+        // type 4
+        // declare block + get block (any type)
         else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type.match('_declare'))) {
 
             if (curBlock.getParent().getDeclare()) {
@@ -373,14 +373,15 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         }
 
     }
-
     return parentType;
 };
 
 /**
  * make dropdown list with adequate type
  * @param block
- * @param varDist
+ * @param varDist - variable dist~(0:define / 1:variable / 2:pointer / 3:array)
+ * charDist : character type of dist('d', 'v', 'p', 'a')
+ * strDist: string type of dist - for block type ('define', 'variables', 'variables_pointer', 'variables_array')
  * @returns {Array}
  */
 
@@ -409,7 +410,6 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
             break;
         default:
             break;
-
     }
 
     var parentType = Blockly.FieldDropdown.prototype.getParentType(block, strDist);
@@ -423,9 +423,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
         scope = block.getSurroundParent().getName();
     }
 
-
     for (var temp = 0; temp < variableList.length; temp++){
-
         if(variableList[temp][1] == charDist){
             if(variableList[temp][3] == scope){
                 if(variableList[temp][4] < (thisPosition - 10)) {
@@ -437,7 +435,6 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
                     else {
                         variableListPop.push(variableList[temp][2]);
                     }
-
                 }
             }
         }
