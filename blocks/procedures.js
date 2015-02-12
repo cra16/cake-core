@@ -629,9 +629,11 @@ Blockly.Blocks['procedures_defreturn'] = {
          * */
     getParamInfo: function(){
         var paramList = [];
-        for(var i = 0; i<this.arguments_.length; i++){
-            paramList.push([this.types_[i], this.dist_[i], this.arguments_[i], this.getFieldValue('NAME'), this.getRelativeToSurfaceXY().y, this.spec_[i]]);
-        }
+            if(this.arguments_.length) {
+                for (var i = 0; i < this.arguments_.length; i++) {
+                    paramList.push([this.types_[i], this.dist_[i], this.arguments_[i], this.getFieldValue('NAME'), this.getRelativeToSurfaceXY().y, this.spec_[i]]);
+                }
+            }
         return paramList;
     }
 };

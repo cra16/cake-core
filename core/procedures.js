@@ -78,8 +78,8 @@ Blockly.Procedures.allProcedures = function() {
  * @private
  */
 Blockly.Procedures.procTupleComparator_ = function(ta, tb) {
-  var a = ta[0].toLowerCase();
-  var b = tb[0].toLowerCase();
+  var a = ta[1].toLowerCase();
+  var b = tb[1].toLowerCase();
   if (a > b) {
     return 1;
   }
@@ -141,7 +141,7 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
 
       if (func) {
           var procName = func.call(blocks[x]);
-          if (Blockly.Names.equals(procName[0], name)) {
+          if (Blockly.Names.equals(procName[1], name)) {
               return false;
           }
       }
@@ -241,7 +241,6 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
                 output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
             }
             block.setOutput(output);
-            console.log(output);
         }
       var tempIds = [];
       for (var t = 0; t < procedureList[x][3].length; t++) {
