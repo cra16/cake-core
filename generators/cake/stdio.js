@@ -13,11 +13,12 @@ Blockly.cake['library_stdio_printf'] = function(block) {
     var code = '';
 
     for (var n = 0; n <= block.printAddCount_; n++) {
-        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
+        argument = Blockly.cake.valueToCode(block, 'VAR' + n0,
             Blockly.cake.ORDER_NONE) || '';
 
+        var childConnection = block.inputList[n].connection;
         var childBlock = block.inputList[n].connection.targetBlock();
-//childBlockType == '' ||
+
         if(childBlock){
             var childBlockType = childBlock.type;
             console.log(childBlockType);
@@ -59,6 +60,48 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 }
                 outQutCode += ', ' + argument;
             }
+            else if (childBlockType == 'variables_array_get')
+            {
+                var tempArgu1 = argument.split('[');
+
+                typeCode = Blockly.cake.varTypeCheckInPrint(tempArgu1[0]);
+
+                if (typeCode == '') {
+                    inQutCode += argument;
+                } else {
+                    inQutCode += typeCode;
+                    outQutCode += ', ' + argument;
+                }
+            }
+            else if (childBlockType == 'variables_pointer_get')
+            {
+                inQutCode += '%p';
+                outQutCode += ', ' + argument;
+            }
+            else if (childBlockType == 'variables_pointer_&')
+            {
+                if(childBlock.inputList[0].connection.targetBlock()){
+                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+
+                    inQutCode += '%p';
+                    outQutCode += ', &' + argument;
+                }
+            }
+            else if (childBlockType == 'variables_pointer_*')
+            {
+                if(childBlock.inputList[0].connection.targetBlock()){
+                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+
+                    typeCode = Blockly.cake.varTypeCheckInPrint(argument);
+
+                    if (typeCode == '') {
+                        inQutCode += argument;
+                    } else {
+                        inQutCode += typeCode;
+                        outQutCode += ', *' + argument;
+                    }
+                }
+            }
             else if (childBlockType == 'library_math_numcheck' ||
                 childBlockType == 'library_math_numcompare' ||
                 childBlockType == 'procedures_callreturn' ||
@@ -72,9 +115,13 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 childBlockType == 'library_stdlib_rand_scope' ||
                 childBlockType == 'library_stdlib_malloc')
             {
-                // illegal part.
-                //block.setWarningText('Illegal!');
-                //block.inputList[n].connection.disconnect();
+                if (childConnection.isSuperior()) {
+                    childConnection.targetBlock().setParent(null);
+                } else {
+                    childConnection.sourceBlock_.setParent(null);
+                }
+                // Bump away.
+                childConnection.sourceBlock_.bumpNeighbours_();
             }
             else
             {
