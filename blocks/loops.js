@@ -75,9 +75,9 @@ Blockly.Blocks['controls_for'] = {
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
         .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR');
     this.interpolateMsg(Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
-                        ['FROM', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
-                        ['TO', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
-                        ['BY', ['Number', 'Variable'], Blockly.ALIGN_RIGHT],
+                        ['FROM', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+                        ['TO', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+                        ['BY', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
