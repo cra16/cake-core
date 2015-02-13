@@ -21,7 +21,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
 
         if(childBlock){
             var childBlockType = childBlock.type;
-            console.log(childBlockType);
+
             if(
                 childBlockType == 'math_number' ||
                 childBlockType == 'math_arithmetic' ||
