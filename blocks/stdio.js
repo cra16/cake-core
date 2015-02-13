@@ -13,7 +13,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.appendValueInput('VAR0')
-            .setCheck(['Variable', 'String'])
+            .setCheck(null)
             .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
