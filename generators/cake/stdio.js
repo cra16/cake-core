@@ -52,9 +52,9 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             }
             else if (childBlockType == 'library_stdlib_convert')
             {
-                if (argument.search('atoi(') != -1) {
+                if (argument.indexOf('atoi(') != -1) {
                     inQutCode += '%d';
-                } else if (argument.search('atof(') != -1){
+                } else if (argument.indexOf('atof(') != -1){
                     inQutCode += '%f';
                 }
                 outQutCode += ', ' + argument;
@@ -72,8 +72,9 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 childBlockType == 'library_stdlib_rand_scope' ||
                 childBlockType == 'library_stdlib_malloc')
             {
-                block.setWarningText('Illegal!');
-                block.inputList[n].connection.disconnect();
+                // illegal part.
+                //block.setWarningText('Illegal!');
+                //block.inputList[n].connection.disconnect();
             }
             else
             {
