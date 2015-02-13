@@ -314,14 +314,14 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
     var parentType = null;
 
     if (curBlock.getParent()) {
+        var parent = curBlock.getParent();
 
         // type 1
         // VARIABLE setter + (* POINTER getter)
         // POINTER setter + (& VARIABLE getter)
-        if ((curBlock.getParent().type == (strDist + '_*' )) ||
-            ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
-          //  console.log('1');
-            var parentVars = curBlock.getParent().getParent().getVars();
+        if (((parent.type == (strDist + '_*' )) && (parent.getParent().type == 'variables_set') )||
+            ((parent.type == (strDist + '_pointer_&')) && parent.getParent().type == (strDist + '_pointer_set'))) {
+            var parentVars = parent.getParent().getVars();
             parentType = this.getTypefromVars(parentVars, 0);
 
         }
@@ -329,12 +329,11 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         // type 2
         // VARIABLE declare + (* POINTER getter),
         // POINTER declare + (& VARIABLE getter)
-        else if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
-            && curBlock.getParent().getParent()) {
-          //  console.log('2');
+        else if (((parent.type == (strDist + '_pointer_&')) || (parent.type == (strDist + '_pointer_*')))
+            && parent.getParent()) {
 
-            if (curBlock.getParent().getParent().getVars()){
-                parentType = curBlock.getParent().getParent().getTypes();
+            if (parent.getParent().getVars()){
+                parentType = parent.getParent().getTypes();
 
             }
         }
@@ -342,24 +341,41 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         // type 3
         // DOUBLE POINTER declare + (& POINTER getter)
         // POINTER declare + (* DOUBLE POINTER getter)
+        else if (((parent.type == (strDist + '_&')) || (parent.type == (strDist + '_*'))) &&
+            (parent.getParent().type == (strDist + '_declare')))
+        {
+            var ptrSpec = parent.getParent().getSpec();
+            // DOUBLE POINTER declare + (& POINTER getter)
+            if ((ptrSpec == '**') && (parent.type == (strDist + '_&'))) {
+                parentType = parent.getParent().getType();
 
-        else if (((curBlock.getParent().getParent().type ==  (strDist + '_declare')) &&
-            ((curBlock.getParent().type == (strDist + '_&')) && (curBlock.getParent().getParent().getSpec() == '**')) ||
-            ((curBlock.getParent().type == (strDist + '_*')) && (curBlock.getParent().getParent().getSpec() == '*')))) {
-
-            parentType = curBlock.getParent().getParent().getType();
+            }
+            // POINTER declare + (* DOUBLE POINTER getter)
+            else if ((ptrSpec == '*') && (parent.type == (strDist + '_*')))
+            {
+                parentType = parent.getParent().getType();
+                parentType = 'db' + parentType;
+            }
         }
 
         // type 4
         // DOUBLE POINTER setter + (& Pointer getter)
         // POINTER setter + (* DOUBLE POINTER getter)
-        else if (((curBlock.getParent().getParent().type ==  (strDist + '_set')) &&
-            ((curBlock.getParent().type == (strDist + '_&')) && (curBlock.getParent().getParent().getSpec() == '**')) ||
-            ((curBlock.getParent().type == (strDist + '_*')) && (curBlock.getParent().getParent().getSpec() == '*')))) {
+        else if ((parent.type == (strDist + '_&') || (parent.type == (strDist + '_*'))) &&
+            (parent.getParent().type ==  (strDist + '_set'))){
 
-
-            var parentVars = curBlock.getParent().getParent().getVars();
+            var parentVars = parent.getParent().getVars();
+            var dimension = this.getTypefromVars(parentVars, 5);
             parentType = this.getTypefromVars(parentVars, 0);
+
+            // DOUBLE POINTER setter + (& Pointer getter)
+            if(dimension == '**' && (parent.type == (strDist + '_&')) ){
+                parentType = parentType.replace("db", "");
+            }
+            // POINTER setter + (* DOUBLE POINTER getter)
+            else if (dimension == '*' && (parent.type == (strDist + '_*'))) {
+                parentType = 'db' + parentType;
+            }
 
         }
 
@@ -367,9 +383,8 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         // POINTER setter + malloc
         // setter + getter (any type)
         else if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
-                && (curBlock.getParent().type.search('_set') > 0)) {
-          //  console.log('3');
-            var ParentVars = curBlock.getParent().getVars();
+                && (parent.type.search('_set') > 0)) {
+            var ParentVars = parent.getVars();
 
             // when pointer_set block
             if (strDist == 'variables_pointer'){
@@ -381,23 +396,21 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
         // type 5
         // declare block + get block (any type)
-        else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type.match('_declare'))) {
-          //  console.log('4');
-
-            if (curBlock.getParent().getDeclare()) {
-                parentType = curBlock.getParent().getTypes();
+        else if (((curBlock.type != (strDist+'_set')) && parent.type.match('_declare'))) {
+            if (parent.getDeclare()) {
+                parentType = parent.getTypes();
             }
         }
 
         // type 6
         // function return type
-        else if ((curBlock.getParent().type.match('procedures'))) {
-            parentType = curBlock.getParent().getType();
+        else if ((parent.type.match('procedures'))) {
+            parentType = parent.getType();
         }
 
         // type 6
         // main block: int
-        else if ((curBlock.getParent().type.match('main_block'))) {
+        else if ((parent.type.match('main_block'))) {
             parentType = 'int';
         }
 
