@@ -494,28 +494,28 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
     {
         case('int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'NEGATIVE', 'INT', 'NUMBER']);
             break;
 
         case('unsigned int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT', 'NEGATIVE', 'NUMBER']);
             break;
         case('float') :
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT', 'NUMBER', 'DOUBLE']);
 
         case('double') :
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE', 'NUMBER', 'DOUBLE']);
             break;
         case('char'):
             block.getInput(inputName)
-                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR']);
+                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'NUMBER', 'INT']);
             break;
         default:
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT', 'NUMBER']);
 
     }
 };
