@@ -41,10 +41,10 @@ Blockly.cake['library_stdlib_rand'] = function(block) {
 
 // for srand(time(NULL))
 Blockly.cake.getUpperLine = function(curBlock) {
-    var parentBlock = curBlock.getRootBlock();
-    var time = '\nsrand(time(NULL));';
+    var scope = curBlock.getScope();
+    var time = 'srand(time(NULL));';
 
-    Blockly.cake.definitions_['cake_time_srand'] = time;
+    Blockly.cake.times_['cake_time_srand'] = [scope, time];
 
 };
 

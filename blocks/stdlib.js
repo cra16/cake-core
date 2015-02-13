@@ -42,6 +42,26 @@ Blockly.Blocks['library_stdlib_rand'] = {
           Blockly.ALIGN_RIGHT);
       this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
   },
+    getScope: function(){
+        var block = this;
+        if(!block.getSurroundParent()){
+            return null;
+        }
+        else
+        {
+            while (block.type != 'main_block' && block.type != 'procedures_defnoreturn' && block.type != 'procedures_defreturn') {
+                if (block.getSurroundParent()) {
+                    block = block.getSurroundParent();
+                }
+            }
+            if(block.type == 'main_block'){
+                return block.type;
+            }
+            else if(block.type =='procedures_defnoreturn' || block.type == 'procedures_defreturn'){
+                return block.getName();
+            }
+        }
+    },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
 };

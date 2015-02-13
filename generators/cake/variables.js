@@ -43,7 +43,11 @@ Blockly.cake['define_declare'] = function(block) {
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
   var define = '#define';
     Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
-  return define + ' ' + varName + ' ' + argument0 + '\n';
+    var code = define + ' ' + varName + ' ' + argument0;
+    code = Blockly.cake.scrub_(block, code);
+    Blockly.cake.definitions_['define_' + varName] = code;
+    console.log(varName);
+  return null;
 };
 
 Blockly.cake['variables_get'] = function(block) {
