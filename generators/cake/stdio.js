@@ -13,7 +13,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
     var code = '';
 
     for (var n = 0; n <= block.printAddCount_; n++) {
-        argument = Blockly.cake.valueToCode(block, 'VAR' + n0,
+        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
             Blockly.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
