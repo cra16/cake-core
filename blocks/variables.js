@@ -648,6 +648,10 @@ Blockly.Blocks['variables_pointer_declare'] = {
     getSpec: function() {
         return this.getFieldValue('ITERATION');
     },
+    getType: function() {
+        return this.getFieldValue('TYPES');
+    },
+
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.

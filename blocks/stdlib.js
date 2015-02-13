@@ -19,7 +19,7 @@ Blockly.Blocks['library_stdlib_convert'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STDLIB_CONVERT_TITLE,
-            ['VAR', null, Blockly.ALIGN_RIGHT],
+            ['VAR', ['Variable', 'VAR_CHAR', 'String', 'CHAR'], Blockly.ALIGN_RIGHT],
             ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.STDLIB_CONVERT_HELPURL);
@@ -76,8 +76,8 @@ Blockly.Blocks['library_stdlib_rand_scope'] = {
         this.setColour(300);
         this.setOutput(true, 'SCOPE');
         this.interpolateMsg(Blockly.Msg.STDLIB_RANDSCOPE_TITLE,
-            ['A', 'Number', Blockly.ALIGN_RIGHT],
-            ['B', 'Number', Blockly.ALIGN_RIGHT],
+            ['A', ['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['B', ['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
     },
@@ -206,7 +206,8 @@ Blockly.Blocks['library_stdlib_free'] = {
       this.setHelpUrl(Blockly.Msg.STDLIB_FREE_HELPURL);
       this.setColour(300);
       this.interpolateMsg(Blockly.Msg.STDLIB_FREE_TITLE,
-          ['VAR', 'Pointer', Blockly.ALIGN_RIGHT],
+          ['VAR', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
+          'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
           Blockly.ALIGN_RIGHT);
       this.setInputsInline(true);
       this.setPreviousStatement(true);

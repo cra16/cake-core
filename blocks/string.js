@@ -14,7 +14,7 @@ Blockly.Blocks['library_string_strlen'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STRING_STRLEN_TITLE,
-            ['VAR', null, Blockly.ALIGN_RIGHT],
+            ['VAR', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRLEN_TOOLTIP);
@@ -33,8 +33,8 @@ Blockly.Blocks['library_string_strcat'] = {
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCAT_TITLE,
-            ['STR1', null, Blockly.ALIGN_RIGHT],
-            ['STR2', null, Blockly.ALIGN_RIGHT],
+            ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
+            ['STR2', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCAT_TOOLTIP);
@@ -53,8 +53,8 @@ Blockly.Blocks['library_string_strcpy'] = {
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCPY_TITLE,
-            ['STR1', null, Blockly.ALIGN_RIGHT],
-            ['STR2', null, Blockly.ALIGN_RIGHT],
+            ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
+            ['STR2', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCPY_TOOLTIP);
@@ -73,8 +73,8 @@ Blockly.Blocks['library_string_strcmp'] = {
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCMP_TITLE,
-            ['STR1', null, Blockly.ALIGN_RIGHT],
-            ['STR2', null, Blockly.ALIGN_RIGHT],
+            ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
+            ['STR2', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCMP_TOOLTIP);

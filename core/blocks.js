@@ -513,10 +513,10 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
             block.getInput(inputName)
                 .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'Number', 'INT']);
             break;
-        default:
+/*        default:
             block.getInput(inputName)
                 .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT']);
-
+*/
     }
 };
 
@@ -558,8 +558,8 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
         case ('dbchar'):
             block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
-        default:
+/*        default:
             block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);
-    }
+*/    }
 };
 

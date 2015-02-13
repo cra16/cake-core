@@ -320,6 +320,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         // POINTER setter + (& VARIABLE getter)
         if ((curBlock.getParent().type == (strDist + '_*' )) ||
             ((curBlock.getParent().type == (strDist + '_pointer_&')) && curBlock.getParent().getParent().type == (strDist + '_pointer_set'))) {
+          //  console.log('1');
             var parentVars = curBlock.getParent().getParent().getVars();
             parentType = this.getTypefromVars(parentVars, 0);
 
@@ -330,6 +331,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         // POINTER declare + (& VARIABLE getter)
         else if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
             && curBlock.getParent().getParent()) {
+          //  console.log('2');
 
             if (curBlock.getParent().getParent().getVars()){
                 parentType = curBlock.getParent().getParent().getTypes();
@@ -338,10 +340,35 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
         }
 
         // type 3
+        // DOUBLE POINTER declare + (& POINTER getter)
+        // POINTER declare + (* DOUBLE POINTER getter)
+
+        else if (((curBlock.getParent().getParent().type ==  (strDist + '_declare')) &&
+            ((curBlock.getParent().type == (strDist + '_&')) && (curBlock.getParent().getParent().getSpec() == '**')) ||
+            ((curBlock.getParent().type == (strDist + '_*')) && (curBlock.getParent().getParent().getSpec() == '*')))) {
+
+            parentType = curBlock.getParent().getParent().getType();
+        }
+
+        // type 4
+        // DOUBLE POINTER setter + (& Pointer getter)
+        // POINTER setter + (* DOUBLE POINTER getter)
+        else if (((curBlock.getParent().getParent().type ==  (strDist + '_set')) &&
+            ((curBlock.getParent().type == (strDist + '_&')) && (curBlock.getParent().getParent().getSpec() == '**')) ||
+            ((curBlock.getParent().type == (strDist + '_*')) && (curBlock.getParent().getParent().getSpec() == '*')))) {
+
+
+            var parentVars = curBlock.getParent().getParent().getVars();
+            parentType = this.getTypefromVars(parentVars, 0);
+
+        }
+
+        // type 4
         // POINTER setter + malloc
         // setter + getter (any type)
         else if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
                 && (curBlock.getParent().type.search('_set') > 0)) {
+          //  console.log('3');
             var ParentVars = curBlock.getParent().getVars();
 
             // when pointer_set block
@@ -351,16 +378,18 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             parentType = this.getTypefromVars(ParentVars, 0);
         }
 
-        // type 4
+
+        // type 5
         // declare block + get block (any type)
         else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type.match('_declare'))) {
+          //  console.log('4');
 
             if (curBlock.getParent().getDeclare()) {
                 parentType = curBlock.getParent().getTypes();
             }
         }
 
-        // type 5
+        // type 6
         // function return type
         else if ((curBlock.getParent().type.match('procedures'))) {
             parentType = curBlock.getParent().getType();

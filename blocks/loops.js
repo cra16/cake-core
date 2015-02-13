@@ -41,7 +41,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
-        .setCheck(['Boolean', 'Number', 'Variable'])
+        .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
         .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);

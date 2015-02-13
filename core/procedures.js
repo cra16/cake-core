@@ -142,15 +142,15 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
       if (func) {
           var procName = func.call(blocks[x]);
 
-          // for variables, pointer, array
-          if(func == blocks[x].getDeclare) {
-              if (Blockly.Names.equals(procName[0], name)) {
+          // for function, structures
+          if(func == blocks[x].getProcedureDef) {
+              if (Blockly.Names.equals(procName[1], name)) {
                   return false;
               }
           }
 
-          // for function, structures
-          else if (Blockly.Names.equals(procName[1], name)) {
+          // for variables, pointer, array
+          else if (Blockly.Names.equals(procName[0], name)) {
               return false;
           }
       }
