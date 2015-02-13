@@ -112,7 +112,6 @@ Blockly.Blocks['define_declare'] = {
             Blockly.Msg.DEFINE_DECLARE_INIT + ' %3',
             ['DEFINES', new Blockly.FieldDropdown(DEFINE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            //['VAR', new Blockly.FieldTextInput('myMacro', Blockly.Blocks.CNameValidator)],
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
@@ -387,7 +386,9 @@ Blockly.Blocks['variables_declare'] = {
      * Return Variable's Scope
      */
     getScope: function() {
-        return this.getSurroundParent().getName();
+        if (this.getSurroundParent()) {
+            return this.getSurroundParent().getName();
+        }
     },
     /**
      * Return Variable's Scope
@@ -589,15 +590,15 @@ Blockly.Blocks['variables_pointer_set'] = {
 
     //when the block is changed,
     onchange: //Blockly.Blocks.requireInFunction
-    function() {
-        Blockly.Blocks.requireInFunction();
+        function() {
+            Blockly.Blocks.requireInFunction();
 
-        if(this.getInput('VAR')) {
-            var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
-            var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
-            Blockly.Blocks.setCheckPointer(this, ptrType, 'VALUE');
+            if(this.getInput('VAR')) {
+                var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
+                var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
+                Blockly.Blocks.setCheckPointer(this, ptrType, 'VALUE');
+            }
         }
-    }
 };
 
 Blockly.Blocks['variables_pointer_declare'] = {
@@ -662,9 +663,10 @@ Blockly.Blocks['variables_pointer_declare'] = {
     /**
      * Return Pointer's Scope
      */
-    getScope: function() {
-        return this.getSurroundParent().getName();
-    },
+    getScope: Blockly.Blocks['variables_declare'].getScope,
+    //    function() {
+    //    return this.getSurroundParent().getName();
+    //},
     /**
      * Return this block's position
      */
@@ -716,31 +718,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
             Blockly.Blocks.setCheckPointer(this, 'db' + type, 'VALUE');
         }
 
-    }
-};
-
-Blockly.Blocks['variables_pointer_&'] = {
-    init: function() {
-        this.setColour(45);
-        this.interpolateMsg(
-            '&' + ' %1 ', ['VALUE',
-                ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
-                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
-        this.setOutput(true, 'Address');
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
-    }
-};
-
-Blockly.Blocks['variables_pointer_*'] = {
-    init: function() {
-        this.setColour(45);
-        this.interpolateMsg(
-            '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
-                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
-        this.setOutput(true, 'Aster');
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
     }
 };
 
@@ -833,6 +810,17 @@ Blockly.Blocks['variables_array_get'] = {
         return;
 
     },
+
+    getInputIdxLength: function() {
+        var inputLength = 0;
+
+        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
+            if(this.getFieldValue('LENGTH_'+temp)) {
+                inputLength++;
+            }
+        }
+        return inputLength;
+    },
     //when the block is changed,
     onchange: function() {
 
@@ -842,12 +830,8 @@ Blockly.Blocks['variables_array_get'] = {
         var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
         var arrType = Blockly.FieldDropdown.prototype.getTypefromVars(arrName, 0);
 
-        var inputLength = 0;
-        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
-            if(this.getFieldValue('LENGTH_'+temp)) {
-                inputLength++;
-            }
-        }
+        var inputLength = this.getInputIdxLength();
+
         // type: variable
         if (arrIdxLength == inputLength) {
             this.setOutputType('VAR', arrType);
@@ -923,7 +907,7 @@ Blockly.Blocks['variables_array_set'] = {
      */
     initIdx: Blockly.Blocks['variables_array_get'].initIdx,
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
-
+    getInputIdxLength: Blockly.Blocks['variables_array_get'].getInputIdxLength,
     //when the block is changed,
     onchange: function() {
         Blockly.Blocks.requireInFunction();
@@ -933,12 +917,7 @@ Blockly.Blocks['variables_array_set'] = {
             var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
             var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
 
-            var inputLength = 0;
-            for ( var temp = 1 ; temp <= 3 ; temp++ ) {
-                if(this.getFieldValue('LENGTH_'+temp)) {
-                    inputLength++;
-                }
-            }
+            var inputLength = this.getInputIdxLength();
             // type: variable
             if (arrIdxLength == inputLength) {
                 Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
@@ -993,9 +972,10 @@ Blockly.Blocks['variables_array_declare'] = {
     /**
      * Return Array's Scope
      */
-    getScope: function() {
-        return this.getSurroundParent().getName();
-    },
+    getScope: Blockly.Blocks['variables_declare'].getScope,
+    //    function() {
+    //    return this.getSurroundParent().getName();
+    //},
     /**
      * Return this block's position
      */
@@ -1063,4 +1043,104 @@ Blockly.Blocks['variables_array_declare'] = {
         }
     },
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
+};
+
+
+Blockly.Blocks['variables_pointer_&'] = {
+    init: function() {
+        this.setColour(45);
+        this.interpolateMsg(
+            '&' + ' %1 ', ['VALUE',
+                ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
+                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setOutput(true, 'Address');
+        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
+    },
+
+    onchange: function() {
+        if (this.getInputTargetBlock('VALUE'))
+        {
+            var nextblock = this.getInputTargetBlock('VALUE');
+            var varName = nextblock.getVars();
+            var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+
+            if(nextblock.type.search('variables') ==  0) {
+                // & POINTER -> Double Pointer
+                if (nextblock.type.search('pointer') > 0) {
+                    this.setOutputType('DBPTR', varType);
+                }
+                // & ARRAY (variable) -> Pointer , & ARRAY (pointer) -> Double Pointer
+                else if (nextblock.type.search('array') > 0) {
+                    var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(varName);
+                    var inputIdxLength = nextblock.getInputIdxLength();
+
+                    // type: variable
+                    if (arrIdxLength == inputIdxLength) {
+                        this.setOutputType('PTR', varType);
+                    }
+                    // type: pointer
+                    else {
+                        this.setOutputType('DBPTR', varType);
+                    }
+                }
+                // & VARIABLE -> Pointer
+                else {
+                    this.setOutputType('PTR', varType);
+                }
+            }
+        }
+    },
+    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+};
+
+Blockly.Blocks['variables_pointer_*'] = {
+    init: function() {
+        this.setColour(45);
+        this.interpolateMsg(
+            '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array'], Blockly.ALIGN_RIGHT],
+            Blockly.ALIGN_RIGHT);
+        this.setOutput(true, 'Aster');
+        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
+    },
+
+    onchange: function() {
+        if (this.getInputTargetBlock('VALUE'))
+        {
+            var nextblock = this.getInputTargetBlock('VALUE');
+            var varName = nextblock.getVars();
+            var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+
+            if (nextblock.type.search('variables') == 0) {
+
+                // POINTER
+                if (nextblock.type.search('pointer') > 0) {
+                    var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+                    // *POINTER -> Variable
+                    if (dimension == '*') {
+                        this.setOutputType('VAR', varType);
+                    }
+                    // *DOUBLE POINTER -> Pointer
+                    else if (dimension == '**') {
+                        this.setOutputType('PTR', varType);
+                    }
+                }
+                // ARRAY
+                else if (nextblock.type.search('array') > 0) {
+                    var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(varName);
+                    var inputIdxLength = nextblock.getInputIdxLength();
+                    // *ARRAY(pointer) -> Variable
+                    if (arrIdxLength > inputIdxLength) {
+                        this.setOutputType('VAR', varType);
+                    }
+
+                }
+
+            }
+        }
+
+    },
+    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+
 };

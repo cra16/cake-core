@@ -494,28 +494,28 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
     {
         case('int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'NEGATIVE', 'INT', 'NUMBER']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'NEGATIVE', 'INT']);
             break;
 
         case('unsigned int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT', 'NEGATIVE', 'NUMBER']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT', 'NEGATIVE']);
             break;
         case('float') :
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT', 'NUMBER', 'DOUBLE']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT', 'DOUBLE']);
 
         case('double') :
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE', 'NUMBER', 'DOUBLE']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE', 'DOUBLE']);
             break;
         case('char'):
             block.getInput(inputName)
-                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'NUMBER', 'INT']);
+                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'Number', 'INT']);
             break;
         default:
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT', 'NUMBER']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT']);
 
     }
 };
@@ -529,37 +529,37 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
 Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
     switch (ptrType) {
         case ('int'):
-            block.getInput(inputName).setCheck(['PTR_INT', 'Address', 'Pointer', 'Array']);
+            block.getInput(inputName).setCheck(['PTR_INT', 'Address', 'Pointer', 'Array', 'Aster']);
             break;
         case ('unsigned int'):
-            block.getInput(inputName).setCheck(['PTR_UNINT', 'Address', 'Pointer', 'Array']);
+            block.getInput(inputName).setCheck(['PTR_UNINT', 'Address', 'Pointer', 'Array', 'Aster']);
             break;
         case ('float'):
-            block.getInput(inputName).setCheck(['PTR_FLOAT', 'Address', 'Pointer', 'Array']);
+            block.getInput(inputName).setCheck(['PTR_FLOAT', 'Address', 'Pointer', 'Array', 'Aster']);
             break;
         case ('double'):
-            block.getInput(inputName).setCheck(['PTR_DOUBLE', 'Address', 'Pointer', 'Array']);
+            block.getInput(inputName).setCheck(['PTR_DOUBLE', 'Address', 'Pointer', 'Array', 'Aster']);
             break;
         case ('char'):
-            block.getInput(inputName).setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array']);
+            block.getInput(inputName).setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
         case ('dbint'):
-            block.getInput(inputName).setCheck(['DBPTR_INT', 'Address', 'Pointer', 'Aster', 'Array']);
+            block.getInput(inputName).setCheck(['DBPTR_INT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
             break;
         case ('dbunsigned int'):
-            block.getInput(inputName).setCheck(['DBPTR_UNINT', 'Address', 'Pointer', 'Aster', 'Array']);
+            block.getInput(inputName).setCheck(['DBPTR_UNINT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
             break;
         case ('dbfloat'):
-            block.getInput(inputName).setCheck(['DBPTR_FLOAT', 'Address', 'Pointer', 'Aster', 'Array']);
+            block.getInput(inputName).setCheck(['DBPTR_FLOAT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
             break;
         case ('dbdouble'):
-            block.getInput(inputName).setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer', 'Aster', 'Array']);
+            block.getInput(inputName).setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
             break;
         case ('dbchar'):
-            block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array']);
+            block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
         default:
-            block.getInput(inputName).setCheck(['String', 'Pointer', 'Array']);
+            block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);
     }
 };
 

@@ -84,8 +84,10 @@ Blockly.Variables.allVariables = function(opt_block) {
         for (var y = 0; y < blockVariablesName.length; y++) {
             var varName = blockVariablesName[y];
         }
-        for (var y = 0; y < blockScope.length; y++) {
-            var varScope = blockScope[y];
+        if (blockScope) {
+            for (var y = 0; y < blockScope.length; y++) {
+                var varScope = blockScope[y];
+            }
         }
         var varPos = blockPosition;
         if(varDist !='v' && varDist !='d') {

@@ -52,7 +52,7 @@ Blockly.Blocks['math_number'] = {
 
       var num = this.getFieldValue('NUM');
       if (num == 0) {
-          this.changeOutput('NUMBER');
+          this.changeOutput('Number');
       }
       else if (num % 1 === 0 || num.match(/-/)) {
           if (num > 0) {

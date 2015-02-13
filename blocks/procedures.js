@@ -40,7 +40,6 @@ Blockly.Blocks['main_block'] = {
         this.appendStatementInput('STACK')
             .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
         this.appendValueInput('RETURN')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT'])
             .setAlign(Blockly.ALIGN_RIGHT)
             .appendField(Blockly.Msg.MAIN_BLOCK_RETURN);
         this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
@@ -52,6 +51,8 @@ Blockly.Blocks['main_block'] = {
         this.arguments_[1] = 'argv';
         this.statementConnection_ = null;
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+
+        Blockly.Blocks.setCheckVariable(this, 'int', 'RETURN');
     },
     getName: function(){
         return ['Main'];
