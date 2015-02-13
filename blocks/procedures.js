@@ -1132,7 +1132,54 @@ Blockly.Blocks['procedures_callreturn'] = {
   mutationToDom: Blockly.Blocks['procedures_callnoreturn'].mutationToDom,
   domToMutation: Blockly.Blocks['procedures_callnoreturn'].domToMutation,
   renameVar: Blockly.Blocks['procedures_callnoreturn'].renameVar,
-  customContextMenu: Blockly.Blocks['procedures_callnoreturn'].customContextMenu
+  customContextMenu: Blockly.Blocks['procedures_callnoreturn'].customContextMenu,
+
+    onchange: function(){
+        var tuple = Blockly.Procedures.allProcedures();
+        var procedureList = tuple[1];
+        var curProcedure;
+        var name = this.getFieldValue('NAME');
+        for (var x = 0; x < procedureList.length; x++) {
+            if(name == procedureList[x][1]){
+                curProcedure = procedureList[x];
+                break;
+            }
+        }
+        var output;
+        if (curProcedure[2] == 'int') {
+            output = 'INT';
+        }
+        else if (curProcedure[2] == 'unsigned int') {
+            output = 'UNINT';
+        }
+        else if (curProcedure[2] == 'float') {
+            output = 'FLOAT';
+        }
+        else if (curProcedure[2] == 'double') {
+            output = 'DOUBLE';
+        }
+        else if (curProcedure[2] == 'char') {
+            output = 'CHAR';
+        }
+
+        if (curProcedure[7] == 'variable') {
+            output = 'VAR_' + output;
+        }
+        else if (curProcedure[7] == 'pointer') {
+            if (curProcedure[8] == '*') {
+                output = 'PTR_' + output;
+            }
+            else if (curProcedure[8] == '**') {
+                output = 'DBPTR_' + output;
+            }
+        }
+        else if (curProcedure[7] == 'array') {
+            var exOutput = output;
+            output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
+        }
+        this.changeOutput(output);
+        console.log(output);
+    }
 };
 
 Blockly.Blocks['procedures_ifreturn'] = {

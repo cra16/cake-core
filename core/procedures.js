@@ -207,41 +207,6 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
     for (var x = 0; x < procedureList.length; x++) {
       var block = Blockly.Block.obtain(workspace, templateName);
       block.setFieldValue(procedureList[x][1], 'NAME');
-        if(templateName == 'procedures_callreturn'){
-            var output;
-            if(procedureList[x][2] =='int') {
-                output = 'INT';
-            }
-            else if(procedureList[x][2] =='unsigned int') {
-                output = 'UNINT';
-            }
-            else if(procedureList[x][2] =='float') {
-                output = 'FLOAT';
-            }
-            else if(procedureList[x][2] =='double') {
-                output = 'DOUBLE';
-            }
-            else if(procedureList[x][2] =='char') {
-                output = 'CHAR';
-            }
-
-            if(procedureList[x][7] == 'variable'){
-                output = 'VAR_' + output;
-            }
-            else if(procedureList[x][7] == 'pointer'){
-                if(procedureList[x][8] == '*'){
-                    output = 'PTR_' + output;
-                }
-                else if(procedureList[x][8] == '**'){
-                    output = 'DBPTR_' + output;
-                }
-            }
-            else if(procedureList[x][7] == 'array'){
-                var exOutput = output;
-                output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
-            }
-            block.setOutput(output);
-        }
       var tempIds = [];
       for (var t = 0; t < procedureList[x][3].length; t++) {
         tempIds[t] = 'ARG' + t;
