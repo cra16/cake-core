@@ -17,7 +17,7 @@ Blockly.Blocks['library_string_strlen'] = {
             ['VAR', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.STRING_STRLEN_HELPURL);
+        this.setTooltip(Blockly.Msg.STRING_STRLEN_TOOLTIP);
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -37,7 +37,7 @@ Blockly.Blocks['library_string_strcat'] = {
             ['STR2', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.STRING_STRCAT_HELPURL);
+        this.setTooltip(Blockly.Msg.STRING_STRCAT_TOOLTIP);
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -57,7 +57,7 @@ Blockly.Blocks['library_string_strcpy'] = {
             ['STR2', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.STRING_STRCPY_HELPURL);
+        this.setTooltip(Blockly.Msg.STRING_STRCPY_TOOLTIP);
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -77,7 +77,7 @@ Blockly.Blocks['library_string_strcmp'] = {
             ['STR2', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.STRING_STRCMP_HELPURL);
+        this.setTooltip(Blockly.Msg.STRING_STRCMP_TOOLTIP);
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
