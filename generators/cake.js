@@ -100,7 +100,9 @@ Blockly.cake.INFINITE_LOOP_TRAP = null;
  */
 Blockly.cake.init = function() {
   // Create a dictionary of definitions to be printed before the code.
-  Blockly.cake.definitions_ = Object.create(null);
+    Blockly.cake.definitions_ = Object.create(null);
+
+    Blockly.cake.times_ = Object.create(null);
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
   Blockly.cake.functionNames_ = Object.create(null);
@@ -140,58 +142,32 @@ Blockly.cake.finish = function(code) {
 
     // Convert the definitions dictionary into a list.
     var includes = [];
-    var definitions = [];
+    var declarations = [];
+    var defines = [];
     var func_definitions = [];
-    var rand = [];
-    var time = [];
     for (var name in Blockly.cake.definitions_) {
         var def = Blockly.cake.definitions_[name];
         var nameInclude = 'include';
-        var nameFunc = 'Func';
-        var nameSrand = 'srand';
-        var nameTime = 'time';
+        var nameFunc_declare = 'Func_declare';
+        var nameDefine = 'define';
         if (name.match(nameInclude)) {
             includes.push(def);
         }
-        else if(name.match(nameFunc)){
-            definitions.push(def);
+        else if(name.match(nameFunc_declare)){
+            declarations.push(def);//declaration
         }
-        else if(name.match(nameSrand)) {
-            def = this.prefixLines(def, Blockly.cake.INDENT);
-            rand.push(def);
+        else if(name.match(nameDefine)){
+            defines.push(def);//#define
+            console.log(this);
         }
-        else if(name.match(nameTime)){
-            def = this.prefixLines(def, Blockly.cake.INDENT);
-            time.push(def);
-        }
-        else{
-            func_definitions.push(def);
+        else {
+            func_definitions.push(def);//definition
         }
     }
     //imports--> #include
     //definitions--> function def, #def
-    var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n');
+    var allDefs = includes.join('\n') + '\n\n' + declarations.join('\n') + '\n\n' + defines.join('\n');
     var allFuncs = func_definitions.join('\n');
-    // for srand
-    var random;
-    if (random = rand.pop()) {
-        var idx = allFuncs.search('{');
-        var pre = allFuncs.substr(0, idx+1);
-        var post = allFuncs.substr(idx+1, allFuncs.length);
-        var result = pre.concat(random, post);
-
-        allFuncs = result;
-    }
-    var times;
-    while (times = time.pop()) {
-        var idx = allFuncs.search('{');
-        var pre = allFuncs.substr(0, idx + 1);
-        var post = allFuncs.substr(idx + 1, allFuncs.length);
-        var result = pre.concat(times, post);
-
-        allFuncs = result;
-    }
-
 
   return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
 };

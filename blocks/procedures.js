@@ -1197,7 +1197,6 @@ Blockly.Blocks['procedures_callreturn'] = {
             output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
         }
         this.changeOutput(output);
-        console.log(output);
     }
 };
 
