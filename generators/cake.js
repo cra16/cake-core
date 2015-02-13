@@ -158,7 +158,6 @@ Blockly.cake.finish = function(code) {
         }
         else if(name.match(nameDefine)){
             defines.push(def);//#define
-            console.log(this);
         }
         else {
             func_definitions.push(def);//definition

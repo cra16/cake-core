@@ -46,7 +46,6 @@ Blockly.cake['define_declare'] = function(block) {
     var code = define + ' ' + varName + ' ' + argument0;
     code = Blockly.cake.scrub_(block, code);
     Blockly.cake.definitions_['define_' + varName] = code;
-    console.log(varName);
   return null;
 };
 

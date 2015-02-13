@@ -454,7 +454,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
 
     for (var temp = 0; temp < variableList.length; temp++){
         if(variableList[temp][1] == charDist){
-            if(variableList[temp][3] == scope){
+            if(variableList[temp][3] == scope || variableList[temp][3] == "Global"){
                 if(variableList[temp][4] < (thisPosition - 10)) {
                     if (parentType != null) {
                         if (variableList[temp][0] == parentType) {

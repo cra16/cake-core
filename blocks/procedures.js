@@ -50,6 +50,7 @@ Blockly.Blocks['main_block'] = {
         this.arguments_[0] = 'argc';
         this.arguments_[1] = 'argv';
         this.statementConnection_ = null;
+        this.setPreviousStatement(true, ["define_declare"]);
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
 
         Blockly.Blocks.setCheckVariable(this, 'int', 'RETURN');
@@ -94,7 +95,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     this.dist_ = [];
       this.spec_ =[];
       this.tag = Blockly.Msg.TAG_PROCEDURE_DEFNORETURN;
-    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+    this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn", "main_block"]);
     this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
   },
     getName: function(){
@@ -545,7 +546,7 @@ Blockly.Blocks['procedures_defreturn'] = {
         this.dist_ = [];
         this.spec_ = [];
         this.tag = Blockly.Msg.TAG_PROCEDURE_DEFRETURN;
-        this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
+        this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn", "main_block"]);
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     },
     getName: function(){
@@ -1165,39 +1166,41 @@ Blockly.Blocks['procedures_callreturn'] = {
                 break;
             }
         }
-        var output;
-        if (curProcedure[2] == 'int') {
-            output = 'INT';
-        }
-        else if (curProcedure[2] == 'unsigned int') {
-            output = 'UNINT';
-        }
-        else if (curProcedure[2] == 'float') {
-            output = 'FLOAT';
-        }
-        else if (curProcedure[2] == 'double') {
-            output = 'DOUBLE';
-        }
-        else if (curProcedure[2] == 'char') {
-            output = 'CHAR';
-        }
+        if(curProcedure) {
+            var output;
+            if (curProcedure[2] == 'int') {
+                output = 'INT';
+            }
+            else if (curProcedure[2] == 'unsigned int') {
+                output = 'UNINT';
+            }
+            else if (curProcedure[2] == 'float') {
+                output = 'FLOAT';
+            }
+            else if (curProcedure[2] == 'double') {
+                output = 'DOUBLE';
+            }
+            else if (curProcedure[2] == 'char') {
+                output = 'CHAR';
+            }
 
-        if (curProcedure[7] == 'variable') {
-            output = 'VAR_' + output;
-        }
-        else if (curProcedure[7] == 'pointer') {
-            if (curProcedure[8] == '*') {
-                output = 'PTR_' + output;
+            if (curProcedure[7] == 'variable') {
+                output = 'VAR_' + output;
             }
-            else if (curProcedure[8] == '**') {
-                output = 'DBPTR_' + output;
+            else if (curProcedure[7] == 'pointer') {
+                if (curProcedure[8] == '*') {
+                    output = 'PTR_' + output;
+                }
+                else if (curProcedure[8] == '**') {
+                    output = 'DBPTR_' + output;
+                }
             }
+            else if (curProcedure[7] == 'array') {
+                var exOutput = output;
+                output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
+            }
+            this.changeOutput(output);
         }
-        else if (curProcedure[7] == 'array') {
-            var exOutput = output;
-            output = ['VAR_' + exOutput, 'PTR_' + exOutput, 'DBPTR_' + exOutput];
-        }
-        this.changeOutput(output);
     }
 };
 

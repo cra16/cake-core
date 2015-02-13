@@ -115,8 +115,8 @@ Blockly.Blocks['define_declare'] = {
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
+        this.setPreviousStatement(true, ['define_declare']);
+        this.setNextStatement(true, ['define_declare', 'main_block']);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'define_get';
