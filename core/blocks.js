@@ -25,6 +25,12 @@
 'use strict';
 goog.require('goog.asserts');
 goog.require('Blockly.Warning');
+goog.require('goog.events.BrowserFeature');
+goog.require('goog.html.SafeHtml');
+goog.require('goog.style');
+goog.require('goog.ui.tree.TreeControl');
+goog.require('goog.ui.tree.TreeNode');
+goog.require('goog.Disposable');
 
 /**
  * Name space for the Blocks singleton.
@@ -281,3 +287,279 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
     block.setWarningText('Warning: Array length must be writen by order.');
 
 };
+
+/**
+ * block search and show the result.
+ * just use searchTag function and showResult function.
+ * @param searchingWord
+ */
+Blockly.Blocks.search = function(searchingWord){
+    var result = Blockly.Blocks.searchTag(searchingWord);
+    Blockly.Blocks.showResult(result);
+};
+
+/**
+ * searching tag from all blocks
+ * return block array that have the tag
+ * @param searchingTag
+ * @returns {Array}
+ */
+Blockly.Blocks.searchTag = function(searchingTag){
+    var tree = Blockly.Toolbox.tree_;
+    var blocks = [];
+    for (var i = 0; i<tree.children_.length; i++) {
+        var tree_i =tree.children_[i];
+        if(tree_i.blocks == 'PROCEDURE'){
+            var proNoReturn = new Blockly.Block();
+            proNoReturn.id = Blockly.genUid();
+            proNoReturn.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
+            blocks.push(proNoReturn);
+
+            var proReturn = new Blockly.Block();
+            proReturn.id = Blockly.genUid();
+            proReturn.fill(Blockly.mainWorkspace, "procedures_defreturn");
+            blocks.push(proReturn);
+
+            var ifReturn = new Blockly.Block();
+            ifReturn.id = Blockly.genUid();
+            ifReturn.fill(Blockly.mainWorkspace, "procedures_ifreturn");
+            blocks.push(ifReturn);
+        }
+        else if(tree_i.blocks =='STRUCTURE'){
+            var structDefine = new Blockly.Block();
+            structDefine.id = Blockly.genUid();
+            structDefine.fill(Blockly.mainWorkspace, "structure_define");
+            blocks.push(structDefine);
+
+            var structDeclare = new Blockly.Block();
+            structDeclare.id = Blockly.genUid();
+            structDeclare.fill(Blockly.mainWorkspace, "structure_declare");
+            blocks.push(structDeclare);
+        }
+        else if(tree_i.blocks.length){
+            for(var j =0;j<tree_i.blocks.length;j++){
+                var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_i.blocks[j]);
+                blocks.push(block);
+            }
+        }
+        else if(tree_i.html_.privateDoNotAccessOrElseSafeHtmlWrappedValue_ != 'result' && tree_i.children_.length){
+            for(var j=0;j<tree_i.children_.length;j++){
+                var tree_j=tree_i.children_[j];
+                if(tree_j.blocks){
+                    for(var k=0;k<tree_j.blocks.length;k++){
+                        var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_j.blocks[k]);
+                        blocks.push(block);
+                    }
+                }
+            }
+        }
+    }
+
+    var result = [];
+    for(var n=0;n<blocks.length;n++){
+        if(blocks[n].tag){
+            for(var m=0;m<blocks[n].tag.length;m++){
+                if(blocks[n].tag[m].indexOf(searchingTag) != -1){
+                    result.push(blocks[n]);
+                    break;
+                }
+            }
+        }
+    }
+    return result;
+};
+
+/**
+ * Check if type is same as one of result or not.
+ * If there is same type block among result, function return the index.
+ * If there is no same type block among result, function return -1 value.
+ * @param type: type that will be checked.
+ * @param result: list of blocks.
+ * @returns {number}
+ */
+Blockly.Blocks.checkResult = function(type, result){
+    var returnValue = -1;
+    for(var i=0;i<result.length;i++){
+        if(result[i].type.toUpperCase() == type){
+            returnValue = i;
+        }
+    }
+    return returnValue;
+};
+
+/**
+ * rendering the block into main workspace to show the result to user
+ * @param result
+ */
+Blockly.Blocks.showResult = function(result){
+
+    var tree = new Blockly.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
+        Blockly.Toolbox.CONFIG_);
+    Blockly.Toolbox.tree_ = tree;
+    tree.setShowRootNode(false);
+    tree.setShowLines(false);
+    tree.setShowExpandIcons(false);
+
+
+    var rootOut = Blockly.Toolbox.tree_;
+    rootOut.removeChildren();  // Delete any existing content.
+    rootOut.blocks = [];
+    var searchResult = rootOut.createNode("result");
+    searchResult.blocks = [];
+    Blockly.Toolbox.tree_.add(searchResult);
+    function syncTrees(treeIn, treeOut) {
+        for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
+            if (!childIn.tagName) {
+                // Skip over text.
+                continue;
+            }
+            var name = childIn.tagName.toUpperCase();
+            if (name == 'CATEGORY') {
+                var childOut = rootOut.createNode(childIn.getAttribute('name'));
+                childOut.blocks = [];
+                treeOut.add(childOut);
+                var custom = childIn.getAttribute('custom');
+                if (custom) {
+                    childOut.blocks = custom;
+                    for(var j = 0, child; child=childIn.childNodes[j];j++){
+                        if(!child.tagName){
+                            continue;
+                        }
+                        var childName = child.tagName.toUpperCase();
+                        if(childName == 'BLOCK'){
+                            var check = Blockly.Blocks.checkResult(child.getAttribute('type').toUpperCase(), result);
+                            if(check != -1){
+                                result.splice(check, 1);
+                                searchResult.blocks.push(child);
+                            }
+                        }
+                    }
+                } else {
+                    syncTrees(childIn, childOut);
+                }
+            } else if (name == 'BLOCK') {
+                treeOut.blocks.push(childIn);
+                var check = Blockly.Blocks.checkResult(childIn.getAttribute('type').toUpperCase(), result);
+                if(check != -1){
+                    result.splice(check, 1);
+                    searchResult.blocks.push(childIn);
+                }
+            }
+        }
+    }
+    syncTrees(Blockly.languageTree, Blockly.Toolbox.tree_);
+
+    if (rootOut.blocks.length) {
+        throw 'Toolbox cannot have both blocks and categories in the root level.';
+    }
+
+    // Fire a resize event since the toolbox may have changed width and height.
+    Blockly.fireUiEvent(window, 'resize');
+    Blockly.Toolbox.HtmlDiv.childNodes[0].remove();
+    tree.setSelectedItem(searchResult);
+    tree.render(Blockly.Toolbox.HtmlDiv);
+};
+
+Blockly.Blocks.checkLegalName = function(msg, name){
+    var err = 0;
+
+    if(name.length>0){
+        var chk = name.substring(0,1);
+        if(!chk.match(/[a-z]|[A-Z]/)){
+            err = err+1;
+        }
+    }
+    for (var i=1; i<name.length; i++)  {
+        var chk = name.substring(i,i+1);
+        if(!chk.match(/[0-9]|[a-z]|[A-Z]|_/)) {
+            err = err + 1;
+        }
+    }
+
+    if(err>0){
+        window.alert(msg);
+    }
+    return;
+};
+
+
+/**
+ * setCheck - variable with type
+ * @param block
+ * @param varType
+ * @param inputName
+ */
+Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
+    switch (varType)
+    {
+        case('int'):
+            block.getInput(inputName)
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'NEGATIVE', 'INT']);
+            break;
+
+        case('unsigned int'):
+            block.getInput(inputName)
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT', 'NEGATIVE']);
+            break;
+        case('float') :
+            block.getInput(inputName)
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT', 'DOUBLE']);
+
+        case('double') :
+            block.getInput(inputName)
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE', 'DOUBLE']);
+            break;
+        case('char'):
+            block.getInput(inputName)
+                .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'Number', 'INT']);
+            break;
+/*        default:
+            block.getInput(inputName)
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT']);
+*/
+    }
+};
+
+/**
+ * setCheck - pointer with type
+ * @param block
+ * @param ptrType
+ * @param inputName
+ */
+Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
+    switch (ptrType) {
+        case ('int'):
+            block.getInput(inputName).setCheck(['PTR_INT', 'Address', 'Pointer', 'Array', 'Aster']);
+            break;
+        case ('unsigned int'):
+            block.getInput(inputName).setCheck(['PTR_UNINT', 'Address', 'Pointer', 'Array', 'Aster']);
+            break;
+        case ('float'):
+            block.getInput(inputName).setCheck(['PTR_FLOAT', 'Address', 'Pointer', 'Array', 'Aster']);
+            break;
+        case ('double'):
+            block.getInput(inputName).setCheck(['PTR_DOUBLE', 'Address', 'Pointer', 'Array', 'Aster']);
+            break;
+        case ('char'):
+            block.getInput(inputName).setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
+            break;
+        case ('dbint'):
+            block.getInput(inputName).setCheck(['DBPTR_INT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
+            break;
+        case ('dbunsigned int'):
+            block.getInput(inputName).setCheck(['DBPTR_UNINT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
+            break;
+        case ('dbfloat'):
+            block.getInput(inputName).setCheck(['DBPTR_FLOAT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
+            break;
+        case ('dbdouble'):
+            block.getInput(inputName).setCheck(['DBPTR_DOUBLE', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
+            break;
+        case ('dbchar'):
+            block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
+            break;
+/*        default:
+            block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);
+*/    }
+};
+

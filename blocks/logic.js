@@ -63,6 +63,7 @@ Blockly.Blocks['controls_if'] = {
     });
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
+      this.tag = Blockly.Msg.TAG_LOGIC_IF;
   },
   /**
    * Create XML to represent the number of else-if and else inputs.
@@ -301,6 +302,7 @@ Blockly.Blocks['logic_compare'] = {
       };
       return TOOLTIPS[op];
     });
+      this.tag = Blockly.Msg.TAG_LOGIC_COMPARE;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -336,6 +338,7 @@ Blockly.Blocks['logic_operation'] = {
       };
       return TOOLTIPS[op];
     });
+      this.tag = Blockly.Msg.TAG_LOGIC_OPERATION;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -353,6 +356,7 @@ Blockly.Blocks['logic_negate'] = {
     this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
     this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_LOGIC_NEGATE;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -375,6 +379,7 @@ Blockly.Blocks['logic_boolean'] = {
     this.appendDummyInput()
       .appendField(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
     this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_LOGIC_BOOLEAN;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -392,6 +397,7 @@ Blockly.Blocks['logic_null'] = {
     this.appendDummyInput()
       .appendField(Blockly.Msg.LOGIC_NULL);
     this.setTooltip(Blockly.Msg.LOGIC_NULL_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_LOGIC_NULL;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -414,6 +420,7 @@ Blockly.Blocks['logic_ternary'] = {
       .appendField(Blockly.Msg.LOGIC_TERNARY_IF_FALSE);
     this.setOutput(true);
     this.setTooltip(Blockly.Msg.LOGIC_TERNARY_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_LOGIC_TERNARY;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -435,6 +442,7 @@ Blockly.Blocks['controls_switch'] = {
     this.setMutator(new Blockly.Mutator(['controls_switch_case']));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
+      this.tag = Blockly.Msg.TAG_LOGIC_SWITCH;
     this.setTooltip(function() {
       if (!thisBlock.caseCount_) {
         return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;

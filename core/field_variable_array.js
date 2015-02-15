@@ -146,17 +146,15 @@ Blockly.FieldVariableArray.dropdownCreate = function(block) {
 // };
 
 
-Blockly.FieldVariableArray.getBlockType = function(option) {
+Blockly.FieldVariableArray.getBlockIdxLength = function(option) {
     var variableList = Blockly.Variables.allVariables();
     var variableListPop = []; // 보여줄 리스트 거를 것.
 
-    console.log(option);
     for(var temp = 0 ; temp < variableList.length ; temp++) {
         if (variableList[temp][2] == option) {
             var idxLength = variableList[temp][5][0];
-            console.log('idxLength: ' + idxLength);
             return idxLength;
-
         }
     }
 };
+

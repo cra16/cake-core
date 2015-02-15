@@ -100,7 +100,9 @@ Blockly.cake.INFINITE_LOOP_TRAP = null;
  */
 Blockly.cake.init = function() {
   // Create a dictionary of definitions to be printed before the code.
-  Blockly.cake.definitions_ = Object.create(null);
+    Blockly.cake.definitions_ = Object.create(null);
+
+    Blockly.cake.times_ = Object.create(null);
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions).
   Blockly.cake.functionNames_ = Object.create(null);
@@ -138,29 +140,35 @@ Blockly.cake.finish = function(code) {
   }
   code = '\n' + code;
 
-  // Convert the definitions dictionary into a list.
-  var includes = [];
-  var definitions = [];
-  var func_definitions = [];
-  for (var name in Blockly.cake.definitions_) {
-    var def = Blockly.cake.definitions_[name];
-    var nameInclude = 'include';
-    var nameFunc = 'Func';
-    if (name.match(nameInclude)) {
-      includes.push(def);
-    } 
-    else if(name.match(nameFunc)){      
-      definitions.push(def);
+    // Convert the definitions dictionary into a list.
+    var includes = [];
+    var declarations = [];
+    var defines = [];
+    var func_definitions = [];
+    for (var name in Blockly.cake.definitions_) {
+        var def = Blockly.cake.definitions_[name];
+        var nameInclude = 'include';
+        var nameFunc_declare = 'Func_declare';
+        var nameDefine = 'define';
+        if (name.match(nameInclude)) {
+            includes.push(def);
+        }
+        else if(name.match(nameFunc_declare)){
+            declarations.push(def);//declaration
+        }
+        else if(name.match(nameDefine)){
+            defines.push(def);//#define
+        }
+        else {
+            func_definitions.push(def);//definition
+        }
     }
-    else{
-      func_definitions.push(def);
-    }
-  }
-  //imports--> #include
-  //definitions--> function def, #def
-  var allDefs = includes.join('\n') + '\n\n' + definitions.join('\n\n');
-  var allFuncs = func_definitions.join('\n\n');
-  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
+    //imports--> #include
+    //definitions--> function def, #def
+    var allDefs = includes.join('\n') + '\n\n' + declarations.join('\n') + '\n\n' + defines.join('\n');
+    var allFuncs = func_definitions.join('\n');
+
+  return allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + code + allFuncs.replace(/\n\n+/g, '\n\n');
 };
 
 Blockly.cake.finishFull = function(code) {
@@ -186,8 +194,9 @@ Blockly.cake.finishFull = function(code) {
  * @return {string} Legal line of code.
  */
 Blockly.cake.scrubNakedValue = function(line) {
+    return line + ';\n';
   //ZR editor should ignore all blocks that are not children of the page's function block
-  return '';
+ // return '';
 };
 
 /**

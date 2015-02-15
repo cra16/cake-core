@@ -55,8 +55,7 @@ Blockly.Procedures.allProcedures = function() {
     if (func) {
       var tuple = func.call(blocks[x]);
       if (tuple) {
-          console.log(tuple[5]);
-        if (tuple[6]) {
+        if (tuple[0]) {
           proceduresReturn.push(tuple);
         } else {
           proceduresNoReturn.push(tuple);
@@ -79,8 +78,8 @@ Blockly.Procedures.allProcedures = function() {
  * @private
  */
 Blockly.Procedures.procTupleComparator_ = function(ta, tb) {
-  var a = ta[0].toLowerCase();
-  var b = tb[0].toLowerCase();
+  var a = ta[1].toLowerCase();
+  var b = tb[1].toLowerCase();
   if (a > b) {
     return 1;
   }
@@ -142,7 +141,16 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
 
       if (func) {
           var procName = func.call(blocks[x]);
-          if (Blockly.Names.equals(procName[0], name)) {
+
+          // for function, structures
+          if(func == blocks[x].getProcedureDef) {
+              if (Blockly.Names.equals(procName[1], name)) {
+                  return false;
+              }
+          }
+
+          // for variables, pointer, array
+          else if (Blockly.Names.equals(procName[0], name)) {
               return false;
           }
       }
@@ -207,12 +215,12 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
   function populateProcedures(procedureList, templateName) {
     for (var x = 0; x < procedureList.length; x++) {
       var block = Blockly.Block.obtain(workspace, templateName);
-      block.setFieldValue(procedureList[x][0], 'NAME');
+      block.setFieldValue(procedureList[x][1], 'NAME');
       var tempIds = [];
-      for (var t = 0; t < procedureList[x][2].length; t++) {
+      for (var t = 0; t < procedureList[x][3].length; t++) {
         tempIds[t] = 'ARG' + t;
       }
-      block.setProcedureParameters(procedureList[x][2], procedureList[x][3], procedureList[x][4], procedureList[x][5], tempIds);
+      block.setProcedureParameters(procedureList[x][3], procedureList[x][4], procedureList[x][5], procedureList[x][6], tempIds);
       block.initSvg();
       blocks.push(block);
       gaps.push(margin * 2);
@@ -288,7 +296,7 @@ Blockly.Procedures.getDefinition = function(name, workspace) {
     var func = blocks[x].getProcedureDef;
     if (func) {
       var tuple = func.call(blocks[x]);
-      if (tuple && Blockly.Names.equals(tuple[0], name)) {
+      if (tuple && Blockly.Names.equals(tuple[1], name)) {
         return blocks[x];
       }
     }

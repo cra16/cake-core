@@ -56,8 +56,36 @@ Blockly.cake['main_block'] = function(block) {
     typePlusArgs[x] = argTypes[x] + ' ' + args[x];
   }
   var returnType = 'int';
-  var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
-      branch + returnValue + '}';
+
+    var rand = [];
+    var time = [];
+    for (var name in Blockly.cake.times_) {
+        var def = Blockly.cake.times_[name];
+        var nameSrand = 'srand';
+        var nameTime = 'time';
+        var preDef;
+        if(name.match(nameSrand)) {
+            if(def[0] == 'main_block') {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                rand.push(preDef);
+            }
+        }
+        else if(name.match(nameTime)){
+            if(def[0] == 'main_block') {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                time.push(preDef);
+            }
+        }
+    }
+    if(rand.length){
+        var allDefs = rand.join('\n') + '\n' + time.join('\n');
+    }
+    else{
+        var allDefs = time.join('\n');
+    }
+
+    var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   return null;
@@ -82,42 +110,63 @@ Blockly.cake['procedures_defreturn'] = function(block) {
   if (returnValue) {
     returnValue = '  return ' + returnValue + ';\n';
   }
-/*  var args = [];
-  var argTypes = [];
-    var argDist = [];
-    var argSpec = [];
-  var typePlusArgs = [];
-  for (var x = 0; x < block.arguments_.length; x++) {
-    args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
-        Blockly.Variables.NAME_TYPE);
-    argTypes[x] = block.types_[x];
-      argDist[x] = block.dist_[x];
-      argSpec[x] = block.spec_[x];
-      if(argDist[x] == 'v'){
-          typePlusArgs[x] = argTypes[x] + ' ' + args[x];
-      }
-      else if(argDist[x] =='a'){
-          if(argSpec[x][0] == 1)
-              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']';
-          else if(argSpec[x][0] == 2)
-              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']';
-          else if(argSpec[x][0] == 3)
-              typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']' + '[' + argSpec[x][2] + ']';
-      }
-      else if(argDist[x] =='p'){
-          typePlusArgs[x] = argTypes[x] + argSpec[x] + ' ' + args[x];
-      }
-  }
-*/
   var typePlusArgs = Blockly.Procedures.getTypePlusArgs(block);
 
+    var rand = [];
+    var time = [];
+    for (var name in Blockly.cake.times_) {
+        var def = Blockly.cake.times_[name];
+        var nameSrand = 'srand';
+        var nameTime = 'time';
+        var preDef;
+        if(name.match(nameSrand)) {
+            if(def[0] == funcName) {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                rand.push(preDef);
+            }
+        }
+        else if(name.match(nameTime)){
+            if(def[0] == funcName) {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                time.push(preDef);
+            }
+        }
+    }
+    if(rand.length){
+        var allDefs = rand.join('\n') + '\n' + time.join('\n');
+    }
+    else{
+        var allDefs = time.join('\n');
+    }
+
   var returnType = block.getFieldValue('TYPES');
-  var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
-      branch + returnValue + '}';
+    var returnDist = block.getFieldValue('DISTS');
+    var returnSpec, code;
+    if(returnDist == 'pointer'){
+        returnSpec = block.getFieldValue('PSPECS');
+        if(returnSpec == null){
+            returnSpec = '*';
+        }
+        code = returnType + returnSpec + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
+    }
+    else if(returnDist == 'array'){
+        returnSpec = block.getFieldValue('ASPECS');
+        if(returnSpec == null){
+            returnSpec = '[]';
+        }
+        code = returnType + returnSpec + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
+    }
+    else{
+        code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+        allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
+    }
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
-    returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ');';  
+    returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ');';
+    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
   return null;
 };
 
@@ -128,6 +177,34 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
   var funcName = Blockly.cake.variableDB_.getName(
       block.getFieldValue('NAME'), Blockly.Procedures.NAME_TYPE);
   var branch = Blockly.cake.statementToCode(block, 'STACK');
+
+    var rand = [];
+    var time = [];
+    for (var name in Blockly.cake.times_) {
+        var def = Blockly.cake.times_[name];
+        var nameSrand = 'srand';
+        var nameTime = 'time';
+        var preDef;
+        if(name.match(nameSrand)) {
+            if(def[0] == funcName) {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                rand.push(preDef);
+            }
+        }
+        else if(name.match(nameTime)){
+            if(def[0] == funcName) {
+                preDef = Blockly.cake.prefixLines(def[1], Blockly.cake.INDENT);
+                time.push(preDef);
+            }
+        }
+    }
+    if(rand.length){
+        var allDefs = rand.join('\n') + '\n' + time.join('\n');
+    }
+    else{
+        var allDefs = time.join('\n');
+    }
+
   if (Blockly.cake.STATEMENT_PREFIX) {
     branch = Blockly.cake.prefixLines(
         Blockly.cake.STATEMENT_PREFIX.replace(/%1/g,
@@ -142,41 +219,15 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
   if (returnValue) {
     returnValue = '  return ' + returnValue + ';\n';
   }
-/*    var args = [];
-    var argTypes = [];
-    var argDist = [];
-    var argSpec = [];
-    var typePlusArgs = [];
-    for (var x = 0; x < block.arguments_.length; x++) {
-        args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
-            Blockly.Variables.NAME_TYPE);
-        argTypes[x] = block.types_[x];
-        argDist[x] = block.dist_[x];
-        argSpec[x] = block.spec_[x];
-        if(argDist[x] == 'v'){
-            typePlusArgs[x] = argTypes[x] + ' ' + args[x];
-        }
-        else if(argDist[x] =='a'){
-            if(argSpec[x][0] == 1)
-                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']';
-            else if(argSpec[x][0] == 2)
-                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']';
-            else if(argSpec[x][0] == 3)
-                typePlusArgs[x] = argTypes[x] + ' ' + args[x] + '[' + argSpec[x][1] + ']' + '[' + argSpec[x][2] + ']' + '[' + argSpec[x][2] + ']';
-        }
-        else if(argDist[x] =='p'){
-            typePlusArgs[x] = argTypes[x] + argSpec[x] + ' ' + args[x];
-        }
-    }
-*/
   var typePlusArgs = Blockly.Procedures.getTypePlusArgs(block);
 
     var code = 'void ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
-      branch + returnValue + '}';
+        allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
     'void ' + funcName + '(' + typePlusArgs.join(', ') + ');';
+    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
   return null;
 };
 

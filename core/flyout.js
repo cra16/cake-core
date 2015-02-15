@@ -78,6 +78,8 @@ Blockly.Flyout = function() {
    * @private
    */
   this.listeners_ = [];
+
+    return flyout;
 };
 
 /**

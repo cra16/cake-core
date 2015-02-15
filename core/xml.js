@@ -405,6 +405,152 @@ Blockly.Xml.deleteNext = function(xmlBlock) {
     }
   }
 };
+Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
+    var block = null;
+    var prototypeName = xmlBlock.getAttribute('type');
+    if (!prototypeName) {
+        throw 'Block type unspecified: \n' + xmlBlock.outerHTML;
+    }
+    var id = xmlBlock.getAttribute('id');
+    if (opt_reuseBlock && id) {
+        block = Blockly.Block.getById(id, workspace);
+        // TODO: The following is for debugging.  It should never actually happen.
+        if (!block) {
+            throw 'Couldn\'t get Block with id: ' + id;
+        }
+        var parentBlock = block.getParent();
+        // If we've already filled this block then we will dispose of it and then
+        // re-fill it.
+        if (block.workspace) {
+            block.dispose(true, false, true);
+        }
+        block.fill(workspace, prototypeName);
+        block.parent_ = parentBlock;
+    } else {
+        if (Blockly.Realtime.isEnabled()) {
+            return Blockly.Realtime.obtainBlock(workspace, prototypeName);
+        } else {
+            var block = new Blockly.Block();
+            block.id = Blockly.genUid();
+            block.fill(workspace, prototypeName);
+        }
+    }
+
+    var inline = xmlBlock.getAttribute('inline');
+    if (inline) {
+        block.setInputsInline(inline == 'true');
+    }
+    var disabled = xmlBlock.getAttribute('disabled');
+    if (disabled) {
+        block.setDisabled(disabled == 'true');
+    }
+    var deletable = xmlBlock.getAttribute('deletable');
+    if (deletable) {
+        block.setDeletable(deletable == 'true');
+    }
+    var movable = xmlBlock.getAttribute('movable');
+    if (movable) {
+        block.setMovable(movable == 'true');
+    }
+    var editable = xmlBlock.getAttribute('editable');
+    if (editable) {
+        block.setEditable(editable == 'true');
+    }
+
+    var blockChild = null;
+    for (var x = 0, xmlChild; xmlChild = xmlBlock.childNodes[x]; x++) {
+        if (xmlChild.nodeType == 3 && xmlChild.data.match(/^\s*$/)) {
+            // Extra whitespace between tags does not concern us.
+            continue;
+        }
+        var input;
+
+        // Find the first 'real' grandchild node (that isn't whitespace).
+        var firstRealGrandchild = null;
+        for (var y = 0, grandchildNode; grandchildNode = xmlChild.childNodes[y];
+             y++) {
+            if (grandchildNode.nodeType != 3 || !grandchildNode.data.match(/^\s*$/)) {
+                firstRealGrandchild = grandchildNode;
+            }
+        }
+
+        var name = xmlChild.getAttribute('name');
+        switch (xmlChild.nodeName.toLowerCase()) {
+            case 'mutation':
+                // Custom data for an advanced block.
+                if (block.domToMutation) {
+                    block.domToMutation(xmlChild);
+                }
+                break;
+            case 'comment':
+                block.setCommentText(xmlChild.textContent);
+                var visible = xmlChild.getAttribute('pinned');
+                if (visible) {
+                    // Give the renderer a millisecond to render and position the block
+                    // before positioning the comment bubble.
+                    setTimeout(function() {
+                        block.comment.setVisible(visible == 'true');
+                    }, 1);
+                }
+                var bubbleW = parseInt(xmlChild.getAttribute('w'), 10);
+                var bubbleH = parseInt(xmlChild.getAttribute('h'), 10);
+                if (!isNaN(bubbleW) && !isNaN(bubbleH)) {
+                    block.comment.setBubbleSize(bubbleW, bubbleH);
+                }
+                break;
+            case 'title':
+            // Titles were renamed to field in December 2013.
+            // Fall through.
+            case 'field':
+                block.setFieldValue(xmlChild.textContent, name);
+                break;
+            case 'value':
+            case 'statement':
+                input = block.getInput(name);
+                if (!input) {
+                    throw 'Input ' + name + ' does not exist in block ' + prototypeName;
+                }
+                if (firstRealGrandchild &&
+                    firstRealGrandchild.nodeName.toLowerCase() == 'block') {
+                    blockChild = Blockly.Xml.domToBlockObject(workspace, firstRealGrandchild,
+                        opt_reuseBlock);
+                    if (blockChild.outputConnection) {
+                        input.connection.connect(blockChild.outputConnection);
+                    } else if (blockChild.previousConnection) {
+                        input.connection.connect(blockChild.previousConnection);
+                    } else {
+                        throw 'Child block does not have output or previous statement.';
+                    }
+                }
+                break;
+            case 'next':
+                if (firstRealGrandchild &&
+                    firstRealGrandchild.nodeName.toLowerCase() == 'block') {
+                    if (!block.nextConnection) {
+                        throw 'Next statement does not exist.';
+                    } else if (block.nextConnection.targetConnection) {
+                        // This could happen if there is more than one XML 'next' tag.
+                        throw 'Next statement is already connected.';
+                    }
+                    blockChild = Blockly.Xml.domToBlockObject(workspace, firstRealGrandchild,
+                        opt_reuseBlock);
+                    if (!blockChild.previousConnection) {
+                        throw 'Next block does not have previous statement.';
+                    }
+                    block.nextConnection.connect(blockChild.previousConnection);
+                }
+                break;
+            default:
+            // Unknown tag; ignore.  Same principle as HTML parsers.
+        }
+    }
+
+    var collapsed = xmlBlock.getAttribute('collapsed');
+    if (collapsed) {
+        block.setCollapsed(collapsed == 'true');
+    }
+    return block;
+};
 
 // Export symbols that would otherwise be renamed by Closure compiler.
 Blockly['Xml'] = Blockly.Xml;

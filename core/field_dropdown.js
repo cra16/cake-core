@@ -281,29 +281,32 @@ Blockly.FieldDropdown.prototype.dispose = function() {
   Blockly.FieldDropdown.superClass_.dispose.call(this);
 };
 
+
 /**
- * get type of variable at setter block
- * @param blockVars
+ * get type/dimension/ from variables name
+ * @param blockVars: name of current block
+ * @param option: wanted value -> type = 0, dimension = 5
  * @returns {*}
  */
-Blockly.FieldDropdown.prototype.getSetterType = function(blockVars) {
-    var blockType;
+Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
+
+    var wantedValue;
     var variableList = Blockly.Variables.allVariables();
 
     for (var temp = 0; temp < variableList.length; temp++) {
         if (variableList[temp][2] == blockVars) {
-            blockType = variableList[temp][0];
-
+            wantedValue = variableList[temp][option];
         }
     }
-    return blockType;
-}
+    return wantedValue;
+};
+
 
 /* 너무 지저분 해 ~_~*/
 /**
- * get parent type of block
- * @param curBlock
- * @param strDist
+ * get parent type of the current block
+ * @param curBlock : current block
+ * @param strDist : string type of dist('variables', 'variables_pointer', 'varibles_array')
  * @returns {*}
  */
 Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
@@ -311,44 +314,118 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
     var parentType = null;
 
     if (curBlock.getParent()) {
+        var parent = curBlock.getParent();
 
-        if (((curBlock.getParent().type == (strDist + '_pointer_&')) || (curBlock.getParent().type == (strDist + '_pointer_*')))
-            && curBlock.getParent().getParent()) {
+        // type 1
+        // VARIABLE setter + (* POINTER getter)
+        // POINTER setter + (& VARIABLE getter)
+        if (((parent.type == (strDist + '_*' )) && (parent.getParent().type == 'variables_set') )||
+            ((parent.type == (strDist + '_pointer_&')) && parent.getParent().type == (strDist + '_pointer_set'))) {
+            var parentVars = parent.getParent().getVars();
+            parentType = this.getTypefromVars(parentVars, 0);
 
-            if (curBlock.getParent().getParent().getVars()){
-                parentType = curBlock.getParent().getParent().getTypes();
+        }
+
+        // type 2
+        // VARIABLE declare + (* POINTER getter),
+        // POINTER declare + (& VARIABLE getter)
+        else if (((parent.type == (strDist + '_pointer_&')) || (parent.type == (strDist + '_pointer_*')))
+            && parent.getParent()) {
+
+            if (parent.getParent().getVars()){
+                parentType = parent.getParent().getTypes();
 
             }
         }
 
-        if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
-            && (curBlock.getParent().type == (strDist+'_set'))) {
-            var ParentVars = curBlock.getParent().getVars();
+        // type 3
+        // DOUBLE POINTER declare + (& POINTER getter)
+        // POINTER declare + (* DOUBLE POINTER getter)
+        else if (((parent.type == (strDist + '_&')) || (parent.type == (strDist + '_*'))) &&
+            (parent.getParent().type == (strDist + '_declare')))
+        {
+            var ptrSpec = parent.getParent().getSpec();
+            // DOUBLE POINTER declare + (& POINTER getter)
+            if ((ptrSpec == '**') && (parent.type == (strDist + '_&'))) {
+                parentType = parent.getParent().getType();
+
+            }
+            // POINTER declare + (* DOUBLE POINTER getter)
+            else if ((ptrSpec == '*') && (parent.type == (strDist + '_*')))
+            {
+                parentType = parent.getParent().getType();
+                parentType = 'db' + parentType;
+            }
+        }
+
+        // type 4
+        // DOUBLE POINTER setter + (& Pointer getter)
+        // POINTER setter + (* DOUBLE POINTER getter)
+        else if ((parent.type == (strDist + '_&') || (parent.type == (strDist + '_*'))) &&
+            (parent.getParent().type ==  (strDist + '_set'))){
+
+            var parentVars = parent.getParent().getVars();
+            var dimension = this.getTypefromVars(parentVars, 5);
+            parentType = this.getTypefromVars(parentVars, 0);
+
+            // DOUBLE POINTER setter + (& Pointer getter)
+            if(dimension == '**' && (parent.type == (strDist + '_&')) ){
+                parentType = parentType.replace("db", "");
+            }
+            // POINTER setter + (* DOUBLE POINTER getter)
+            else if (dimension == '*' && (parent.type == (strDist + '_*'))) {
+                parentType = 'db' + parentType;
+            }
+
+        }
+
+        // type 4
+        // POINTER setter + malloc
+        // setter + getter (any type)
+        else if (((curBlock.type =='library_stdlib_malloc') ||(curBlock.type == (strDist+'_get')))
+                && (parent.type.search('_set') > 0)) {
+            var ParentVars = parent.getVars();
 
             // when pointer_set block
             if (strDist == 'variables_pointer'){
                 ParentVars = ParentVars.toString().replace("* ", "");
             }
-
-            var variableList = Blockly.Variables.allVariables();
-
-            for (var temp = 0; temp < variableList.length; temp++){
-                // coincide with the name of variables
-                if(variableList[temp][2] == ParentVars){
-                    parentType = (variableList[temp][0]);
-                }
-            }
+            parentType = this.getTypefromVars(ParentVars, 0);
         }
-        else if (((curBlock.type != (strDist+'_set')) && curBlock.getParent().type == (strDist+'_declare'))) {
-            if (curBlock.getParent().getDeclare()) {
-                parentType = curBlock.getParent().getTypes();
+
+
+        // type 5
+        // declare block + get block (any type)
+        else if (((curBlock.type != (strDist+'_set')) && parent.type.match('_declare'))) {
+            if (parent.getDeclare()) {
+                parentType = parent.getTypes();
             }
         }
 
+        // type 6
+        // function return type
+        else if ((parent.type.match('procedures'))) {
+            parentType = parent.getType();
+        }
+
+        // type 6
+        // main block: int
+        else if ((parent.type.match('main_block'))) {
+            parentType = 'int';
+        }
 
     }
     return parentType;
-}
+};
+
+/**
+ * make dropdown list with adequate type
+ * @param block
+ * @param varDist - variable dist~(0:define / 1:variable / 2:pointer / 3:array)
+ * charDist : character type of dist('d', 'v', 'p', 'a')
+ * strDist: string type of dist - for block type ('define', 'variables', 'variables_pointer', 'variables_array')
+ * @returns {Array}
+ */
 
 Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
     var variableList = Blockly.Variables.allVariables();
@@ -363,7 +440,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
             break;
         case 1:
             charDist = 'v';
-            strDist = 'variables'
+            strDist = 'variables';
             break;
         case 2:
             charDist = 'p';
@@ -375,24 +452,22 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
             break;
         default:
             break;
-
     }
 
     var parentType = Blockly.FieldDropdown.prototype.getParentType(block, strDist);
 
-    while(block.getSurroundParent() && block.getSurroundParent().type != 'main_block' && block.getSurroundParent().type != 'procedures_defnoreturn'
-    && block.getSurroundParent().type != 'procedures_defreturn'){
+    while((block.getSurroundParent()) && (block.getSurroundParent().type != 'main_block') &&
+    (block.getSurroundParent().type != 'procedures_defnoreturn') && (block.getSurroundParent().type != 'procedures_defreturn')){
         block = block.getSurroundParent();
     }
+    var scope;
     if(block.getSurroundParent()) {
-        var scope = block.getSurroundParent().getName();
+        scope = block.getSurroundParent().getName();
     }
 
-
     for (var temp = 0; temp < variableList.length; temp++){
-
         if(variableList[temp][1] == charDist){
-            if(variableList[temp][3] == scope){
+            if(variableList[temp][3] == scope || variableList[temp][3] == "Global"){
                 if(variableList[temp][4] < (thisPosition - 10)) {
                     if (parentType != null) {
                         if (variableList[temp][0] == parentType) {
@@ -402,11 +477,10 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
                     else {
                         variableListPop.push(variableList[temp][2]);
                     }
-
                 }
             }
         }
     }
 
     return variableListPop;
-}
+};
