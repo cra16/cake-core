@@ -1,12 +1,16 @@
 {
   "name": "cake-core",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "homepage": "https://github.com/cra16/cake-core",
   "authors": [
     "Joshua Jung <wbqdinno@gmail.com>"
   ],
   "description": "Visual Programming Editor for C Language based on Blockly.",
-  "main": "blockly/blockly_compressed.js",
+  "main": [
+    "blockly/blockly_compressed.js",
+    "blockly/blocks_compressed.js",
+    "blockly/cake_compressed.js"
+    ],
   "keywords": [
     "C",
     "Blockly",
@@ -16,7 +20,7 @@
   "ignore": [
     "**/.*",
     "**/*.html",
-    "blockly/**"
+    "blockly/**",
     "bower_components",
     "COPYING",
     "css/**",
