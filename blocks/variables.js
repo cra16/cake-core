@@ -95,11 +95,11 @@ Blockly.Blocks['define_get'] = {
 
 Blockly.Blocks['define_declare'] = {
     init: function() {
-        var DEFINE =
+       /* var DEFINE =
             [
                 [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
                 [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
-            ];
+            ];*/
         this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(160);
         var name = Blockly.Procedures.findLegalName(
@@ -107,11 +107,12 @@ Blockly.Blocks['define_declare'] = {
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.DEFINE_DECLARE_TITLE + ' %1 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-            Blockly.Msg.DEFINE_DECLARE_INIT + ' %3',
-            ['DEFINES', new Blockly.FieldDropdown(DEFINE)],
+            Blockly.Msg.DEFINE_DECLARE_TITLE  + ' ' +
+            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
+            Blockly.Msg.DEFINE_DECLARE_INIT + ' %2',
+            //['DEFINES', new Blockly.FieldDropdown(DEFINE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
+            // except variables, TEXT, NUMBER
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
@@ -121,6 +122,7 @@ Blockly.Blocks['define_declare'] = {
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'define_get';
         this.tag = Blockly.Msg.TAG_DEFINE_DECLARE;
+        this.macroType_ = 'Macro';
     },
 
     /**
@@ -129,7 +131,7 @@ Blockly.Blocks['define_declare'] = {
      * @this Blockly.Block
      */
     getTypes: function() {
-        return [this.getFieldValue('DEFINES')];
+        return [this.macroType_];
     },
 
     getDist: function() {
@@ -182,7 +184,27 @@ Blockly.Blocks['define_declare'] = {
     customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireOutFunction
+    onchange: function() {
+        Blockly.Blocks.requireOutFunction();
+        if (this.getInputTargetBlock('VALUE')) {
+            var targetBlock = this.getInputTargetBlock('VALUE');
+
+            if (targetBlock.type.match('math')) {
+                //this.setFieldValue('int', 'DEFINES');
+                this.macroType_ = 'int';
+            }
+            else if (targetBlock.type.match('text')) {
+                if (targetBlock.getFieldValue('TEXT').length == 1) {
+                    //this.setFieldValue('char', 'DEFINES');
+                    this.macroType_ = 'char';
+                }
+                else {
+                    //this.setFieldValue('dbchar', 'DEFINES');
+                    this.macroType_ = 'dbchar';
+                }
+            }
+        }
+    }
 };
 
 Blockly.Blocks['variables_get'] = {
