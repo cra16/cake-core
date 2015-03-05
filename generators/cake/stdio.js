@@ -161,7 +161,7 @@ Blockly.cake['library_stdio_text'] = function(block) {
     return [code, Blockly.cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['library_stdio_newLine'] = function(block) {
+Blockly.cake['library_stdio_newLine'] = function() {
     // new line block for '\n'
     var code = '\\n';
     return [code, Blockly.cake.ORDER_NONE];
