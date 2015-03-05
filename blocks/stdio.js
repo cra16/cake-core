@@ -233,7 +233,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
         this.setHelpUrl(Blockly.Msg.STDIO_SCANF_HELPURL);
         this.setColour(300);
         this.appendValueInput('VAR0')
-            .setCheck(null)
+            .setCheck(['Variable', 'Pointer', 'Array'])
             .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
@@ -265,7 +265,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
         this.scanAddCount_ = parseInt(xmlElement.getAttribute('scanadd'), 10);
         for (var x = 1; x <= this.scanAddCount_; x++) {
             this.appendValueInput('VAR' + x)
-                .setCheck(null)
+                .setCheck(['Variable', 'Pointer', 'Array'])
                 .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
 
         }
@@ -306,7 +306,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
                 case 'library_stdio_scanf_add':
                     this.scanAddCount_++;
                     var scanInput = this.appendValueInput('VAR' + this.scanAddCount_)
-                        .setCheck(null)
+                        .setCheck(['Variable', 'Pointer', 'Array'])
                         .appendField('');
                     // Reconnect any child blocks.
                     if (clauseBlock.valueConnection_) {
