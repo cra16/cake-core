@@ -227,10 +227,6 @@
                 <block type="structure_declare"></block>
             </category>
             <category name="Library">
-                <category name="Time">
-                    <block type="library_time_current"></block>
-                    <block type="library_time_requiredTime"></block>
-                </category>
         <category name="Stdio">
         <block type="library_stdio_printf"></block>
         <block type="library_stdio_text"></block>
@@ -272,11 +268,6 @@
         </value>
         </block>
         <block type="library_stdlib_free"></block>
-        <!--<block type="library_stdlib_free">-->
-        <!--<value name="VAR">-->
-        <!--<block type="variables_pointer_get"></block>-->
-        <!--</value>-->
-        <!--</block>-->
         <block type="library_stdlib_exit"></block>
         </category>
         <category name="String">
@@ -295,6 +286,10 @@
         <block type="library_math_round"></block>
         <block type="library_math_numcheck"></block>
         <block type="library_math_numcompare"></block>
+        </category>
+        <category name="Time">
+        <block type="library_time_current"></block>
+        <block type="library_time_requiredTime"></block>
         </category>
         </category>
         </xml>

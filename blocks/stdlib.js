@@ -23,6 +23,7 @@ Blockly.Blocks['library_stdlib_convert'] = {
             ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.STDLIB_CONVERT_HELPURL);
+        this.tag = Blockly.Msg.TAG_STDLIB_CONVERT;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -41,6 +42,7 @@ Blockly.Blocks['library_stdlib_rand'] = {
           ['VAR', 'SCOPE', Blockly.ALIGN_RIGHT],
           Blockly.ALIGN_RIGHT);
       this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_RAND;
   },
     getScope: function(){
         var block = this;
@@ -135,6 +137,7 @@ Blockly.Blocks['library_stdlib_malloc'] = {
           Blockly.ALIGN_RIGHT);
       this.setInputsInline(true);
       this.setTooltip(Blockly.Msg.STDLIB_MALLOC_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_MALLOC;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -174,6 +177,7 @@ Blockly.Blocks['library_stdlib_arithmetic_forMalloc'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MULTIPLY);
+        this.tag = Blockly.Msg.TAG_STDLIB_SIZEOF;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -213,6 +217,7 @@ Blockly.Blocks['library_stdlib_free'] = {
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setTooltip(Blockly.Msg.STDLIB_FREE_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_FREE;
   },
   //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
@@ -236,6 +241,7 @@ Blockly.Blocks['library_stdlib_exit'] = {
           Blockly.ALIGN_RIGHT);
       this.setPreviousStatement(true);
       this.setTooltip(Blockly.Msg.STDLIB_EXIT_HELPURL);
+      this.tag = Blockly.Msg.TAG_STDLIB_EXIT;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction

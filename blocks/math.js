@@ -139,6 +139,7 @@ Blockly.Blocks['library_math_abs'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ABS);
+        this.tag = Blockly.Msg.TAG_MATH_ABS;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -171,6 +172,7 @@ Blockly.Blocks['library_math_trig'] = {
             };
             return TOOLTIPS[mode];
         });
+        this.tag = Blockly.Msg.TAG_MATH_TRIG;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -203,6 +205,7 @@ Blockly.Blocks['library_math_logs'] = {
             };
             return TOOLTIPS[mode];
         });
+        this.tag = Blockly.Msg.TAG_MATH_LOGS;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -219,6 +222,7 @@ Blockly.Blocks['library_math_pow'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_POW);
+        this.tag = Blockly.Msg.TAG_MATH_POW;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -234,6 +238,7 @@ Blockly.Blocks['library_math_exp'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_EXP);
+        this.tag = Blockly.Msg.TAG_MATH_EXP;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -249,6 +254,7 @@ Blockly.Blocks['library_math_sqrt'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ROOT);
+        this.tag = Blockly.Msg.TAG_MATH_SQRT;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -272,6 +278,7 @@ Blockly.Blocks['library_math_round'] = {
             .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'])
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
         this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_MATH_ROUND;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -295,6 +302,7 @@ Blockly.Blocks['library_math_numcheck'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_NUMCHECK_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_MATH_NUMCHECK;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -321,6 +329,7 @@ Blockly.Blocks['library_math_numcompare'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_MATH_NUMCOMPARE;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction

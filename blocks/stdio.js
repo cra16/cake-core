@@ -19,6 +19,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         this.setNextStatement(true);
         this.setMutator(new Blockly.Mutator(['library_stdio_printf_add']));
         this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STDIO_PRINTF;
         this.printAddCount_ = 0;
     },
     /**
@@ -173,6 +174,7 @@ Blockly.Blocks['library_stdio_text'] = {
             .appendField(this.newQuote_(false));
         this.setOutput(true, 'String');
         this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STDIO_TEXT;
     },
     /**
      * Create an image of an open or closed quote.
@@ -219,6 +221,7 @@ Blockly.Blocks['library_stdio_newLine'] = {
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'String');
         this.setTooltip(Blockly.Msg.STDIO_NEWLINE_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STDIO_NEWLINE;
     },
     onchange: Blockly.Blocks.requireInFunction
     //when the block is changed,
@@ -240,6 +243,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
         this.setNextStatement(true);
         this.setMutator(new Blockly.Mutator(['library_stdio_scanf_add']));
         this.setTooltip(Blockly.Msg.STDIO_SCANF_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STDIO_SCANF;
         this.scanAddCount_ = 0;
     },
     /**

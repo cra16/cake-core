@@ -20,6 +20,7 @@ Blockly.Blocks['library_time_current'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.STRING_STRLEN_HELPURL);
+        this.tag = Blockly.Msg.TAG_TIME_CURRENT;
     },
     getScope: function(){
         var block = this;
@@ -63,6 +64,7 @@ Blockly.Blocks['library_time_requiredTime'] = {
         this.setNextStatement(true);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCAT_HELPURL);
+        this.tag = Blockly.Msg.TAG_TIME_REQUIREDTIME;
     },
     getScope: function(){
         var block = this;

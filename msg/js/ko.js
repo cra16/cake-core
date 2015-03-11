@@ -574,6 +574,36 @@ Blockly.Msg.TAG_MATH_NUMBER = ['숫자'];
 Blockly.Msg.TAG_MATH_ARITHMETIC = ['숫자연산', '더하기빼기곱하기나누기', '+-*/'];
 Blockly.Msg.TAG_MATH_MODULO = ['숫자연산', '나머지', '%'];
 
+Blockly.Msg.TAG_STDIO_PRINTF = ['stdio.h', 'printf()', 'output', 'out', '프린트', '프린터', '출력하기'];
+Blockly.Msg.TAG_STDIO_TEXT = ['stdio.h', 'text', '텍스트'];
+Blockly.Msg.TAG_STDIO_NEWLINE = ['stdio.h', 'newline', 'new line', '\n', '줄바꿈', '줄바꾸기'];
+Blockly.Msg.TAG_STDIO_SCANF = ['stdio.h', 'scanf()', 'input', '스캔', '입력하기'];
+
+Blockly.Msg.TAG_STDLIB_CONVERT = ['stdlib.h', 'convert', 'atoi()', 'atof()', '변환하기', '문자를 정수로 변환', '문자를 실수로 변환'];
+Blockly.Msg.TAG_STDLIB_RAND = ['stdlib.h', 'random number', '랜덤수', '랜덤구하기', '랜덤 구하기', '랜덤넘버', '랜덤 넘버', '임의의수', '임의의 수'];
+Blockly.Msg.TAG_STDLIB_MALLOC = ['stdlib.h', 'malloc()', 'memory allocation', '메모리 할당', '메모리 할당하기', '메모리 동적 할당하기'];
+Blockly.Msg.TAG_STDLIB_SIZEOF = ['stdlib.h', 'sizeof()', 'size of', 'sizeOf', '사이즈 구하기', '사이즈구하기', '크기 구하기', '크기구하기'];
+Blockly.Msg.TAG_STDLIB_FREE = ['stdlib.h', 'free()', '메모리 해제', '메모리 동적 할당 해제', '메모리 동적 할당 반환', '메모리 반환하기'];
+Blockly.Msg.TAG_STDLIB_EXIT = ['stdlib.h', 'exit(0)', 'exit(1)', '종료하기', '끄기', '끔', '끝', '끝내기'];
+
+Blockly.Msg.TAG_STRING_STRLEN = ['string.h', 'strlen()', 'string length', '스트링', '문자열 길이', '문자열 길이 구하기'];
+Blockly.Msg.TAG_STRING_STRCAT = ['string.h', 'strcat()', 'string concatenate', '스트링', '문자열 붙이기', '문자열연결', '문자열 연결하기'];
+Blockly.Msg.TAG_STRING_STRCPY = ['string.h', 'strcpy()', 'string copy', '스트링', '문자열복사', '문자열 복사하기'];
+Blockly.Msg.TAG_STRING_STRCMP = ['string.h', 'strcmp()', 'string compare', '스트링', '문자열비교', '문자열 비교하기'];
+
+Blockly.Msg.TAG_MATH_ABS = ['math.h', 'absolute value', '절댓값 구하기', '절대값 구하기'];
+Blockly.Msg.TAG_MATH_TRIG = ['math.h', 'trigonometric function', 'sin()', 'cos()', 'tan()', '삼각함수', '사인함수', '코사인함수', '탄젠트함수', '사인 함수', '코사인 함수', '탄젠트 함수'];
+Blockly.Msg.TAG_MATH_LOGS = ['math.h', 'log()', 'loge()', 'log10()', 'log2()', 'log e', '자연로그'];
+Blockly.Msg.TAG_MATH_POW = ['math.h', 'power', 'pow()', '제곱 구하기'];
+Blockly.Msg.TAG_MATH_EXP = ['math.h', 'exponential function', 'exp()', '지수함수'];
+Blockly.Msg.TAG_MATH_SQRT = ['math.h', 'sqrt()', 'square root', '제곱근'];
+Blockly.Msg.TAG_MATH_ROUND = ['math.h', 'round up', 'round down', 'round()', 'trunc()', 'ceil()', 'floor()', '반올림', '올림', '내림', '버림', '올리기', '내리기', '버리기'];
+Blockly.Msg.TAG_MATH_NUMCHECK = ['math.h', 'two number check', '두 수 확인하기'];
+Blockly.Msg.TAG_MATH_NUMCOMPARE = ['math.h', 'two number compare', '두 수 비교하기'];
+
+Blockly.Msg.TAG_TIME_CURRENT = ['time.h', '현재 시간 구하기'];
+Blockly.Msg.TAG_TIME_REQUIREDTIME = ['time.h', '다음을 실행하는 데 걸리는 시간'];
+
 Blockly.Msg.PROCEDURES_ILLEGALNAME = '적절하지 못한 함수 이름입니다.';
 Blockly.Msg.VARIABLES_ILLEGALNAME = '적절하지 못한 변수 이름입니다.';
 Blockly.Msg.STRUCTURE_ILLEGALNAME = '적절하지 못한 구조체 이름입니다.';
