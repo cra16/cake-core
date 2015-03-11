@@ -64,7 +64,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             {
                 var tempArgu1 = argument.split('[');
 
-                typeCode = Blockly.cake.varTypeCheckInPrint(tempArgu1[0]);
+                typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
 
                 if (typeCode == '') {
                     inQutCode += argument;
@@ -92,7 +92,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 if(childBlock.inputList[0].connection.targetBlock()){
                     argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
 
-                    typeCode = Blockly.cake.varTypeCheckInPrint(argument);
+                    typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
 
                     if (typeCode == '') {
                         inQutCode += argument;
@@ -125,7 +125,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             }
             else
             {
-                typeCode = Blockly.cake.varTypeCheckInPrint(argument);
+                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
 
                 if (typeCode == '') {
                     inQutCode += argument;
@@ -168,15 +168,75 @@ Blockly.cake['library_stdio_newLine'] = function() {
 };
 
 Blockly.cake['library_stdio_scanf'] = function(block) {
-    // Scan statement.
-    var argument0 = Blockly.cake.valueToCode(block, 'TEXT',
-            Blockly.cake.ORDER_NONE) || '\'\'';
+    // Scan statement
+    var argument = '';
+    var typeCode = '';
+    var inQutCode = '';
+    var outQutCode = '';
+    var code = '';
+
+    for (var n = 0; n <= block.scanAddCount_; n++) {
+        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
+            Blockly.cake.ORDER_NONE) || '';
+
+        var childConnection = block.inputList[n].connection;
+        var childBlock = block.inputList[n].connection.targetBlock();
+
+        if(childBlock){
+            var childBlockType = childBlock.type;
+
+            if (childBlockType == 'variables_array_get')
+            {
+                //var tempArgu1 = argument.split('[');
+                //
+                //typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
+                //
+                //if (typeCode == '%c') {
+                //    inQutCode += typeCode;
+                //    outQutCode += ', ' + argument;
+                //} else {
+                //    inQutCode += typeCode;
+                //    outQutCode += ', ' + argument;
+                //}
+            }
+            else if (childBlockType == 'variables_pointer_get')
+            {
+                //inQutCode += '%p';
+                //outQutCode += ', ' + argument;
+            }
+            else if (childBlockType == 'variables_pointer_&' ||
+                    childBlockType == 'variables_pointer_*')
+            {
+                if (childConnection.isSuperior()) {
+                    childConnection.targetBlock().setParent(null);
+                } else {
+                    childConnection.sourceBlock_.setParent(null);
+                }
+                // Bump away.
+                childConnection.sourceBlock_.bumpNeighbours_();
+            }
+            else // When 'variables_variable_get' block
+            {
+                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+
+                inQutCode += typeCode;
+                outQutCode += ', &' + argument;
+            }
+        }
+    } // for loop end
+
+    if (outQutCode == ''){
+        code = 'scanf(\"' + inQutCode + '\");';
+    } else {
+        code = 'scanf(\"' + inQutCode + '\"' + outQutCode + ');';
+    }
+
     Blockly.cake.definitions_['include_cake_stdio'] =
         '#include <stdio.h>';
-    return 'scanf(' + argument0 + ');\n';
+    return code + '\n';
 };
 
-Blockly.cake.varTypeCheckInPrint = function(varName) {
+Blockly.cake.varTypeCheckInPrintScan = function(varName) {
     var typeCode = '';
     var varList = Blockly.Variables.allVariables();
     for(var temp = 0 ; temp < varList.length ; temp++) {
