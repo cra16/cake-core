@@ -237,7 +237,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
         this.setColour(300);
         this.appendValueInput('VAR0')
             .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
-                'Array', 'Pointer', 'PTR_CHAR'])
+                'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
             .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
@@ -271,7 +271,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
         for (var x = 1; x <= this.scanAddCount_; x++) {
             this.appendValueInput('VAR' + x)
                 .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
-                    'Array', 'Pointer', 'PTR_CHAR'])
+                    'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
                 .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
 
         }
@@ -313,7 +313,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
                     this.scanAddCount_++;
                     var scanInput = this.appendValueInput('VAR' + this.scanAddCount_)
                         .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
-                            'Array', 'Pointer', 'PTR_CHAR'])
+                            'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
                         .appendField('');
                     // Reconnect any child blocks.
                     if (clauseBlock.valueConnection_) {

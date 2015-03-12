@@ -187,25 +187,29 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
 
             if (childBlockType == 'variables_array_get')
             {
-                //var tempArgu1 = argument.split('[');
-                //
-                //typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
-                //
-                //if (typeCode == '%c') {
-                //    inQutCode += typeCode;
-                //    outQutCode += ', ' + argument;
-                //} else {
-                //    inQutCode += typeCode;
-                //    outQutCode += ', ' + argument;
-                //}
+                var tempArgu1 = argument.split('[');
+
+                typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
+
+                if (typeCode == '%s') {
+                    inQutCode += typeCode;
+                    outQutCode += ', ' + argument;
+                } else {
+                    inQutCode += typeCode;
+                    outQutCode += ', &' + argument;
+                }
             }
             else if (childBlockType == 'variables_pointer_get')
             {
-                //inQutCode += '%p';
-                //outQutCode += ', ' + argument;
+                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+
+                if (typeCode == '%c'){
+                    typeCode = '%s';
+                }
+                inQutCode += typeCode;
+                outQutCode += ', ' + argument;
             }
-            else if (childBlockType == 'variables_pointer_&' ||
-                    childBlockType == 'variables_pointer_*')
+            else if (childBlockType == 'variables_pointer_&')
             {
                 if (childConnection.isSuperior()) {
                     childConnection.targetBlock().setParent(null);
@@ -214,6 +218,21 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
                 }
                 // Bump away.
                 childConnection.sourceBlock_.bumpNeighbours_();
+            }
+            else if (childBlockType == 'variables_pointer_*')
+            {
+                if(childBlock.inputList[0].connection.targetBlock()){
+                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+
+                    typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+
+                    if (typeCode == '') {
+                        inQutCode += argument;
+                    } else {
+                        inQutCode += typeCode;
+                        outQutCode += ', &*' + argument;
+                    }
+                }
             }
             else // When 'variables_variable_get' block
             {
@@ -252,6 +271,8 @@ Blockly.cake.varTypeCheckInPrintScan = function(varName) {
                 typeCode = '%f';
             } else if (type == 'char') {
                 typeCode = '%c';
+            } else if (type == 'dbchar') {
+                typeCode = '%s';
             }
             return typeCode;
         }
