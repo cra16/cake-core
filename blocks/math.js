@@ -185,9 +185,9 @@ Blockly.Blocks['library_math_logs'] = {
      */
     init: function() {
         var OPERATORS =
-            [['log', 'LOG'],
-                ['log10', 'LOG10'],
-                ['log2', 'LOG2']];
+            [[Blockly.Msg.MATH_TRIG_LOG, 'LOG'],
+                [Blockly.Msg.MATH_TRIG_LOG10, 'LOG10'],
+                [Blockly.Msg.MATH_TRIG_LOG2, 'LOG2']];
         this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');

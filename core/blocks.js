@@ -185,44 +185,85 @@ Blockly.Blocks.addTemplate = function(details) {
 The Function to set warning text and show it when the block 
 that must be in function is out of function.
 */
-Blockly.Blocks.requireInFunction = function() {
-    if (!this.workspace) {
-        // Block has been deleted.
-        return;
+Blockly.Blocks.requireInFunction = function(block) {
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent()) {
+            this.setWarningText(null);
+        } else {
+            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
-    if(this.getSurroundParent()) {
-        this.setWarningText(null);
-    } else {
-        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent()) {
+            block.setWarningText(null);
+        } else {
+            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
 };
 /*
 The Function to check if variable, array, #define, or pointer declare block's position is legal or illegal.
  */
-Blockly.Blocks.variablePlaceCheck = function() {
-    if (!this.workspace) {
-        // Block has been deleted.
-        return;
+Blockly.Blocks.variablePlaceCheck = function(block) {
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+            this.setWarningText(null);
+        } else if (this.getSurroundParent()) {
+            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+        } else {
+            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
-    if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-        this.setWarningText(null);
-    } else if(this.getSurroundParent()) {
-        this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
-    } else {
-        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
+            block.setWarningText(null);
+        } else if (block.getSurroundParent()) {
+            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+        } else {
+            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
 };
 
-Blockly.Blocks.requireOutFunction=function(){
-  if (!this.workspace) {
-    // Block has been deleted.
-    return;
-  }
-  if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-      this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
-  } else {
-      this.setWarningText(null);
-  }
+Blockly.Blocks.requireOutFunction=function(block){
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+        } else {
+            this.setWarningText(null);
+        }
+    }
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
+            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+        } else {
+            block.setWarningText(null);
+        }
+    }
 };
 
 Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
@@ -563,3 +604,9 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
 */    }
 };
 
+Blockly.Blocks.checkUnselect = function(content){
+    if(content == '___EC_84_A0_ED_83_9D__' || content == '--Select--' || content == '___ED_83_80_EC_9E_85__' || content == '--Type--'){
+        content = 'unselected';
+    }
+    return content;
+}

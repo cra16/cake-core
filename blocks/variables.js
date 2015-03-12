@@ -35,7 +35,7 @@ Blockly.Blocks['define_get'] = {
         this.setColour(160);
         this.appendDummyInput()
             .appendField(Blockly.Msg.DEFINE_GET_TITLE)
-            .appendField(new Blockly.FieldVariableDefine('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableDefine(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Macro');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -217,7 +217,7 @@ Blockly.Blocks['variables_get'] = {
         this.setColour(330);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-            .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Variable');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -272,7 +272,7 @@ Blockly.Blocks['variables_get'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
         var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
         this.setOutputType('VAR', varType);
@@ -293,7 +293,7 @@ Blockly.Blocks['variables_get'] = {
                 this.changeOutput(dist+'_DOUBLE');
                 break;
             case ("char"):
-                this.changeOutput(dist+'CHAR');
+                this.changeOutput(dist+'_CHAR');
                 break;
         }
     }
@@ -312,7 +312,7 @@ Blockly.Blocks['variables_set'] = {
             // TODO: Combine these messages instead of using concatenation.
             Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
             Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-            ['VAR', new Blockly.FieldVariable('--Select--', null, this)],
+            ['VAR', new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this)],
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
@@ -353,7 +353,7 @@ Blockly.Blocks['variables_set'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
         var type = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
@@ -464,7 +464,7 @@ Blockly.Blocks['variables_declare'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck();
+        Blockly.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
         if (type == false) {
             type = 'int';
@@ -487,7 +487,7 @@ Blockly.Blocks['variables_pointer_get'] = {
         this.setColour(45);
         this.appendDummyInput()
             .appendField(Blockly.Msg.POINTER_GET_TITLE)
-            .appendField(new Blockly.FieldVariablePointer('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariablePointer(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Pointer');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -542,7 +542,7 @@ Blockly.Blocks['variables_pointer_get'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         var varName = this.getFieldValue('VAR');
         var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
@@ -613,7 +613,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     //when the block is changed,
     onchange: //Blockly.Blocks.requireInFunction
         function() {
-            Blockly.Blocks.requireInFunction();
+            Blockly.Blocks.requireInFunction(this);
 
             if(this.getInput('VAR')) {
                 var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
@@ -731,7 +731,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck();
+        Blockly.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
 
         if (type == false) {
@@ -758,7 +758,7 @@ Blockly.Blocks['variables_array_get'] = {
 
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -849,8 +849,7 @@ Blockly.Blocks['variables_array_get'] = {
     },
     //when the block is changed,
     onchange: function() {
-
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         var arrName = this.getFieldValue('VAR');
         var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
@@ -871,7 +870,6 @@ Blockly.Blocks['variables_array_get'] = {
         }
     },
     setOutputType: Blockly.Blocks['variables_get'].setOutputType
-
 };
 
 Blockly.Blocks['variables_array_set'] = {
@@ -884,7 +882,7 @@ Blockly.Blocks['variables_array_set'] = {
         this.setColour(90);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -936,7 +934,7 @@ Blockly.Blocks['variables_array_set'] = {
     getInputIdxLength: Blockly.Blocks['variables_array_get'].getInputIdxLength,
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         if (this.getFieldValue('VAR')) {
             var option = this.getFieldValue('VAR');

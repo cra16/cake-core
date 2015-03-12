@@ -151,7 +151,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
 Blockly.cake['library_stdio_text'] = function(block) {
     // Text value.
     var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
-    if (block.getParent() && block.getParent().type == 'library_stdio_printf') {
+    if (block.getParent() && (block.getParent().type == 'library_stdio_printf' || block.getParent().type == 'define_declare')) {
         return [code, Blockly.cake.ORDER_ATOMIC];
     } else if (code.length == 1) {
         code = '\'' + code + '\'';

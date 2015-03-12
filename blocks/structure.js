@@ -335,7 +335,7 @@ Blockly.Blocks['structure_declare'] = {
             // TODO: Combine these messages instead of using concatenation.
             Blockly.Msg.STRUCTURE_DECLARE_TITLE + ' %1 ' +
             Blockly.Msg.STRUCTURE_DECLARE_TALE + ' %2',
-            ['TYPES', new Blockly.FieldStructure('-Type-', null)],
+            ['TYPES', new Blockly.FieldStructure(Blockly.Msg.SELECT_TYPE, null)],
             ['NAME', new Blockly.FieldTextInput(name, Blockly.Procedures.rename), Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
@@ -386,7 +386,7 @@ Blockly.Blocks['structure_get'] = {
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
             .appendField(Blockly.Msg.STRUCTURE_GET_MEMBER)
-            .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
+            .appendField(new Blockly.FieldStructureMember(Blockly.Msg.SELECT_MENU, null, this), 'Mem');
         this.setOutput(true);
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.tag = Blockly.Msg.TAG_STRUCTURE_GET;
@@ -448,7 +448,7 @@ Blockly.Blocks['structure_set'] = {
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
             .appendField(Blockly.Msg.STRUCTURE_SET_MEMBER)
-            .appendField(new Blockly.FieldStructureMember('--Select--', null, this), 'Mem');
+            .appendField(new Blockly.FieldStructureMember(Blockly.Msg.SELECT_MENU, null, this), 'Mem');
         this.appendValueInput('VALUE');
         this.setInputsInline(true);
         this.setPreviousStatement(true);

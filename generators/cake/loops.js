@@ -47,6 +47,9 @@ Blockly.cake['controls_for'] = function(block) {
   // For loop.
   var variable0 = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    if(variable0 == '___EC_84_A0_ED_83_9D__' || variable0 == '--Select--'){
+        variable0 = 'unselected';
+    }
   var argument0 = Blockly.cake.valueToCode(block, 'FROM',
     Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var argument1 = Blockly.cake.valueToCode(block, 'TO',
