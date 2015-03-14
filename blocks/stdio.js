@@ -10,7 +10,6 @@ Blockly.Blocks['library_stdio_printf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.appendValueInput('VAR0')
             .setCheck(null)
@@ -166,7 +165,6 @@ Blockly.Blocks['library_stdio_text'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
         this.setColour(160);
         this.appendDummyInput()
             .appendField(this.newQuote_(true))
@@ -215,7 +213,6 @@ Blockly.Blocks['library_stdio_newLine'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STDIO_NEWLINE_HELPURL);
         this.setColour(160);
         this.interpolateMsg(Blockly.Msg.STDIO_NEWLINE_TITLE,
             Blockly.ALIGN_RIGHT);
@@ -233,7 +230,6 @@ Blockly.Blocks['library_stdio_scanf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STDIO_SCANF_HELPURL);
         this.setColour(300);
         this.appendValueInput('VAR0')
             .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',

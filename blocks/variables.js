@@ -31,7 +31,6 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks['define_get'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(160);
         this.appendDummyInput()
             .appendField(Blockly.Msg.DEFINE_GET_TITLE)
@@ -100,7 +99,6 @@ Blockly.Blocks['define_declare'] = {
                 [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
                 [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
             ];*/
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(160);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME, this);
@@ -118,7 +116,7 @@ Blockly.Blocks['define_declare'] = {
 
         this.setPreviousStatement(true, ['define_declare']);
         this.setNextStatement(true, ['define_declare', 'main_block']);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'define_get';
         this.tag = Blockly.Msg.TAG_DEFINE_DECLARE;
@@ -213,7 +211,6 @@ Blockly.Blocks['variables_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(330);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
@@ -305,7 +302,6 @@ Blockly.Blocks['variables_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(330);
 
         this.interpolateMsg(
@@ -375,7 +371,6 @@ Blockly.Blocks['variables_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(330);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
@@ -392,7 +387,7 @@ Blockly.Blocks['variables_declare'] = {
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
@@ -483,7 +478,6 @@ Blockly.Blocks['variables_pointer_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(45);
         this.appendDummyInput()
             .appendField(Blockly.Msg.POINTER_GET_TITLE)
@@ -563,7 +557,6 @@ Blockly.Blocks['variables_pointer_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(45);
 
         this.interpolateMsg(
@@ -632,7 +625,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(45);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
@@ -651,7 +643,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
@@ -753,7 +745,6 @@ Blockly.Blocks['variables_array_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(90);
 
         this.appendDummyInput()
@@ -878,7 +869,6 @@ Blockly.Blocks['variables_array_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(90);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
@@ -963,7 +953,6 @@ Blockly.Blocks['variables_array_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(90);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
@@ -982,7 +971,7 @@ Blockly.Blocks['variables_array_declare'] = {
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_array_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;

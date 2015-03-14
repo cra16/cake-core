@@ -35,7 +35,6 @@ Blockly.Blocks['controls_if'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(210);
     this.appendValueInput('IF0')
       .setCheck(['Boolean', 'Number'])
@@ -281,7 +280,6 @@ Blockly.Blocks['logic_compare'] = {
       ['>', 'GT'],
       ['\u2265', 'GTE']
     ];
-    this.setHelpUrl(Blockly.Msg.LOGIC_COMPARE_HELPURL);
     this.setColour(210);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
@@ -319,7 +317,6 @@ Blockly.Blocks['logic_operation'] = {
         [Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
         [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']
       ];
-    this.setHelpUrl(Blockly.Msg.LOGIC_OPERATION_HELPURL);
     this.setColour(210);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A')
@@ -350,7 +347,6 @@ Blockly.Blocks['logic_negate'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LOGIC_NEGATE_HELPURL);
     this.setColour(210);
     this.setOutput(true, 'Boolean');
     this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number'], Blockly.ALIGN_RIGHT],
@@ -373,7 +369,6 @@ Blockly.Blocks['logic_boolean'] = {
         [Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
         [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']
       ];
-    this.setHelpUrl(Blockly.Msg.LOGIC_BOOLEAN_HELPURL);
     this.setColour(210);
     this.setOutput(true, 'Boolean');
     this.appendDummyInput()
@@ -391,7 +386,6 @@ Blockly.Blocks['logic_null'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LOGIC_NULL_HELPURL);
     this.setColour(210);
     this.setOutput(true);
     this.appendDummyInput()
@@ -409,7 +403,6 @@ Blockly.Blocks['logic_ternary'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LOGIC_TERNARY_HELPURL);
     this.setColour(210);
     this.appendValueInput('IF')
       .setCheck(['Boolean', 'Number'])
@@ -428,15 +421,18 @@ Blockly.Blocks['logic_ternary'] = {
 
 Blockly.Blocks['controls_switch'] = {
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_IF_HELPURL);
     this.setColour(210);
     this.appendValueInput('SWITCH')
       .appendField(Blockly.Msg.CONTROLS_SWITCH);
+      this.appendDummyInput()
+          .appendField(Blockly.Msg.CONTROLS_SWITCH_DEFAULT);
+      this.appendStatementInput('DEFAULT')
+          .appendField(Blockly.Msg.CONTROLS_SWITCH_DO);
     this.appendValueInput('CASE0')
-    .setCheck('Number')
+    .setCheck(['INT', 'Number'])
     .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);      
     this.appendStatementInput('DO0')
-      .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+      .appendField(Blockly.Msg.CONTROLS_SWITCH_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setMutator(new Blockly.Mutator(['controls_switch_case']));
@@ -445,13 +441,13 @@ Blockly.Blocks['controls_switch'] = {
       this.tag = Blockly.Msg.TAG_LOGIC_SWITCH;
     this.setTooltip(function() {
       if (!thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
+        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP1;
       } else if (!thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
+        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP2;
       } else if (thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
+        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP3;
       } else if (thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP4;
       }
       return '';
     });
@@ -583,19 +579,61 @@ Blockly.Blocks['controls_switch_switch'] = {
     this.appendStatementInput('STACK');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
+    this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
 Blockly.Blocks['controls_switch_case'] = {
-  init: function() {
-    this.setColour(210);
-    this.appendDummyInput()
-      .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
-    this.contextMenu = false;
-  }
+    init: function() {
+        this.setColour(210);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['controls_switch_break'] = {
+    /**
+     * Block for break in the switch block.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(210);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.CONTROLS_SWITCH_BREAK);
+        this.setPreviousStatement(true);
+        // Assign 'this' to a variable for use in the tooltip closure below.
+        this.tag = Blockly.Msg.TAG_LOOP_FLOW;
+        this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP);
+    },
+    /**
+     * Called whenever anything on the workspace changes.
+     * Add warning if this flow block is not nested inside a loop.
+     * @this Blockly.Block
+     */
+    onchange: function() {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        var legal = false;
+        // Is the block nested in a control statement?
+        var block = this;
+        do {
+            if (block.type == 'controls_switch') {
+                legal = true;
+                break;
+            }
+            block = block.getSurroundParent();
+        } while (block);
+        if (legal) {
+            this.setWarningText(null);
+        } else {
+            this.setWarningText(Blockly.Msg.CONTROLS_SWITCH_BREAK_WARNING);
+        }
+    }
 };

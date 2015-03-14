@@ -10,7 +10,6 @@ Blockly.Blocks['library_string_strlen'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRLEN_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STRING_STRLEN_TITLE,
@@ -30,7 +29,6 @@ Blockly.Blocks['library_string_strcat'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCAT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCAT_TITLE,
@@ -51,7 +49,6 @@ Blockly.Blocks['library_string_strcpy'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCPY_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCPY_TITLE,
@@ -72,7 +69,6 @@ Blockly.Blocks['library_string_strcmp'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCMP_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCMP_TITLE,

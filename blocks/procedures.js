@@ -31,7 +31,6 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks['main_block'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
         this.setColour(290);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
@@ -77,7 +76,6 @@ Blockly.Blocks['procedures_defnoreturn'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL);
     this.setColour(290);
     var name = Blockly.Procedures.findLegalName(
       Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
@@ -524,7 +522,6 @@ Blockly.Blocks['procedures_defreturn'] = {
             [Blockly.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
             [Blockly.Msg.VARIABLES_SET_DIST_ARRAY, 'array']
         ];
-        this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
         this.setColour(290);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
@@ -849,7 +846,6 @@ Blockly.Blocks['procedures_callnoreturn'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLNORETURN_HELPURL);
     this.setColour(290);
     this.appendDummyInput()
       .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
@@ -1132,7 +1128,6 @@ Blockly.Blocks['procedures_callreturn'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.PROCEDURES_CALLRETURN_HELPURL);
     this.setColour(290);
     this.appendDummyInput()
       .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
@@ -1210,7 +1205,6 @@ Blockly.Blocks['procedures_ifreturn'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
     this.setColour(290);
     this.appendValueInput('CONDITION')
       .setCheck('Boolean')

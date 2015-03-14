@@ -13,13 +13,12 @@ Blockly.Blocks['library_time_current'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRLEN_HELPURL);
         this.setColour(300);
         this.interpolateMsg(Blockly.Msg.TIME_TIME_CURRENT_TITLE,
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRING_STRLEN_HELPURL);
+        this.setTooltip(Blockly.Msg.TIME_CURRENT_TOOLTIP);
         this.tag = Blockly.Msg.TAG_TIME_CURRENT;
     },
     getScope: function(){
@@ -52,7 +51,6 @@ Blockly.Blocks['library_time_requiredTime'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCAT_HELPURL);
         this.setColour(300);
         this.interpolateMsg(Blockly.Msg.TIME_REQUIREDTIME_TITLE,
             Blockly.ALIGN_RIGHT);
@@ -63,7 +61,7 @@ Blockly.Blocks['library_time_requiredTime'] = {
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setInputsInline(true);
-        this.setTooltip(Blockly.Msg.STRING_STRCAT_HELPURL);
+        this.setTooltip(Blockly.Msg.TIME_REQUIREDTIME_TOOLTIP);
         this.tag = Blockly.Msg.TAG_TIME_REQUIREDTIME;
     },
     getScope: function(){

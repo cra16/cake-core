@@ -35,7 +35,6 @@ Blockly.Blocks['text'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_TEXT_HELPURL);
     this.setColour(160);
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput(''), 'TEXT');
@@ -65,7 +64,6 @@ Blockly.Blocks['text_join'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_JOIN_HELPURL);
     this.setColour(160);
     this.appendValueInput('ADD0')
         .appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
@@ -221,7 +219,6 @@ Blockly.Blocks['text_append'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_APPEND_HELPURL);
     this.setColour(160);
     this.appendValueInput('TEXT')
         .appendField(Blockly.Msg.TEXT_APPEND_TO)
@@ -265,7 +262,6 @@ Blockly.Blocks['text_length'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_LENGTH_HELPURL);
     this.setColour(160);
     this.interpolateMsg(Blockly.Msg.TEXT_LENGTH_TITLE,
                         ['VALUE', ['String', 'Array'], Blockly.ALIGN_RIGHT],
@@ -281,7 +277,6 @@ Blockly.Blocks['text_isEmpty'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_ISEMPTY_HELPURL);
     this.setColour(160);
     this.interpolateMsg(Blockly.Msg.TEXT_ISEMPTY_TITLE,
                         ['VALUE', ['String', 'Array'], Blockly.ALIGN_RIGHT],
@@ -300,7 +295,6 @@ Blockly.Blocks['text_indexOf'] = {
     var OPERATORS =
         [[Blockly.Msg.TEXT_INDEXOF_OPERATOR_FIRST, 'FIRST'],
          [Blockly.Msg.TEXT_INDEXOF_OPERATOR_LAST, 'LAST']];
-    this.setHelpUrl(Blockly.Msg.TEXT_INDEXOF_HELPURL);
     this.setColour(160);
     this.setOutput(true, 'Number');
     this.appendValueInput('VALUE')
@@ -329,7 +323,6 @@ Blockly.Blocks['text_charAt'] = {
          [Blockly.Msg.TEXT_CHARAT_FIRST, 'FIRST'],
          [Blockly.Msg.TEXT_CHARAT_LAST, 'LAST'],
          [Blockly.Msg.TEXT_CHARAT_RANDOM, 'RANDOM']];
-    this.setHelpUrl(Blockly.Msg.TEXT_CHARAT_HELPURL);
     this.setColour(160);
     this.setOutput(true, 'String');
     this.appendValueInput('VALUE')
@@ -417,7 +410,6 @@ Blockly.Blocks['text_getSubstring'] = {
         [[Blockly.Msg.TEXT_GET_SUBSTRING_END_FROM_START, 'FROM_START'],
          [Blockly.Msg.TEXT_GET_SUBSTRING_END_FROM_END, 'FROM_END'],
          [Blockly.Msg.TEXT_GET_SUBSTRING_END_LAST, 'LAST']];
-    this.setHelpUrl(Blockly.Msg.TEXT_GET_SUBSTRING_HELPURL);
     this.setColour(160);
     this.appendValueInput('STRING')
         .setCheck('String')
@@ -518,7 +510,6 @@ Blockly.Blocks['text_changeCase'] = {
         [[Blockly.Msg.TEXT_CHANGECASE_OPERATOR_UPPERCASE, 'UPPERCASE'],
          [Blockly.Msg.TEXT_CHANGECASE_OPERATOR_LOWERCASE, 'LOWERCASE'],
          [Blockly.Msg.TEXT_CHANGECASE_OPERATOR_TITLECASE, 'TITLECASE']];
-    this.setHelpUrl(Blockly.Msg.TEXT_CHANGECASE_HELPURL);
     this.setColour(160);
     this.appendValueInput('TEXT')
         .setCheck('String')
@@ -538,7 +529,6 @@ Blockly.Blocks['text_trim'] = {
         [[Blockly.Msg.TEXT_TRIM_OPERATOR_BOTH, 'BOTH'],
          [Blockly.Msg.TEXT_TRIM_OPERATOR_LEFT, 'LEFT'],
          [Blockly.Msg.TEXT_TRIM_OPERATOR_RIGHT, 'RIGHT']];
-    this.setHelpUrl(Blockly.Msg.TEXT_TRIM_HELPURL);
     this.setColour(160);
     this.appendValueInput('TEXT')
         .setCheck('String')
@@ -554,7 +544,6 @@ Blockly.Blocks['text_print'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
     this.setColour(160);
     this.interpolateMsg(Blockly.Msg.TEXT_PRINT_TITLE,
                         ['TEXT', null, Blockly.ALIGN_RIGHT],
@@ -576,7 +565,6 @@ Blockly.Blocks['text_prompt'] = {
          [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
     // Assign 'this' to a variable for use in the closure below.
     var thisBlock = this;
-    this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
     this.setColour(160);
     var dropdown = new Blockly.FieldDropdown(TYPES, function(newOp) {
       if (newOp == 'NUMBER') {
@@ -613,7 +601,6 @@ Blockly.Blocks['text_prompt_ext'] = {
          [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
     // Assign 'this' to a variable for use in the closure below.
     var thisBlock = this;
-    this.setHelpUrl(Blockly.Msg.TEXT_PROMPT_HELPURL);
     this.setColour(160);
     var dropdown = new Blockly.FieldDropdown(TYPES, function(newOp) {
       if (newOp == 'NUMBER') {

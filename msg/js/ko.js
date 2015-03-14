@@ -66,6 +66,8 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL = "다음까지 반복";
 Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE = "동안 반복";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL = "값이 거짓일 때, 몇가지 선언을 합니다.";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE = "값이 참일 때, 몇가지 선언을 합니다.";
+
+
 Blockly.Msg.DELETE_BLOCK = "블록 삭제";
 Blockly.Msg.DELETE_X_BLOCKS = "블록 %1 삭제";
 Blockly.Msg.DISABLE_BLOCK = "블록 비활성화";
@@ -278,10 +280,10 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "func";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수이름";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수를 만듭니다.";
+Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수인 void형 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "다음 값을 돌려줌";
-Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다.";
+Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다. 돌려주는 결과값은 여러 타입으로 지정할 수 있습니다.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "경고: 이 함수에는, 같은 이름을 사용하는 매개 변수들이 있습니다.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "함수 정의 찾기";
 Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = "값이 참이라면, 두번째 값을 반환합니다.";
@@ -289,7 +291,7 @@ Blockly.Msg.PROCEDURES_IFRETURN_WARNING = "경고: 이 블럭은, 함수 정의 
 Blockly.Msg.PROCEDURES_MUTATORARG_TITLE = "매개 변수:";
 Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP = "함수에 값을 더합니다.";
 Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE = "매개 변수들";
-Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP = "이 함수를 추가, 삭제, 혹은 재정렬합니다.";
+Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP = "이 매개 변수들을 추가, 삭제, 혹은 재정렬합니다.";
 Blockly.Msg.REMOVE_COMMENT = "내용 제거";
 Blockly.Msg.RENAME_VARIABLE = "변수 이름 바꾸기:";
 Blockly.Msg.RENAME_VARIABLE_TITLE = "'%1' 변수 이름을 바꾸기:";
@@ -612,3 +614,28 @@ Blockly.Msg.TAG_TIME_REQUIREDTIME = ['time.h', '다음을 실행하는 데 걸�
 Blockly.Msg.PROCEDURES_ILLEGALNAME = '적절하지 못한 함수 이름입니다.';
 Blockly.Msg.VARIABLES_ILLEGALNAME = '적절하지 못한 변수 이름입니다.';
 Blockly.Msg.STRUCTURE_ILLEGALNAME = '적절하지 못한 구조체 이름입니다.';
+
+Blockly.Msg.CONTROLS_SWITCH_BREAK_WARNING = "경고 : 이 블록은 스위치 실행 블럭 안에서만 사용됩니다.";
+Blockly.Msg.CONTROLS_SWITCH_BREAK = '중단';
+Blockly.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP = '실행을 중단하고 switch문 밖으로 이동합니다.';
+Blockly.Msg.CONTROLS_SWITCH_DEFAULT = '일치하는 값이 없을 경우';
+Blockly.Msg.CONTROLS_SWITCH_DO = "하기";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP1 = "대입된 값이 일치하는 값이 없으면 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP2 = "대입된 값이 일치하는 값이 없으면 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, 세번째 값과 일치하는 경우, 세번째 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP3 = "대입된 값이 첫번째 값과 일치하는 경우, 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, .... , 마지막 값과 일치하는 경우, 마지막 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP4 = "대입된 값이 첫번째 값과 일치하는 경우, 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, .... , 마지막 값과 일치하는 경우, 마지막 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP = "경우를 추가합니다."
+
+Blockly.Msg.MAINPROCEDURES_TOOLTIP = "기본적으로 제공되는 main 함수 블럭입니다. 정수형 값을 리턴합니다.";
+
+Blockly.Msg.STRUCTURE_DEFINE_TOOPTIP = "구조체를 정의합니다. 구조체의 멤버들을 추가/제거/이름변경 할 수 있습니다. 실제로 구조체를 사용하기 위한 필수과정입니다."
+Blockly.Msg.STRUCTURE_DECLARE_TOOPTIP = "이미 정의된 구조체를 선택하여 구조체를 선언합니다(변수 선언과 유사한 과정입니다.). 실제로 구조체를 사용하기 위한 필수과정입니다."
+Blockly.Msg.STRUCTURE_GET_TOOLTIP = "구조체의 멤버 혹은 자기 자신의 값을 사용합니다.";
+Blockly.Msg.STRUCTURE_SET_TOOLTIP = "구조체의 멤버 혹은 자기 자신에게 대입(assignment)합니다.";
+Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP = "이 멤버들을 추가, 삭제, 혹은 재정렬합니다.";
+Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP = "구조체의 멤버를 추가합니다."
+
+Blockly.Msg.TIME_CURRENT_TOOLTIP = "현재 시간을 \"0000(년)-00(월)-00(일)-00(시)-00(분)-00(초)\"의 형태로 출력합니다.";
+Blockly.Msg.TIME_REQUIREDTIME_TOOLTIP = "다음을 실행하는데 걸린 시간을 실수형 변수에 저장합니다.";
+
+Blockly.Msg.VARIABLES_DECLARE_TOOLTIP = "변수를 선언합니다.";

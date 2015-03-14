@@ -31,7 +31,6 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks['structure_define'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL);
         this.setColour(370);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.STRUCTURE_DEFINE_NAME, this);
@@ -41,7 +40,7 @@ Blockly.Blocks['structure_define'] = {
                 Blockly.Procedures.rename), 'NAME')
             .appendField('', 'PARAMS');
         this.setMutator(new Blockly.Mutator(['structure_mutatormem', 'structure_mutatormem_pointer', 'structure_mutatormem_array']));
-        this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_DEFINE_TOOPTIP);
         this.members_ = [];
         this.types_ = [];
         this.dist_ = [];
@@ -327,7 +326,6 @@ Blockly.Blocks['structure_declare'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(370);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.STRUCTURE_DECLARE_NAME, this);
@@ -340,7 +338,7 @@ Blockly.Blocks['structure_declare'] = {
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_DECLARE_TOOPTIP);
         this.tag = Blockly.Msg.TAG_STRUCTURE_DECLARE;
         // this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         // this.contextMenuType_ = 'variables_pointer_get';
@@ -381,14 +379,13 @@ Blockly.Blocks['structure_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(370);
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
             .appendField(Blockly.Msg.STRUCTURE_GET_MEMBER)
             .appendField(new Blockly.FieldStructureMember(Blockly.Msg.SELECT_MENU, null, this), 'Mem');
         this.setOutput(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_GET_TOOLTIP);
         this.tag = Blockly.Msg.TAG_STRUCTURE_GET;
     },
 
@@ -443,7 +440,6 @@ Blockly.Blocks['structure_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(370);
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
@@ -453,7 +449,7 @@ Blockly.Blocks['structure_set'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_SET_TOOLTIP);
         this.tag = Blockly.Msg.TAG_STRUCTURE_SET;
     },
 
@@ -512,7 +508,7 @@ Blockly.Blocks['structure_mutatorcontainer'] = {
         this.appendDummyInput()
             .appendField(Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE);
         this.appendStatementInput('STACK');
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP);
         this.contextMenu = false;
     }
 };
@@ -538,7 +534,7 @@ Blockly.Blocks['structure_mutatormem'] = {
             .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -586,7 +582,7 @@ Blockly.Blocks['structure_mutatormem_array'] = {
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -640,7 +636,7 @@ Blockly.Blocks['structure_mutatormem_pointer'] = {
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**

@@ -35,7 +35,6 @@ Blockly.Blocks['math_number'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
     this.setColour(230);
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput('0',
@@ -79,7 +78,6 @@ Blockly.Blocks['math_arithmetic'] = {
          [Blockly.Msg.MATH_SUBTRACTION_SYMBOL, 'MINUS'],
          [Blockly.Msg.MATH_MULTIPLICATION_SYMBOL, 'MULTIPLY'],
          [Blockly.Msg.MATH_DIVISION_SYMBOL, 'DIVIDE']];
-    this.setHelpUrl(Blockly.Msg.MATH_ARITHMETIC_HELPURL);
     this.setColour(230);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
@@ -112,7 +110,6 @@ Blockly.Blocks['math_modulo'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.MATH_MODULO_HELPURL);
     this.setColour(230);
     this.setOutput(true, 'Number');
     this.interpolateMsg(Blockly.Msg.MATH_MODULO_TITLE,
@@ -131,7 +128,6 @@ Blockly.Blocks['math_modulo'] = {
 
 Blockly.Blocks['library_math_abs'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
@@ -155,7 +151,6 @@ Blockly.Blocks['library_math_trig'] = {
             [[Blockly.Msg.MATH_TRIG_SIN, 'SIN'],
                 [Blockly.Msg.MATH_TRIG_COS, 'COS'],
                 [Blockly.Msg.MATH_TRIG_TAN, 'TAN']];
-        this.setHelpUrl(Blockly.Msg.MATH_TRIG_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
@@ -188,7 +183,6 @@ Blockly.Blocks['library_math_logs'] = {
             [[Blockly.Msg.MATH_TRIG_LOG, 'LOG'],
                 [Blockly.Msg.MATH_TRIG_LOG10, 'LOG10'],
                 [Blockly.Msg.MATH_TRIG_LOG2, 'LOG2']];
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
@@ -213,7 +207,6 @@ Blockly.Blocks['library_math_logs'] = {
 
 Blockly.Blocks['library_math_pow'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
@@ -230,7 +223,6 @@ Blockly.Blocks['library_math_pow'] = {
 
 Blockly.Blocks['library_math_exp'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
@@ -246,7 +238,6 @@ Blockly.Blocks['library_math_exp'] = {
 
 Blockly.Blocks['library_math_sqrt'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
@@ -271,7 +262,6 @@ Blockly.Blocks['library_math_round'] = {
                 [Blockly.Msg.MATH_ROUND_OPERATOR_CEIL, 'CEIL'],
                 [Blockly.Msg.MATH_ROUND_OPERATOR_FLOOR, 'FLOOR'],
                 [Blockly.Msg.MATH_ROUND_OPERATOR_TRUNC, 'TRUNC']];
-        this.setHelpUrl(Blockly.Msg.MATH_ROUND_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
@@ -293,7 +283,6 @@ Blockly.Blocks['library_math_numcheck'] = {
                 [Blockly.Msg.MATH_NUMCHECK_SIGNBIT, 'SIGNBIT'],
                 [Blockly.Msg.MATH_NUMCHECK_ISNAN, 'ISNAN']
             ];
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Boolean');
         this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
@@ -319,7 +308,6 @@ Blockly.Blocks['library_math_numcompare'] = {
                 [Blockly.Msg.MATH_NUMCOMPARE_ISLEGR, 'ISLEGR'],
                 [Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER, 'ISUNORDER']
             ];
-        this.setHelpUrl(Blockly.Msg.TEXT_PRINT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Boolean');
         this.interpolateMsg(Blockly.Msg.MATH_NUMCOMPARE_TITLE,
