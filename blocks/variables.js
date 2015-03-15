@@ -1112,7 +1112,7 @@ Blockly.Blocks['variables_pointer_*'] = {
         this.setColour(45);
         this.interpolateMsg(
             '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
-                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array'], Blockly.ALIGN_RIGHT],
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Aster');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
@@ -1122,10 +1122,31 @@ Blockly.Blocks['variables_pointer_*'] = {
         if (this.getInputTargetBlock('VALUE'))
         {
             var nextblock = this.getInputTargetBlock('VALUE');
-            var varName = nextblock.getVars();
-            var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
-            if (nextblock.type.search('variables') == 0) {
+
+             // ** variables
+             if (nextblock.type.search('variables_pointer_*') == 0) {
+                 if (nextblock.getInputTargetBlock('VALUE')) {
+                     nextblock = nextblock.getInputTargetBlock('VALUE');
+                     // DOUBLE POINTER
+                     if (nextblock.type.search('variables') == 0) {
+                         if (nextblock.type.search('pointer') > 0) {
+                             var varName = nextblock.getVars();
+                             var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+                             var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+                             // **DOUBLE POINTER -> Variable
+                             if (dimension == '**') {
+                                 this.setOutputType('VAR', varType);
+                             }
+                         }
+                     }
+                 }
+            }
+
+            // * variables
+            else if (nextblock.type.search('variables') == 0) {
+                var varName = nextblock.getVars();
+                var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
                 // POINTER
                 if (nextblock.type.search('pointer') > 0) {
@@ -1151,6 +1172,7 @@ Blockly.Blocks['variables_pointer_*'] = {
                 }
 
             }
+
         }
 
     },
