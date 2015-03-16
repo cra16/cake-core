@@ -64,7 +64,7 @@ Blockly.Blocks['main_block'] = {
   getParamInfo: function() {
       var paramList = [
        ['int', 'v', 'argc', 'Main', this.getRelativeToSurfaceXY().y, null],
-       ['char', 'p', 'argv', 'Main', this.getRelativeToSurfaceXY().y, '***']
+       ['dbchar', 'p', 'argv', 'Main', this.getRelativeToSurfaceXY().y, '***']
      ];
       return paramList;
   }

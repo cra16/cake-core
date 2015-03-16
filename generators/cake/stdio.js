@@ -92,13 +92,24 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 if(childBlock.inputList[0].connection.targetBlock()){
                     argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
 
-                    typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+                    if(argument.indexOf('*') >= 0 && childBlock.inputList[0].connection.targetBlock().inputList[0].connection.targetBlock()){ // when double pointer
+                        var astChild = Blockly.cake.valueToCode(childBlock.inputList[0].connection.targetBlock(), 'VALUE', Blockly.cake.ORDER_NONE) || '';
 
-                    if (typeCode == '') {
-                        inQutCode += argument;
-                    } else {
-                        inQutCode += typeCode;
-                        outQutCode += ', *' + argument;
+                        typeCode = Blockly.cake.pointerTypeCheckInPrint(astChild, true);
+                        if (typeCode == '') {
+                            inQutCode += astChild;
+                        } else {
+                            inQutCode += typeCode;
+                            outQutCode += ', **' + astChild;
+                        }
+                    } else { // when single pointer(*) or normal pointer block
+                        typeCode = Blockly.cake.pointerTypeCheckInPrint(argument, false);
+                        if (typeCode == '') {
+                            inQutCode += argument;
+                        } else {
+                            inQutCode += typeCode;
+                            outQutCode += ', *' + argument;
+                        }
                     }
                 }
             }
@@ -255,7 +266,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
     return code + '\n';
 };
 
-Blockly.cake.varTypeCheckInPrintScan = function(varName) {
+Blockly.cake.varTypeCheckInPrintScan = function(varName) { // variable type check
     var typeCode = '';
     var varList = Blockly.Variables.allVariables();
 
@@ -279,6 +290,59 @@ Blockly.cake.varTypeCheckInPrintScan = function(varName) {
         }
     }
     return typeCode;
+};
+
+Blockly.cake.pointerTypeCheckInPrint = function(varName, checkDoubleAst) { // pointer type check
+    var typeCode = '';
+    var varList = Blockly.Variables.allVariables();
+
+    if (checkDoubleAst == true){ // double pointer
+        for(var temp = 0 ; temp < varList.length ; temp++) {
+            if (varName == varList[temp][2]) {
+                var type = varList[temp][0];
+                if (type == 'dbint') {
+                    typeCode = '%d';
+                } else if (type == 'dbunsigned int') {
+                    typeCode = '%u';
+                } else if (type == 'dbfloat') {
+                    typeCode = '%f';
+                } else if (type == 'dbdouble') {
+                    typeCode = '%f';
+                } else if (type == 'dbchar') {
+                    typeCode = '%c';
+                }
+                return typeCode;
+            }
+        }
+        return typeCode;
+    } else { // single pointer(*) or normal pointer block
+        for (var temp = 0; temp < varList.length; temp++) {
+            if (varName == varList[temp][2]) {
+                var type = varList[temp][0];
+                if (varList[temp][5] == '*') {
+                    if (type == 'int') {
+                        typeCode = '%d';
+                    } else if (type == 'unsigned int') {
+                        typeCode = '%u';
+                    } else if (type == 'float') {
+                        typeCode = '%f';
+                    } else if (type == 'double') {
+                        typeCode = '%f';
+                    } else if (type == 'char') {
+                        typeCode = '%c';
+                    }
+                    return typeCode;
+                } else {
+                    if (type == 'dbchar') {
+                        typeCode = '%s';
+                    } else {
+                        typeCode = '%p';
+                    }
+                    return typeCode;
+                }
+            }
+        }
+    }
 };
 
 Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
