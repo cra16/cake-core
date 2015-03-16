@@ -17,7 +17,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             Blockly.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
-        var childBlock = block.inputList[n].connection.targetBlock();
+        var childBlock = childConnection.targetBlock();
 
         if(childBlock){
             var childBlockType = childBlock.type;
@@ -180,7 +180,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             Blockly.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
-        var childBlock = block.inputList[n].connection.targetBlock();
+        var childBlock = childConnection.targetBlock();
 
         if(childBlock){
             var childBlockType = childBlock.type;
@@ -189,7 +189,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             {
                 var tempArgu1 = argument.split('[');
 
-                typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
+                typeCode = Blockly.cake.arrTypeCheckInScan(tempArgu1[0], childConnection);
 
                 if (typeCode == '%s') {
                     inQutCode += typeCode;
@@ -258,6 +258,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
 Blockly.cake.varTypeCheckInPrintScan = function(varName) {
     var typeCode = '';
     var varList = Blockly.Variables.allVariables();
+
     for(var temp = 0 ; temp < varList.length ; temp++) {
         if (varName == varList[temp][2]) {
             var type = varList[temp][0];
@@ -275,6 +276,53 @@ Blockly.cake.varTypeCheckInPrintScan = function(varName) {
                 typeCode = '%s';
             }
             return typeCode;
+        }
+    }
+    return typeCode;
+};
+
+Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
+    var typeCode = '';
+    var childBlock = childConnection.targetBlock();
+    var arrList = Blockly.Blocks.getWantedBlockArray('a');
+
+    for(var temp = 0 ; temp < arrList.length ; temp++) {
+        var option = arrList[temp][2];
+        var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
+
+        var arrIdxLength = arrList[temp][5][0];
+        var inputLength = childBlock.getInputIdxLength();
+
+        // type: variable
+        if (arrIdxLength == inputLength) {
+            if (type == 'int') {
+                typeCode = '%d';
+            } else if (type == 'unsigned int') {
+                typeCode = '%u';
+            } else if (type == 'float') {
+                typeCode = '%f';
+            } else if (type == 'double') {
+                typeCode = '%f';
+            } else if (type == 'char') {
+                typeCode = '%c';
+            } else if (type == 'dbchar') {
+                typeCode = '%s';
+            }
+            return typeCode;
+        }
+        // type: pointer
+        else if ((arrIdxLength > inputLength) && (arrList[temp][0] == 'char')) {
+            typeCode = '%s';
+            return typeCode;
+        }
+        else {
+            if (childConnection.isSuperior()) {
+                childConnection.targetBlock().setParent(null);
+            } else {
+                childConnection.sourceBlock_.setParent(null);
+            }
+            // Bump away.
+            childConnection.sourceBlock_.bumpNeighbours_();
         }
     }
     return typeCode;
