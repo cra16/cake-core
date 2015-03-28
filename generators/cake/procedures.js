@@ -46,6 +46,9 @@ Blockly.cake['main_block'] = function(block) {
   if (returnValue) {
     returnValue = '  return ' + returnValue + ';\n';
   }
+    else {
+      returnValue = '  return 0;\n';
+  }
   var args = [];
   var argTypes = [];
   var typePlusArgs = [];
@@ -91,6 +94,16 @@ Blockly.cake['main_block'] = function(block) {
   return null;
 };
 
+Blockly.cake['procedures_return'] = function(block) {
+    var returnValue = block.getFieldValue('VALUE');
+    if(returnValue){
+        return 'return ' + returnValue + ';\n';
+    }
+    else {
+        return 'return 0;\n';
+    }
+};
+
 Blockly.cake['procedures_defreturn'] = function(block) {
   // Define a procedure with a return value.
   var funcName = Blockly.cake.variableDB_.getName(
@@ -109,6 +122,9 @@ Blockly.cake['procedures_defreturn'] = function(block) {
       Blockly.cake.ORDER_NONE) || '';
   if (returnValue) {
     returnValue = '  return ' + returnValue + ';\n';
+  }
+    else {
+      returnValue = '  return 0;\n';
   }
   var typePlusArgs = Blockly.Procedures.getTypePlusArgs(block);
 
@@ -256,19 +272,19 @@ Blockly.cake['procedures_callnoreturn'] = function(block) {
   var code = funcName + '(' + args.join(', ') + ');\n';
   return code;
 };
-
-Blockly.cake['procedures_ifreturn'] = function(block) {
-  // Conditionally return value from a procedure.
-  var condition = Blockly.cake.valueToCode(block, 'CONDITION',
-      Blockly.cake.ORDER_NONE) || 'false';
-  var code = 'if (' + condition + ') {\n';
-  if (block.hasReturnValue_) {
-    var value = Blockly.cake.valueToCode(block, 'VALUE',
-        Blockly.cake.ORDER_NONE) || 'null';
-    code += '  return ' + value + ';\n';
-  } else {
-    code += '  return;\n';
-  }
-  code += '}\n';
-  return code;
-};
+//
+//Blockly.cake['procedures_ifreturn'] = function(block) {
+//  // Conditionally return value from a procedure.
+//  var condition = Blockly.cake.valueToCode(block, 'CONDITION',
+//      Blockly.cake.ORDER_NONE) || 'false';
+//  var code = 'if (' + condition + ') {\n';
+//  if (block.hasReturnValue_) {
+//    var value = Blockly.cake.valueToCode(block, 'VALUE',
+//        Blockly.cake.ORDER_NONE) || 'null';
+//    code += '  return ' + value + ';\n';
+//  } else {
+//    code += '  return;\n';
+//  }
+//  code += '}\n';
+//  return code;
+//};
