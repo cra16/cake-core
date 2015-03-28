@@ -71,6 +71,80 @@ Blockly.Blocks['main_block'] = {
   }
 };
 
+Blockly.Blocks['procedures_return'] = {
+    /**
+     * Block for return in function block.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(290);
+        this.appendValueInput('VALUE')
+            .appendField(Blockly.Msg.PROCEDURES_RETURN_TITLE);
+        this.setTooltip(Blockly.Msg.PROCEDURES_RETURN_TOOLTIP);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+    },
+    getType : function() {
+        var block = this;
+        var typeConfig = false;
+        while(block.getSurroundParent()){
+            block = this.getSurroundParent();
+            if(block.type == 'main_block' || block.type == 'procedures_defreturn'){
+                typeConfig = true;
+                break;
+            }
+        }
+        if(typeConfig && block.type =='main_block'){
+            return 'int';
+        }
+        else if(typeConfig && block.type == 'procedures_defreturn') {
+            return block.getType();
+        }
+    },
+
+    onchange: function() {
+        Blockly.Blocks.requireInFunction();
+
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+
+        var block = this;
+        var typeConfig = false;
+        while(block.getSurroundParent()){
+            block = this.getSurroundParent();
+            if(block.type == 'main_block' || block.type == 'procedures_defnoreturn' || block.type == 'procedures_defreturn'){
+                typeConfig = true;
+                break;
+            }
+        }
+        if(typeConfig && block.type =='main_block'){
+            Blockly.Blocks.setCheckVariable(block, 'int', 'RETURN');
+        }
+        else if(typeConfig && (block.type == 'procedures_defnoreturn' || block.type == 'procedures_defreturn')) {
+            block.updateShape();
+
+            var dist = block.getFieldValue('DISTS');
+            var type = block.getFieldValue('TYPES');
+            if (dist == 'array') {
+                dist = 'variable';
+                //dist = 'pointer';
+            }
+
+            // variable
+            if (dist == 'variable') {
+                Blockly.Blocks.setCheckVariable(block, type, 'RETURN');
+            }
+            // pointer
+            else {
+                Blockly.Blocks.setCheckPointer(block, type, 'RETURN');
+            }
+        }
+    }
+
+};
+
 Blockly.Blocks['procedures_defnoreturn'] = {
   /**
    * Block for defining a procedure with no return value.
@@ -1204,87 +1278,87 @@ Blockly.Blocks['procedures_callreturn'] = {
     }
 };
 
-Blockly.Blocks['procedures_ifreturn'] = {
-  /**
-   * Block for conditionally returning a value from a procedure.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
-    this.setColour(290);
-    this.appendValueInput('CONDITION')
-      .setCheck('Boolean')
-      .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
-    this.appendValueInput('VALUE')
-      .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
-    this.setInputsInline(true);
-    this.setPreviousStatement(true);
-    this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP);
-    this.hasReturnValue_ = true;
-  },
-  /**
-   * Create XML to represent whether this block has a return value.
-   * @return {Element} XML storage element.
-   * @this Blockly.Block
-   */
-  mutationToDom: function() {
-    var container = document.createElement('mutation');
-    container.setAttribute('value', Number(this.hasReturnValue_));
-    return container;
-  },
-  /**
-   * Parse XML to restore whether this block has a return value.
-   * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
-   */
-  domToMutation: function(xmlElement) {
-    var value = xmlElement.getAttribute('value');
-    this.hasReturnValue_ = (value == 1);
-    if (!this.hasReturnValue_) {
-      this.removeInput('VALUE');
-      this.appendDummyInput('VALUE')
-        .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
-    }
-  },
-  /**
-   * Called whenever anything on the workspace changes.
-   * Add warning if this flow block is not nested inside a loop.
-   * @this Blockly.Block
-   */
-  onchange: function() {
-    if (!this.workspace) {
-      // Block has been deleted.
-      return;
-    }
-    var legal = false;
-    // Is the block nested in a procedure?
-    var block = this;
-    do {
-      if (block.type == 'procedures_defnoreturn' ||
-        block.type == 'procedures_defreturn') {
-        legal = true;
-        break;
-      }
-      block = block.getSurroundParent();
-    } while (block);
-    if (legal) {
-      // If needed, toggle whether this block has a return value.
-      if (block.type == 'procedures_defnoreturn' && this.hasReturnValue_) {
-        this.removeInput('VALUE');
-        this.appendDummyInput('VALUE')
-          .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
-        this.hasReturnValue_ = false;
-      } else if (block.type == 'procedures_defreturn' &&
-        !this.hasReturnValue_) {
-        this.removeInput('VALUE');
-        this.appendValueInput('VALUE')
-          .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
-        this.hasReturnValue_ = true;
-      }
-      this.setWarningText(null);
-    } else {
-      this.setWarningText(Blockly.Msg.PROCEDURES_IFRETURN_WARNING);
-    }
-  }
-};
+//Blockly.Blocks['procedures_ifreturn'] = {
+//  /**
+//   * Block for conditionally returning a value from a procedure.
+//   * @this Blockly.Block
+//   */
+//  init: function() {
+//    this.setHelpUrl('http://c2.com/cgi/wiki?GuardClause');
+//    this.setColour(290);
+//    this.appendValueInput('CONDITION')
+//      .setCheck('Boolean')
+//      .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+//    this.appendValueInput('VALUE')
+//      .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+//    this.setInputsInline(true);
+//    this.setPreviousStatement(true);
+//    this.setNextStatement(true);
+//    this.setTooltip(Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP);
+//    this.hasReturnValue_ = true;
+//  },
+//  /**
+//   * Create XML to represent whether this block has a return value.
+//   * @return {Element} XML storage element.
+//   * @this Blockly.Block
+//   */
+//  mutationToDom: function() {
+//    var container = document.createElement('mutation');
+//    container.setAttribute('value', Number(this.hasReturnValue_));
+//    return container;
+//  },
+//  /**
+//   * Parse XML to restore whether this block has a return value.
+//   * @param {!Element} xmlElement XML storage element.
+//   * @this Blockly.Block
+//   */
+//  domToMutation: function(xmlElement) {
+//    var value = xmlElement.getAttribute('value');
+//    this.hasReturnValue_ = (value == 1);
+//    if (!this.hasReturnValue_) {
+//      this.removeInput('VALUE');
+//      this.appendDummyInput('VALUE')
+//        .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+//    }
+//  },
+//  /**
+//   * Called whenever anything on the workspace changes.
+//   * Add warning if this flow block is not nested inside a loop.
+//   * @this Blockly.Block
+//   */
+//  onchange: function() {
+//    if (!this.workspace) {
+//      // Block has been deleted.
+//      return;
+//    }
+//    var legal = false;
+//    // Is the block nested in a procedure?
+//    var block = this;
+//    do {
+//      if (block.type == 'procedures_defnoreturn' ||
+//        block.type == 'procedures_defreturn' || block.type == 'main_block') {
+//        legal = true;
+//        break;
+//      }
+//      block = block.getSurroundParent();
+//    } while (block);
+//    if (legal) {
+//      // If needed, toggle whether this block has a return value.
+//      if (block.type == 'procedures_defnoreturn' && this.hasReturnValue_) {
+//        this.removeInput('VALUE');
+//        this.appendDummyInput('VALUE')
+//          .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+//        this.hasReturnValue_ = false;
+//      } else if (block.type == 'procedures_defreturn' &&
+//        !this.hasReturnValue_) {
+//        this.removeInput('VALUE');
+//        this.appendValueInput('VALUE')
+//          .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN);
+//        this.hasReturnValue_ = true;
+//      }
+//      this.setWarningText(null);
+//    } else {
+//      this.setWarningText(Blockly.Msg.PROCEDURES_IFRETURN_WARNING);
+//    }
+//  }
+//};

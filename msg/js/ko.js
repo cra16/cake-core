@@ -505,7 +505,7 @@ Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
 Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
 
 Blockly.Msg.MAIN_BLOCK = '함수이름: main 사용: int argc, char** argv';
-Blockly.Msg.MAIN_BLOCK_RETURN = "정수를 돌려줌 값:";
+Blockly.Msg.MAIN_BLOCK_RETURN = "다음 정수를 돌려줌";
 
 Blockly.Msg.CONTROLS_SWITCH = '다음 값이 ';
 Blockly.Msg.CONTROLS_SWITCH_CASE = '~와 같은 경우';
@@ -529,6 +529,9 @@ Blockly.Msg.STRUCTURE_GET_NAME = 'name';
 Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
+
+Blockly.Msg.PROCEDURES_RETURN_TITLE = '다음 값을 돌려주고 함수 종료';
+Blockly.Msg.PROCEDURES_RETURN_TOOLTIP = '연결된 블럭의 값을 돌려주고 함수를 종료한다.';
 
 Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
