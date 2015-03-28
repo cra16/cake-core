@@ -95,7 +95,7 @@ Blockly.Variables.allVariables = function(opt_block) {
         }
 
       if (varName) {
-        variableHash[varName.toLowerCase()] = [varType, varDist, varName, varScope, varPos, varSpec];
+        variableHash[varName.toLowerCase() + "." + varScope.toLowerCase()] = [varType, varDist, varName, varScope, varPos, varSpec];
       }
     }
     /**
@@ -106,13 +106,14 @@ Blockly.Variables.allVariables = function(opt_block) {
         var tuple = funcParamInfo.call(blocks[x]);
         if(tuple){
             for(var i = 0; i<tuple.length; i++) {
-                variableHash[tuple[i][2].toLowerCase()] = [tuple[i][0], tuple[i][1], tuple[i][2], tuple[i][3], tuple[i][4], tuple[i][5]];
+                variableHash[tuple[i][2].toLowerCase() + "." + tuple[i][3].toLowerCase()] = [tuple[i][0], tuple[i][1], tuple[i][2], tuple[i][3], tuple[i][4], tuple[i][5]];
             }
         }
     } 
   }
   // Flatten the hash into a list.
   var variableList = [];
+    console.log(variableHash);
   for (var name in variableHash) {
     variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2], variableHash[name][3], variableHash[name][4], variableHash[name][5]]);
   }

@@ -404,7 +404,7 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
         // type 6
         // function return type
-        else if ((parent.type.match('procedures'))) {
+        else if ((parent.type.match('procedures_callreturn'))) {
             parentType = parent.getType();
         }
 
