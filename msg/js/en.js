@@ -429,8 +429,8 @@ Blockly.Msg.MATH_TAN_TITLE = 'tan %1'; // not use
 Blockly.Msg.MATH_POW_TITLE = 'pow %1 ^ %2'; //'pow %1 ^ %2';
 Blockly.Msg.MATH_EXP_TITLE = 'exp %1';
 Blockly.Msg.MATH_SQRT_TITLE = 'sqrt %1';
-Blockly.Msg.MATH_ABS_TITLE = '절댓값 %1'; // not use
-Blockly.Msg.MATH_NUMCHECK_TITLE = '%1 is a(an)';
+Blockly.Msg.MATH_ABS_TITLE = 'absolute value%1'; // not use
+Blockly.Msg.MATH_NUMCHECK_TITLE = '%1 is a(an) %2 ?';
 Blockly.Msg.MATH_NUMCHECK_ISFINITE = 'finite value';
 Blockly.Msg.MATH_NUMCHECK_ISINF = 'infinite value';
 Blockly.Msg.MATH_NUMCHECK_SIGNBIT = 'negative value';
@@ -534,6 +534,8 @@ Blockly.Msg.STRUCTURE_GET_MEMBER = 'member';
 
 Blockly.Msg.UNION_DEFINE_NAME = 'myUnion';
 
+Blockly.Msg.PROCEDURES_RETURN_TITLE = 'terminate function after return ';
+Blockly.Msg.PROCEDURES_RETURN_TOOLTIP = 'Terminate function after return what you want to return. you can use it in anywhere';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = 'Warning: This block can be placed out of other blocks except function block.';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = 'Warning: Place this block inside a function.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = 'Warning: Place this block out of a function.';

@@ -157,4 +157,4 @@ common.pyc
 calcdeps.pyc
 
 # compressed.js files
-*compressed.js
+#*compressed.js

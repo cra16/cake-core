@@ -414,6 +414,12 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             parentType = 'int';
         }
 
+        //type 7
+        // return block in function block
+        else if((parent.type.match('procedures_return'))) {
+            parentType = parent.getType();
+        }
+
     }
     return parentType;
 };
