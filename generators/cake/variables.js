@@ -202,31 +202,31 @@ Blockly.cake['variables_array_set'] = function(block) {
     var idxList = Blockly.Blocks.getIndexArray(arrList, varName);
 
     var code;
-    if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
-        window.alert('Error, you have to enter the number in length');
+    /* if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
+     window.alert('Error, you have to enter the number in length');
+     }
+     else {*/
+    var isAvbNum1, isAvbNum2, isAvbNum3;
+
+    isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, idxList[0]);
+    isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, idxList[1]);
+    isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, idxList[2]);
+
+    // index over -> msg
+    if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
+        window.alert('인덱스 초과');
+        block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
     }
-    else {
-        var isAvbNum1, isAvbNum2, isAvbNum3;
+    else if (isAvbNum1 == true && isAvbNum2 == false)
+        code = varName + '[' + length_1 + ']' + ' = ' + argument0 + ';\n';
+    else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
+        code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
+    else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
+        code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
+    else
+        block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
 
-        isAvbNum1 = Blockly.Blocks.checkArrayIndex(length_1, idxList[0]);
-        isAvbNum2 = Blockly.Blocks.checkArrayIndex(length_2, idxList[1]);
-        isAvbNum3 = Blockly.Blocks.checkArrayIndex(length_3, idxList[2]);
-
-        // index over -> msg
-        if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
-            window.alert('인덱스 초과');
-            block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
-        }
-        else if (isAvbNum1 == true && isAvbNum2 == false)
-            code = varName + '[' + length_1 + ']' + ' = ' + argument0 + ';\n';
-        else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == false)
-            code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
-        else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
-            code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
-        else
-            block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
-
-    }
+    //}
     return code;
 };
 
@@ -240,23 +240,22 @@ Blockly.cake['variables_array_declare'] = function(block) {
     var length_1 = block.getFieldValue('LENGTH_1');
     var length_2 = block.getFieldValue('LENGTH_2');
     var length_3 = block.getFieldValue('LENGTH_3');
-    length_1 = length_1 * 1;
-    length_2 = length_2 * 1;
-    length_3 = length_3 * 1;
     var code;
 
     // must: idx > 0 , no-input: regarded as 0
-    if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
+   /* if (isNaN(length_1) == true || isNaN(length_2) == true || isNaN(length_3) == true) {
         window.alert('Error, you have to enter the number in length');
-    } else if (length_1 > 0 && length_2 == 0 && length_3 == 0)
+    }
+    */
+    if (length_1 != 0 && length_2 == 0 && length_3 == 0)
         code = varType + ' ' + varName + '[' + length_1 + ']' + ' = {' + argument0 + '}' + ';\n';
-    else if (length_1 > 0 && length_2 > 0 && length_3 == 0)
+    else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
         code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '] ' + ' = {' + argument0 + '}'  + ';\n';
-    else if (length_1 > 0 && length_2 > 0 && length_3 > 0)
+    else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
         code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = {' + argument0 + '}'  + ';\n';
-    else
+    /*else
         window.alert('Please confirm array index');
-
+*/
     Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
     return code;
 };

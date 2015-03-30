@@ -385,6 +385,8 @@ Blockly.Blocks['variables_declare'] = {
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
+        //Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, name);
+
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
@@ -964,7 +966,7 @@ Blockly.Blocks['variables_array_declare'] = {
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['LENGTH_1', new Blockly.FieldTextInput('1', Blockly.FieldTextInput.numberValidator)],
+            ['LENGTH_1', new Blockly.FieldTextInput('1')],
             ['LENGTH_2', new Blockly.FieldTextInput('')],
             ['LENGTH_3', new Blockly.FieldTextInput('')],
             Blockly.ALIGN_RIGHT);

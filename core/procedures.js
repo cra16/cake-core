@@ -178,7 +178,9 @@ Blockly.Procedures.rename = function(text) {
       func.call(blocks[x], this.text_, text);
     }
   }
-  return text;
+    text = Blockly.cake.variableDB_.getName(text, Blockly.Variables.NAME_TYPE);
+
+    return text;
 };
 
 /**

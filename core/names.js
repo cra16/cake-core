@@ -73,6 +73,7 @@ Blockly.Names.prototype.getName = function(name, type) {
   if (normalized in this.db_) {
     return this.db_[normalized];
   }
+   // if (type != Blockly.Variables.NAME_TYPE) {
   var safeName = this.getDistinctName(name, type);
   this.db_[normalized] = safeName;
   return safeName;
