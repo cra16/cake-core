@@ -94,7 +94,7 @@ Blockly.Variables.allVariables = function(opt_block) {
             var varSpec = blockSpecifics;
         }
 
-      if (varName) {
+      if (varName && varScope) {
         variableHash[varName.toLowerCase() + "." + varScope.toLowerCase()] = [varType, varDist, varName, varScope, varPos, varSpec];
       }
     }
@@ -113,7 +113,6 @@ Blockly.Variables.allVariables = function(opt_block) {
   }
   // Flatten the hash into a list.
   var variableList = [];
-    console.log(variableHash);
   for (var name in variableHash) {
     variableList.push([variableHash[name][0], variableHash[name][1], variableHash[name][2], variableHash[name][3], variableHash[name][4], variableHash[name][5]]);
   }
