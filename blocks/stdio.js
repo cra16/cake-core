@@ -46,7 +46,7 @@ Blockly.Blocks['library_stdio_printf'] = {
         for (var x = 1; x <= this.printAddCount_; x++) {
             this.appendValueInput('VAR' + x)
                 .setCheck(null)
-                .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
+                .appendField(''); // a blank space
 
         }
     },
@@ -268,7 +268,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
             this.appendValueInput('VAR' + x)
                 .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
                     'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
-                .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
+                .appendField(''); // a blank space
 
         }
     },
