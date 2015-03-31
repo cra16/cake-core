@@ -50,6 +50,9 @@ Blockly.Blocks['structure_define'] = {
         this.setNextStatement(true);
         this.tag = Blockly.Msg.TAG_STRUCTURE_DEFINE;
     },
+    initName: function() {
+        this.setFieldValue('', 'NAME');
+    },
     updateParams_: function() {
         // Check for duplicated arguments.
         var badArg = false;
@@ -343,6 +346,7 @@ Blockly.Blocks['structure_declare'] = {
         // this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         // this.contextMenuType_ = 'variables_pointer_get';
     },
+    initName: Blockly.Blocks['structure_define'].initName,
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.

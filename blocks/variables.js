@@ -108,9 +108,7 @@ Blockly.Blocks['define_declare'] = {
             Blockly.Msg.DEFINE_DECLARE_TITLE  + ' ' +
             Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
             Blockly.Msg.DEFINE_DECLARE_INIT + ' %2',
-            //['DEFINES', new Blockly.FieldDropdown(DEFINE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            // except variables, TEXT, NUMBER
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
@@ -123,6 +121,9 @@ Blockly.Blocks['define_declare'] = {
         this.macroType_ = 'Macro';
     },
 
+    initVar: function() {
+        this.setFieldValue('', 'VAR');
+    },
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
@@ -385,8 +386,6 @@ Blockly.Blocks['variables_declare'] = {
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
-        //Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, name);
-
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
@@ -394,6 +393,8 @@ Blockly.Blocks['variables_declare'] = {
         this.contextMenuType_ = 'variables_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
 
     /**
      * Return 'variables'.
@@ -650,6 +651,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
         this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
 
     /**
      * Return 'pointer'.
@@ -978,6 +981,9 @@ Blockly.Blocks['variables_array_declare'] = {
         this.contextMenuType_ = 'variables_array_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
+
     /**
      * Return 'array'.
      */

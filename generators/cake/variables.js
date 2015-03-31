@@ -43,7 +43,9 @@ Blockly.cake['define_declare'] = function(block) {
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var define = '#define';
-    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
+        this.initVar();
+    }
     var code = define + ' ' + varName + ' ' + argument0;
     code = Blockly.cake.scrub_(block, code);
     Blockly.cake.definitions_['define_' + varName] = code;
@@ -75,7 +77,9 @@ Blockly.cake['variables_declare'] = function(block) {
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var varType = block.getFieldValue('TYPES');
-    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
+        this.initVar();
+    }
     return varType + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 
@@ -111,7 +115,9 @@ Blockly.cake['variables_pointer_declare'] = function(block) {
         window.alert('please confirm asterisk. that must be among *, **, and  ***.');
         return 0;
     }
-    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
+        this.initVar();
+    }
     return varType + varIteration + ' ' + varName + ' = ' + argument0 + ';\n';
 };
 
@@ -256,6 +262,8 @@ Blockly.cake['variables_array_declare'] = function(block) {
     /*else
         window.alert('Please confirm array index');
 */
-    Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
+        this.initVar();
+    }
     return code;
 };
