@@ -23,7 +23,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             var childBlockType = childBlock.type;
 
             if(
-                childBlockType == 'math_number' ||
+                // childBlockType == 'math_number' || // issue #85
                 childBlockType == 'math_arithmetic' ||
                 childBlockType == 'math_modulo' ||
                 childBlockType == 'library_math_abs' ||
