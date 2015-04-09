@@ -396,6 +396,9 @@ Blockly.Msg.STDIO_SCANF_HELPURL = 'https://en.wikipedia.org/wiki/Scanf_format_st
 Blockly.Msg.STDIO_NEWLINE_TITLE = 'new line';
 Blockly.Msg.STDIO_NEWLINE_TOOLTIP = 'new line character';
 Blockly.Msg.STDIO_NEWLINE_HELPURL = 'https://en.wikipedia.org/wiki/Newline';
+Blockly.Msg.COMMENT_TITLE = 'comment';
+Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE = 'Add';
+Blockly.Msg.COMMENT_TOOLTIP = 'A "comment" is a sequence of characters beginning with a forward slash/asterisk combination (/*) that is treated as a single white-space character by the compiler and is otherwise ignored. A comment can include any combination of characters from the representable character set, including newline characters, but excluding the "end comment" delimiter (*/). Comments can occupy more than one line but cannot be nested. Comments can appear anywhere a white-space character is allowed. Since the compiler treats a comment as a single white-space character, you cannot include comments within tokens. The compiler ignores the characters in the comment. Use comments to document your code.';
 Blockly.Msg.STDLIB_CONVERT_TITLE = 'Convert string %1 to %2';
 Blockly.Msg.STDLIB_CONVERT_INT = 'int';
 Blockly.Msg.STDLIB_CONVERT_DOUBLE = 'double';
@@ -585,6 +588,8 @@ Blockly.Msg.TAG_STDIO_PRINTF = ['stdio.h', 'printf()', 'output', 'out'];
 Blockly.Msg.TAG_STDIO_TEXT = ['stdio.h', 'text'];
 Blockly.Msg.TAG_STDIO_NEWLINE = ['stdio.h', 'newline', 'new line', '\n', 'change line', 'line change'];
 Blockly.Msg.TAG_STDIO_SCANF = ['stdio.h', 'scanf()', 'input'];
+
+Blockly.Msg.TAG_COMMENT = ['comment', 'Comment', '\/\/', '\/**\/'];
 
 Blockly.Msg.TAG_STDLIB_CONVERT = ['stdlib.h', 'convert', 'atoi()', 'atof()'];
 Blockly.Msg.TAG_STDLIB_RAND = ['stdlib.h', 'random number'];

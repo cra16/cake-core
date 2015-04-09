@@ -397,6 +397,9 @@ Blockly.Msg.STDIO_SCANF_TOOLTIP = '';
 Blockly.Msg.STDIO_SCANF_HELPURL = 'https://ko.wikipedia.org/wiki/Scanf';
 Blockly.Msg.STDIO_NEWLINE_TITLE = '줄바꿈';
 Blockly.Msg.STDIO_NEWLINE_TOOLTIP = '출력 내 줄바꿈을 합니다.';
+Blockly.Msg.COMMENT_TITLE = '주석';
+Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE = '추가';
+Blockly.Msg.COMMENT_TOOLTIP = '컴파일의 대상에서 제외가 되는 주석을 답니다. (블록 단위: /* */, 행 단위: //)';
 Blockly.Msg.STDIO_NEWLINE_HELPURL = 'https://ko.wikipedia.org/wiki/%EC%83%88%EC%A4%84_%EB%AC%B8%EC%9E%90';
 Blockly.Msg.STDLIB_CONVERT_TITLE = '문자 %1을(를) %2로 변환';
 Blockly.Msg.STDLIB_CONVERT_INT = '정수';
@@ -588,6 +591,8 @@ Blockly.Msg.TAG_STDIO_PRINTF = ['stdio.h', 'printf()', 'output', 'out', '프린�
 Blockly.Msg.TAG_STDIO_TEXT = ['stdio.h', 'text', '텍스트'];
 Blockly.Msg.TAG_STDIO_NEWLINE = ['stdio.h', 'newline', 'new line', '\n', '줄바꿈', '줄바꾸기'];
 Blockly.Msg.TAG_STDIO_SCANF = ['stdio.h', 'scanf()', 'input', '스캔', '입력하기'];
+
+Blockly.Msg.TAG_COMMENT = ['comment', 'Comment', '주석', '\/\/', '\/**\/'];
 
 Blockly.Msg.TAG_STDLIB_CONVERT = ['stdlib.h', 'convert', 'atoi()', 'atof()', '변환하기', '문자를 정수로 변환', '문자를 실수로 변환'];
 Blockly.Msg.TAG_STDLIB_RAND = ['stdlib.h', 'random number', '랜덤수', '랜덤구하기', '랜덤 구하기', '랜덤넘버', '랜덤 넘버', '임의의수', '임의의 수'];

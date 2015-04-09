@@ -285,7 +285,6 @@ Blockly.Blocks['library_math_numcheck'] = {
             ];
         this.setColour(300);
         this.setOutput(true, 'Boolean');
-        console.log(CONDITION);
         this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
             ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
             ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],

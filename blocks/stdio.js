@@ -381,3 +381,156 @@ Blockly.Blocks['library_stdio_scanf_add'] = {
         this.contextMenu = false;
     }
 };
+
+Blockly.Blocks['comment'] = {
+    /**
+     * Block for comment in C.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(135);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.COMMENT_TITLE)
+            .appendField(new Blockly.FieldTextInput(''), 'VAR0');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setMutator(new Blockly.Mutator(['comment_add']));
+        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_COMMENT;
+        this.commentAddCount_ = 0;
+    },
+    /**
+     * Create XML to represent the number of comment inputs.
+     * @return {Element} XML storage element.
+     * @this Blockly.Block
+     */
+    mutationToDom: function() {
+        if (!this.commentAddCount_) {
+            return null;
+        }
+        var container = document.createElement('mutation');
+        if (this.commentAddCount_) {
+            container.setAttribute('commentadd', this.commentAddCount_);
+        }
+        return container;
+    },
+    /**
+     * Parse XML to restore comment inputs.
+     * @param {!Element} xmlElement XML storage element.
+     * @this Blockly.Block
+     */
+    domToMutation: function(xmlElement) {
+        this.commentAddCount_ = parseInt(xmlElement.getAttribute('commentadd'), 10);
+        for (var x = 1; x <= this.commentAddCount_; x++) {
+            this.appendDummyInput()
+                .appendField('') // a blank space
+                .appendField(new Blockly.FieldTextInput(''), 'VAR' + x);
+        }
+    },
+    /**
+     * Populate the mutator's dialog with this block's components.
+     * @param {!Blockly.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Block} Root block in mutator.
+     * @this Blockly.Block
+     */
+    decompose: function(workspace) {
+        var containerBlock = Blockly.Block.obtain(workspace, 'comment_comment');
+        containerBlock.initSvg();
+        var connection = containerBlock.getInput('STACK').connection;
+        for (var x = 1; x <= this.commentAddCount_; x++) {
+            var commentAddBlock = Blockly.Block.obtain(workspace, 'comment_add');
+            commentAddBlock.initSvg();
+            connection.connect(commentAddBlock.previousConnection);
+            connection = commentAddBlock.nextConnection;
+        }
+        return containerBlock;
+    },
+    /**
+     * Reconfigure this block based on the mutator dialog's components.
+     * @param {!Blockly.Block} containerBlock Root block in mutator.
+     * @this Blockly.Block
+     */
+    compose: function(containerBlock) {
+        // Disconnect all the elseif input blocks and remove the inputs.
+        //for (var x = this.commentAddCount_; x > 0; x--) {
+        //    this.removeInput('VAR' + x);
+        //
+        //}
+        this.commentAddCount_ = 0;
+        // Rebuild the block's optional inputs.
+        var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+        while (clauseBlock) {
+            switch (clauseBlock.type) {
+                case 'comment_add':
+                    this.commentAddCount_++;
+                    var commentInput = this.appendDummyInput()
+                        .appendField('       ')
+                        .appendField(new Blockly.FieldTextInput(''), 'VAR' + this.commentAddCount_);
+                    // Reconnect any child blocks.
+                    if (clauseBlock.valueConnection_) {
+                        commentInput.connection.connect(clauseBlock.valueConnection_);
+                    }
+                    break;
+                default:
+                    throw 'Unknown block type.';
+            }
+            clauseBlock = clauseBlock.nextConnection &&
+            clauseBlock.nextConnection.targetBlock();
+        }
+    },
+    /**
+     * Store pointers to any connected child blocks.
+     * @param {!Blockly.Block} containerBlock Root block in mutator.
+     * @this Blockly.Block
+     */
+    saveConnections: function(containerBlock) {
+        var clauseBlock = containerBlock.getInputTargetBlock('STACK');
+        var x = 1;
+        while (clauseBlock) {
+            switch (clauseBlock.type) {
+                case 'comment_add':
+                    var inputComment = this.getInput('VAR' + x);
+                    clauseBlock.valueConnection_ =
+                        inputComment && inputComment.connection.targetConnection;
+                    clauseBlock.statementConnection_ =
+                        x++;
+                    break;
+                default:
+                    throw 'Unknown block type.';
+            }
+            clauseBlock = clauseBlock.nextConnection &&
+            clauseBlock.nextConnection.targetBlock();
+        }
+    }
+};
+
+Blockly.Blocks['comment_comment'] = {
+    /**
+     * Mutator block for comment_add container.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(135);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.COMMENT_TITLE);
+        this.appendStatementInput('STACK');
+        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
+        this.contextMenu = false;
+    }
+};
+
+Blockly.Blocks['comment_add'] = {
+    /**
+     * Mutator bolck for comment_add condition.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(135);
+        this.appendDummyInput()
+            .appendField(Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE);
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
+        this.contextMenu = false;
+    }
+};
