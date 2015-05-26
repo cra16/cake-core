@@ -364,11 +364,6 @@ Blockly.Blocks.searchTag = function(searchingTag){
             proReturn.id = Blockly.genUid();
             proReturn.fill(Blockly.mainWorkspace, "procedures_defreturn");
             blocks.push(proReturn);
-
-            var ifReturn = new Blockly.Block();
-            ifReturn.id = Blockly.genUid();
-            ifReturn.fill(Blockly.mainWorkspace, "procedures_ifreturn");
-            blocks.push(ifReturn);
         }
         else if(tree_i.blocks =='STRUCTURE'){
             var structDefine = new Blockly.Block();

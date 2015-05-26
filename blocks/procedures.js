@@ -291,23 +291,24 @@ Blockly.Blocks['procedures_defnoreturn'] = {
               this.spec_.push(null);
           }
           else if(childNode.getAttribute('dist')=='a'){
-              var length_1 = childNode.getFieldValue('length_1');
-              var length_2 = childNode.getFieldValue('length_2');
-              var length_3 = childNode.getFieldValue('length_3');
+              var length_1 = childNode.getAttribute('length_1');
+              var length_2 = childNode.getAttribute('length_2');
+              var length_3 = childNode.getAttribute('length_3');
               length_1 = length_1 * 1;
               length_2 = length_2 * 1;
               length_3 = length_3 * 1;
 
               if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-                  this.spec_.push([1, childNode.getFieldValue('length_1')]);
+                  this.spec_.push([1, childNode.getAttribute('length_1')]);
               else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-                  this.spec_.push([2, childNode.getFieldValue('length_1'), childNode.getFieldValue('length_2')]);
+                  this.spec_.push([2, childNode.getAttribute('length_1'), childNode.getAttribute('length_2')]);
               else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-                  this.spec_.push([3, childNode.getFieldValue('length_1'), childNode.getFieldValue('length_2'), childNode.getFieldValue('length_3')]);
+                  this.spec_.push([3, childNode.getAttribute('length_1'), childNode.getAttribute('length_2'), childNode.getAttribute('length_3')]);
           }
           else if(childNode.getAttribute('dist')=='p'){
               this.spec_.push(childNode.getAttribute('iteration'));
           }
+          console.log(this.spec_);
       }
     }
     this.updateParams_();
@@ -351,8 +352,10 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             paramBlock.initSvg();
             paramBlock.setFieldValue(this.arguments_[x], 'NAME');
             paramBlock.setFieldValue(this.types_[x], 'TYPES');
-            if(this.spec_[x][0]==1)
+            if(this.spec_[x][0]==1) {
+                console.log(this.spec_[x]);
                 paramBlock.setFieldValue(this.spec_[x][1], 'LENGTH_1');
+            }
             else if(this.spec_[x][0]==2){
                 paramBlock.setFieldValue(this.spec_[x][1], 'LENGTH_1');
                 paramBlock.setFieldValue(this.spec_[x][2], 'LENGTH_2');
@@ -404,15 +407,15 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             var length_1 = paramBlock.getFieldValue('LENGTH_1');
             var length_2 = paramBlock.getFieldValue('LENGTH_2');
             var length_3 = paramBlock.getFieldValue('LENGTH_3');
-            length_1 = length_1 * 1;
-            length_2 = length_2 * 1;
-            length_3 = length_3 * 1;
+            var convert_length_1 = length_1 * 1;
+            var convert_length_2 = length_2 * 1;
+            var convert_length_3 = length_3 * 1;
 
-            if (length_1 != 0 && length_2 == 0 && length_3 == 0)
+            if (convert_length_1 != 0 && convert_length_2 == 0 && convert_length_3 == 0)
                 this.spec_.push([1, length_1]);
-            else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
+            else if (convert_length_1 != 0 && convert_length_2 != 0 && convert_length_3 == 0)
                 this.spec_.push([2, length_1, length_2]);
-            else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
+            else if (convert_length_1 != 0 && convert_length_2 != 0 && convert_length_3 != 0)
                 this.spec_.push([3, length_1, length_2, length_3]);
 
         }
@@ -1137,9 +1140,9 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                 this.spec_.push(null);
             }
             else if(childNode.getAttribute('dist')=='a'){
-                var length_1 = childNode.getFieldValue('LENGTH_1');
-                var length_2 = childNode.getFieldValue('LENGTH_2');
-                var length_3 = childNode.getFieldValue('LENGTH_3');
+                var length_1 = childNode.getAttribute('LENGTH_1');
+                var length_2 = childNode.getAttribute('LENGTH_2');
+                var length_3 = childNode.getAttribute('LENGTH_3');
                 length_1 = length_1 * 1;
                 length_2 = length_2 * 1;
                 length_3 = length_3 * 1;

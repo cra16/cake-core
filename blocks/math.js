@@ -81,9 +81,9 @@ Blockly.Blocks['math_arithmetic'] = {
     this.setColour(230);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
-        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT']);
+        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT']);
     this.appendValueInput('B')
-        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'])
+        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -113,8 +113,8 @@ Blockly.Blocks['math_modulo'] = {
     this.setColour(230);
     this.setOutput(true, 'Number');
     this.interpolateMsg(Blockly.Msg.MATH_MODULO_TITLE,
-                        ['DIVIDEND', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-                        ['DIVISOR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+                        ['DIVIDEND', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
+                        ['DIVISOR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
                         Blockly.ALIGN_RIGHT);
     this.setInputsInline(true);
     this.setTooltip(Blockly.Msg.MATH_MODULO_TOOLTIP);
@@ -131,7 +131,7 @@ Blockly.Blocks['library_math_abs'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
-            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ABS);
@@ -154,7 +154,7 @@ Blockly.Blocks['library_math_trig'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'])
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'])
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
         // Assign 'this' to a variable for use in the tooltip closure below.
         var thisBlock = this;
@@ -186,7 +186,7 @@ Blockly.Blocks['library_math_logs'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'])
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'])
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
         // Assign 'this' to a variable for use in the tooltip closure below.
         var thisBlock = this;
@@ -210,8 +210,8 @@ Blockly.Blocks['library_math_pow'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
-            ['BASE', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-            ['EXPO', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['BASE', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
+            ['EXPO', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_POW);
@@ -226,7 +226,7 @@ Blockly.Blocks['library_math_exp'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
-            ['EXPO', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['EXPO', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_EXP);
@@ -241,7 +241,7 @@ Blockly.Blocks['library_math_sqrt'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
-            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_SINGLE_TOOLTIP_ROOT);
@@ -265,7 +265,7 @@ Blockly.Blocks['library_math_round'] = {
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'])
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'])
             .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
         this.setTooltip(Blockly.Msg.MATH_ROUND_TOOLTIP);
         this.tag = Blockly.Msg.TAG_MATH_ROUND;
@@ -287,7 +287,7 @@ Blockly.Blocks['library_math_numcheck'] = {
         this.setOutput(true, 'Boolean');
         console.log(CONDITION);
         this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
-            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
@@ -312,8 +312,8 @@ Blockly.Blocks['library_math_numcompare'] = {
         this.setColour(300);
         this.setOutput(true, 'Boolean');
         this.interpolateMsg(Blockly.Msg.MATH_NUMCOMPARE_TITLE,
-            ['VAR1', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-            ['VAR2', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
+            ['VAR1', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
+            ['VAR2', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT'], Blockly.ALIGN_RIGHT],
             ['CONDITIONS', new Blockly.FieldDropdown(CONDITION)],
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
