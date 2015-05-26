@@ -182,7 +182,9 @@ Blockly.cake['procedures_defreturn'] = function(block) {
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
     returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ');';
-    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName) == -1) {
+        this.initName();
+    }
   return null;
 };
 
@@ -243,7 +245,9 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
     'void ' + funcName + '(' + typePlusArgs.join(', ') + ');';
-    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName) == -1) {
+        this.initName();
+    }
   return null;
 };
 
@@ -272,19 +276,3 @@ Blockly.cake['procedures_callnoreturn'] = function(block) {
   var code = funcName + '(' + args.join(', ') + ');\n';
   return code;
 };
-//
-//Blockly.cake['procedures_ifreturn'] = function(block) {
-//  // Conditionally return value from a procedure.
-//  var condition = Blockly.cake.valueToCode(block, 'CONDITION',
-//      Blockly.cake.ORDER_NONE) || 'false';
-//  var code = 'if (' + condition + ') {\n';
-//  if (block.hasReturnValue_) {
-//    var value = Blockly.cake.valueToCode(block, 'VALUE',
-//        Blockly.cake.ORDER_NONE) || 'null';
-//    code += '  return ' + value + ';\n';
-//  } else {
-//    code += '  return;\n';
-//  }
-//  code += '}\n';
-//  return code;
-//};

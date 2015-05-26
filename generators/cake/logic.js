@@ -126,18 +126,22 @@ Blockly.cake['logic_ternary'] = function(block) {
 };
 
 Blockly.cake['controls_switch'] = function(block) {
-  // If/elseif/else condition.
   var n = 0;
   var condition = Blockly.cake.valueToCode(block, 'SWITCH', Blockly.cake.ORDER_NONE) || '0';
   var argument = Blockly.cake.valueToCode(block, 'CASE' + n,
     Blockly.cake.ORDER_NONE) || n;
   var branch = Blockly.cake.statementToCode(block, 'DO' + n);
-  var code = 'switch (' + condition + ') {\ncase: ' + argument +'\n{\n'+ branch + '}';
+    var defaultBranch = Blockly.cake.statementToCode(block, 'DEFAULT');
+  var code = 'switch (' + condition + ') {\ndefault :\n' + defaultBranch +'\ncase ' + argument + ' : \n'+ branch;
   for (n = 1; n <= block.caseCount_; n++) {
     argument = Blockly.cake.valueToCode(block, 'CASE' + n,
       Blockly.cake.ORDER_NONE) || n;
     branch = Blockly.cake.statementToCode(block, 'DO' + n);
-    code += '\ncase :' + argument + '\n{\n' + branch + '}';
+    code += '\ncase ' + argument + ' : ' + '\n' + branch;
   }
   return code + '\n';
 };
+
+Blockly.cake['controls_switch_break'] = function(block) {
+    return 'break;\n';
+}

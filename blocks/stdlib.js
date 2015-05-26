@@ -15,7 +15,6 @@ Blockly.Blocks['library_stdlib_convert'] = {
                 [Blockly.Msg.STDLIB_CONVERT_INT, 'INT'],
                 [Blockly.Msg.STDLIB_CONVERT_DOUBLE, 'DOUBLE']
             ];
-        this.setHelpUrl(Blockly.Msg.STDLIB_CONVERT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STDLIB_CONVERT_TITLE,
@@ -23,6 +22,7 @@ Blockly.Blocks['library_stdlib_convert'] = {
             ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
             Blockly.ALIGN_RIGHT);
         this.setTooltip(Blockly.Msg.STDLIB_CONVERT_HELPURL);
+        this.tag = Blockly.Msg.TAG_STDLIB_CONVERT;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -34,13 +34,13 @@ Blockly.Blocks['library_stdlib_rand'] = {
    * @this Blockly.Block
    */
   init: function() {
-      this.setHelpUrl(Blockly.Msg.STDLIB_RAND_HELPURL);
       this.setColour(300);
       this.setOutput(true);
       this.interpolateMsg(Blockly.Msg.STDLIB_RAND_TITLE,
           ['VAR', 'SCOPE', Blockly.ALIGN_RIGHT],
           Blockly.ALIGN_RIGHT);
       this.setTooltip(Blockly.Msg.STDLIB_RAND_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_RAND;
   },
     getScope: function(){
         var block = this;
@@ -72,7 +72,6 @@ Blockly.Blocks['library_stdlib_rand_scope'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STDLIB_RANDSCOPE_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'SCOPE');
         this.interpolateMsg(Blockly.Msg.STDLIB_RANDSCOPE_TITLE,
@@ -91,7 +90,6 @@ Blockly.Blocks['library_stdlib_number_forRandScope1'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
         this.setColour(230);
         this.appendDummyInput()
             .appendField(new Blockly.FieldTextInput('1',
@@ -109,7 +107,6 @@ Blockly.Blocks['library_stdlib_number_forRandScope100'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
         this.setColour(230);
         this.appendDummyInput()
             .appendField(new Blockly.FieldTextInput('100',
@@ -127,7 +124,6 @@ Blockly.Blocks['library_stdlib_malloc'] = {
    * @this Blockly.Block
    */
   init: function() {
-      this.setHelpUrl(Blockly.Msg.STDLIB_MALLOC_HELPURL);
       this.setColour(300);
       this.setOutput(true, 'Pointer');
       this.interpolateMsg(Blockly.Msg.STDLIB_MALLOC_TITLE,
@@ -135,6 +131,7 @@ Blockly.Blocks['library_stdlib_malloc'] = {
           Blockly.ALIGN_RIGHT);
       this.setInputsInline(true);
       this.setTooltip(Blockly.Msg.STDLIB_MALLOC_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_MALLOC;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction
@@ -146,7 +143,6 @@ Blockly.Blocks['library_stdlib_sizeof_forMalloc'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STDLIB_SIZEOFFORMALLOC_HELPURL);
         this.setColour(210);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STDLIB_SIZEOFFORMALLOC_TITLE,
@@ -165,7 +161,6 @@ Blockly.Blocks['library_stdlib_arithmetic_forMalloc'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.MATH_ARITHMETIC_HELPURL);
         this.setColour(230);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STDLIB_ARITHFORMALLOC_TITLE,
@@ -174,6 +169,7 @@ Blockly.Blocks['library_stdlib_arithmetic_forMalloc'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.MATH_ARITHMETIC_TOOLTIP_MULTIPLY);
+        this.tag = Blockly.Msg.TAG_STDLIB_SIZEOF;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -185,7 +181,6 @@ Blockly.Blocks['library_stdlib_number_forMalloc'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.MATH_NUMBER_HELPURL);
         this.setColour(230);
         this.appendDummyInput()
             .appendField(new Blockly.FieldTextInput('1',
@@ -203,7 +198,6 @@ Blockly.Blocks['library_stdlib_free'] = {
    * @this Blockly.Block
    */
       init: function() {
-      this.setHelpUrl(Blockly.Msg.STDLIB_FREE_HELPURL);
       this.setColour(300);
       this.interpolateMsg(Blockly.Msg.STDLIB_FREE_TITLE,
           ['VAR', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
@@ -213,6 +207,7 @@ Blockly.Blocks['library_stdlib_free'] = {
       this.setPreviousStatement(true);
       this.setNextStatement(true);
       this.setTooltip(Blockly.Msg.STDLIB_FREE_TOOLTIP);
+      this.tag = Blockly.Msg.TAG_STDLIB_FREE;
   },
   //when the block is changed,
   onchange: Blockly.Blocks.requireInFunction
@@ -229,13 +224,13 @@ Blockly.Blocks['library_stdlib_exit'] = {
               [Blockly.Msg.STDLIB_EXIT_SUCCESS, 'SUCCESS'],
               [Blockly.Msg.STDLIB_EXIT_FAILURE, 'FAILURE']
           ];
-      this.setHelpUrl(Blockly.Msg.STDLIB_EXIT_HELPURL);
       this.setColour(300);
       this.interpolateMsg(Blockly.Msg.STDLIB_EXIT_TITLE,
           ['OPERATORS', new Blockly.FieldDropdown(OPERATORS)],
           Blockly.ALIGN_RIGHT);
       this.setPreviousStatement(true);
       this.setTooltip(Blockly.Msg.STDLIB_EXIT_HELPURL);
+      this.tag = Blockly.Msg.TAG_STDLIB_EXIT;
   },
   //when the block is changed, 
   onchange: Blockly.Blocks.requireInFunction

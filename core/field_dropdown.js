@@ -313,8 +313,20 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
 
+
     if (curBlock.getParent()) {
         var parent = curBlock.getParent();
+
+
+        // control_for
+        if ((curBlock.type == 'controls_for')) {
+            return null;
+        }
+
+        // function call block
+        if ((parent.type.match('procedures_callreturn'))) {
+            parent = parent.getParent();
+        }
 
         // type 1
         // VARIABLE setter + (* POINTER getter)
@@ -400,12 +412,6 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
             if (parent.getDeclare()) {
                 parentType = parent.getTypes();
             }
-        }
-
-        // type 6
-        // function return type
-        else if ((parent.type.match('procedures_callreturn'))) {
-            parentType = parent.getType();
         }
 
         // type 6
