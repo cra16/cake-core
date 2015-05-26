@@ -518,6 +518,7 @@ Blockly.Blocks.checkLegalName = function(msg, name){
 
     if(err>0){
         window.alert(msg);
+        return -1;
     }
     return;
 };

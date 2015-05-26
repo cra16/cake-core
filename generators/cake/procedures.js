@@ -182,7 +182,9 @@ Blockly.cake['procedures_defreturn'] = function(block) {
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
     returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ');';
-    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName) == -1) {
+        this.initName();
+    }
   return null;
 };
 
@@ -243,7 +245,9 @@ Blockly.cake['procedures_defnoreturn'] = function(block) {
   Blockly.cake.definitions_[funcName] = code;
   Blockly.cake.definitions_['Func_declare'+funcName] =
     'void ' + funcName + '(' + typePlusArgs.join(', ') + ');';
-    Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName);
+    if (Blockly.Blocks.checkLegalName(Blockly.Msg.PROCEDURES_ILLEGALNAME, funcName) == -1) {
+        this.initName();
+    }
   return null;
 };
 

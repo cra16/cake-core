@@ -62,6 +62,39 @@ Blockly.Blocks['controls_whileUntil'] = {
   onchange: Blockly.Blocks.requireInFunction
 };
 
+Blockly.Blocks['controls_doWhile'] = {
+    /**
+     * Block for 'do while/until' loop.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+                [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+        this.setColour(120);
+        this.appendStatementInput('DO')
+            .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+        this.appendValueInput('BOOL')
+            .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        // Assign 'this' to a variable for use in the tooltip closure below.
+        var thisBlock = this;
+        this.tag = Blockly.Msg.TAG_LOOP_WHILE;
+        this.setTooltip(function() {
+            var op = thisBlock.getFieldValue('MODE');
+            var TOOLTIPS = {
+                'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
+                'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+            };
+            return TOOLTIPS[op];
+        });
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
 Blockly.Blocks['controls_for'] = {
   /**
    * Block for 'for' loop.

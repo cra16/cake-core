@@ -23,7 +23,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             var childBlockType = childBlock.type;
 
             if(
-                childBlockType == 'math_number' ||
+                // childBlockType == 'math_number' || // issue #85
                 childBlockType == 'math_arithmetic' ||
                 childBlockType == 'math_modulo' ||
                 childBlockType == 'library_math_abs' ||
@@ -390,4 +390,27 @@ Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
         }
     }
     return typeCode;
+};
+
+Blockly.cake['comment'] = function(block) {
+    // Comment statement
+    var argument = '';
+    var typeCode = '';
+    var inQutCode = '';
+    var outQutCode = '';
+    var code = '';
+
+    if(block.commentAddCount_ == 0){
+        argument = Blockly.cake.valueToCode(block, 'VAR0',
+            Blockly.cake.ORDER_NONE) || '';
+        code = '//' + argument + '\n';
+    } else {
+        for (var n = 0; n <= block.commentAddCount_; n++) {
+            argument = Blockly.cake.valueToCode(block, 'VAR' + n,
+                Blockly.cake.ORDER_NONE) || '';
+
+        } // for loop end
+    }
+
+    return code + '\n';
 };
