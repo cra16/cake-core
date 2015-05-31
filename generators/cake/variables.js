@@ -174,8 +174,19 @@ Blockly.cake['variables_array_get'] = function(block) {
         code = varName + '[' + length_1 + ']' + '[' + length_2 + ']';
     else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
         code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']';
-    else if (isAvbNum1 == false && isAvbNum2 == false && isAvbNum3 == false)
-        code = varName;
+    else if (isAvbNum1 == false && isAvbNum2 == false && isAvbNum3 == false) {
+        var arrName = this.getFieldValue('VAR');
+        var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
+        if (arrIdxLength == 1) {
+            code = varName + '[]';
+        }
+        else if (arrIdxLength == 2) {
+            code = varName + '[][]';
+        }
+        else {
+            code = varName + '[][][]';
+        }
+    }
     else
         block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
 
