@@ -87,7 +87,7 @@ Blockly.cake['main_block'] = function(block) {
         var allDefs = time.join('\n');
     }
 
-    var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {\n' +
+    var code = returnType + ' ' + funcName + '(' + typePlusArgs.join(', ') + ') {' +
         allDefs.replace(/\n\n+/g, '\n\n').replace(/\n*$/, '\n') + branch + returnValue + '}';
   code = Blockly.cake.scrub_(block, code);
   Blockly.cake.definitions_[funcName] = code;
