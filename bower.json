@@ -1,6 +1,6 @@
 {
   "name": "cake-core",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/cra16/cake-core",
   "authors": [
     "Joshua Jung <wbqdinno@gmail.com>"
@@ -19,11 +19,9 @@
   ],
   "license": "Apache License 2.0",
   "ignore": [
+    ".*",
     "**/.*",
     "**/*.html",
-    "blockly/**",
-    "bower_components",
-    "COPYING",
     "css",
     "fonts",
     "/js",
