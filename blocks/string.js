@@ -10,7 +10,7 @@ Blockly.Blocks['library_string_strlen'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STRING_STRLEN_TITLE,
             ['VAR', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
@@ -29,7 +29,7 @@ Blockly.Blocks['library_string_strcat'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCAT_TITLE,
             ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
@@ -49,7 +49,7 @@ Blockly.Blocks['library_string_strcpy'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCPY_TITLE,
             ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],
@@ -69,7 +69,7 @@ Blockly.Blocks['library_string_strcmp'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCMP_TITLE,
             ['STR1', ['String', 'STR', 'PTR_CHAR', 'Pointer', 'DBPTR_CHAR'], Blockly.ALIGN_RIGHT],

@@ -35,7 +35,7 @@ Blockly.Blocks['math_number'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(230);
+    this.setColour(240);
     this.appendDummyInput()
         .appendField(new Blockly.FieldTextInput('0',
         Blockly.FieldTextInput.numberValidator), 'NUM');
@@ -78,7 +78,7 @@ Blockly.Blocks['math_arithmetic'] = {
          [Blockly.Msg.MATH_SUBTRACTION_SYMBOL, 'MINUS'],
          [Blockly.Msg.MATH_MULTIPLICATION_SYMBOL, 'MULTIPLY'],
          [Blockly.Msg.MATH_DIVISION_SYMBOL, 'DIVIDE']];
-    this.setColour(230);
+    this.setColour(240);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
         .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
@@ -110,7 +110,7 @@ Blockly.Blocks['math_modulo'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(230);
+    this.setColour(240);
     this.setOutput(true, 'Number');
     this.interpolateMsg(Blockly.Msg.MATH_MODULO_TITLE,
                         ['DIVIDEND', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -128,7 +128,7 @@ Blockly.Blocks['math_modulo'] = {
 
 Blockly.Blocks['library_math_abs'] = {
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_ABS_TITLE,
             ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -151,7 +151,7 @@ Blockly.Blocks['library_math_trig'] = {
             [[Blockly.Msg.MATH_TRIG_SIN, 'SIN'],
                 [Blockly.Msg.MATH_TRIG_COS, 'COS'],
                 [Blockly.Msg.MATH_TRIG_TAN, 'TAN']];
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
             .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'])
@@ -183,7 +183,7 @@ Blockly.Blocks['library_math_logs'] = {
             [[Blockly.Msg.MATH_TRIG_LOG, 'LOG'],
                 [Blockly.Msg.MATH_TRIG_LOG10, 'LOG10'],
                 [Blockly.Msg.MATH_TRIG_LOG2, 'LOG2']];
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
             .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'])
@@ -207,7 +207,7 @@ Blockly.Blocks['library_math_logs'] = {
 
 Blockly.Blocks['library_math_pow'] = {
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_POW_TITLE,
             ['BASE', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -223,7 +223,7 @@ Blockly.Blocks['library_math_pow'] = {
 
 Blockly.Blocks['library_math_exp'] = {
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_EXP_TITLE,
             ['EXPO', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -238,7 +238,7 @@ Blockly.Blocks['library_math_exp'] = {
 
 Blockly.Blocks['library_math_sqrt'] = {
     init: function() {
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.MATH_SQRT_TITLE,
             ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -262,7 +262,7 @@ Blockly.Blocks['library_math_round'] = {
                 [Blockly.Msg.MATH_ROUND_OPERATOR_CEIL, 'CEIL'],
                 [Blockly.Msg.MATH_ROUND_OPERATOR_FLOOR, 'FLOOR'],
                 [Blockly.Msg.MATH_ROUND_OPERATOR_TRUNC, 'TRUNC']];
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Number');
         this.appendValueInput('NUM')
             .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'])
@@ -283,7 +283,7 @@ Blockly.Blocks['library_math_numcheck'] = {
                 [Blockly.Msg.MATH_NUMCHECK_SIGNBIT, 'SIGNBIT'],
                 [Blockly.Msg.MATH_NUMCHECK_ISNAN, 'ISNAN']
             ];
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Boolean');
         this.interpolateMsg(Blockly.Msg.MATH_NUMCHECK_TITLE,
             ['VAR', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],
@@ -308,7 +308,7 @@ Blockly.Blocks['library_math_numcompare'] = {
                 [Blockly.Msg.MATH_NUMCOMPARE_ISLEGR, 'ISLEGR'],
                 [Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER, 'ISUNORDER']
             ];
-        this.setColour(300);
+        this.setColour(320);
         this.setOutput(true, 'Boolean');
         this.interpolateMsg(Blockly.Msg.MATH_NUMCOMPARE_TITLE,
             ['VAR1', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_DOUBLE', 'VAR_FLOAT', 'Aster'], Blockly.ALIGN_RIGHT],

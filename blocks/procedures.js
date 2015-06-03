@@ -31,7 +31,7 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks['main_block'] = {
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
         this.appendDummyInput()
@@ -76,7 +76,7 @@ Blockly.Blocks['procedures_return'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         this.appendValueInput('VALUE')
             .appendField(Blockly.Msg.PROCEDURES_RETURN_TITLE);
         this.setTooltip(Blockly.Msg.PROCEDURES_RETURN_TOOLTIP);
@@ -150,7 +150,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
         this.appendDummyInput()
@@ -601,7 +601,7 @@ Blockly.Blocks['procedures_defreturn'] = {
             [Blockly.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
             [Blockly.Msg.VARIABLES_SET_DIST_ARRAY, 'array']
         ];
-        this.setColour(290);
+        this.setColour(300);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
         this.appendDummyInput()
@@ -744,7 +744,7 @@ Blockly.Blocks['procedures_mutatorcontainer'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         this.appendDummyInput()
             .appendField(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
         this.appendStatementInput('STACK');
@@ -769,7 +769,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setColour(290);
+        this.setColour(300);
         this.appendDummyInput()
             .appendField('variable')
             .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
@@ -817,7 +817,7 @@ Blockly.Blocks['procedures_mutatorarg_array'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setColour(290);
+        this.setColour(300);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
             'array %1 ' + Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %2 ' +' %3 ' +' %4 ' +
@@ -887,7 +887,7 @@ Blockly.Blocks['procedures_mutatorarg_pointer'] = {
                 [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, '**'],
                 [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, '***']
             ];
-        this.setColour(290);
+        this.setColour(300);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
             'pointer %1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
@@ -928,7 +928,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         this.appendDummyInput()
             .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
             .appendField('', 'NAME')
@@ -1209,7 +1209,7 @@ Blockly.Blocks['procedures_callreturn'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(290);
+        this.setColour(300);
         this.appendDummyInput()
             .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
             .appendField('', 'NAME')
