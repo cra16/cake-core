@@ -47,7 +47,6 @@ Blockly.Blocks['library_stdio_printf'] = {
             this.appendValueInput('VAR' + x)
                 .setCheck(null)
                 .appendField(''); // a blank space
-
         }
     },
     /**
@@ -202,7 +201,6 @@ Blockly.Blocks['library_stdio_text'] = {
                 this.changeOutput('STR');
             }
         }
-
     }
     //when the block is changed,
 };
@@ -389,9 +387,12 @@ Blockly.Blocks['comment'] = {
      */
     init: function() {
         this.setColour(135);
-        this.appendDummyInput()
-            .appendField(Blockly.Msg.COMMENT_TITLE)
-            .appendField(new Blockly.FieldTextInput(''), 'VAR0');
+        this.appendValueInput('VAR0')
+            .setCheck(null)
+            .appendField(Blockly.Msg.COMMENT_TITLE);
+        //this.appendDummyInput()
+        //    .appendField(Blockly.Msg.COMMENT_TITLE)
+        //    .appendField(new Blockly.FieldTextInput(), 'VAR0');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setMutator(new Blockly.Mutator(['comment_add']));
@@ -422,9 +423,12 @@ Blockly.Blocks['comment'] = {
     domToMutation: function(xmlElement) {
         this.commentAddCount_ = parseInt(xmlElement.getAttribute('commentadd'), 10);
         for (var x = 1; x <= this.commentAddCount_; x++) {
-            this.appendDummyInput()
-                .appendField('') // a blank space
-                .appendField(new Blockly.FieldTextInput(''), 'VAR' + x);
+            this.appendValueInput('VAR' + x)
+                .setCheck(null)
+                .appendField(''); // a blank space
+            //this.appendDummyInput()
+            //    .appendField('       ') // a blank space
+            //    .appendField(new Blockly.FieldTextInput(), 'VAR' + x);
         }
     },
     /**
@@ -452,10 +456,12 @@ Blockly.Blocks['comment'] = {
      */
     compose: function(containerBlock) {
         // Disconnect all the elseif input blocks and remove the inputs.
-        //for (var x = this.commentAddCount_; x > 0; x--) {
-        //    this.removeInput('VAR' + x);
-        //
-        //}
+        for (var x = this.commentAddCount_; x > 0; x--) {
+            this.removeInput('VAR' + x);
+            //this.appendDummyInput()
+            //    .removeField('       ')
+            //    .removeField('VAR' + x);
+        }
         this.commentAddCount_ = 0;
         // Rebuild the block's optional inputs.
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -463,9 +469,13 @@ Blockly.Blocks['comment'] = {
             switch (clauseBlock.type) {
                 case 'comment_add':
                     this.commentAddCount_++;
-                    var commentInput = this.appendDummyInput()
-                        .appendField('       ')
-                        .appendField(new Blockly.FieldTextInput(''), 'VAR' + this.commentAddCount_);
+                    var commentInput =
+                        this.appendValueInput('VAR' + this.commentAddCount_)
+                            .setCheck(null)
+                            .appendField('');
+                    //this.appendDummyInput()
+                    //    .appendField('       ') // a blank space
+                    //    .appendField(new Blockly.FieldTextInput(), 'VAR' + this.commentAddCount_);
                     // Reconnect any child blocks.
                     if (clauseBlock.valueConnection_) {
                         commentInput.connection.connect(clauseBlock.valueConnection_);
