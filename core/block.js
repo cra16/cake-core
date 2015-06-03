@@ -1900,19 +1900,3 @@ Blockly.Blocks.CNameValidator = function(newVar) {
   };
   return newVar;
 };
-
-/**
- * function to create main block
- * @constructor
- */
-Blockly.Blocks.CreateMainBlock = function(){
-    var block = Blockly.Block.obtain(Blockly.mainWorkspace, 'main_block');
-    var xmlBlock = Blockly.Xml.blockToDom_(block);
-
-    //main_block attribute setting
-    xmlBlock.setAttribute('deletable', false);
-    xmlBlock.setAttribute('movable', false);
-    xmlBlock.setAttribute('editable', false);
-
-    Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
-};
