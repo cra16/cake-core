@@ -162,7 +162,10 @@ Blockly.cake['library_stdio_printf'] = function(block) {
 Blockly.cake['library_stdio_text'] = function(block) {
     // Text value.
     var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
-    if (block.getParent() && (block.getParent().type == 'library_stdio_printf' || block.getParent().type == 'define_declare')) {
+    if (block.getParent()
+        && (block.getParent().type == 'library_stdio_printf'
+        || block.getParent().type == 'define_declare'
+        || block.getParent().type == 'comment')) {
         return [code, Blockly.cake.ORDER_ATOMIC];
     } else if (code.length == 1) {
         code = '\'' + code + '\'';
@@ -395,22 +398,44 @@ Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
 Blockly.cake['comment'] = function(block) {
     // Comment statement
     var argument = '';
-    var typeCode = '';
-    var inQutCode = '';
-    var outQutCode = '';
     var code = '';
+    var numOfLine = 0;
 
-    if(block.commentAddCount_ == 0){
-        argument = Blockly.cake.valueToCode(block, 'VAR0',
+    for (var n = 0; n <= block.commentAddCount_; n++) {
+        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
             Blockly.cake.ORDER_NONE) || '';
-        code = '//' + argument + '\n';
-    } else {
-        for (var n = 0; n <= block.commentAddCount_; n++) {
-            argument = Blockly.cake.valueToCode(block, 'VAR' + n,
-                Blockly.cake.ORDER_NONE) || '';
 
-        } // for loop end
+        var childConnection = block.inputList[n].connection;
+        var childBlock = childConnection.targetBlock();
+
+        if(childBlock){
+            var childBlockType = childBlock.type;
+
+            if (childBlockType != 'library_stdio_text')
+            {
+                if (childConnection.isSuperior()) {
+                    childConnection.targetBlock().setParent(null);
+                } else {
+                    childConnection.sourceBlock_.setParent(null);
+                }
+                // Bump away.
+                childConnection.sourceBlock_.bumpNeighbours_();
+            }
+        }
+        if(argument != ''){
+            code += argument + '\n';
+        }
+        numOfLine += 1;
+    } // for loop end
+
+    if (numOfLine == 1){
+        if(argument != '')
+            code = '//' + code;
+        else
+            code = '//\n';
+    } else {
+        code = '/*\n' + code + '*/\n';
     }
 
-    return code + '\n';
+    return code;
 };

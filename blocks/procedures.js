@@ -1144,9 +1144,9 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                         this.spec_.push(null);
                     }
                     else if(childNode.getAttribute('dist')=='a'){
-                        var length_1 = childNode.getFieldValue('LENGTH_1');
-                        var length_2 = childNode.getFieldValue('LENGTH_2');
-                        var length_3 = childNode.getFieldValue('LENGTH_3');
+                        var length_1 = childNode.getAttribute('LENGTH_1');
+                        var length_2 = childNode.getAttribute('LENGTH_2');
+                        var length_3 = childNode.getAttribute('LENGTH_3');
                         length_1 = length_1 * 1;
                         length_2 = length_2 * 1;
                         length_3 = length_3 * 1;
