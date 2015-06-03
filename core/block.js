@@ -37,6 +37,7 @@ goog.require('Blockly.Mutator');
 goog.require('Blockly.Warning');
 goog.require('Blockly.Workspace');
 goog.require('Blockly.Xml');
+goog.require('Blockly.Flyout');
 goog.require('goog.Timer');
 goog.require('goog.array');
 goog.require('goog.asserts');
@@ -1907,14 +1908,20 @@ Blockly.Blocks.CNameValidator = function(newVar) {
  */
 
 Blockly.Blocks.CreateMainBlock = function(){
+    var flyout = this;
+    this.workspace_ = new Blockly.Workspace(
+        function() {return flyout.getMetrics_();},
+        function(ratio) {return flyout.setMetrics_(ratio);});
+    
+    var block = Blockly.Block.obtain(this.workspace_, 'main_block');
 
-    var block = Blockly.Block.obtain(Blockly.mainWorkspace, 'main_block');
     var xmlBlock = Blockly.Xml.blockToDom_(block);
+    Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
+
 
     //main_block attribute setting
     xmlBlock.setAttribute('deletable', false);
     xmlBlock.setAttribute('movable', false);
     xmlBlock.setAttribute('editable', false);
 
-    Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
 };

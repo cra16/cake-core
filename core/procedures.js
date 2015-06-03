@@ -193,7 +193,7 @@ Blockly.Procedures.rename = function(text) {
 Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
   if (Blockly.Blocks['procedures_defnoreturn']) {
     var block = Blockly.Block.obtain(workspace, 'procedures_defnoreturn');
-    block.initSvg();
+      block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
   }
