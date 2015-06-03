@@ -468,9 +468,9 @@ Blockly.Blocks['variables_declare'] = {
             type = 'int';
         }
 
-        if (this.getInputTargetBlock('VALUE')) {
+        //if (this.getInputTargetBlock('VALUE')) {
             Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
-        }
+        //}
 
     }
 };

@@ -704,11 +704,8 @@ Blockly.Blocks['procedures_defreturn'] = {
 
         var dist = this.getFieldValue('DISTS');
         var type = this.getFieldValue('TYPES');
-        // TODO : issue #90
-        //console.log('dist: ' + dist);
         if (dist == 'array') {
             dist = 'variable';
-            //dist = 'pointer';
         }
 
         // variable
@@ -717,7 +714,14 @@ Blockly.Blocks['procedures_defreturn'] = {
         }
         // pointer
         else {
-            Blockly.Blocks.setCheckPointer(this, type, 'RETURN');
+            var spec = this.getFieldValue('PSPECS');
+            if (spec == "*") {
+                Blockly.Blocks.setCheckPointer(this, type, 'RETURN');
+            }
+            else if (spec == "**") {
+                Blockly.Blocks.setCheckPointer(this, 'db'+type, 'RETURN');
+
+            }
         }
 
 
@@ -1031,6 +1035,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                     .setAlign(Blockly.ALIGN_RIGHT)
                     .appendField(this.types_[x])
                     .appendField(this.arguments_[x]);
+              //  Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
             }
             else if(this.dist_[x]=='a'){
                 if(this.spec_[x][0] ==1){
@@ -1038,18 +1043,22 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']');
+                    console.log('types_[x]: '+ this.types_[x]);
+                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
                 else if(this.spec_[x][0] ==2){
                     input = this.appendValueInput('ARG' + x)
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']'+'[' + this.spec_[x][2] + ']');
+                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
                 else if(this.spec_[x][0] ==3){
                     input = this.appendValueInput('ARG' + x)
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']'+'[' + this.spec_[x][2] + ']'+'[' + this.spec_[x][3] + ']');
+                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
             }
             else if(this.dist_[x]=='p'){
@@ -1057,6 +1066,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                     .setAlign(Blockly.ALIGN_RIGHT)
                     .appendField(this.types_[x] + this.spec_[x])
                     .appendField(this.arguments_[x]);
+             //   Blockly.Blocks.setCheckPointer(this, this.types_[x], 'ARG'+x);
             }
 
             if (this.quarkArguments_) {
