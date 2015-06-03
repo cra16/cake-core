@@ -31,11 +31,10 @@ goog.require('Blockly.Blocks');
 
 Blockly.Blocks['define_get'] = {
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(160);
         this.appendDummyInput()
             .appendField(Blockly.Msg.DEFINE_GET_TITLE)
-            .appendField(new Blockly.FieldVariableDefine('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableDefine(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Macro');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -95,41 +94,43 @@ Blockly.Blocks['define_get'] = {
 
 Blockly.Blocks['define_declare'] = {
     init: function() {
-        var DEFINE =
+       /* var DEFINE =
             [
                 [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
                 [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
-            ];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
+            ];*/
         this.setColour(160);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME, this);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.DEFINE_DECLARE_TITLE + ' %1 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-            Blockly.Msg.DEFINE_DECLARE_INIT + ' %3',
-            ['DEFINES', new Blockly.FieldDropdown(DEFINE)],
+            Blockly.Msg.DEFINE_DECLARE_TITLE  + ' ' +
+            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
+            Blockly.Msg.DEFINE_DECLARE_INIT + ' %2',
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
         this.setPreviousStatement(true, ['define_declare']);
         this.setNextStatement(true, ['define_declare', 'main_block']);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'define_get';
         this.tag = Blockly.Msg.TAG_DEFINE_DECLARE;
+        this.macroType_ = 'Macro';
     },
 
+    initVar: function() {
+        this.setFieldValue('', 'VAR');
+    },
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
      * @this Blockly.Block
      */
     getTypes: function() {
-        return [this.getFieldValue('DEFINES')];
+        return [this.macroType_];
     },
 
     getDist: function() {
@@ -182,7 +183,27 @@ Blockly.Blocks['define_declare'] = {
     customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireOutFunction
+    onchange: function() {
+        Blockly.Blocks.requireOutFunction();
+        if (this.getInputTargetBlock('VALUE')) {
+            var targetBlock = this.getInputTargetBlock('VALUE');
+
+            if (targetBlock.type.match('math')) {
+                //this.setFieldValue('int', 'DEFINES');
+                this.macroType_ = 'int';
+            }
+            else if (targetBlock.type.match('text')) {
+                if (targetBlock.getFieldValue('TEXT').length == 1) {
+                    //this.setFieldValue('char', 'DEFINES');
+                    this.macroType_ = 'char';
+                }
+                else {
+                    //this.setFieldValue('dbchar', 'DEFINES');
+                    this.macroType_ = 'dbchar';
+                }
+            }
+        }
+    }
 };
 
 Blockly.Blocks['variables_get'] = {
@@ -191,11 +212,10 @@ Blockly.Blocks['variables_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(330);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-            .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Variable');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -250,7 +270,7 @@ Blockly.Blocks['variables_get'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
         var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
         this.setOutputType('VAR', varType);
@@ -271,7 +291,7 @@ Blockly.Blocks['variables_get'] = {
                 this.changeOutput(dist+'_DOUBLE');
                 break;
             case ("char"):
-                this.changeOutput(dist+'CHAR');
+                this.changeOutput(dist+'_CHAR');
                 break;
         }
     }
@@ -283,14 +303,13 @@ Blockly.Blocks['variables_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(330);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
             Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
             Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-            ['VAR', new Blockly.FieldVariable('--Select--', null, this)],
+            ['VAR', new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this)],
             ['VALUE', null, Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
@@ -331,7 +350,7 @@ Blockly.Blocks['variables_set'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
         var type = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
@@ -353,7 +372,6 @@ Blockly.Blocks['variables_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(330);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
@@ -370,11 +388,13 @@ Blockly.Blocks['variables_declare'] = {
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
 
     /**
      * Return 'variables'.
@@ -442,7 +462,7 @@ Blockly.Blocks['variables_declare'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck();
+        Blockly.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
         if (type == false) {
             type = 'int';
@@ -461,11 +481,10 @@ Blockly.Blocks['variables_pointer_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(45);
         this.appendDummyInput()
             .appendField(Blockly.Msg.POINTER_GET_TITLE)
-            .appendField(new Blockly.FieldVariablePointer('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariablePointer(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Pointer');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
@@ -520,7 +539,7 @@ Blockly.Blocks['variables_pointer_get'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         var varName = this.getFieldValue('VAR');
         var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
@@ -541,7 +560,6 @@ Blockly.Blocks['variables_pointer_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(45);
 
         this.interpolateMsg(
@@ -591,7 +609,7 @@ Blockly.Blocks['variables_pointer_set'] = {
     //when the block is changed,
     onchange: //Blockly.Blocks.requireInFunction
         function() {
-            Blockly.Blocks.requireInFunction();
+            Blockly.Blocks.requireInFunction(this);
 
             if(this.getInput('VAR')) {
                 var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
@@ -610,7 +628,6 @@ Blockly.Blocks['variables_pointer_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(45);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
@@ -629,11 +646,13 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
 
     /**
      * Return 'pointer'.
@@ -709,7 +728,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck();
+        Blockly.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
 
         if (type == false) {
@@ -731,12 +750,11 @@ Blockly.Blocks['variables_array_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_GET_HELPURL);
         this.setColour(90);
 
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -827,8 +845,7 @@ Blockly.Blocks['variables_array_get'] = {
     },
     //when the block is changed,
     onchange: function() {
-
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         var arrName = this.getFieldValue('VAR');
         var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
@@ -849,7 +866,6 @@ Blockly.Blocks['variables_array_get'] = {
         }
     },
     setOutputType: Blockly.Blocks['variables_get'].setOutputType
-
 };
 
 Blockly.Blocks['variables_array_set'] = {
@@ -858,11 +874,10 @@ Blockly.Blocks['variables_array_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(90);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-            .appendField(new Blockly.FieldVariableArray('--Select--', null, this), 'VAR')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
             .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
             .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
@@ -914,7 +929,7 @@ Blockly.Blocks['variables_array_set'] = {
     getInputIdxLength: Blockly.Blocks['variables_array_get'].getInputIdxLength,
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Blocks.requireInFunction(this);
 
         if (this.getFieldValue('VAR')) {
             var option = this.getFieldValue('VAR');
@@ -943,7 +958,6 @@ Blockly.Blocks['variables_array_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setHelpUrl(Blockly.Msg.VARIABLES_SET_HELPURL);
         this.setColour(90);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
@@ -955,18 +969,21 @@ Blockly.Blocks['variables_array_declare'] = {
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['LENGTH_1', new Blockly.FieldTextInput('1', Blockly.FieldTextInput.numberValidator)],
+            ['LENGTH_1', new Blockly.FieldTextInput('1')],
             ['LENGTH_2', new Blockly.FieldTextInput('')],
             ['LENGTH_3', new Blockly.FieldTextInput('')],
             Blockly.ALIGN_RIGHT);
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
+        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_array_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;
     },
+
+    initVar: Blockly.Blocks['define_declare'].initVar,
+
     /**
      * Return 'array'.
      */
@@ -1103,7 +1120,7 @@ Blockly.Blocks['variables_pointer_*'] = {
         this.setColour(45);
         this.interpolateMsg(
             '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
-                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array'], Blockly.ALIGN_RIGHT],
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Aster');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
@@ -1113,10 +1130,31 @@ Blockly.Blocks['variables_pointer_*'] = {
         if (this.getInputTargetBlock('VALUE'))
         {
             var nextblock = this.getInputTargetBlock('VALUE');
-            var varName = nextblock.getVars();
-            var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
-            if (nextblock.type.search('variables') == 0) {
+
+             // ** variables
+             if (nextblock.type.search('variables_pointer_*') == 0) {
+                 if (nextblock.getInputTargetBlock('VALUE')) {
+                     nextblock = nextblock.getInputTargetBlock('VALUE');
+                     // DOUBLE POINTER
+                     if (nextblock.type.search('variables') == 0) {
+                         if (nextblock.type.search('pointer') > 0) {
+                             var varName = nextblock.getVars();
+                             var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+                             var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+                             // **DOUBLE POINTER -> Variable
+                             if (dimension == '**') {
+                                 this.setOutputType('VAR', varType);
+                             }
+                         }
+                     }
+                 }
+            }
+
+            // * variables
+            else if (nextblock.type.search('variables') == 0) {
+                var varName = nextblock.getVars();
+                var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
                 // POINTER
                 if (nextblock.type.search('pointer') > 0) {
@@ -1142,6 +1180,7 @@ Blockly.Blocks['variables_pointer_*'] = {
                 }
 
             }
+
         }
 
     },

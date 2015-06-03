@@ -38,7 +38,6 @@ Blockly.Blocks['controls_whileUntil'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_WHILEUNTIL_HELPURL);
     this.setColour(120);
     this.appendValueInput('BOOL')
         .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
@@ -63,17 +62,49 @@ Blockly.Blocks['controls_whileUntil'] = {
   onchange: Blockly.Blocks.requireInFunction
 };
 
+Blockly.Blocks['controls_doWhile'] = {
+    /**
+     * Block for 'do while/until' loop.
+     * @this Blockly.Block
+     */
+    init: function() {
+        var OPERATORS =
+            [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+                [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+        this.setColour(120);
+        this.appendStatementInput('DO')
+            .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+        this.appendValueInput('BOOL')
+            .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
+            .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        // Assign 'this' to a variable for use in the tooltip closure below.
+        var thisBlock = this;
+        this.tag = Blockly.Msg.TAG_LOOP_WHILE;
+        this.setTooltip(function() {
+            var op = thisBlock.getFieldValue('MODE');
+            var TOOLTIPS = {
+                'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
+                'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+            };
+            return TOOLTIPS[op];
+        });
+    },
+    //when the block is changed,
+    onchange: Blockly.Blocks.requireInFunction
+};
+
 Blockly.Blocks['controls_for'] = {
   /**
    * Block for 'for' loop.
    * @this Blockly.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.CONTROLS_FOR_HELPURL);
     this.setColour(120);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
-        .appendField(new Blockly.FieldVariable('--Select--', null, this), 'VAR');
+        .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
     this.interpolateMsg(Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
                         ['FROM', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
                         ['TO', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
@@ -144,7 +175,6 @@ Blockly.Blocks['controls_flow_statements'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
          [Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
-    this.setHelpUrl(Blockly.Msg.CONTROLS_FLOW_STATEMENTS_HELPURL);
     this.setColour(120);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'FLOW');

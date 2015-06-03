@@ -10,7 +10,6 @@ Blockly.Blocks['library_string_strlen'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRLEN_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'Number');
         this.interpolateMsg(Blockly.Msg.STRING_STRLEN_TITLE,
@@ -18,6 +17,7 @@ Blockly.Blocks['library_string_strlen'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRLEN_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRING_STRLEN;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -29,7 +29,6 @@ Blockly.Blocks['library_string_strcat'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCAT_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCAT_TITLE,
@@ -38,6 +37,7 @@ Blockly.Blocks['library_string_strcat'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCAT_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRING_STRCAT;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -49,7 +49,6 @@ Blockly.Blocks['library_string_strcpy'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCPY_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCPY_TITLE,
@@ -58,6 +57,7 @@ Blockly.Blocks['library_string_strcpy'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCPY_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRING_STRCPY;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction
@@ -69,7 +69,6 @@ Blockly.Blocks['library_string_strcmp'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setHelpUrl(Blockly.Msg.STRING_STRCMP_HELPURL);
         this.setColour(300);
         this.setOutput(true, 'String');
         this.interpolateMsg(Blockly.Msg.STRING_STRCMP_TITLE,
@@ -78,6 +77,7 @@ Blockly.Blocks['library_string_strcmp'] = {
             Blockly.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.STRING_STRCMP_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STRING_STRCMP;
     },
     //when the block is changed,
     onchange: Blockly.Blocks.requireInFunction

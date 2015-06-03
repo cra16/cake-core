@@ -66,6 +66,8 @@ Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL = "다음까지 반복";
 Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE = "동안 반복";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL = "값이 거짓일 때, 몇가지 선언을 합니다.";
 Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE = "값이 참일 때, 몇가지 선언을 합니다.";
+
+
 Blockly.Msg.DELETE_BLOCK = "블록 삭제";
 Blockly.Msg.DELETE_X_BLOCKS = "블록 %1 삭제";
 Blockly.Msg.DISABLE_BLOCK = "블록 비활성화";
@@ -252,6 +254,9 @@ Blockly.Msg.MATH_TRIG_COS = "cos";
 Blockly.Msg.MATH_TRIG_HELPURL = "https://en.wikipedia.org/wiki/Trigonometric_functions";
 Blockly.Msg.MATH_TRIG_SIN = "sin";
 Blockly.Msg.MATH_TRIG_TAN = "tan";
+Blockly.Msg.MATH_TRIG_LOG = "log";
+Blockly.Msg.MATH_TRIG_LOG10 = "log10";
+Blockly.Msg.MATH_TRIG_LOG2 = "log2";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ACOS = "어떤 수에 대한, acos(arccosine) 값을 돌려줍니다.";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ASIN = "어떤 수에 대한, asin(arcsine) 값을 돌려줍니다.";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ATAN = "어떤 수에 대한, atan(arctangent) 값을 돌려줍니다.";
@@ -275,10 +280,10 @@ Blockly.Msg.PROCEDURES_DEFNORETURN_DO = "";
 Blockly.Msg.PROCEDURES_DEFNORETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE = "func";
 Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE = "함수이름";
-Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수를 만듭니다.";
+Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP = "실행 후, 결과 값을 돌려주지 않는 함수인 void형 함수를 만듭니다.";
 Blockly.Msg.PROCEDURES_DEFRETURN_HELPURL = "https://en.wikipedia.org/wiki/Procedure_%28computer_science%29";
 Blockly.Msg.PROCEDURES_DEFRETURN_RETURN = "다음 값을 돌려줌";
-Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다.";
+Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP = "실행 후, 결과 값을 돌려주는 함수를 만듭니다. 돌려주는 결과값은 여러 타입으로 지정할 수 있습니다.";
 Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING = "경고: 이 함수에는, 같은 이름을 사용하는 매개 변수들이 있습니다.";
 Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF = "함수 정의 찾기";
 Blockly.Msg.PROCEDURES_IFRETURN_TOOLTIP = "값이 참이라면, 두번째 값을 반환합니다.";
@@ -286,7 +291,7 @@ Blockly.Msg.PROCEDURES_IFRETURN_WARNING = "경고: 이 블럭은, 함수 정의 
 Blockly.Msg.PROCEDURES_MUTATORARG_TITLE = "매개 변수:";
 Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP = "함수에 값을 더합니다.";
 Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE = "매개 변수들";
-Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP = "이 함수를 추가, 삭제, 혹은 재정렬합니다.";
+Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP = "이 매개 변수들을 추가, 삭제, 혹은 재정렬합니다.";
 Blockly.Msg.REMOVE_COMMENT = "내용 제거";
 Blockly.Msg.RENAME_VARIABLE = "변수 이름 바꾸기:";
 Blockly.Msg.RENAME_VARIABLE_TITLE = "'%1' 변수 이름을 바꾸기:";
@@ -386,11 +391,15 @@ Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = Blockly.Msg.CONTROLS_IF_MSG_ELSE;
 Blockly.Msg.STDIO_PRINTF_TITLE = '출력';
 Blockly.Msg.STDIP_PRINTF_MUTATOR_PRINTFADD_TITLE = '추가';
-Blockly.Msg.STDIO_SCANF_TITLE = '입력 %1';
+Blockly.Msg.STDIO_SCANF_TITLE = '입력';
+Blockly.Msg.STDIP_SCANF_MUTATOR_SCANFADD_TITLE = '추가';
 Blockly.Msg.STDIO_SCANF_TOOLTIP = '';
 Blockly.Msg.STDIO_SCANF_HELPURL = 'https://ko.wikipedia.org/wiki/Scanf';
 Blockly.Msg.STDIO_NEWLINE_TITLE = '줄바꿈';
 Blockly.Msg.STDIO_NEWLINE_TOOLTIP = '출력 내 줄바꿈을 합니다.';
+Blockly.Msg.COMMENT_TITLE = '주석';
+Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE = '추가';
+Blockly.Msg.COMMENT_TOOLTIP = '컴파일의 대상에서 제외가 되는 주석을 답니다. (블록 단위: /* */, 행 단위: //)';
 Blockly.Msg.STDIO_NEWLINE_HELPURL = 'https://ko.wikipedia.org/wiki/%EC%83%88%EC%A4%84_%EB%AC%B8%EC%9E%90';
 Blockly.Msg.STDLIB_CONVERT_TITLE = '문자 %1을(를) %2로 변환';
 Blockly.Msg.STDLIB_CONVERT_INT = '정수';
@@ -501,8 +510,8 @@ Blockly.Msg.DEFINE_DECLARE_TITLE = '#define';
 Blockly.Msg.DEFINE_DECLARE_INIT = '은(는)';
 Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME = 'myMacro';
 Blockly.Msg.DEFINE_GET_TITLE = '';
-Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = 'constant';
-Blockly.Msg.DEFINE_SET_TYPE_MACRO = 'macro';
+Blockly.Msg.DEFINE_SET_TYPE_CONSTANT = '상수';
+Blockly.Msg.DEFINE_SET_TYPE_MACRO = '매크로';
 
 Blockly.Msg.MAIN_BLOCK = '함수이름: main 사용: int argc, char** argv';
 Blockly.Msg.MAIN_BLOCK_RETURN = "다음 정수를 돌려줌";
@@ -536,6 +545,8 @@ Blockly.Msg.PROCEDURES_RETURN_TOOLTIP = '연결된 블럭의 값을 돌려주고
 Blockly.Msg.PLZ_INSIDE_FUNCTION = '경고: 블럭을 함수 안에 위치해주세요.';
 Blockly.Msg.PLZ_OUT_OF_BLOCK = '경고: 잘못된 위치입니다.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = '경고: 블럭을 함수 밖에 위치해주세요.';
+Blockly.Msg.SELECT_MENU = '--선택--';
+Blockly.Msg.SELECT_TYPE = '--타입--';
 
 Blockly.Msg.TAG_DEFINE_DECLARE = ['매크로', '상수'];
 Blockly.Msg.TAG_DEFINE_GET = ['매크로', '상수', '사용'];
@@ -576,6 +587,63 @@ Blockly.Msg.TAG_MATH_NUMBER = ['숫자'];
 Blockly.Msg.TAG_MATH_ARITHMETIC = ['숫자연산', '더하기빼기곱하기나누기', '+-*/'];
 Blockly.Msg.TAG_MATH_MODULO = ['숫자연산', '나머지', '%'];
 
+Blockly.Msg.TAG_STDIO_PRINTF = ['stdio.h', 'printf()', 'output', 'out', '프린트', '프린터', '출력하기'];
+Blockly.Msg.TAG_STDIO_TEXT = ['stdio.h', 'text', '텍스트'];
+Blockly.Msg.TAG_STDIO_NEWLINE = ['stdio.h', 'newline', 'new line', '\n', '줄바꿈', '줄바꾸기'];
+Blockly.Msg.TAG_STDIO_SCANF = ['stdio.h', 'scanf()', 'input', '스캔', '입력하기'];
+
+Blockly.Msg.TAG_COMMENT = ['comment', 'Comment', '주석', '\/\/', '\/**\/'];
+
+Blockly.Msg.TAG_STDLIB_CONVERT = ['stdlib.h', 'convert', 'atoi()', 'atof()', '변환하기', '문자를 정수로 변환', '문자를 실수로 변환'];
+Blockly.Msg.TAG_STDLIB_RAND = ['stdlib.h', 'random number', '랜덤수', '랜덤구하기', '랜덤 구하기', '랜덤넘버', '랜덤 넘버', '임의의수', '임의의 수'];
+Blockly.Msg.TAG_STDLIB_MALLOC = ['stdlib.h', 'malloc()', 'memory allocation', '메모리 할당', '메모리 할당하기', '메모리 동적 할당하기'];
+Blockly.Msg.TAG_STDLIB_SIZEOF = ['stdlib.h', 'sizeof()', 'size of', 'sizeOf', '사이즈 구하기', '사이즈구하기', '크기 구하기', '크기구하기'];
+Blockly.Msg.TAG_STDLIB_FREE = ['stdlib.h', 'free()', '메모리 해제', '메모리 동적 할당 해제', '메모리 동적 할당 반환', '메모리 반환하기'];
+Blockly.Msg.TAG_STDLIB_EXIT = ['stdlib.h', 'exit(0)', 'exit(1)', '종료하기', '끄기', '끔', '끝', '끝내기'];
+
+Blockly.Msg.TAG_STRING_STRLEN = ['string.h', 'strlen()', 'string length', '스트링', '문자열 길이', '문자열 길이 구하기'];
+Blockly.Msg.TAG_STRING_STRCAT = ['string.h', 'strcat()', 'string concatenate', '스트링', '문자열 붙이기', '문자열연결', '문자열 연결하기'];
+Blockly.Msg.TAG_STRING_STRCPY = ['string.h', 'strcpy()', 'string copy', '스트링', '문자열복사', '문자열 복사하기'];
+Blockly.Msg.TAG_STRING_STRCMP = ['string.h', 'strcmp()', 'string compare', '스트링', '문자열비교', '문자열 비교하기'];
+
+Blockly.Msg.TAG_MATH_ABS = ['math.h', 'absolute value', '절댓값 구하기', '절대값 구하기'];
+Blockly.Msg.TAG_MATH_TRIG = ['math.h', 'trigonometric function', 'sin()', 'cos()', 'tan()', '삼각함수', '사인함수', '코사인함수', '탄젠트함수', '사인 함수', '코사인 함수', '탄젠트 함수'];
+Blockly.Msg.TAG_MATH_LOGS = ['math.h', 'log()', 'loge()', 'log10()', 'log2()', 'log e', '자연로그'];
+Blockly.Msg.TAG_MATH_POW = ['math.h', 'power', 'pow()', '제곱 구하기'];
+Blockly.Msg.TAG_MATH_EXP = ['math.h', 'exponential function', 'exp()', '지수함수'];
+Blockly.Msg.TAG_MATH_SQRT = ['math.h', 'sqrt()', 'square root', '제곱근'];
+Blockly.Msg.TAG_MATH_ROUND = ['math.h', 'round up', 'round down', 'round()', 'trunc()', 'ceil()', 'floor()', '반올림', '올림', '내림', '버림', '올리기', '내리기', '버리기'];
+Blockly.Msg.TAG_MATH_NUMCHECK = ['math.h', 'two number check', '두 수 확인하기'];
+Blockly.Msg.TAG_MATH_NUMCOMPARE = ['math.h', 'two number compare', '두 수 비교하기'];
+
+Blockly.Msg.TAG_TIME_CURRENT = ['time.h', '현재 시간 구하기'];
+Blockly.Msg.TAG_TIME_REQUIREDTIME = ['time.h', '다음을 실행하는 데 걸리는 시간'];
+
 Blockly.Msg.PROCEDURES_ILLEGALNAME = '적절하지 못한 함수 이름입니다.';
 Blockly.Msg.VARIABLES_ILLEGALNAME = '적절하지 못한 변수 이름입니다.';
 Blockly.Msg.STRUCTURE_ILLEGALNAME = '적절하지 못한 구조체 이름입니다.';
+
+Blockly.Msg.CONTROLS_SWITCH_BREAK_WARNING = "경고 : 이 블록은 스위치 실행 블럭 안에서만 사용됩니다.";
+Blockly.Msg.CONTROLS_SWITCH_BREAK = '중단';
+Blockly.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP = '실행을 중단하고 switch문 밖으로 이동합니다.';
+Blockly.Msg.CONTROLS_SWITCH_DEFAULT = '일치하는 값이 없을 경우';
+Blockly.Msg.CONTROLS_SWITCH_DO = "하기";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP1 = "대입된 값이 일치하는 값이 없으면 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP2 = "대입된 값이 일치하는 값이 없으면 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, 세번째 값과 일치하는 경우, 세번째 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP3 = "대입된 값이 첫번째 값과 일치하는 경우, 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, .... , 마지막 값과 일치하는 경우, 마지막 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP4 = "대입된 값이 첫번째 값과 일치하는 경우, 첫번째 블럭의 명령을 실행하고, 두번째 값과 일치하는 경우, 두번째 블럭의 명령을 실행하고, .... , 마지막 값과 일치하는 경우, 마지막 블럭의 명령을 실행합니다.";
+Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP = "경우를 추가합니다."
+
+Blockly.Msg.MAINPROCEDURES_TOOLTIP = "기본적으로 제공되는 main 함수 블럭입니다. 정수형 값을 리턴합니다.";
+
+Blockly.Msg.STRUCTURE_DEFINE_TOOPTIP = "구조체를 정의합니다. 구조체의 멤버들을 추가/제거/이름변경 할 수 있습니다. 실제로 구조체를 사용하기 위한 필수과정입니다."
+Blockly.Msg.STRUCTURE_DECLARE_TOOPTIP = "이미 정의된 구조체를 선택하여 구조체를 선언합니다(변수 선언과 유사한 과정입니다.). 실제로 구조체를 사용하기 위한 필수과정입니다."
+Blockly.Msg.STRUCTURE_GET_TOOLTIP = "구조체의 멤버 혹은 자기 자신의 값을 사용합니다.";
+Blockly.Msg.STRUCTURE_SET_TOOLTIP = "구조체의 멤버 혹은 자기 자신에게 대입(assignment)합니다.";
+Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP = "이 멤버들을 추가, 삭제, 혹은 재정렬합니다.";
+Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP = "구조체의 멤버를 추가합니다."
+
+Blockly.Msg.TIME_CURRENT_TOOLTIP = "현재 시간을 \"0000(년)-00(월)-00(일)-00(시)-00(분)-00(초)\"의 형태로 출력합니다.";
+Blockly.Msg.TIME_REQUIREDTIME_TOOLTIP = "다음을 실행하는데 걸린 시간을 실수형 변수에 저장합니다.";
+
+Blockly.Msg.VARIABLES_DECLARE_TOOLTIP = "변수를 선언합니다.";

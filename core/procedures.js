@@ -178,7 +178,9 @@ Blockly.Procedures.rename = function(text) {
       func.call(blocks[x], this.text_, text);
     }
   }
-  return text;
+    text = Blockly.Names.prototype.safeName_(text);
+
+    return text;
 };
 
 /**
@@ -201,12 +203,6 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
     blocks.push(block);
     gaps.push(margin * 2);
   }
-    //if (Blockly.Blocks['procedures_ifreturn']) {
-    //    var block = Blockly.Block.obtain(workspace, 'procedures_ifreturn');
-    //    block.initSvg();
-    //    blocks.push(block);
-    //    gaps.push(margin * 2);
-    //}
     if (Blockly.Blocks['procedures_return']) {
         var block = Blockly.Block.obtain(workspace, 'procedures_return');
         block.initSvg();

@@ -43,10 +43,27 @@ Blockly.cake['controls_whileUntil'] = function(block) {
   return 'while (' + argument0 + ') {\n' + branch + '}\n';
 };
 
+Blockly.cake['controls_doWhile'] = function(block) {
+    // Do while/until loop.
+    var until = block.getFieldValue('MODE') == 'UNTIL';
+    var argument0 = Blockly.cake.valueToCode(block, 'BOOL',
+            until ? Blockly.cake.ORDER_LOGICAL_NOT :
+                Blockly.cake.ORDER_NONE) || '0';
+    var branch = Blockly.cake.statementToCode(block, 'DO');
+    branch = Blockly.cake.addLoopTrap(branch, block.id);
+    if (until) {
+        argument0 = '!' + argument0;
+    }
+    return 'do {\n' + branch + '} while (' + argument0 + ');\n';
+};
+
 Blockly.cake['controls_for'] = function(block) {
   // For loop.
   var variable0 = Blockly.cake.variableDB_.getName(
     block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+    if(variable0 == '___EC_84_A0_ED_83_9D__' || variable0 == '--Select--'){
+        variable0 = 'unselected';
+    }
   var argument0 = Blockly.cake.valueToCode(block, 'FROM',
     Blockly.cake.ORDER_ASSIGNMENT) || '0';
   var argument1 = Blockly.cake.valueToCode(block, 'TO',

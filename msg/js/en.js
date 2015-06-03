@@ -252,6 +252,9 @@ Blockly.Msg.MATH_TRIG_COS = "cos";
 Blockly.Msg.MATH_TRIG_HELPURL = "https://en.wikipedia.org/wiki/Trigonometric_functions";
 Blockly.Msg.MATH_TRIG_SIN = "sin";
 Blockly.Msg.MATH_TRIG_TAN = "tan";
+Blockly.Msg.MATH_TRIG_LOG = "log";
+Blockly.Msg.MATH_TRIG_LOG10 = "log10";
+Blockly.Msg.MATH_TRIG_LOG2 = "log2";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ACOS = "Return the arccosine of a number.";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ASIN = "Return the arcsine of a number.";
 Blockly.Msg.MATH_TRIG_TOOLTIP_ATAN = "Return the arctangent of a number.";
@@ -386,33 +389,37 @@ Blockly.Msg.TEXT_APPEND_VARIABLE = Blockly.Msg.VARIABLES_DEFAULT_NAME;
 Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE = Blockly.Msg.CONTROLS_IF_MSG_ELSE;
 Blockly.Msg.STDIO_PRINTF_TITLE = 'printf';
 Blockly.Msg.STDIP_PRINTF_MUTATOR_PRINTFADD_TITLE = 'Add';
-Blockly.Msg.STDIO_SCANF_TITLE = 'scanf %1';
+Blockly.Msg.STDIO_SCANF_TITLE = 'scanf';
+Blockly.Msg.STDIP_SCANF_MUTATOR_SCANFADD_TITLE = 'Add';
 Blockly.Msg.STDIO_SCANF_TOOLTIP = '';
 Blockly.Msg.STDIO_SCANF_HELPURL = 'https://en.wikipedia.org/wiki/Scanf_format_string';
 Blockly.Msg.STDIO_NEWLINE_TITLE = 'new line';
-Blockly.Msg.STDIO_NEWLINE_TOOLTIP = '출력 내 줄바꿈을 합니다.';
+Blockly.Msg.STDIO_NEWLINE_TOOLTIP = 'new line character';
 Blockly.Msg.STDIO_NEWLINE_HELPURL = 'https://en.wikipedia.org/wiki/Newline';
+Blockly.Msg.COMMENT_TITLE = 'comment';
+Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE = 'Add';
+Blockly.Msg.COMMENT_TOOLTIP = 'A "comment" is a sequence of characters beginning with a forward slash/asterisk combination (/*) that is treated as a single white-space character by the compiler and is otherwise ignored. A comment can include any combination of characters from the representable character set, including newline characters, but excluding the "end comment" delimiter (*/). Comments can occupy more than one line but cannot be nested. Comments can appear anywhere a white-space character is allowed. Since the compiler treats a comment as a single white-space character, you cannot include comments within tokens. The compiler ignores the characters in the comment. Use comments to document your code.';
 Blockly.Msg.STDLIB_CONVERT_TITLE = 'Convert string %1 to %2';
 Blockly.Msg.STDLIB_CONVERT_INT = 'int';
 Blockly.Msg.STDLIB_CONVERT_DOUBLE = 'double';
 Blockly.Msg.STDLIB_CONVERT_TOOLTIP = 'Convert stirng to integer or double type.';
 Blockly.Msg.STDLIB_CONVERT_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
 Blockly.Msg.STDLIB_RAND_TITLE = 'rand %1';
-Blockly.Msg.STDLIB_RAND_TOOLTIP = '임의의 수를 할당합니다.';
+Blockly.Msg.STDLIB_RAND_TOOLTIP = 'assign random number';
 Blockly.Msg.STDLIB_RAND_HELPURL = 'https://en.wikipedia.org/wiki/C_mathematical_functions#Random_number_generation';
 Blockly.Msg.STDLIB_RANDSCOPE_TITLE = "scope:%1~%2";
-Blockly.Msg.STDLIB_RANDSCOPE_TOOLTIP = '임의의 수를 할당할 범위를 지정합니다.';
+Blockly.Msg.STDLIB_RANDSCOPE_TOOLTIP = 'assign scope of random number.';
 Blockly.Msg.STDLIB_RANDSCOPE_HELPURL = 'https://en.wikipedia.org/wiki/C_mathematical_functions#Random_number_generation';
 Blockly.Msg.STDLIB_SRAND_TITLE = 'srand %1'; // not use
 Blockly.Msg.STDLIB_MALLOC_TITLE = 'malloc %1';
 Blockly.Msg.STDLIB_MALLOC_TOOLTIP = 'Dinamic memory allocation';
 Blockly.Msg.STDLIB_MALLOC_HELPURL = 'https://en.wikipedia.org/wiki/C_dynamic_memory_allocation';
 Blockly.Msg.STDLIB_SIZEOFFORMALLOC_TITLE = 'size of %1';
-Blockly.Msg.STDLIB_SIZEOFFORMALLOC_TOOLTIP = '다음의 크기를 바이트 값으로 돌려줍니다.';
+Blockly.Msg.STDLIB_SIZEOFFORMALLOC_TOOLTIP = 'return the size by byte';
 Blockly.Msg.STDLIB_SIZEOFFORMALLOC_HELPURL = 'https://en.wikipedia.org/wiki/Sizeof';
 Blockly.Msg.STDLIB_ARITHFORMALLOC_TITLE = '%1 x %2';
 Blockly.Msg.STDLIB_FREE_TITLE = 'free %1';
-Blockly.Msg.STDLIB_FREE_TOOLTIP = '할당된 메모리를 해제합니다.';
+Blockly.Msg.STDLIB_FREE_TOOLTIP = 'deallocate the memory';
 Blockly.Msg.STDLIB_FREE_HELPURL = 'https://en.wikipedia.org/wiki/C_dynamic_memory_allocation';
 Blockly.Msg.STDLIB_EXIT_TITLE = 'exit %1';
 Blockly.Msg.STDLIB_EXIT_SUCCESS = 'success';
@@ -441,16 +448,16 @@ Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = 'less or greater';
 Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = 'unordered';
 Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
 Blockly.Msg.STRING_STRLEN_TITLE = 'string length %1';
-Blockly.Msg.STRING_STRLEN_TOOLTIP = '문자열의 길이를 구합니다.';
+Blockly.Msg.STRING_STRLEN_TOOLTIP = 'return length of string';
 Blockly.Msg.STRING_STRLEN_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
 Blockly.Msg.STRING_STRCAT_TITLE = 'string add %1 and %2';
-Blockly.Msg.STRING_STRCAT_TOOLTIP = '2개의 문자열을 이어 붙입니다.';
+Blockly.Msg.STRING_STRCAT_TOOLTIP = 'concat two strings';
 Blockly.Msg.STRING_STRCAT_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
 Blockly.Msg.STRING_STRCPY_TITLE = 'string copy from %1 to %2';
-Blockly.Msg.STRING_STRCPY_TOOLTIP = '첫 번째 문자열을 두 번째 문자열로 복사합니다.';
+Blockly.Msg.STRING_STRCPY_TOOLTIP = 'copy first string into second string';
 Blockly.Msg.STRING_STRCPY_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
 Blockly.Msg.STRING_STRCMP_TITLE = 'string compare %1 and %2';
-Blockly.Msg.STRING_STRCMP_TOOLTIP = '2개의 문자열을 비교합니다.';
+Blockly.Msg.STRING_STRCMP_TOOLTIP = 'compare two strings';
 Blockly.Msg.STRING_STRCMP_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
 
 Blockly.Msg.TIME_REQUIREDTIME_TITLE = 'time to do followings';
@@ -535,6 +542,8 @@ Blockly.Msg.PROCEDURES_RETURN_TOOLTIP = 'Terminate function after return what yo
 Blockly.Msg.PLZ_OUT_OF_BLOCK = 'Warning: This block can be placed out of other blocks except function block.';
 Blockly.Msg.PLZ_INSIDE_FUNCTION = 'Warning: Place this block inside a function.';
 Blockly.Msg.PLZ_OUT_OF_FUNCTION = 'Warning: Place this block out of a function.';
+Blockly.Msg.SELECT_MENU = '--Select--';
+Blockly.Msg.SELECT_TYPE = '--Type--';
 
 Blockly.Msg.TAG_DEFINE_DECLARE = ['macro', 'constant'];
 Blockly.Msg.TAG_DEFINE_GET = ['macro', 'constant', 'get'];
@@ -575,6 +584,63 @@ Blockly.Msg.TAG_MATH_NUMBER = ['number'];
 Blockly.Msg.TAG_MATH_ARITHMETIC = ['number', 'arithmetic', 'additionsubtractionmultiplicationdivision', '+-*/'];
 Blockly.Msg.TAG_MATH_MODULO = ['arithmetic', 'remainder', '%'];
 
+Blockly.Msg.TAG_STDIO_PRINTF = ['stdio.h', 'printf()', 'output', 'out'];
+Blockly.Msg.TAG_STDIO_TEXT = ['stdio.h', 'text'];
+Blockly.Msg.TAG_STDIO_NEWLINE = ['stdio.h', 'newline', 'new line', '\n', 'change line', 'line change'];
+Blockly.Msg.TAG_STDIO_SCANF = ['stdio.h', 'scanf()', 'input'];
+
+Blockly.Msg.TAG_COMMENT = ['comment', 'Comment', '\/\/', '\/**\/'];
+
+Blockly.Msg.TAG_STDLIB_CONVERT = ['stdlib.h', 'convert', 'atoi()', 'atof()'];
+Blockly.Msg.TAG_STDLIB_RAND = ['stdlib.h', 'random number'];
+Blockly.Msg.TAG_STDLIB_MALLOC = ['stdlib.h', 'malloc()', 'memory allocation', 'memory allocate'];
+Blockly.Msg.TAG_STDLIB_SIZEOF = ['stdlib.h', 'sizeof()', 'size of', 'sizeOf'];
+Blockly.Msg.TAG_STDLIB_FREE = ['stdlib.h', 'free()'];
+Blockly.Msg.TAG_STDLIB_EXIT = ['stdlib.h', 'exit(0)', 'exit(1)', 'end', 'the end'];
+
+Blockly.Msg.TAG_STRING_STRLEN = ['string.h', 'strlen()', 'string length', 'length of string'];
+Blockly.Msg.TAG_STRING_STRCAT = ['string.h', 'strcat()', 'string concatenate', 'concatenate string'];
+Blockly.Msg.TAG_STRING_STRCPY = ['string.h', 'strcpy()', 'string copy', 'copy string'];
+Blockly.Msg.TAG_STRING_STRCMP = ['string.h', 'strcmp()', 'string compare', 'compare string'];
+
+Blockly.Msg.TAG_MATH_ABS = ['math.h', 'absolute value'];
+Blockly.Msg.TAG_MATH_TRIG = ['math.h', 'trigonometric function', 'sin()', 'cos()', 'tan()', 'sine function', 'cosine function', 'tangent function'];
+Blockly.Msg.TAG_MATH_LOGS = ['math.h', 'log()', 'loge()', 'log10()', 'log2()', 'log e'];
+Blockly.Msg.TAG_MATH_POW = ['math.h', 'power', 'pow()'];
+Blockly.Msg.TAG_MATH_EXP = ['math.h', 'exponential function', 'exp()'];
+Blockly.Msg.TAG_MATH_SQRT = ['math.h', 'sqrt()', 'square root'];
+Blockly.Msg.TAG_MATH_ROUND = ['math.h', 'round up', 'round down', 'round()', 'trunc()', 'ceil()', 'floor()', 'truncate'];
+Blockly.Msg.TAG_MATH_NUMCHECK = ['math.h', 'two number check'];
+Blockly.Msg.TAG_MATH_NUMCOMPARE = ['math.h', 'two number compare'];
+
+Blockly.Msg.TAG_TIME_CURRENT = ['time.h', 'get current time', 'print current time'];
+Blockly.Msg.TAG_TIME_REQUIREDTIME = ['time.h', 'the time to do followings'];
+
 Blockly.Msg.PROCEDURES_ILLEGALNAME = 'illegal function name';
 Blockly.Msg.VARIABLES_ILLEGALNAME = 'illegal variable name';
 Blockly.Msg.STRUCTURE_ILLEGALNAME = 'illegal structure name';
+
+Blockly.Msg.CONTROLS_SWITCH_BREAK_WARNING = "WARNING : This block must be in switch block.";
+Blockly.Msg.CONTROLS_SWITCH_BREAK = 'break';
+Blockly.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP = 'break the statement and leave the switch block.';
+Blockly.Msg.CONTROLS_SWITCH_DEFAULT = 'if there are no corresponding value';
+Blockly.Msg.CONTROLS_SWITCH_DO = "DO";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP1 = "if there are no corresponding value, do first block statement and if value correspond with second value, do second block statement.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP2 = "if there are no corresponding value, do first block statement, if value correspond with second value, do second block statement, and if value correspond with third value, do third block statement.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP3 = "if there are no corresponding value, do first block statement and if value correspond with second value, do second block statement, .... , and if value correspond with last value, do last block statement.";
+Blockly.Msg.CONTROLS_SWITCH_TOOLTIP4 = "if there are no corresponding value, do first block statement and if value correspond with second value, do second block statement, .... , and if value correspond with last value, do last block statement.";
+Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP = "Add case."
+
+Blockly.Msg.MAINPROCEDURES_TOOLTIP = "basically provided main function block. return integer value";
+
+Blockly.Msg.STRUCTURE_DEFINE_TOOPTIP = "define structure. you can add, delete, rename the member of structure. it must be before using structure.";
+Blockly.Msg.STRUCTURE_DECLARE_TOOPTIP = "declare structure by selecting predefined structure(similar with declaring variables). it must be before using structure.";
+Blockly.Msg.STRUCTURE_GET_TOOLTIP = "return value of structure member or structure itself.";
+Blockly.Msg.STRUCTURE_SET_TOOLTIP = "assignment(set) the value into structure member or structure itself.";
+Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP = "add, delete, or rearrange member.";
+Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP = "add member of structure."
+
+Blockly.Msg.TIME_CURRENT_TOOLTIP = "print current time with the form \"0000(year)-00(month)-00(day)-00(hour)-00(miniute)-00(seconds)\"";
+Blockly.Msg.TIME_REQUIREDTIME_TOOLTIP = "save the time that is taken for doing followings into double variable";
+
+Blockly.Msg.VARIABLES_DECLARE_TOOLTIP = "declare variables";

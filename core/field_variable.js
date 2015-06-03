@@ -97,7 +97,7 @@ Blockly.FieldVariable.dropdownCreate = function(block) {
   if (name && variableListPop.indexOf(name) == -1) {
     variableListPop.push(name);
   }
-  else variableListPop.push('--Select--');
+  else variableListPop.push(Blockly.Msg.SELECT_MENU);
   variableListPop.sort(goog.string.caseInsensitiveCompare);
   // variableList.push(Blockly.Msg.RENAME_VARIABLE);
   // variableList.push(Blockly.Msg.NEW_VARIABLE);

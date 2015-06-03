@@ -96,136 +96,181 @@ goog.provide('Blockly.Blocks');
  *     Additional fields will be ignored.
  */
 Blockly.Blocks.addTemplate = function(details) {
-  // Validate inputs.  TODO: Add more.
-  goog.asserts.assert(details.blockName);
-  goog.asserts.assert(Blockly.Blocks[details.blockName],
-    'Blockly.Blocks already has a field named ', details.blockName);
-  goog.asserts.assert(details.message);
-  goog.asserts.assert(details.colour && typeof details.colour == 'number' &&
-    details.colour >= 0 && details.colour < 360,
-    'details.colour must be a number from 0 to 360 (exclusive)');
-  if (details.output != 'undefined') {
-    goog.asserts.assert(!details.previousStatement,
-      'When details.output is defined, ' +
-      'details.previousStatement must not be true.');
-    goog.asserts.assert(!details.nextStatement,
-      'When details.output is defined, ' +
-      'details.nextStatement must not be true.');
-  }
-
-  // Build up template.
-  var block = {};
-  block.init = function() {
-    var thisBlock = this;
-    // Set basic properties of block.
-    this.setColour(details.colour);
-    this.setHelpUrl(details.helpUrl);
-    if (typeof details.tooltip == 'string') {
-      this.setTooltip(details.tooltip);
-    } else if (typeof details.tooltip == 'function') {
-      this.setTooltip(function() {
-        return details.tooltip(thisBlock);
-      });
-    }
-    // Set output and previous/next connections.
+    // Validate inputs.  TODO: Add more.
+    goog.asserts.assert(details.blockName);
+    goog.asserts.assert(Blockly.Blocks[details.blockName],
+        'Blockly.Blocks already has a field named ', details.blockName);
+    goog.asserts.assert(details.message);
+    goog.asserts.assert(details.colour && typeof details.colour == 'number' &&
+        details.colour >= 0 && details.colour < 360,
+        'details.colour must be a number from 0 to 360 (exclusive)');
     if (details.output != 'undefined') {
-      this.setOutput(true, details.output);
-    } else {
-      this.setPreviousStatement(
-        typeof details.previousStatement == 'undefined' ?
-        true : details.previousStatement);
-      this.setNextStatement(
-        typeof details.nextStatement == 'undefined' ?
-        true : details.nextStatement);
+        goog.asserts.assert(!details.previousStatement,
+            'When details.output is defined, ' +
+            'details.previousStatement must not be true.');
+        goog.asserts.assert(!details.nextStatement,
+            'When details.output is defined, ' +
+            'details.nextStatement must not be true.');
     }
-    // Build up arguments in the format expected by interpolateMsg.
-    var interpArgs = [];
-    interpArgs.push(details.text);
-    if (details.args) {
-      details.args.forEach(function(arg) {
-        goog.asserts.assert(arg.name);
-        goog.asserts.assert(arg.check != 'undefined');
-        if (arg.type == 'undefined' || arg.type == Blockly.INPUT_VALUE) {
-          interpArgs.push([arg.name,
-            arg.check,
-            typeof arg.align == 'undefined' ? Blockly.ALIGN_RIGHT : arg.align
-          ]);
-        } else {
-          // TODO: Write code for other input types.
-          goog.asserts.fail('addTemplate() can only handle value inputs.');
+
+    // Build up template.
+    var block = {};
+    block.init = function() {
+        var thisBlock = this;
+        // Set basic properties of block.
+        this.setColour(details.colour);
+        this.setHelpUrl(details.helpUrl);
+        if (typeof details.tooltip == 'string') {
+            this.setTooltip(details.tooltip);
+        } else if (typeof details.tooltip == 'function') {
+            this.setTooltip(function() {
+                return details.tooltip(thisBlock);
+            });
         }
-      });
-    }
-    // Neil, how would you recommend specifying the final dummy alignment?
-    // Should it be a top-level field in details?
-    interpArgs.push(Blockly.ALIGN_RIGHT);
-    if (details.inline) {
-      this.setInlineInputs(details.inline);
-    }
-    Blockly.Block.prototype.interpolateMsg.apply(this, interpArgs);
-  };
-
-  // Create mutationToDom if needed.
-  if (details.switchable) {
-    block.mutationToDom = function() {
-      var container = details.mutationToDomFunc ? details.mutatationToDomFunc() : document.createElement('mutation');
-      container.setAttribute('is_statement', this['isStatement'] || false);
-      return container;
+        // Set output and previous/next connections.
+        if (details.output != 'undefined') {
+            this.setOutput(true, details.output);
+        } else {
+            this.setPreviousStatement(
+                typeof details.previousStatement == 'undefined' ?
+                    true : details.previousStatement);
+            this.setNextStatement(
+                typeof details.nextStatement == 'undefined' ?
+                    true : details.nextStatement);
+        }
+        // Build up arguments in the format expected by interpolateMsg.
+        var interpArgs = [];
+        interpArgs.push(details.text);
+        if (details.args) {
+            details.args.forEach(function(arg) {
+                goog.asserts.assert(arg.name);
+                goog.asserts.assert(arg.check != 'undefined');
+                if (arg.type == 'undefined' || arg.type == Blockly.INPUT_VALUE) {
+                    interpArgs.push([arg.name,
+                        arg.check,
+                        typeof arg.align == 'undefined' ? Blockly.ALIGN_RIGHT : arg.align
+                    ]);
+                } else {
+                    // TODO: Write code for other input types.
+                    goog.asserts.fail('addTemplate() can only handle value inputs.');
+                }
+            });
+        }
+        // Neil, how would you recommend specifying the final dummy alignment?
+        // Should it be a top-level field in details?
+        interpArgs.push(Blockly.ALIGN_RIGHT);
+        if (details.inline) {
+            this.setInlineInputs(details.inline);
+        }
+        Blockly.Block.prototype.interpolateMsg.apply(this, interpArgs);
     };
-  } else {
-    block.mutationToDom = details.mutationToDomFunc;
-  }
-  // TODO: Add domToMutation and customContextMenu.
 
-  // Add new block to Blockly.Blocks.
-  Blockly.Blocks[details.blockName] = block;
-};
-
-/*
-The Function to set warning text and show it when the block 
-that must be in function is out of function.
-*/
-Blockly.Blocks.requireInFunction = function() {
-    if (!this.workspace) {
-        // Block has been deleted.
-        return;
-    }
-    if(this.getSurroundParent()) {
-        this.setWarningText(null);
+    // Create mutationToDom if needed.
+    if (details.switchable) {
+        block.mutationToDom = function() {
+            var container = details.mutationToDomFunc ? details.mutatationToDomFunc() : document.createElement('mutation');
+            container.setAttribute('is_statement', this['isStatement'] || false);
+            return container;
+        };
     } else {
-        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        block.mutationToDom = details.mutationToDomFunc;
     }
+    // TODO: Add domToMutation and customContextMenu.
+
+    // Add new block to Blockly.Blocks.
+    Blockly.Blocks[details.blockName] = block;
 };
+
 /*
-The Function to check if variable, array, #define, or pointer declare block's position is legal or illegal.
+ The Function to set warning text and show it when the block
+ that must be in function is out of function.
  */
-Blockly.Blocks.variablePlaceCheck = function() {
-    if (!this.workspace) {
-        // Block has been deleted.
-        return;
+Blockly.Blocks.requireInFunction = function(block) {
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent()) {
+            this.setWarningText(null);
+        } else {
+            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
-    if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-        this.setWarningText(null);
-    } else if(this.getSurroundParent()) {
-        this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
-    } else {
-        this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent()) {
+            block.setWarningText(null);
+        } else {
+            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
+    }
+};
+/*
+ The Function to check if variable, array, #define, or pointer declare block's position is legal or illegal.
+ */
+Blockly.Blocks.variablePlaceCheck = function(block) {
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+            this.setWarningText(null);
+        } else if (this.getSurroundParent()) {
+            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+        } else {
+            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
+    }
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
+            block.setWarningText(null);
+        } else if (block.getSurroundParent()) {
+            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+        } else {
+            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+        }
     }
 };
 
-Blockly.Blocks.requireOutFunction=function(){
-  if (!this.workspace) {
-    // Block has been deleted.
-    return;
-  }
-  if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-      this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
-  } else {
-      this.setWarningText(null);
-  }
+Blockly.Blocks.requireOutFunction=function(block){
+    if(!block) {
+        if (!this.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
+            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+        } else {
+            this.setWarningText(null);
+        }
+    }
+    else {
+        if (!block.workspace) {
+            // Block has been deleted.
+            return;
+        }
+        if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
+            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+        } else {
+            block.setWarningText(null);
+        }
+    }
 };
 
 Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
+    // if inputNum is variable
+    if (isNaN(inputNum) == true ){
+        return true;
+    }
     if ((inputNum < 0) || (arrayIdx < 0) || (inputNum >= arrayIdx)) {
         return false;
     }
@@ -276,15 +321,15 @@ Blockly.Blocks.getIndexArray = function(arrList, arrName) {
 
 
 Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
-  
-  if(len1 != 0 && len2 == 0 && len3 == 0)
-    block.setWarningText(null);
-  else if(len1 != 0 && len2 != 0 && len3 == 0)
-    block.setWarningText(null);
-  else if(len1 != 0 && len2 != 0 && len3 != 0)
-    block.setWarningText(null);
-  else
-    block.setWarningText('Warning: Array length must be writen by order.');
+
+    if(len1 != 0 && len2 == 0 && len3 == 0)
+        block.setWarningText(null);
+    else if(len1 != 0 && len2 != 0 && len3 == 0)
+        block.setWarningText(null);
+    else if(len1 != 0 && len2 != 0 && len3 != 0)
+        block.setWarningText(null);
+    else
+        block.setWarningText('Warning: Array length must be writen by order.');
 
 };
 
@@ -319,11 +364,6 @@ Blockly.Blocks.searchTag = function(searchingTag){
             proReturn.id = Blockly.genUid();
             proReturn.fill(Blockly.mainWorkspace, "procedures_defreturn");
             blocks.push(proReturn);
-
-            var ifReturn = new Blockly.Block();
-            ifReturn.id = Blockly.genUid();
-            ifReturn.fill(Blockly.mainWorkspace, "procedures_ifreturn");
-            blocks.push(ifReturn);
         }
         else if(tree_i.blocks =='STRUCTURE'){
             var structDefine = new Blockly.Block();
@@ -478,6 +518,7 @@ Blockly.Blocks.checkLegalName = function(msg, name){
 
     if(err>0){
         window.alert(msg);
+        return -1;
     }
     return;
 };
@@ -513,10 +554,10 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
             block.getInput(inputName)
                 .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'Number', 'INT']);
             break;
-/*        default:
-            block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT']);
-*/
+        /*        default:
+         block.getInput(inputName)
+         .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'NEGATIVE', 'INT']);
+         */
     }
 };
 
@@ -558,8 +599,14 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
         case ('dbchar'):
             block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
-/*        default:
-            block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);
-*/    }
+        /*        default:
+         block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);
+         */    }
 };
 
+Blockly.Blocks.checkUnselect = function(content){
+    if(content == '___EC_84_A0_ED_83_9D__' || content == '--Select--' || content == '___ED_83_80_EC_9E_85__' || content == '--Type--'){
+        content = 'unselected';
+    }
+    return content;
+}
