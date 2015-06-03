@@ -54,7 +54,7 @@ Blockly.cake['math_arithmetic'] = function(block) {
   //  code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
   //  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
   //}
-  code = argument0 + operator + argument1;
+  code = "(" + argument0 + operator + argument1 + ")";
   return [code, order];
 };
 
