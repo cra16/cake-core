@@ -381,19 +381,7 @@ Blockly.createDom_ = function(container) {
   Blockly.WidgetDiv.DIV = goog.dom.createDom('div', 'blocklyWidgetDiv');
   Blockly.WidgetDiv.DIV.style.direction = Blockly.RTL ? 'rtl' : 'ltr';
   document.body.appendChild(Blockly.WidgetDiv.DIV);
-
-  var block = Blockly.Block.obtain(Blockly.mainWorkspace, 'main_block');
-  var xmlBlock = Blockly.Xml.blockToDom_(block);
-
-  //main_block attribute setting
-  xmlBlock.setAttribute('deletable', false);
-  xmlBlock.setAttribute('movable', false);
-  xmlBlock.setAttribute('editable', false);
-
-  Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
-
 };
-
 
 /**
  * Initialize Blockly with various handlers.
