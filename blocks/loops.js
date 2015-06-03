@@ -38,7 +38,7 @@ Blockly.Blocks['controls_whileUntil'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
          [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-    this.setColour(120);
+    this.setColour(220);
     this.appendValueInput('BOOL')
         .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
@@ -71,7 +71,7 @@ Blockly.Blocks['controls_doWhile'] = {
         var OPERATORS =
             [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
                 [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
-        this.setColour(120);
+        this.setColour(220);
         this.appendStatementInput('DO')
             .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
         this.appendValueInput('BOOL')
@@ -101,7 +101,7 @@ Blockly.Blocks['controls_for'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(120);
+    this.setColour(220);
     this.appendDummyInput()
         .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
         .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
@@ -175,7 +175,7 @@ Blockly.Blocks['controls_flow_statements'] = {
     var OPERATORS =
         [[Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
          [Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
-    this.setColour(120);
+    this.setColour(220);
     this.appendDummyInput()
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'FLOW');
     this.setPreviousStatement(true);

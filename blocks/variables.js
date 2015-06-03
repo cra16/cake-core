@@ -212,7 +212,7 @@ Blockly.Blocks['variables_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(330);
+        this.setColour(350);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
             .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
@@ -303,7 +303,7 @@ Blockly.Blocks['variables_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(330);
+        this.setColour(350);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
@@ -372,7 +372,7 @@ Blockly.Blocks['variables_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setColour(330);
+        this.setColour(350);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
 
@@ -481,7 +481,7 @@ Blockly.Blocks['variables_pointer_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(45);
+        this.setColour(25);
         this.appendDummyInput()
             .appendField(Blockly.Msg.POINTER_GET_TITLE)
             .appendField(new Blockly.FieldVariablePointer(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
@@ -560,8 +560,7 @@ Blockly.Blocks['variables_pointer_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(45);
-
+        this.setColour(25);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
             Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
@@ -628,7 +627,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setColour(45);
+        this.setColour(25);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
 
@@ -750,8 +749,7 @@ Blockly.Blocks['variables_array_get'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(90);
-
+        this.setColour(48);
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
             .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
@@ -874,7 +872,7 @@ Blockly.Blocks['variables_array_set'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(90);
+        this.setColour(48);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
             .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
@@ -958,7 +956,7 @@ Blockly.Blocks['variables_array_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
-        this.setColour(90);
+        this.setColour(48);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
 
@@ -1066,10 +1064,9 @@ Blockly.Blocks['variables_array_declare'] = {
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
 };
 
-
 Blockly.Blocks['variables_pointer_&'] = {
     init: function() {
-        this.setColour(45);
+        this.setColour(25);
         this.interpolateMsg(
             '&' + ' %1 ', ['VALUE',
                 ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
@@ -1117,7 +1114,7 @@ Blockly.Blocks['variables_pointer_&'] = {
 
 Blockly.Blocks['variables_pointer_*'] = {
     init: function() {
-        this.setColour(45);
+        this.setColour(25);
         this.interpolateMsg(
             '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
                 'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],

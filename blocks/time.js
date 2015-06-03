@@ -13,7 +13,7 @@ Blockly.Blocks['library_time_current'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.interpolateMsg(Blockly.Msg.TIME_TIME_CURRENT_TITLE,
             Blockly.ALIGN_RIGHT);
         this.setPreviousStatement(true);
@@ -51,7 +51,7 @@ Blockly.Blocks['library_time_requiredTime'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.interpolateMsg(Blockly.Msg.TIME_REQUIREDTIME_TITLE,
             Blockly.ALIGN_RIGHT);
         this.appendStatementInput('DO');

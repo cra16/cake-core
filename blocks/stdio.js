@@ -10,7 +10,7 @@ Blockly.Blocks['library_stdio_printf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendValueInput('VAR0')
             .setCheck(null)
             .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
@@ -133,7 +133,7 @@ Blockly.Blocks['library_stdio_printf_printf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendDummyInput()
             .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
         this.appendStatementInput('STACK');
@@ -148,7 +148,7 @@ Blockly.Blocks['library_stdio_printf_add'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendDummyInput()
             .appendField(Blockly.Msg.STDIP_PRINTF_MUTATOR_PRINTFADD_TITLE);
         this.setPreviousStatement(true);
@@ -164,7 +164,7 @@ Blockly.Blocks['library_stdio_text'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(160);
+        this.setColour(90);
         this.appendDummyInput()
             .appendField(this.newQuote_(true))
             .appendField(new Blockly.FieldTextInput(''), 'TEXT')
@@ -211,7 +211,7 @@ Blockly.Blocks['library_stdio_newLine'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(160);
+        this.setColour(90);
         this.interpolateMsg(Blockly.Msg.STDIO_NEWLINE_TITLE,
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'String');
@@ -228,7 +228,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendValueInput('VAR0')
             .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
                 'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
@@ -355,7 +355,7 @@ Blockly.Blocks['library_stdio_scanf_scanf'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendDummyInput()
             .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
         this.appendStatementInput('STACK');
@@ -370,7 +370,7 @@ Blockly.Blocks['library_stdio_scanf_add'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(300);
+        this.setColour(280);
         this.appendDummyInput()
             .appendField(Blockly.Msg.STDIP_SCANF_MUTATOR_SCANFADD_TITLE);
         this.setPreviousStatement(true);
@@ -386,7 +386,7 @@ Blockly.Blocks['comment'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(135);
+        this.setColour(75);
         this.appendValueInput('VAR0')
             .setCheck(null)
             .appendField(Blockly.Msg.COMMENT_TITLE);
@@ -520,7 +520,7 @@ Blockly.Blocks['comment_comment'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(135);
+        this.setColour(75);
         this.appendDummyInput()
             .appendField(Blockly.Msg.COMMENT_TITLE);
         this.appendStatementInput('STACK');
@@ -535,7 +535,7 @@ Blockly.Blocks['comment_add'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(135);
+        this.setColour(75);
         this.appendDummyInput()
             .appendField(Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE);
         this.setPreviousStatement(true);

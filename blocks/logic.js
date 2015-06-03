@@ -35,7 +35,7 @@ Blockly.Blocks['controls_if'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendValueInput('IF0')
       .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
@@ -219,7 +219,7 @@ Blockly.Blocks['controls_if_if'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendDummyInput()
       .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.appendStatementInput('STACK');
@@ -234,7 +234,7 @@ Blockly.Blocks['controls_if_elseif'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendDummyInput()
       .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
@@ -250,7 +250,7 @@ Blockly.Blocks['controls_if_else'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendDummyInput()
       .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
     this.setPreviousStatement(true);
@@ -280,7 +280,7 @@ Blockly.Blocks['logic_compare'] = {
       ['>', 'GT'],
       ['\u2265', 'GTE']
     ];
-    this.setColour(210);
+    this.setColour(200);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
     this.appendValueInput('B')
@@ -317,7 +317,7 @@ Blockly.Blocks['logic_operation'] = {
         [Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
         [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']
       ];
-    this.setColour(210);
+    this.setColour(200);
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
 //      .setCheck(['Boolean', 'Number']);
@@ -347,7 +347,7 @@ Blockly.Blocks['logic_negate'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.setOutput(true, 'Boolean');
     this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number', 'NEGATIVE', 'INT'], Blockly.ALIGN_RIGHT],
       Blockly.ALIGN_RIGHT);
@@ -369,7 +369,7 @@ Blockly.Blocks['logic_boolean'] = {
         [Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
         [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']
       ];
-    this.setColour(210);
+    this.setColour(200);
     this.setOutput(true, 'Boolean');
     this.appendDummyInput()
       .appendField(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
@@ -386,7 +386,7 @@ Blockly.Blocks['logic_null'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.setOutput(true);
     this.appendDummyInput()
       .appendField(Blockly.Msg.LOGIC_NULL);
@@ -403,7 +403,7 @@ Blockly.Blocks['logic_ternary'] = {
    * @this Blockly.Block
    */
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendValueInput('IF')
           .appendField(Blockly.Msg.LOGIC_TERNARY_CONDITION);
     this.appendValueInput('THEN')
@@ -420,7 +420,7 @@ Blockly.Blocks['logic_ternary'] = {
 
 Blockly.Blocks['controls_switch'] = {
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendValueInput('SWITCH')
       .appendField(Blockly.Msg.CONTROLS_SWITCH);
       this.appendDummyInput()
@@ -572,7 +572,7 @@ Blockly.Blocks['controls_switch'] = {
 
 Blockly.Blocks['controls_switch_switch'] = {
   init: function() {
-    this.setColour(210);
+    this.setColour(200);
     this.appendDummyInput()
       .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
     this.appendStatementInput('STACK');
@@ -585,7 +585,7 @@ Blockly.Blocks['controls_switch_switch'] = {
 
 Blockly.Blocks['controls_switch_case'] = {
     init: function() {
-        this.setColour(210);
+        this.setColour(200);
         this.appendDummyInput()
             .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
         this.setPreviousStatement(true);
@@ -601,7 +601,7 @@ Blockly.Blocks['controls_switch_break'] = {
      * @this Blockly.Block
      */
     init: function() {
-        this.setColour(210);
+        this.setColour(200);
         this.appendDummyInput()
             .appendField(Blockly.Msg.CONTROLS_SWITCH_BREAK);
         this.setPreviousStatement(true);
