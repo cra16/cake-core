@@ -704,11 +704,8 @@ Blockly.Blocks['procedures_defreturn'] = {
 
         var dist = this.getFieldValue('DISTS');
         var type = this.getFieldValue('TYPES');
-        // TODO : issue #90
-        //console.log('dist: ' + dist);
         if (dist == 'array') {
             dist = 'variable';
-            //dist = 'pointer';
         }
 
         // variable
