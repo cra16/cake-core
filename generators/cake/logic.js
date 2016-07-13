@@ -139,7 +139,7 @@ Blockly.cake['controls_switch'] = function(block) {
     branch = Blockly.cake.statementToCode(block, 'DO' + n);
     code += '\ncase ' + argument + ' : ' + '\n' + branch;
   }
-  return code + '\n';
+  return code + '\n}\n';
 };
 
 Blockly.cake['controls_switch_break'] = function(block) {
