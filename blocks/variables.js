@@ -378,7 +378,7 @@ Blockly.Blocks['variables_declare'] = {
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            '%1 ' + Blockly.Msg.VARIABLES_DECLARE_TITLE +
+            Blockly.Msg.VARIABLES_DECLARE_TITLE + '%1 ' +
             Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
             Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE, null, this)],
@@ -633,7 +633,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            '%1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE +
+            Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE + '%1 ' +
             Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
             Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
             Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4 ',
@@ -962,7 +962,7 @@ Blockly.Blocks['variables_array_declare'] = {
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            ' %1 ' +Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' '+
+            Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' + ' '+
             Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE)],

@@ -132,14 +132,14 @@ Blockly.cake['controls_switch'] = function(block) {
     Blockly.cake.ORDER_NONE) || n;
   var branch = Blockly.cake.statementToCode(block, 'DO' + n);
     var defaultBranch = Blockly.cake.statementToCode(block, 'DEFAULT');
-  var code = 'switch (' + condition + ') {\ndefault :\n' + defaultBranch +'\ncase ' + argument + ' : \n'+ branch;
+  var code = 'switch (' + condition + ') {\n'+'\ncase ' + argument + ' : \n'+ branch;
   for (n = 1; n <= block.caseCount_; n++) {
     argument = Blockly.cake.valueToCode(block, 'CASE' + n,
       Blockly.cake.ORDER_NONE) || n;
     branch = Blockly.cake.statementToCode(block, 'DO' + n);
     code += '\ncase ' + argument + ' : ' + '\n' + branch;
   }
-  return code + '\n}\n';
+  return code + '\ndefault : \n' + defaultBranch +'}\n';
 };
 
 Blockly.cake['controls_switch_break'] = function(block) {
