@@ -11,6 +11,7 @@ function start() {
       }
   );
   Blockly.addChangeListener(renderContent);
+  Blockly.Blocks.CreateMainBlock();
 }
 
 function renderContent() {
