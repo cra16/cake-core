@@ -95,7 +95,7 @@
   height: auto;
 }
 #code {
-  height: 500px;
+  height: 700px;
   margin-bottom: 0;
 }
 #toolbox {
@@ -103,4 +103,7 @@
 }
 #footer {
   border-top: 1px solid #e5e5e5;
+}
+.pre-scrollable {
+	max-height: 800px!important;
 }
