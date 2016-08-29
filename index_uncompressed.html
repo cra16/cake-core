@@ -220,55 +220,10 @@
                 <block type="structure_define"></block>
                 <block type="structure_declare"></block>
             </category>
-            <category name="Library">
-        <category name="Stdio">
+        <category name="Print">
             <block type="library_stdio_printf"></block>
             <block type="library_stdio_text"></block>
             <block type='library_stdio_newLine'></block>
-            <block type="library_stdio_scanf"></block>
-        </category>
-        <category name="Stdlib">
-        <block type="library_stdlib_convert"></block>
-        <block type="library_stdlib_rand">
-        <value name="VAR">
-        <block type="library_stdlib_rand_scope">
-        <value name="A">
-        <block type="library_stdlib_number_forRandScope1"></block>
-        </value>
-        <value name="B">
-        <block type="library_stdlib_number_forRandScope100"></block>
-        </value>
-        </block>
-        </value>
-        </block>
-        <block type="library_stdlib_malloc">
-        <value name="VAR">
-        <block type="library_stdlib_arithmetic_forMalloc">
-        <value name="A">
-        <block type="library_stdlib_sizeof_forMalloc"></block>
-        </value>
-        <value name="B">
-        <block type="library_stdlib_number_forMalloc"></block>
-        </value>
-        </block>
-        </value>
-        </block>
-        <block type="library_stdlib_arithmetic_forMalloc">
-        <value name="A">
-        <block type="library_stdlib_sizeof_forMalloc"></block>
-        </value>
-        <value name="B">
-        <block type="library_stdlib_number_forMalloc"></block>
-        </value>
-        </block>
-        <block type="library_stdlib_free"></block>
-        <block type="library_stdlib_exit"></block>
-        </category>
-        <category name="String">
-            <block type="library_string_strlen"></block>
-            <block type="library_string_strcat"></block>
-            <block type="library_string_strcpy"></block>
-            <block type="library_string_strcmp"></block>
         </category>
         <category name="Math">
         <block type="library_math_abs"></block>
@@ -280,11 +235,6 @@
         <block type="library_math_round"></block>
         <block type="library_math_numcheck"></block>
         <block type="library_math_numcompare"></block>
-        </category>
-        <category name="Time">
-        <block type="library_time_current"></block>
-        <block type="library_time_requiredTime"></block>
-        </category>
         </category>
         <category name="Others">
             <block type='comment'>

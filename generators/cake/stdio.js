@@ -42,14 +42,14 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 childBlockType == 'library_stdlib_number_forMalloc')
             {
                 inQutCode += '%d';
-                outQutCode += ', ' + argument;
+                outQutCode += ' << ' + argument;
             }
             else if (childBlockType == 'library_string_strcat' ||
                 childBlockType == 'library_string_strcpy' ||
                 childBlockType == 'library_string_strcmp' )
             {
                 inQutCode += '%s';
-                outQutCode += ', ' + argument;
+                outQutCode += ' << ' + argument;
             }
             else if (childBlockType == 'library_stdlib_convert')
             {
@@ -58,7 +58,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 } else if (argument.indexOf('atof(') != -1){
                     inQutCode += '%f';
                 }
-                outQutCode += ', ' + argument;
+                outQutCode += ' << ' + argument;
             }
             else if (childBlockType == 'variables_array_get')
             {
@@ -70,13 +70,13 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                     inQutCode += argument;
                 } else {
                     inQutCode += typeCode;
-                    outQutCode += ', ' + argument;
+                    outQutCode += ' << ' + argument;
                 }
             }
             else if (childBlockType == 'variables_pointer_get')
             {
                 inQutCode += '%p';
-                outQutCode += ', ' + argument;
+                outQutCode += ' << ' + argument;
             }
             else if (childBlockType == 'variables_pointer_&')
             {
@@ -84,7 +84,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                     argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
 
                     inQutCode += '%p';
-                    outQutCode += ', &' + argument;
+                    outQutCode += ' << &' + argument;
                 }
             }
             else if (childBlockType == 'variables_pointer_*')
@@ -100,7 +100,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                             inQutCode += astChild;
                         } else {
                             inQutCode += typeCode;
-                            outQutCode += ', **' + astChild;
+                            outQutCode += ' << **' + astChild;
                         }
                     } else { // when single pointer(*) or normal pointer block
                         typeCode = Blockly.cake.pointerTypeCheckInPrint(argument, false);
@@ -108,7 +108,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                             inQutCode += argument;
                         } else {
                             inQutCode += typeCode;
-                            outQutCode += ', *' + argument;
+                            outQutCode += ' << *' + argument;
                         }
                     }
                 }
@@ -139,23 +139,24 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
 
                 if (typeCode == '') {
-                    inQutCode += argument;
+                    if(argument != '')
+                        outQutCode += ' << ' + argument;
                 } else {
                     inQutCode += typeCode;
-                    outQutCode += ', ' + argument;
+                    outQutCode += ' << ' + argument;
                 }
             }
         }
     } // for loop end
 
-    if (outQutCode == ''){
-        code = 'printf(\"' + inQutCode + '\");';
-    } else {
-        code = 'printf(\"' + inQutCode + '\"' + outQutCode + ');';
-    }
+    //if (outQutCode == ''){
+    //    code = 'printf(\"' + inQutCode + '\");';
+    //} else {
+        code = 'std::cout' + outQutCode + ';';
+    //}
 
     Blockly.cake.definitions_['include_cake_stdio'] =
-        '#include <stdio.h>';
+        '#include <iostream>';
     return code + '\n';
 };
 
@@ -166,7 +167,7 @@ Blockly.cake['library_stdio_text'] = function(block) {
         && (block.getParent().type == 'library_stdio_printf'
         || block.getParent().type == 'define_declare'
         || block.getParent().type == 'comment')) {
-        return [code, Blockly.cake.ORDER_ATOMIC];
+        return ['\"' + code + '\"', Blockly.cake.ORDER_ATOMIC];
     } else if (code.length == 1) {
         code = '\'' + code + '\'';
     } else {
@@ -177,7 +178,7 @@ Blockly.cake['library_stdio_text'] = function(block) {
 
 Blockly.cake['library_stdio_newLine'] = function() {
     // new line block for '\n'
-    var code = '\\n';
+    var code = 'std::endl';
     return [code, Blockly.cake.ORDER_NONE];
 };
 

@@ -73,7 +73,7 @@ Blockly.cake['library_math_abs'] = function(block) {
     var argument0 = Blockly.cake.valueToCode(block, 'VAR',
             Blockly.cake.ORDER_NONE) || '\'\'';
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     var code = 'abs(' + argument0 + ')';
     return  [code, Blockly.cake.ORDER_NONE];
 };
@@ -100,7 +100,7 @@ Blockly.cake['library_math_trig'] = function(block) {
             throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     return [code, Blockly.cake.ORDER_NONE];
 };
 
@@ -126,7 +126,7 @@ Blockly.cake['library_math_logs'] = function(block) {
             throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     return [code, Blockly.cake.ORDER_NONE];
 };
 
@@ -137,7 +137,7 @@ Blockly.cake['library_math_pow'] = function(block) {
     var argument1 = Blockly.cake.valueToCode(block, 'EXPO',
             Blockly.cake.ORDER_NONE) || '\'\'';
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     var code = 'pow(' + argument0 + ',' + argument1 + ')';
     return  [code, Blockly.cake.ORDER_NONE];
 };
@@ -147,7 +147,7 @@ Blockly.cake['library_math_exp'] = function(block) {
     var argument0 = Blockly.cake.valueToCode(block, 'EXPO',
             Blockly.cake.ORDER_NONE) || '\'\'';
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     var code = 'exp(' + argument0 + ')';
     return  [code, Blockly.cake.ORDER_NONE];
 };
@@ -157,7 +157,7 @@ Blockly.cake['library_math_sqrt'] = function(block) {
     var argument0 = Blockly.cake.valueToCode(block, 'VAR',
             Blockly.cake.ORDER_NONE) || '\'\'';
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     var code = 'sqrt(' + argument0 + ')';
     return  [code, Blockly.cake.ORDER_NONE];
 };
@@ -187,7 +187,7 @@ Blockly.cake['library_math_round'] = function(block) {
             throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     return [code, Blockly.cake.ORDER_NONE];
 };
 
@@ -216,7 +216,7 @@ Blockly.cake['library_math_numcheck'] = function(block) {
             throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     return [code, Blockly.cake.ORDER_NONE];
 };
 
@@ -253,6 +253,6 @@ Blockly.cake['library_math_numcompare'] = function(block) {
             throw 'Unknown math operator: ' + operator;
     }
     Blockly.cake.definitions_['include_cake_math'] =
-        '#include <math.h>';
+        '#include <cmath>';
     return [code, Blockly.cake.ORDER_NONE];
 };
