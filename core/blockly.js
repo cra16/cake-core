@@ -19,39 +19,39 @@
  */
 
 /**
- * @fileoverview Core JavaScript library for Blockly.
+ * @fileoverview Core JavaScript library for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-// Top level object for Blockly.
-goog.provide('Blockly');
+// Top level object for Blockly.Cake.
+goog.provide('Blockly.Cake');
 
-// Blockly core dependencies.
-goog.require('Blockly.Block');
-goog.require('Blockly.Connection');
-goog.require('Blockly.FieldAngle');
-goog.require('Blockly.FieldCheckbox');
-goog.require('Blockly.FieldColour');
-goog.require('Blockly.FieldDropdown');
-goog.require('Blockly.FieldStructure');
-goog.require('Blockly.FieldStructureMember');
-goog.require('Blockly.FieldImage');
-goog.require('Blockly.FieldTextInput');
-goog.require('Blockly.FieldVariable');
-goog.require('Blockly.FieldVariablePointer');
-goog.require('Blockly.FieldVariableArray');
-goog.require('Blockly.FieldVariableDefine');
-goog.require('Blockly.Generator');
-goog.require('Blockly.Msg');
-goog.require('Blockly.Procedures');
-goog.require('Blockly.Structure');
-goog.require('Blockly.Realtime');
-goog.require('Blockly.Toolbox');
-goog.require('Blockly.WidgetDiv');
-goog.require('Blockly.Workspace');
-goog.require('Blockly.inject');
-goog.require('Blockly.utils');
+// Blockly.Cake core dependencies.
+goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.Connection');
+goog.require('Blockly.Cake.FieldAngle');
+goog.require('Blockly.Cake.FieldCheckbox');
+goog.require('Blockly.Cake.FieldColour');
+goog.require('Blockly.Cake.FieldDropdown');
+goog.require('Blockly.Cake.FieldStructure');
+goog.require('Blockly.Cake.FieldStructureMember');
+goog.require('Blockly.Cake.FieldImage');
+goog.require('Blockly.Cake.FieldTextInput');
+goog.require('Blockly.Cake.FieldVariable');
+goog.require('Blockly.Cake.FieldVariablePointer');
+goog.require('Blockly.Cake.FieldVariableArray');
+goog.require('Blockly.Cake.FieldVariableDefine');
+goog.require('Blockly.Cake.Generator');
+goog.require('Blockly.Cake.Msg');
+goog.require('Blockly.Cake.Procedures');
+goog.require('Blockly.Cake.Structure');
+goog.require('Blockly.Cake.Realtime');
+goog.require('Blockly.Cake.Toolbox');
+goog.require('Blockly.Cake.WidgetDiv');
+goog.require('Blockly.Cake.Workspace');
+goog.require('Blockly.Cake.inject');
+goog.require('Blockly.Cake.utils');
 
 // Closure dependencies.
 goog.require('goog.color');
@@ -64,181 +64,181 @@ goog.require('goog.userAgent');
 
 
 /**
- * Path to Blockly's directory.  Can be relative, absolute, or remote.
+ * Path to Blockly.Cake's directory.  Can be relative, absolute, or remote.
  * Used for loading additional resources.
  */
-Blockly.pathToBlockly = './';
+Blockly.Cake.pathToBlockly = './';
 
 /**
  * Required name space for SVG elements.
  * @const
  */
-Blockly.SVG_NS = 'http://www.w3.org/2000/svg';
+Blockly.Cake.SVG_NS = 'http://www.w3.org/2000/svg';
 /**
  * Required name space for HTML elements.
  * @const
  */
-Blockly.HTML_NS = 'http://www.w3.org/1999/xhtml';
+Blockly.Cake.HTML_NS = 'http://www.w3.org/1999/xhtml';
 
 /**
  * The richness of block colours, regardless of the hue.
  * Must be in the range of 0 (inclusive) to 1 (exclusive).
  */
-Blockly.HSV_SATURATION = 0.60;
+Blockly.Cake.HSV_SATURATION = 0.60;
 /**
  * The intensity of block colours, regardless of the hue.
  * Must be in the range of 0 (inclusive) to 1 (exclusive).
  */
-Blockly.HSV_VALUE = 0.82;
+Blockly.Cake.HSV_VALUE = 0.82;
 
 /**
  * Convert a hue (HSV model) into an RGB hex triplet.
  * @param {number} hue Hue on a colour wheel (0-360).
  * @return {string} RGB code, e.g. '#5ba65b'.
  */
-Blockly.makeColour = function(hue) {
-  return goog.color.hsvToHex(hue, Blockly.HSV_SATURATION,
-      Blockly.HSV_VALUE * 256);
+Blockly.Cake.makeColour = function(hue) {
+  return goog.color.hsvToHex(hue, Blockly.Cake.HSV_SATURATION,
+      Blockly.Cake.HSV_VALUE * 256);
 };
 
 /**
  * ENUM for a right-facing value input.  E.g. 'test' or 'return'.
  * @const
  */
-Blockly.INPUT_VALUE = 1;
+Blockly.Cake.INPUT_VALUE = 1;
 /**
  * ENUM for a left-facing value output.  E.g. 'call random'.
  * @const
  */
-Blockly.OUTPUT_VALUE = 2;
+Blockly.Cake.OUTPUT_VALUE = 2;
 /**
  * ENUM for a down-facing block stack.  E.g. 'then-do' or 'else-do'.
  * @const
  */
-Blockly.NEXT_STATEMENT = 3;
+Blockly.Cake.NEXT_STATEMENT = 3;
 /**
  * ENUM for an up-facing block stack.  E.g. 'close screen'.
  * @const
  */
-Blockly.PREVIOUS_STATEMENT = 4;
+Blockly.Cake.PREVIOUS_STATEMENT = 4;
 /**
  * ENUM for an dummy input.  Used to add field(s) with no input.
  * @const
  */
-Blockly.DUMMY_INPUT = 5;
+Blockly.Cake.DUMMY_INPUT = 5;
 
 /**
  * ENUM for left alignment.
  * @const
  */
-Blockly.ALIGN_LEFT = -1;
+Blockly.Cake.ALIGN_LEFT = -1;
 /**
  * ENUM for centre alignment.
  * @const
  */
-Blockly.ALIGN_CENTRE = 0;
+Blockly.Cake.ALIGN_CENTRE = 0;
 /**
  * ENUM for right alignment.
  * @const
  */
-Blockly.ALIGN_RIGHT = 1;
+Blockly.Cake.ALIGN_RIGHT = 1;
 
 /**
  * Lookup table for determining the opposite type of a connection.
  * @const
  */
-Blockly.OPPOSITE_TYPE = [];
-Blockly.OPPOSITE_TYPE[Blockly.INPUT_VALUE] = Blockly.OUTPUT_VALUE;
-Blockly.OPPOSITE_TYPE[Blockly.OUTPUT_VALUE] = Blockly.INPUT_VALUE;
-Blockly.OPPOSITE_TYPE[Blockly.NEXT_STATEMENT] = Blockly.PREVIOUS_STATEMENT;
-Blockly.OPPOSITE_TYPE[Blockly.PREVIOUS_STATEMENT] = Blockly.NEXT_STATEMENT;
+Blockly.Cake.OPPOSITE_TYPE = [];
+Blockly.Cake.OPPOSITE_TYPE[Blockly.Cake.INPUT_VALUE] = Blockly.Cake.OUTPUT_VALUE;
+Blockly.Cake.OPPOSITE_TYPE[Blockly.Cake.OUTPUT_VALUE] = Blockly.Cake.INPUT_VALUE;
+Blockly.Cake.OPPOSITE_TYPE[Blockly.Cake.NEXT_STATEMENT] = Blockly.Cake.PREVIOUS_STATEMENT;
+Blockly.Cake.OPPOSITE_TYPE[Blockly.Cake.PREVIOUS_STATEMENT] = Blockly.Cake.NEXT_STATEMENT;
 
 /**
  * Database of pre-loaded sounds.
  * @private
  * @const
  */
-Blockly.SOUNDS_ = Object.create(null);
+Blockly.Cake.SOUNDS_ = Object.create(null);
 
 /**
  * Currently selected block.
- * @type {Blockly.Block}
+ * @type {Blockly.Cake.Block}
  */
-Blockly.selected = null;
+Blockly.Cake.selected = null;
 
 /**
- * Is Blockly in a read-only, non-editable mode?
+ * Is Blockly.Cake in a read-only, non-editable mode?
  * Note that this property may only be set before init is called.
  * It can't be used to dynamically toggle editability on and off.
  */
-Blockly.readOnly = false;
+Blockly.Cake.readOnly = false;
 
 /**
  * Currently highlighted connection (during a drag).
- * @type {Blockly.Connection}
+ * @type {Blockly.Cake.Connection}
  * @private
  */
-Blockly.highlightedConnection_ = null;
+Blockly.Cake.highlightedConnection_ = null;
 
 /**
  * Connection on dragged block that matches the highlighted connection.
- * @type {Blockly.Connection}
+ * @type {Blockly.Cake.Connection}
  * @private
  */
-Blockly.localConnection_ = null;
+Blockly.Cake.localConnection_ = null;
 
 /**
  * Number of pixels the mouse must move before a drag starts.
  * @const
  */
-Blockly.DRAG_RADIUS = 5;
+Blockly.Cake.DRAG_RADIUS = 5;
 
 /**
  * Maximum misalignment between connections for them to snap together.
  * @const
  */
-Blockly.SNAP_RADIUS = 20;
+Blockly.Cake.SNAP_RADIUS = 20;
 
 /**
  * Delay in ms between trigger and bumping unconnected block out of alignment.
  * @const
  */
-Blockly.BUMP_DELAY = 250;
+Blockly.Cake.BUMP_DELAY = 250;
 
 /**
  * Number of characters to truncate a collapsed block to.
  * @const
  */
-Blockly.COLLAPSE_CHARS = 30;
+Blockly.Cake.COLLAPSE_CHARS = 30;
 
 /**
  * The main workspace (defined by inject.js).
- * @type {Blockly.Workspace}
+ * @type {Blockly.Cake.Workspace}
  */
-Blockly.mainWorkspace = null;
+Blockly.Cake.mainWorkspace = null;
 
 /**
  * Contents of the local clipboard.
  * @type {Element}
  * @private
  */
-Blockly.clipboard_ = null;
+Blockly.Cake.clipboard_ = null;
 
 /**
  * Returns the dimensions of the current SVG image.
  * @return {!Object} Contains width and height properties.
  */
-Blockly.svgSize = function() {
-  return {width: Blockly.svg.cachedWidth_,
-          height: Blockly.svg.cachedHeight_};
+Blockly.Cake.svgSize = function() {
+  return {width: Blockly.Cake.svg.cachedWidth_,
+          height: Blockly.Cake.svg.cachedHeight_};
 };
 
 /**
  * Size the SVG image to completely fill its container.
  * Record the height/width of the SVG image.
  */
-Blockly.svgResize = function() {
-  var svg = Blockly.svg;
+Blockly.Cake.svgResize = function() {
+  var svg = Blockly.Cake.svg;
   var div = svg.parentNode;
   var width = div.offsetWidth;
   var height = div.offsetHeight;
@@ -251,8 +251,8 @@ Blockly.svgResize = function() {
     svg.cachedHeight_ = height;
   }
   // Update the scrollbars (if they exist).
-  if (Blockly.mainWorkspace.scrollbar) {
-    Blockly.mainWorkspace.scrollbar.resize();
+  if (Blockly.Cake.mainWorkspace.scrollbar) {
+    Blockly.Cake.mainWorkspace.scrollbar.resize();
   }
 };
 
@@ -261,31 +261,31 @@ Blockly.svgResize = function() {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.onMouseDown_ = function(e) {
-  Blockly.svgResize();
-  Blockly.terminateDrag_(); // In case mouse-up event was lost.
-  Blockly.hideChaff();
+Blockly.Cake.onMouseDown_ = function(e) {
+  Blockly.Cake.svgResize();
+  Blockly.Cake.terminateDrag_(); // In case mouse-up event was lost.
+  Blockly.Cake.hideChaff();
   var isTargetSvg = e.target && e.target.nodeName &&
       e.target.nodeName.toLowerCase() == 'svg';
-  if (!Blockly.readOnly && Blockly.selected && isTargetSvg) {
+  if (!Blockly.Cake.readOnly && Blockly.Cake.selected && isTargetSvg) {
     // Clicking on the document clears the selection.
-    Blockly.selected.unselect();
+    Blockly.Cake.selected.unselect();
   }
-  if (e.target == Blockly.svg && Blockly.isRightButton(e)) {
+  if (e.target == Blockly.Cake.svg && Blockly.Cake.isRightButton(e)) {
     // Right-click.
-    Blockly.showContextMenu_(e);
-  } else if ((Blockly.readOnly || isTargetSvg) &&
-             Blockly.mainWorkspace.scrollbar) {
+    Blockly.Cake.showContextMenu_(e);
+  } else if ((Blockly.Cake.readOnly || isTargetSvg) &&
+             Blockly.Cake.mainWorkspace.scrollbar) {
     // If the workspace is editable, only allow dragging when gripping empty
     // space.  Otherwise, allow dragging when gripping anywhere.
-    Blockly.mainWorkspace.dragMode = true;
+    Blockly.Cake.mainWorkspace.dragMode = true;
     // Record the current mouse position.
-    Blockly.mainWorkspace.startDragMouseX = e.clientX;
-    Blockly.mainWorkspace.startDragMouseY = e.clientY;
-    Blockly.mainWorkspace.startDragMetrics =
-        Blockly.mainWorkspace.getMetrics();
-    Blockly.mainWorkspace.startScrollX = Blockly.mainWorkspace.scrollX;
-    Blockly.mainWorkspace.startScrollY = Blockly.mainWorkspace.scrollY;
+    Blockly.Cake.mainWorkspace.startDragMouseX = e.clientX;
+    Blockly.Cake.mainWorkspace.startDragMouseY = e.clientY;
+    Blockly.Cake.mainWorkspace.startDragMetrics =
+        Blockly.Cake.mainWorkspace.getMetrics();
+    Blockly.Cake.mainWorkspace.startScrollX = Blockly.Cake.mainWorkspace.scrollX;
+    Blockly.Cake.mainWorkspace.startScrollY = Blockly.Cake.mainWorkspace.scrollY;
   }
 };
 
@@ -294,9 +294,9 @@ Blockly.onMouseDown_ = function(e) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.onMouseUp_ = function(e) {
-  Blockly.setCursorHand_(false);
-  Blockly.mainWorkspace.dragMode = false;
+Blockly.Cake.onMouseUp_ = function(e) {
+  Blockly.Cake.setCursorHand_(false);
+  Blockly.Cake.mainWorkspace.dragMode = false;
 };
 
 /**
@@ -304,14 +304,14 @@ Blockly.onMouseUp_ = function(e) {
  * @param {!Event} e Mouse move event.
  * @private
  */
-Blockly.onMouseMove_ = function(e) {
-  if (Blockly.mainWorkspace.dragMode) {
-    Blockly.removeAllRanges();
-    var dx = e.clientX - Blockly.mainWorkspace.startDragMouseX;
-    var dy = e.clientY - Blockly.mainWorkspace.startDragMouseY;
-    var metrics = Blockly.mainWorkspace.startDragMetrics;
-    var x = Blockly.mainWorkspace.startScrollX + dx;
-    var y = Blockly.mainWorkspace.startScrollY + dy;
+Blockly.Cake.onMouseMove_ = function(e) {
+  if (Blockly.Cake.mainWorkspace.dragMode) {
+    Blockly.Cake.removeAllRanges();
+    var dx = e.clientX - Blockly.Cake.mainWorkspace.startDragMouseX;
+    var dy = e.clientY - Blockly.Cake.mainWorkspace.startDragMouseY;
+    var metrics = Blockly.Cake.mainWorkspace.startDragMetrics;
+    var x = Blockly.Cake.mainWorkspace.startScrollX + dx;
+    var y = Blockly.Cake.mainWorkspace.startScrollY + dy;
     x = Math.min(x, -metrics.contentLeft);
     y = Math.min(y, -metrics.contentTop);
     x = Math.max(x, metrics.viewWidth - metrics.contentLeft -
@@ -320,7 +320,7 @@ Blockly.onMouseMove_ = function(e) {
                  metrics.contentHeight);
 
     // Move the scrollbars and the page will scroll automatically.
-    Blockly.mainWorkspace.scrollbar.set(-x - metrics.contentLeft,
+    Blockly.Cake.mainWorkspace.scrollbar.set(-x - metrics.contentLeft,
                                         -y - metrics.contentTop);
   }
 };
@@ -330,21 +330,21 @@ Blockly.onMouseMove_ = function(e) {
  * @param {!Event} e Key down event.
  * @private
  */
-Blockly.onKeyDown_ = function(e) {
-  if (Blockly.isTargetInput_(e)) {
+Blockly.Cake.onKeyDown_ = function(e) {
+  if (Blockly.Cake.isTargetInput_(e)) {
     // When focused on an HTML text input widget, don't trap any keys.
     return;
   }
   // TODO: Add keyboard support for cursoring around the context menu.
   if (e.keyCode == 27) {
     // Pressing esc closes the context menu.
-    Blockly.hideChaff();
+    Blockly.Cake.hideChaff();
   } else if (e.keyCode == 8 || e.keyCode == 46) {
     // Delete or backspace.
     try {
-      if (Blockly.selected && Blockly.selected.isDeletable()) {
-        Blockly.hideChaff();
-        Blockly.selected.dispose(true, true);
+      if (Blockly.Cake.selected && Blockly.Cake.selected.isDeletable()) {
+        Blockly.Cake.hideChaff();
+        Blockly.Cake.selected.dispose(true, true);
       }
     } finally {
       // Stop the browser from going back to the previous page.
@@ -353,22 +353,22 @@ Blockly.onKeyDown_ = function(e) {
       e.preventDefault();
     }
   } else if (e.altKey || e.ctrlKey || e.metaKey) {
-    if (Blockly.selected && Blockly.selected.isDeletable() &&
-        Blockly.selected.workspace == Blockly.mainWorkspace) {
-      Blockly.hideChaff();
+    if (Blockly.Cake.selected && Blockly.Cake.selected.isDeletable() &&
+        Blockly.Cake.selected.workspace == Blockly.Cake.mainWorkspace) {
+      Blockly.Cake.hideChaff();
       if (e.keyCode == 67) {
         // 'c' for copy.
-        Blockly.copy_(Blockly.selected);
+        Blockly.Cake.copy_(Blockly.Cake.selected);
       } else if (e.keyCode == 88) {
         // 'x' for cut.
-        Blockly.copy_(Blockly.selected);
-        Blockly.selected.dispose(true, true);
+        Blockly.Cake.copy_(Blockly.Cake.selected);
+        Blockly.Cake.selected.dispose(true, true);
       }
     }
     if (e.keyCode == 86) {
       // 'v' for paste.
-      if (Blockly.clipboard_) {
-        Blockly.mainWorkspace.paste(Blockly.clipboard_);
+      if (Blockly.Cake.clipboard_) {
+        Blockly.Cake.mainWorkspace.paste(Blockly.Cake.clipboard_);
       }
     }
   }
@@ -378,24 +378,24 @@ Blockly.onKeyDown_ = function(e) {
  * Stop binding to the global mouseup and mousemove events.
  * @private
  */
-Blockly.terminateDrag_ = function() {
-  Blockly.Block.terminateDrag_();
-  Blockly.Flyout.terminateDrag_();
+Blockly.Cake.terminateDrag_ = function() {
+  Blockly.Cake.Block.terminateDrag_();
+  Blockly.Cake.Flyout.terminateDrag_();
 };
 
 /**
  * Copy a block onto the local clipboard.
- * @param {!Blockly.Block} block Block to be copied.
+ * @param {!Blockly.Cake.Block} block Block to be copied.
  * @private
  */
-Blockly.copy_ = function(block) {
-  var xmlBlock = Blockly.Xml.blockToDom_(block);
-  Blockly.Xml.deleteNext(xmlBlock);
+Blockly.Cake.copy_ = function(block) {
+  var xmlBlock = Blockly.Cake.Xml.blockToDom_(block);
+  Blockly.Cake.Xml.deleteNext(xmlBlock);
   // Encode start position in XML.
   var xy = block.getRelativeToSurfaceXY();
-  xmlBlock.setAttribute('x', Blockly.RTL ? -xy.x : xy.x);
+  xmlBlock.setAttribute('x', Blockly.Cake.RTL ? -xy.x : xy.x);
   xmlBlock.setAttribute('y', xy.y);
-  Blockly.clipboard_ = xmlBlock;
+  Blockly.Cake.clipboard_ = xmlBlock;
 };
 
 /**
@@ -403,18 +403,18 @@ Blockly.copy_ = function(block) {
  * @param {!Event} e Mouse event.
  * @private
  */
-Blockly.showContextMenu_ = function(e) {
-  if (Blockly.readOnly) {
+Blockly.Cake.showContextMenu_ = function(e) {
+  if (Blockly.Cake.readOnly) {
     return;
   }
   var options = [];
   // Add a little animation to collapsing and expanding.
   var COLLAPSE_DELAY = 10;
 
-  if (Blockly.collapse) {
+  if (Blockly.Cake.collapse) {
     var hasCollapsedBlocks = false;
     var hasExpandedBlocks = false;
-    var topBlocks = Blockly.mainWorkspace.getTopBlocks(false);
+    var topBlocks = Blockly.Cake.mainWorkspace.getTopBlocks(false);
     for (var i = 0; i < topBlocks.length; i++) {
       var block = topBlocks[i];
       while (block) {
@@ -429,7 +429,7 @@ Blockly.showContextMenu_ = function(e) {
 
     // Option to collapse top blocks.
     var collapseOption = {enabled: hasExpandedBlocks};
-    collapseOption.text = Blockly.Msg.COLLAPSE_ALL;
+    collapseOption.text = Blockly.Cake.Msg.COLLAPSE_ALL;
     collapseOption.callback = function() {
       var ms = 0;
       for (var i = 0; i < topBlocks.length; i++) {
@@ -445,7 +445,7 @@ Blockly.showContextMenu_ = function(e) {
 
     // Option to expand top blocks.
     var expandOption = {enabled: hasCollapsedBlocks};
-    expandOption.text = Blockly.Msg.EXPAND_ALL;
+    expandOption.text = Blockly.Cake.Msg.EXPAND_ALL;
     expandOption.callback = function() {
       var ms = 0;
       for (var i = 0; i < topBlocks.length; i++) {
@@ -460,7 +460,7 @@ Blockly.showContextMenu_ = function(e) {
     options.push(expandOption);
   }
 
-  Blockly.ContextMenu.show(e, options);
+  Blockly.Cake.ContextMenu.show(e, options);
 };
 
 /**
@@ -468,8 +468,8 @@ Blockly.showContextMenu_ = function(e) {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.onContextMenu_ = function(e) {
-  if (!Blockly.isTargetInput_(e)) {
+Blockly.Cake.onContextMenu_ = function(e) {
+  if (!Blockly.Cake.isTargetInput_(e)) {
     // When focused on an HTML text input widget, don't cancel the context menu.
     e.preventDefault();
   }
@@ -479,12 +479,12 @@ Blockly.onContextMenu_ = function(e) {
  * Close tooltips, context menus, dropdown selections, etc.
  * @param {boolean=} opt_allowToolbox If true, don't close the toolbox.
  */
-Blockly.hideChaff = function(opt_allowToolbox) {
-  Blockly.Tooltip.hide();
-  Blockly.WidgetDiv.hide();
+Blockly.Cake.hideChaff = function(opt_allowToolbox) {
+  Blockly.Cake.Tooltip.hide();
+  Blockly.Cake.WidgetDiv.hide();
   if (!opt_allowToolbox &&
-      Blockly.Toolbox.flyout_ && Blockly.Toolbox.flyout_.autoClose) {
-    Blockly.Toolbox.clearSelection();
+      Blockly.Cake.Toolbox.flyout_ && Blockly.Cake.Toolbox.flyout_.autoClose) {
+    Blockly.Cake.Toolbox.clearSelection();
   }
 };
 
@@ -493,7 +493,7 @@ Blockly.hideChaff = function(opt_allowToolbox) {
  * Chrome will select text outside the SVG when double-clicking.
  * Deselect this text, so that it doesn't mess up any subsequent drag.
  */
-Blockly.removeAllRanges = function() {
+Blockly.Cake.removeAllRanges = function() {
   if (window.getSelection) {  // W3
     var sel = window.getSelection();
     if (sel && sel.removeAllRanges) {
@@ -515,7 +515,7 @@ Blockly.removeAllRanges = function() {
  * @return {boolean} True if text input.
  * @private
  */
-Blockly.isTargetInput_ = function(e) {
+Blockly.Cake.isTargetInput_ = function(e) {
   return e.target.type == 'textarea' || e.target.type == 'text';
 };
 
@@ -523,11 +523,11 @@ Blockly.isTargetInput_ = function(e) {
  * Load an audio file.  Cache it, ready for instantaneous playing.
  * @param {!Array.<string>} filenames List of file types in decreasing order of
  *   preference (i.e. increasing size).  E.g. ['media/go.mp3', 'media/go.wav']
- *   Filenames include path from Blockly's root.  File extensions matter.
+ *   Filenames include path from Blockly.Cake's root.  File extensions matter.
  * @param {string} name Name of sound.
  * @private
  */
-Blockly.loadAudio_ = function(filenames, name) {
+Blockly.Cake.loadAudio_ = function(filenames, name) {
   if (!window['Audio'] || !filenames.length) {
     // No browser support for Audio.
     return;
@@ -539,12 +539,12 @@ Blockly.loadAudio_ = function(filenames, name) {
     var ext = filename.match(/\.(\w+)$/);
     if (ext && audioTest.canPlayType('audio/' + ext[1])) {
       // Found an audio format we can play.
-      sound = new window['Audio'](Blockly.pathToBlockly + filename);
+      sound = new window['Audio'](Blockly.Cake.pathToBlockly + filename);
       break;
     }
   }
   if (sound && sound.play) {
-    Blockly.SOUNDS_[name] = sound;
+    Blockly.Cake.SOUNDS_[name] = sound;
   }
 };
 
@@ -552,9 +552,9 @@ Blockly.loadAudio_ = function(filenames, name) {
  * Preload all the audio files so that they play quickly when asked for.
  * @private
  */
-Blockly.preloadAudio_ = function() {
-  for (var name in Blockly.SOUNDS_) {
-    var sound = Blockly.SOUNDS_[name];
+Blockly.Cake.preloadAudio_ = function() {
+  for (var name in Blockly.Cake.SOUNDS_) {
+    var sound = Blockly.Cake.SOUNDS_[name];
     sound.volume = .01;
     sound.play();
     sound.pause();
@@ -567,8 +567,8 @@ Blockly.preloadAudio_ = function() {
  * @param {string} name Name of sound.
  * @param {?number} opt_volume Volume of sound (0-1).
  */
-Blockly.playAudio = function(name, opt_volume) {
-  var sound = Blockly.SOUNDS_[name];
+Blockly.Cake.playAudio = function(name, opt_volume) {
+  var sound = Blockly.Cake.SOUNDS_[name];
   if (sound) {
     var mySound;
     var ie9 = goog.userAgent.DOCUMENT_MODE &&
@@ -591,8 +591,8 @@ Blockly.playAudio = function(name, opt_volume) {
  * @param {boolean} closed True for closed hand.
  * @private
  */
-Blockly.setCursorHand_ = function(closed) {
-  if (Blockly.readOnly) {
+Blockly.Cake.setCursorHand_ = function(closed) {
+  if (Blockly.Cake.readOnly) {
     return;
   }
   /* Hotspot coordinates are baked into the CUR file, but they are still
@@ -600,14 +600,14 @@ Blockly.setCursorHand_ = function(closed) {
      http://code.google.com/p/chromium/issues/detail?id=1446 */
   var cursor = '';
   if (closed) {
-    cursor = 'url(' + Blockly.pathToBlockly + 'media/handclosed.cur) 7 3, auto';
+    cursor = 'url(' + Blockly.Cake.pathToBlockly + 'media/handclosed.cur) 7 3, auto';
   }
-  if (Blockly.selected) {
-    Blockly.selected.getSvgRoot().style.cursor = cursor;
+  if (Blockly.Cake.selected) {
+    Blockly.Cake.selected.getSvgRoot().style.cursor = cursor;
   }
   // Set cursor on the SVG surface as well as block so that rapid movements
   // don't result in cursor changing to an arrow momentarily.
-  Blockly.svg.style.cursor = cursor;
+  Blockly.Cake.svg.style.cursor = cursor;
 };
 
 /**
@@ -626,18 +626,18 @@ Blockly.setCursorHand_ = function(closed) {
  * @return {Object} Contains size and position metrics of main workspace.
  * @private
  */
-Blockly.getMainWorkspaceMetrics_ = function() {
-  var svgSize = Blockly.svgSize();
-  svgSize.width -= Blockly.Toolbox.width;  // Zero if no Toolbox.
-  var viewWidth = svgSize.width - Blockly.Scrollbar.scrollbarThickness;
-  var viewHeight = svgSize.height - Blockly.Scrollbar.scrollbarThickness;
+Blockly.Cake.getMainWorkspaceMetrics_ = function() {
+  var svgSize = Blockly.Cake.svgSize();
+  svgSize.width -= Blockly.Cake.Toolbox.width;  // Zero if no Toolbox.
+  var viewWidth = svgSize.width - Blockly.Cake.Scrollbar.scrollbarThickness;
+  var viewHeight = svgSize.height - Blockly.Cake.Scrollbar.scrollbarThickness;
   try {
-    var blockBox = Blockly.mainWorkspace.getCanvas().getBBox();
+    var blockBox = Blockly.Cake.mainWorkspace.getCanvas().getBBox();
   } catch (e) {
     // Firefox has trouble with hidden elements (Bug 528969).
     return null;
   }
-  if (Blockly.mainWorkspace.scrollbar) {
+  if (Blockly.Cake.mainWorkspace.scrollbar) {
     // Add a border around the content that is at least half a screenful wide.
     // Ensure border is wide enough that blocks can scroll over entire screen.
     var leftEdge = Math.min(blockBox.x - viewWidth / 2,
@@ -654,14 +654,14 @@ Blockly.getMainWorkspaceMetrics_ = function() {
     var topEdge = blockBox.y;
     var bottomEdge = topEdge + blockBox.height;
   }
-  var absoluteLeft = Blockly.RTL ? 0 : Blockly.Toolbox.width;
+  var absoluteLeft = Blockly.Cake.RTL ? 0 : Blockly.Cake.Toolbox.width;
   var metrics = {
     viewHeight: svgSize.height,
     viewWidth: svgSize.width,
     contentHeight: bottomEdge - topEdge,
     contentWidth: rightEdge - leftEdge,
-    viewTop: -Blockly.mainWorkspace.scrollY,
-    viewLeft: -Blockly.mainWorkspace.scrollX,
+    viewTop: -Blockly.Cake.mainWorkspace.scrollY,
+    viewLeft: -Blockly.Cake.mainWorkspace.scrollX,
     contentTop: topEdge,
     contentLeft: leftEdge,
     absoluteTop: 0,
@@ -676,24 +676,24 @@ Blockly.getMainWorkspaceMetrics_ = function() {
  *     between 0 and 1 specifying the degree of scrolling.
  * @private
  */
-Blockly.setMainWorkspaceMetrics_ = function(xyRatio) {
-  if (!Blockly.mainWorkspace.scrollbar) {
+Blockly.Cake.setMainWorkspaceMetrics_ = function(xyRatio) {
+  if (!Blockly.Cake.mainWorkspace.scrollbar) {
     throw 'Attempt to set main workspace scroll without scrollbars.';
   }
-  var metrics = Blockly.getMainWorkspaceMetrics_();
+  var metrics = Blockly.Cake.getMainWorkspaceMetrics_();
   if (goog.isNumber(xyRatio.x)) {
-    Blockly.mainWorkspace.scrollX = -metrics.contentWidth * xyRatio.x -
+    Blockly.Cake.mainWorkspace.scrollX = -metrics.contentWidth * xyRatio.x -
         metrics.contentLeft;
   }
   if (goog.isNumber(xyRatio.y)) {
-    Blockly.mainWorkspace.scrollY = -metrics.contentHeight * xyRatio.y -
+    Blockly.Cake.mainWorkspace.scrollY = -metrics.contentHeight * xyRatio.y -
         metrics.contentTop;
   }
   var translation = 'translate(' +
-      (Blockly.mainWorkspace.scrollX + metrics.absoluteLeft) + ',' +
-      (Blockly.mainWorkspace.scrollY + metrics.absoluteTop) + ')';
-  Blockly.mainWorkspace.getCanvas().setAttribute('transform', translation);
-  Blockly.mainWorkspace.getBubbleCanvas().setAttribute('transform',
+      (Blockly.Cake.mainWorkspace.scrollX + metrics.absoluteLeft) + ',' +
+      (Blockly.Cake.mainWorkspace.scrollY + metrics.absoluteTop) + ')';
+  Blockly.Cake.mainWorkspace.getCanvas().setAttribute('transform', translation);
+  Blockly.Cake.mainWorkspace.getBubbleCanvas().setAttribute('transform',
                                                        translation);
 };
 
@@ -705,43 +705,43 @@ Blockly.setMainWorkspaceMetrics_ = function(xyRatio) {
  * feature).
  * @param {function()} cmdThunk A function representing the command execution.
  */
-Blockly.doCommand = function(cmdThunk) {
-  if (Blockly.Realtime.isEnabled) {
-    Blockly.Realtime.doCommand(cmdThunk);
+Blockly.Cake.doCommand = function(cmdThunk) {
+  if (Blockly.Cake.Realtime.isEnabled) {
+    Blockly.Cake.Realtime.doCommand(cmdThunk);
   } else {
     cmdThunk();
   }
 };
 
 /**
- * When something in Blockly's workspace changes, call a function.
+ * When something in Blockly.Cake's workspace changes, call a function.
  * @param {!Function} func Function to call.
  * @return {!Array.<!Array>} Opaque data that can be passed to
  *     removeChangeListener.
  */
-Blockly.addChangeListener = function(func) {
-  return Blockly.bindEvent_(Blockly.mainWorkspace.getCanvas(),
+Blockly.Cake.addChangeListener = function(func) {
+  return Blockly.Cake.bindEvent_(Blockly.Cake.mainWorkspace.getCanvas(),
                             'blocklyWorkspaceChange', null, func);
 };
 
 /**
- * Stop listening for Blockly's workspace changes.
+ * Stop listening for Blockly.Cake's workspace changes.
  * @param {!Array.<!Array>} bindData Opaque data from addChangeListener.
  */
-Blockly.removeChangeListener = function(bindData) {
-  Blockly.unbindEvent_(bindData);
+Blockly.Cake.removeChangeListener = function(bindData) {
+  Blockly.Cake.unbindEvent_(bindData);
 };
 
 /**
  * Returns the main workspace.
- * @return {!Blockly.Workspace} The main workspace.
+ * @return {!Blockly.Cake.Workspace} The main workspace.
  */
-Blockly.getMainWorkspace = function() {
-  return Blockly.mainWorkspace;
+Blockly.Cake.getMainWorkspace = function() {
+  return Blockly.Cake.mainWorkspace;
 };
 
 // Export symbols that would otherwise be renamed by Closure compiler.
-window['Blockly'] = Blockly;
-Blockly['getMainWorkspace'] = Blockly.getMainWorkspace;
-Blockly['addChangeListener'] = Blockly.addChangeListener;
-Blockly['removeChangeListener'] = Blockly.removeChangeListener;
+window['Blockly.Cake'] = Blockly.Cake;
+Blockly.Cake['getMainWorkspace'] = Blockly.Cake.getMainWorkspace;
+Blockly.Cake['addChangeListener'] = Blockly.Cake.addChangeListener;
+Blockly.Cake['removeChangeListener'] = Blockly.Cake.removeChangeListener;

@@ -19,64 +19,64 @@
  */
 
 /**
- * @fileoverview Text blocks for Blockly.
+ * @fileoverview Text blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.text');
+goog.provide('Blockly.Cake.Blocks.text');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['text'] = {
+Blockly.Cake.Blocks['text'] = {
   /**
    * Block for text value.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT');
+        .appendField(new Blockly.Cake.FieldTextInput(''), 'TEXT');
     this.setOutput(true, 'String');
-    this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_TEXT_TOOLTIP);
   },
   /**
    * Create an image of an open or closed quote.
    * @param {boolean} open True if open quote, false if closed.
-   * @return {!Blockly.FieldImage} The field image of the quote.
+   * @return {!Blockly.Cake.FieldImage} The field image of the quote.
    * @private
    */
   newQuote_: function(open) {
-    if (open == Blockly.RTL) {
+    if (open == Blockly.Cake.RTL) {
       var file = 'quote1.png';
     } else {
       var file = 'quote0.png';
     }
-    return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+    return new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly+ 'media/' + file,
                                   12, 12, '"');
   }
 };
 
-Blockly.Blocks['text_join'] = {
+Blockly.Cake.Blocks['text_join'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
     this.appendValueInput('ADD0')
-        .appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        .appendField(Blockly.Cake.Msg.TEXT_JOIN_TITLE_CREATEWITH);
     this.appendValueInput('ADD1');
     this.setOutput(true, 'String');
-    this.setMutator(new Blockly.Mutator(['text_create_join_item']));
-    this.setTooltip(Blockly.Msg.TEXT_JOIN_TOOLTIP);
+    this.setMutator(new Blockly.Cake.Mutator(['text_create_join_item']));
+    this.setTooltip(Blockly.Cake.Msg.TEXT_JOIN_TOOLTIP);
     this.itemCount_ = 2;
   },
   /**
    * Create XML to represent number of text inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
@@ -86,7 +86,7 @@ Blockly.Blocks['text_join'] = {
   /**
    * Parse XML to restore the text inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     for (var x = 0; x < this.itemCount_; x++) {
@@ -96,30 +96,30 @@ Blockly.Blocks['text_join'] = {
     for (var x = 0; x < this.itemCount_; x++) {
       var input = this.appendValueInput('ADD' + x);
       if (x == 0) {
-        input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        input.appendField(Blockly.Cake.Msg.TEXT_JOIN_TITLE_CREATEWITH);
       }
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+          .appendField(new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly+
           'media/quote0.png', 12, 12, '"'))
-          .appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+          .appendField(new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly+
           'media/quote1.png', 12, 12, '"'));
     }
   },
   /**
    * Populate the mutator's dialog with this block's components.
-   * @param {!Blockly.Workspace} workspace Mutator's workspace.
-   * @return {!Blockly.Block} Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Cake.Block} Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   decompose: function(workspace) {
-    var containerBlock = Blockly.Block.obtain(workspace,
+    var containerBlock = Blockly.Cake.Block.obtain(workspace,
                                            'text_create_join_container');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 0; x < this.itemCount_; x++) {
-      var itemBlock = Blockly.Block.obtain(workspace, 'text_create_join_item');
+      var itemBlock = Blockly.Cake.Block.obtain(workspace, 'text_create_join_item');
       itemBlock.initSvg();
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
@@ -128,8 +128,8 @@ Blockly.Blocks['text_join'] = {
   },
   /**
    * Reconfigure this block based on the mutator dialog's components.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   compose: function(containerBlock) {
     // Disconnect all input blocks and remove all inputs.
@@ -146,7 +146,7 @@ Blockly.Blocks['text_join'] = {
     while (itemBlock) {
       var input = this.appendValueInput('ADD' + this.itemCount_);
       if (this.itemCount_ == 0) {
-        input.appendField(Blockly.Msg.TEXT_JOIN_TITLE_CREATEWITH);
+        input.appendField(Blockly.Cake.Msg.TEXT_JOIN_TITLE_CREATEWITH);
       }
       // Reconnect any child blocks.
       if (itemBlock.valueConnection_) {
@@ -158,16 +158,16 @@ Blockly.Blocks['text_join'] = {
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+          .appendField(new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly+
           'media/quote0.png', 12, 12, '"'))
-          .appendField(new Blockly.FieldImage(Blockly.pathToBlockly +
+          .appendField(new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly+
           'media/quote1.png', 12, 12, '"'));
     }
   },
   /**
    * Store pointers to any connected child blocks.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   saveConnections: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
@@ -182,62 +182,62 @@ Blockly.Blocks['text_join'] = {
   }
 };
 
-Blockly.Blocks['text_create_join_container'] = {
+Blockly.Cake.Blocks['text_create_join_container'] = {
   /**
    * Mutator block for container.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.TEXT_CREATE_JOIN_TITLE_JOIN);
+        .appendField(Blockly.Cake.Msg.TEXT_CREATE_JOIN_TITLE_JOIN);
     this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_CREATE_JOIN_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['text_create_join_item'] = {
+Blockly.Cake.Blocks['text_create_join_item'] = {
   /**
    * Mutator block for add items.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM);
+        .appendField(Blockly.Cake.Msg.TEXT_CREATE_JOIN_ITEM_TITLE_ITEM);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_CREATE_JOIN_ITEM_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_CREATE_JOIN_ITEM_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['text_append'] = {
+Blockly.Cake.Blocks['text_append'] = {
   /**
    * Block for appending to a variable in place.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
     this.appendValueInput('TEXT')
-        .appendField(Blockly.Msg.TEXT_APPEND_TO)
-        .appendField(new Blockly.FieldVariable(
-        Blockly.Msg.TEXT_APPEND_VARIABLE), 'VAR')
-        .appendField(Blockly.Msg.TEXT_APPEND_APPENDTEXT);
+        .appendField(Blockly.Cake.Msg.TEXT_APPEND_TO)
+        .appendField(new Blockly.Cake.FieldVariable(
+        Blockly.Cake.Msg.TEXT_APPEND_VARIABLE), 'VAR')
+        .appendField(Blockly.Cake.Msg.TEXT_APPEND_APPENDTEXT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      return Blockly.Msg.TEXT_APPEND_TOOLTIP.replace('%1',
+      return Blockly.Cake.Msg.TEXT_APPEND_TOOLTIP.replace('%1',
           thisBlock.getFieldValue('VAR'));
     });
   },
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   getVars: function() {
     return [this.getFieldValue('VAR')];
@@ -247,107 +247,107 @@ Blockly.Blocks['text_append'] = {
    * If the name matches one of this block's variables, rename it.
    * @param {string} oldName Previous name of variable.
    * @param {string} newName Renamed variable.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+    if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
       this.setFieldValue(newName, 'VAR');
     }
   }
 };
 
-Blockly.Blocks['text_length'] = {
+Blockly.Cake.Blocks['text_length'] = {
   /**
    * Block for string length.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
-    this.interpolateMsg(Blockly.Msg.TEXT_LENGTH_TITLE,
-                        ['VALUE', ['String', 'Array'], Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+    this.interpolateMsg(Blockly.Cake.Msg.TEXT_LENGTH_TITLE,
+                        ['VALUE', ['String', 'Array'], Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.setOutput(true, 'Number');
-    this.setTooltip(Blockly.Msg.TEXT_LENGTH_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_LENGTH_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_isEmpty'] = {
+Blockly.Cake.Blocks['text_isEmpty'] = {
   /**
    * Block for is the string null?
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
-    this.interpolateMsg(Blockly.Msg.TEXT_ISEMPTY_TITLE,
-                        ['VALUE', ['String', 'Array'], Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+    this.interpolateMsg(Blockly.Cake.Msg.TEXT_ISEMPTY_TITLE,
+                        ['VALUE', ['String', 'Array'], Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.setOutput(true, 'Boolean');
-    this.setTooltip(Blockly.Msg.TEXT_ISEMPTY_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_ISEMPTY_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_indexOf'] = {
+Blockly.Cake.Blocks['text_indexOf'] = {
   /**
    * Block for finding a substring in the text.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.TEXT_INDEXOF_OPERATOR_FIRST, 'FIRST'],
-         [Blockly.Msg.TEXT_INDEXOF_OPERATOR_LAST, 'LAST']];
+        [[Blockly.Cake.Msg.TEXT_INDEXOF_OPERATOR_FIRST, 'FIRST'],
+         [Blockly.Cake.Msg.TEXT_INDEXOF_OPERATOR_LAST, 'LAST']];
     this.setColour(160);
     this.setOutput(true, 'Number');
     this.appendValueInput('VALUE')
         .setCheck('String')
-        .appendField(Blockly.Msg.TEXT_INDEXOF_INPUT_INTEXT);
+        .appendField(Blockly.Cake.Msg.TEXT_INDEXOF_INPUT_INTEXT);
     this.appendValueInput('FIND')
         .setCheck('String')
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'END');
-    if (Blockly.Msg.TEXT_INDEXOF_TAIL) {
-      this.appendDummyInput().appendField(Blockly.Msg.TEXT_INDEXOF_TAIL);
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'END');
+    if (Blockly.Cake.Msg.TEXT_INDEXOF_TAIL) {
+      this.appendDummyInput().appendField(Blockly.Cake.Msg.TEXT_INDEXOF_TAIL);
     }
     this.setInputsInline(true);
-    this.setTooltip(Blockly.Msg.TEXT_INDEXOF_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_INDEXOF_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_charAt'] = {
+Blockly.Cake.Blocks['text_charAt'] = {
   /**
    * Block for getting a character from the string.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.WHERE_OPTIONS =
-        [[Blockly.Msg.TEXT_CHARAT_FROM_START, 'FROM_START'],
-         [Blockly.Msg.TEXT_CHARAT_FROM_END, 'FROM_END'],
-         [Blockly.Msg.TEXT_CHARAT_FIRST, 'FIRST'],
-         [Blockly.Msg.TEXT_CHARAT_LAST, 'LAST'],
-         [Blockly.Msg.TEXT_CHARAT_RANDOM, 'RANDOM']];
+        [[Blockly.Cake.Msg.TEXT_CHARAT_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.TEXT_CHARAT_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.TEXT_CHARAT_FIRST, 'FIRST'],
+         [Blockly.Cake.Msg.TEXT_CHARAT_LAST, 'LAST'],
+         [Blockly.Cake.Msg.TEXT_CHARAT_RANDOM, 'RANDOM']];
     this.setColour(160);
     this.setOutput(true, 'String');
     this.appendValueInput('VALUE')
         .setCheck('String')
-        .appendField(Blockly.Msg.TEXT_CHARAT_INPUT_INTEXT);
+        .appendField(Blockly.Cake.Msg.TEXT_CHARAT_INPUT_INTEXT);
     this.appendDummyInput('AT');
     this.setInputsInline(true);
     this.updateAt_(true);
-    this.setTooltip(Blockly.Msg.TEXT_CHARAT_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_CHARAT_TOOLTIP);
   },
   /**
    * Create XML to represent whether there is an 'AT' input.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var isAt = this.getInput('AT').type == Blockly.INPUT_VALUE;
+    var isAt = this.getInput('AT').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at', isAt);
     return container;
   },
   /**
    * Parse XML to restore the 'AT' input.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     // Note: Until January 2013 this block did not have mutations,
@@ -359,7 +359,7 @@ Blockly.Blocks['text_charAt'] = {
    * Create or delete an input for the numeric index.
    * @param {boolean} isAt True if the input should exist.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateAt_: function(isAt) {
     // Destroy old 'AT' and 'ORDINAL' inputs.
@@ -368,19 +368,19 @@ Blockly.Blocks['text_charAt'] = {
     // Create either a value 'AT' input or a dummy input.
     if (isAt) {
       this.appendValueInput('AT').setCheck('Number');
-      if (Blockly.Msg.ORDINAL_NUMBER_SUFFIX) {
+      if (Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX) {
         this.appendDummyInput('ORDINAL')
-            .appendField(Blockly.Msg.ORDINAL_NUMBER_SUFFIX);
+            .appendField(Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX);
       }
     } else {
       this.appendDummyInput('AT');
     }
-    if (Blockly.Msg.TEXT_CHARAT_TAIL) {
+    if (Blockly.Cake.Msg.TEXT_CHARAT_TAIL) {
       this.removeInput('TAIL', true);
       this.appendDummyInput('TAIL')
-          .appendField(Blockly.Msg.TEXT_CHARAT_TAIL);
+          .appendField(Blockly.Cake.Msg.TEXT_CHARAT_TAIL);
     }
-    var menu = new Blockly.FieldDropdown(this.WHERE_OPTIONS, function(value) {
+    var menu = new Blockly.Cake.FieldDropdown(this.WHERE_OPTIONS, function(value) {
       var newAt = (value == 'FROM_START') || (value == 'FROM_END');
       // The 'isAt' variable is available due to this function being a closure.
       if (newAt != isAt) {
@@ -396,53 +396,53 @@ Blockly.Blocks['text_charAt'] = {
   }
 };
 
-Blockly.Blocks['text_getSubstring'] = {
+Blockly.Cake.Blocks['text_getSubstring'] = {
   /**
    * Block for getting substring.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.WHERE_OPTIONS_1 =
-        [[Blockly.Msg.TEXT_GET_SUBSTRING_START_FROM_START, 'FROM_START'],
-         [Blockly.Msg.TEXT_GET_SUBSTRING_START_FROM_END, 'FROM_END'],
-         [Blockly.Msg.TEXT_GET_SUBSTRING_START_FIRST, 'FIRST']];
+        [[Blockly.Cake.Msg.TEXT_GET_SUBSTRING_START_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.TEXT_GET_SUBSTRING_START_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.TEXT_GET_SUBSTRING_START_FIRST, 'FIRST']];
     this.WHERE_OPTIONS_2 =
-        [[Blockly.Msg.TEXT_GET_SUBSTRING_END_FROM_START, 'FROM_START'],
-         [Blockly.Msg.TEXT_GET_SUBSTRING_END_FROM_END, 'FROM_END'],
-         [Blockly.Msg.TEXT_GET_SUBSTRING_END_LAST, 'LAST']];
+        [[Blockly.Cake.Msg.TEXT_GET_SUBSTRING_END_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.TEXT_GET_SUBSTRING_END_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.TEXT_GET_SUBSTRING_END_LAST, 'LAST']];
     this.setColour(160);
     this.appendValueInput('STRING')
         .setCheck('String')
-        .appendField(Blockly.Msg.TEXT_GET_SUBSTRING_INPUT_IN_TEXT);
+        .appendField(Blockly.Cake.Msg.TEXT_GET_SUBSTRING_INPUT_IN_TEXT);
     this.appendDummyInput('AT1');
     this.appendDummyInput('AT2');
-    if (Blockly.Msg.TEXT_GET_SUBSTRING_TAIL) {
+    if (Blockly.Cake.Msg.TEXT_GET_SUBSTRING_TAIL) {
       this.appendDummyInput('TAIL')
-          .appendField(Blockly.Msg.TEXT_GET_SUBSTRING_TAIL);
+          .appendField(Blockly.Cake.Msg.TEXT_GET_SUBSTRING_TAIL);
     }
     this.setInputsInline(true);
     this.setOutput(true, 'String');
     this.updateAt_(1, true);
     this.updateAt_(2, true);
-    this.setTooltip(Blockly.Msg.TEXT_GET_SUBSTRING_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_GET_SUBSTRING_TOOLTIP);
   },
   /**
    * Create XML to represent whether there are 'AT' inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var isAt1 = this.getInput('AT1').type == Blockly.INPUT_VALUE;
+    var isAt1 = this.getInput('AT1').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at1', isAt1);
-    var isAt2 = this.getInput('AT2').type == Blockly.INPUT_VALUE;
+    var isAt2 = this.getInput('AT2').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at2', isAt2);
     return container;
   },
   /**
    * Parse XML to restore the 'AT' inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     var isAt1 = (xmlElement.getAttribute('at1') == 'true');
@@ -456,7 +456,7 @@ Blockly.Blocks['text_getSubstring'] = {
    * @param {number} n Specify first or second input (1 or 2).
    * @param {boolean} isAt True if the input should exist.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateAt_: function(n, isAt) {
     // Create or delete an input for the numeric index.
@@ -466,20 +466,20 @@ Blockly.Blocks['text_getSubstring'] = {
     // Create either a value 'AT' input or a dummy input.
     if (isAt) {
       this.appendValueInput('AT' + n).setCheck('Number');
-      if (Blockly.Msg.ORDINAL_NUMBER_SUFFIX) {
+      if (Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX) {
         this.appendDummyInput('ORDINAL' + n)
-            .appendField(Blockly.Msg.ORDINAL_NUMBER_SUFFIX);
+            .appendField(Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX);
       }
     } else {
       this.appendDummyInput('AT' + n);
     }
     // Move tail, if present, to end of block.
-    if (n == 2 && Blockly.Msg.TEXT_GET_SUBSTRING_TAIL) {
+    if (n == 2 && Blockly.Cake.Msg.TEXT_GET_SUBSTRING_TAIL) {
       this.removeInput('TAIL', true);
       this.appendDummyInput('TAIL')
-          .appendField(Blockly.Msg.TEXT_GET_SUBSTRING_TAIL);
+          .appendField(Blockly.Cake.Msg.TEXT_GET_SUBSTRING_TAIL);
     }
-    var menu = new Blockly.FieldDropdown(this['WHERE_OPTIONS_' + n],
+    var menu = new Blockly.Cake.FieldDropdown(this['WHERE_OPTIONS_' + n],
         function(value) {
       var newAt = (value == 'FROM_START') || (value == 'FROM_END');
       // The 'isAt' variable is available due to this function being a closure.
@@ -500,73 +500,73 @@ Blockly.Blocks['text_getSubstring'] = {
   }
 };
 
-Blockly.Blocks['text_changeCase'] = {
+Blockly.Cake.Blocks['text_changeCase'] = {
   /**
    * Block for changing capitalization.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.TEXT_CHANGECASE_OPERATOR_UPPERCASE, 'UPPERCASE'],
-         [Blockly.Msg.TEXT_CHANGECASE_OPERATOR_LOWERCASE, 'LOWERCASE'],
-         [Blockly.Msg.TEXT_CHANGECASE_OPERATOR_TITLECASE, 'TITLECASE']];
+        [[Blockly.Cake.Msg.TEXT_CHANGECASE_OPERATOR_UPPERCASE, 'UPPERCASE'],
+         [Blockly.Cake.Msg.TEXT_CHANGECASE_OPERATOR_LOWERCASE, 'LOWERCASE'],
+         [Blockly.Cake.Msg.TEXT_CHANGECASE_OPERATOR_TITLECASE, 'TITLECASE']];
     this.setColour(160);
     this.appendValueInput('TEXT')
         .setCheck('String')
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'CASE');
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'CASE');
     this.setOutput(true, 'String');
-    this.setTooltip(Blockly.Msg.TEXT_CHANGECASE_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_CHANGECASE_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_trim'] = {
+Blockly.Cake.Blocks['text_trim'] = {
   /**
    * Block for trimming spaces.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.TEXT_TRIM_OPERATOR_BOTH, 'BOTH'],
-         [Blockly.Msg.TEXT_TRIM_OPERATOR_LEFT, 'LEFT'],
-         [Blockly.Msg.TEXT_TRIM_OPERATOR_RIGHT, 'RIGHT']];
+        [[Blockly.Cake.Msg.TEXT_TRIM_OPERATOR_BOTH, 'BOTH'],
+         [Blockly.Cake.Msg.TEXT_TRIM_OPERATOR_LEFT, 'LEFT'],
+         [Blockly.Cake.Msg.TEXT_TRIM_OPERATOR_RIGHT, 'RIGHT']];
     this.setColour(160);
     this.appendValueInput('TEXT')
         .setCheck('String')
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'MODE');
     this.setOutput(true, 'String');
-    this.setTooltip(Blockly.Msg.TEXT_TRIM_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_TRIM_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_print'] = {
+Blockly.Cake.Blocks['text_print'] = {
   /**
    * Block for print statement.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(160);
-    this.interpolateMsg(Blockly.Msg.TEXT_PRINT_TITLE,
-                        ['TEXT', null, Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+    this.interpolateMsg(Blockly.Cake.Msg.TEXT_PRINT_TITLE,
+                        ['TEXT', null, Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.TEXT_PRINT_TOOLTIP);
   }
 };
 
-Blockly.Blocks['text_prompt'] = {
+Blockly.Cake.Blocks['text_prompt'] = {
   /**
    * Block for prompt function (internal message).
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var TYPES =
-        [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, 'TEXT'],
-         [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
+        [[Blockly.Cake.Msg.TEXT_PROMPT_TYPE_TEXT, 'TEXT'],
+         [Blockly.Cake.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
     // Assign 'this' to a variable for use in the closure below.
     var thisBlock = this;
     this.setColour(160);
-    var dropdown = new Blockly.FieldDropdown(TYPES, function(newOp) {
+    var dropdown = new Blockly.Cake.FieldDropdown(TYPES, function(newOp) {
       if (newOp == 'NUMBER') {
         thisBlock.changeOutput('Number');
       } else {
@@ -576,33 +576,33 @@ Blockly.Blocks['text_prompt'] = {
     this.appendDummyInput()
         .appendField(dropdown, 'TYPE')
         .appendField(this.newQuote_(true))
-        .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+        .appendField(new Blockly.Cake.FieldTextInput(''), 'TEXT')
         .appendField(this.newQuote_(false));
     this.setOutput(true, 'String');
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       return (thisBlock.getFieldValue('TYPE') == 'TEXT') ?
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_TEXT :
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
+          Blockly.Cake.Msg.TEXT_PROMPT_TOOLTIP_TEXT :
+          Blockly.Cake.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
     });
   },
-  newQuote_: Blockly.Blocks['text'].newQuote_
+  newQuote_: Blockly.Cake.Blocks['text'].newQuote_
 };
 
-Blockly.Blocks['text_prompt_ext'] = {
+Blockly.Cake.Blocks['text_prompt_ext'] = {
   /**
    * Block for prompt function (external message).
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var TYPES =
-        [[Blockly.Msg.TEXT_PROMPT_TYPE_TEXT, 'TEXT'],
-         [Blockly.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
+        [[Blockly.Cake.Msg.TEXT_PROMPT_TYPE_TEXT, 'TEXT'],
+         [Blockly.Cake.Msg.TEXT_PROMPT_TYPE_NUMBER, 'NUMBER']];
     // Assign 'this' to a variable for use in the closure below.
     var thisBlock = this;
     this.setColour(160);
-    var dropdown = new Blockly.FieldDropdown(TYPES, function(newOp) {
+    var dropdown = new Blockly.Cake.FieldDropdown(TYPES, function(newOp) {
       if (newOp == 'NUMBER') {
         thisBlock.changeOutput('Number');
       } else {
@@ -616,8 +616,8 @@ Blockly.Blocks['text_prompt_ext'] = {
     var thisBlock = this;
     this.setTooltip(function() {
       return (thisBlock.getFieldValue('TYPE') == 'TEXT') ?
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_TEXT :
-          Blockly.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
+          Blockly.Cake.Msg.TEXT_PROMPT_TOOLTIP_TEXT :
+          Blockly.Cake.Msg.TEXT_PROMPT_TOOLTIP_NUMBER;
     });
   }
 };

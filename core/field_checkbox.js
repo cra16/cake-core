@@ -24,9 +24,9 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldCheckbox');
+goog.provide('Blockly.Cake.FieldCheckbox');
 
-goog.require('Blockly.Field');
+goog.require('Blockly.Cake.Field');
 
 
 /**
@@ -36,43 +36,43 @@ goog.require('Blockly.Field');
  *     option is selected.  Its sole argument is the new checkbox state.  If
  *     it returns a value, this becomes the new checkbox state, unless the
  *     value is null, in which case the change is aborted.
- * @extends {Blockly.Field}
+ * @extends {Blockly.Cake.Field}
  * @constructor
  */
-Blockly.FieldCheckbox = function(state, opt_changeHandler) {
-  Blockly.FieldCheckbox.superClass_.constructor.call(this, '');
+Blockly.Cake.FieldCheckbox = function(state, opt_changeHandler) {
+  Blockly.Cake.FieldCheckbox.superClass_.constructor.call(this, '');
 
   this.changeHandler_ = opt_changeHandler;
   // The checkbox doesn't use the inherited text element.
   // Instead it uses a custom checkmark element that is either visible or not.
-  this.checkElement_ = Blockly.createSvgElement('text',
+  this.checkElement_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyText', 'x': -3}, this.fieldGroup_);
   var textNode = document.createTextNode('\u2713');
   this.checkElement_.appendChild(textNode);
   // Set the initial state.
   this.setValue(state);
 };
-goog.inherits(Blockly.FieldCheckbox, Blockly.Field);
+goog.inherits(Blockly.Cake.FieldCheckbox, Blockly.Cake.Field);
 
 /**
  * Clone this FieldCheckbox.
- * @return {!Blockly.FieldCheckbox} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldCheckbox} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldCheckbox.prototype.clone = function() {
-  return new Blockly.FieldCheckbox(this.getValue(), this.changeHandler_);
+Blockly.Cake.FieldCheckbox.prototype.clone = function() {
+  return new Blockly.Cake.FieldCheckbox(this.getValue(), this.changeHandler_);
 };
 
 /**
  * Mouse cursor style when over the hotspot that initiates editability.
  */
-Blockly.FieldCheckbox.prototype.CURSOR = 'default';
+Blockly.Cake.FieldCheckbox.prototype.CURSOR = 'default';
 
 /**
  * Return 'TRUE' if the checkbox is checked, 'FALSE' otherwise.
  * @return {string} Current state.
  */
-Blockly.FieldCheckbox.prototype.getValue = function() {
+Blockly.Cake.FieldCheckbox.prototype.getValue = function() {
   return String(this.state_).toUpperCase();
 };
 
@@ -80,7 +80,7 @@ Blockly.FieldCheckbox.prototype.getValue = function() {
  * Set the checkbox to be checked if strBool is 'TRUE', unchecks otherwise.
  * @param {string} strBool New state.
  */
-Blockly.FieldCheckbox.prototype.setValue = function(strBool) {
+Blockly.Cake.FieldCheckbox.prototype.setValue = function(strBool) {
   var newState = (strBool == 'TRUE');
   if (this.state_ !== newState) {
     this.state_ = newState;
@@ -95,7 +95,7 @@ Blockly.FieldCheckbox.prototype.setValue = function(strBool) {
  * Toggle the state of the checkbox.
  * @private
  */
-Blockly.FieldCheckbox.prototype.showEditor_ = function() {
+Blockly.Cake.FieldCheckbox.prototype.showEditor_ = function() {
   var newState = !this.state_;
   if (this.changeHandler_) {
     // Call any change handler, and allow it to override.

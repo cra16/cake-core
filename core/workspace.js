@@ -24,13 +24,13 @@
  */
 'use strict';
 
-goog.provide('Blockly.Workspace');
+goog.provide('Blockly.Cake.Workspace');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.ScrollbarPair');
-goog.require('Blockly.Trashcan');
-goog.require('Blockly.Xml');
+// goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.ScrollbarPair');
+goog.require('Blockly.Cake.Trashcan');
+goog.require('Blockly.Cake.Xml');
 
 
 /**
@@ -39,14 +39,14 @@ goog.require('Blockly.Xml');
  * @param {Function} setMetrics A function that sets size/scrolling metrics.
  * @constructor
  */
-Blockly.Workspace = function(getMetrics, setMetrics) {
+Blockly.Cake.Workspace = function(getMetrics, setMetrics) {
   this.getMetrics = getMetrics;
   this.setMetrics = setMetrics;
 
   /** @type {boolean} */
   this.isFlyout = false;
   /**
-   * @type {!Array.<!Blockly.Block>}
+   * @type {!Array.<!Blockly.Cake.Block>}
    * @private
    */
   this.topBlocks_ = [];
@@ -54,7 +54,7 @@ Blockly.Workspace = function(getMetrics, setMetrics) {
   /** @type {number} */
   this.maxBlocks = Infinity;
 
-  Blockly.ConnectionDB.init(this);
+  Blockly.Cake.ConnectionDB.init(this);
 };
 
 /**
@@ -63,31 +63,31 @@ Blockly.Workspace = function(getMetrics, setMetrics) {
  * a left to right bias (reversed in RTL).  Units are in degrees.
  * See: http://tvtropes.org/pmwiki/pmwiki.php/Main/DiagonalBilling.
  */
-Blockly.Workspace.SCAN_ANGLE = 3;
+Blockly.Cake.Workspace.SCAN_ANGLE = 3;
 
 /**
  * Can this workspace be dragged around (true) or is it fixed (false)?
  * @type {boolean}
  */
-Blockly.Workspace.prototype.dragMode = false;
+Blockly.Cake.Workspace.prototype.dragMode = false;
 
 /**
  * Current horizontal scrolling offset.
  * @type {number}
  */
-Blockly.Workspace.prototype.scrollX = 0;
+Blockly.Cake.Workspace.prototype.scrollX = 0;
 
 /**
  * Current vertical scrolling offset.
  * @type {number}
  */
-Blockly.Workspace.prototype.scrollY = 0;
+Blockly.Cake.Workspace.prototype.scrollY = 0;
 
 /**
  * The workspace's trashcan (if any).
- * @type {Blockly.Trashcan}
+ * @type {Blockly.Cake.Trashcan}
  */
-Blockly.Workspace.prototype.trashcan = null;
+Blockly.Cake.Workspace.prototype.trashcan = null;
 
 /**
  * PID of upcoming firing of a change event.  Used to fire only one event
@@ -95,19 +95,19 @@ Blockly.Workspace.prototype.trashcan = null;
  * @type {?number}
  * @private
  */
-Blockly.Workspace.prototype.fireChangeEventPid_ = null;
+Blockly.Cake.Workspace.prototype.fireChangeEventPid_ = null;
 
 /**
  * This workspace's scrollbars, if they exist.
- * @type {Blockly.ScrollbarPair}
+ * @type {Blockly.Cake.ScrollbarPair}
  */
-Blockly.Workspace.prototype.scrollbar = null;
+Blockly.Cake.Workspace.prototype.scrollbar = null;
 
 /**
  * Create the trash can elements.
  * @return {!Element} The workspace's SVG group.
  */
-Blockly.Workspace.prototype.createDom = function() {
+Blockly.Cake.Workspace.prototype.createDom = function() {
   /*
   <g>
     [Trashcan may go here]
@@ -115,9 +115,9 @@ Blockly.Workspace.prototype.createDom = function() {
     <g></g>
   </g>
   */
-  this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.svgBlockCanvas_ = Blockly.createSvgElement('g', {}, this.svgGroup_);
-  this.svgBubbleCanvas_ = Blockly.createSvgElement('g', {}, this.svgGroup_);
+  this.svgGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  this.svgBlockCanvas_ = Blockly.Cake.createSvgElement('g', {}, this.svgGroup_);
+  this.svgBubbleCanvas_ = Blockly.Cake.createSvgElement('g', {}, this.svgGroup_);
   this.fireChangeEvent();
   return this.svgGroup_;
 };
@@ -126,7 +126,7 @@ Blockly.Workspace.prototype.createDom = function() {
  * Dispose of this workspace.
  * Unlink from all DOM elements to prevent memory leaks.
  */
-Blockly.Workspace.prototype.dispose = function() {
+Blockly.Cake.Workspace.prototype.dispose = function() {
   if (this.svgGroup_) {
     goog.dom.removeNode(this.svgGroup_);
     this.svgGroup_ = null;
@@ -142,9 +142,9 @@ Blockly.Workspace.prototype.dispose = function() {
 /**
  * Add a trashcan.
  */
-Blockly.Workspace.prototype.addTrashcan = function() {
-  if (Blockly.hasTrashcan && !Blockly.readOnly) {
-    this.trashcan = new Blockly.Trashcan(this);
+Blockly.Cake.Workspace.prototype.addTrashcan = function() {
+  if (Blockly.Cake.hasTrashcan && !Blockly.Cake.readOnly) {
+    this.trashcan = new Blockly.Cake.Trashcan(this);
     var svgTrashcan = this.trashcan.createDom();
     this.svgGroup_.insertBefore(svgTrashcan, this.svgBlockCanvas_);
     this.trashcan.init();
@@ -155,7 +155,7 @@ Blockly.Workspace.prototype.addTrashcan = function() {
  * Get the SVG element that forms the drawing surface.
  * @return {!Element} SVG element.
  */
-Blockly.Workspace.prototype.getCanvas = function() {
+Blockly.Cake.Workspace.prototype.getCanvas = function() {
   return this.svgBlockCanvas_;
 };
 
@@ -163,27 +163,27 @@ Blockly.Workspace.prototype.getCanvas = function() {
  * Get the SVG element that forms the bubble surface.
  * @return {!SVGGElement} SVG element.
  */
-Blockly.Workspace.prototype.getBubbleCanvas = function() {
+Blockly.Cake.Workspace.prototype.getBubbleCanvas = function() {
   return this.svgBubbleCanvas_;
 };
 
 /**
  * Add a block to the list of top blocks.
- * @param {!Blockly.Block} block Block to remove.
+ * @param {!Blockly.Cake.Block} block Block to remove.
  */
-Blockly.Workspace.prototype.addTopBlock = function(block) {
+Blockly.Cake.Workspace.prototype.addTopBlock = function(block) {
   this.topBlocks_.push(block);
-  if (Blockly.Realtime.isEnabled() && this == Blockly.mainWorkspace) {
-    Blockly.Realtime.addTopBlock(block);
+  if (Blockly.Cake.Realtime.isEnabled() && this == Blockly.Cake.mainWorkspace) {
+    Blockly.Cake.Realtime.addTopBlock(block);
   }
   this.fireChangeEvent();
 };
 
 /**
  * Remove a block from the list of top blocks.
- * @param {!Blockly.Block} block Block to remove.
+ * @param {!Blockly.Cake.Block} block Block to remove.
  */
-Blockly.Workspace.prototype.removeTopBlock = function(block) {
+Blockly.Cake.Workspace.prototype.removeTopBlock = function(block) {
   var found = false;
   for (var child, x = 0; child = this.topBlocks_[x]; x++) {
     if (child == block) {
@@ -195,8 +195,8 @@ Blockly.Workspace.prototype.removeTopBlock = function(block) {
   if (!found) {
     throw 'Block not present in workspace\'s list of top-most blocks.';
   }
-  if (Blockly.Realtime.isEnabled() && this == Blockly.mainWorkspace) {
-    Blockly.Realtime.removeTopBlock(block);
+  if (Blockly.Cake.Realtime.isEnabled() && this == Blockly.Cake.mainWorkspace) {
+    Blockly.Cake.Realtime.removeTopBlock(block);
   }
   this.fireChangeEvent();
 };
@@ -205,14 +205,14 @@ Blockly.Workspace.prototype.removeTopBlock = function(block) {
  * Finds the top-level blocks and returns them.  Blocks are optionally sorted
  * by position; top to bottom (with slight LTR or RTL bias).
  * @param {boolean} ordered Sort the list if true.
- * @return {!Array.<!Blockly.Block>} The top-level block objects.
+ * @return {!Array.<!Blockly.Cake.Block>} The top-level block objects.
  */
-Blockly.Workspace.prototype.getTopBlocks = function(ordered) {
+Blockly.Cake.Workspace.prototype.getTopBlocks = function(ordered) {
   // Copy the topBlocks_ list.
   var blocks = [].concat(this.topBlocks_);
   if (ordered && blocks.length > 1) {
-    var offset = Math.sin(Blockly.Workspace.SCAN_ANGLE / 180 * Math.PI);
-    if (Blockly.RTL) {
+    var offset = Math.sin(Blockly.Cake.Workspace.SCAN_ANGLE / 180 * Math.PI);
+    if (Blockly.Cake.RTL) {
       offset *= -1;
     }
     blocks.sort(function(a, b) {
@@ -226,9 +226,9 @@ Blockly.Workspace.prototype.getTopBlocks = function(ordered) {
 
 /**
  * Find all blocks in workspace.  No particular order.
- * @return {!Array.<!Blockly.Block>} Array of blocks.
+ * @return {!Array.<!Blockly.Cake.Block>} Array of blocks.
  */
-Blockly.Workspace.prototype.getAllBlocks = function() {
+Blockly.Cake.Workspace.prototype.getAllBlocks = function() {
   var blocks = this.getTopBlocks(false);
   for (var x = 0; x < blocks.length; x++) {
     blocks.push.apply(blocks, blocks[x].getChildren());
@@ -239,8 +239,8 @@ Blockly.Workspace.prototype.getAllBlocks = function() {
 /**
  * Dispose of all blocks in workspace.
  */
-Blockly.Workspace.prototype.clear = function() {
-  Blockly.hideChaff();
+Blockly.Cake.Workspace.prototype.clear = function() {
+  Blockly.Cake.hideChaff();
   while (this.topBlocks_.length) {
     this.topBlocks_[0].dispose();
   }
@@ -249,7 +249,7 @@ Blockly.Workspace.prototype.clear = function() {
 /**
  * Render all blocks in workspace.
  */
-Blockly.Workspace.prototype.render = function() {
+Blockly.Cake.Workspace.prototype.render = function() {
   var renderList = this.getAllBlocks();
   for (var x = 0, block; block = renderList[x]; x++) {
     if (!block.getChildren().length) {
@@ -261,9 +261,9 @@ Blockly.Workspace.prototype.render = function() {
 /**
  * Finds the block with the specified ID in this workspace.
  * @param {string} id ID of block to find.
- * @return {Blockly.Block} The matching block, or null if not found.
+ * @return {Blockly.Cake.Block} The matching block, or null if not found.
  */
-Blockly.Workspace.prototype.getBlockById = function(id) {
+Blockly.Cake.Workspace.prototype.getBlockById = function(id) {
   // If this O(n) function fails to scale well, maintain a hash table of IDs.
   var blocks = this.getAllBlocks();
   for (var x = 0, block; block = blocks[x]; x++) {
@@ -278,14 +278,14 @@ Blockly.Workspace.prototype.getBlockById = function(id) {
  * Turn the visual trace functionality on or off.
  * @param {boolean} armed True if the trace should be on.
  */
-Blockly.Workspace.prototype.traceOn = function(armed) {
+Blockly.Cake.Workspace.prototype.traceOn = function(armed) {
   this.traceOn_ = armed;
   if (this.traceWrapper_) {
-    Blockly.unbindEvent_(this.traceWrapper_);
+    Blockly.Cake.unbindEvent_(this.traceWrapper_);
     this.traceWrapper_ = null;
   }
   if (armed) {
-    this.traceWrapper_ = Blockly.bindEvent_(this.svgBlockCanvas_,
+    this.traceWrapper_ = Blockly.Cake.bindEvent_(this.svgBlockCanvas_,
         'blocklySelectChange', this, function() {this.traceOn_ = false});
   }
 };
@@ -294,8 +294,8 @@ Blockly.Workspace.prototype.traceOn = function(armed) {
  * Highlight a block in the workspace.
  * @param {?string} id ID of block to find.
  */
-Blockly.Workspace.prototype.highlightBlock = function(id) {
-  if (this.traceOn_ && Blockly.Block.dragMode_ != 0) {
+Blockly.Cake.Workspace.prototype.highlightBlock = function(id) {
+  if (this.traceOn_ && Blockly.Cake.Block.dragMode_ != 0) {
     // The blocklySelectChange event normally prevents this, but sometimes
     // there is a race condition on fast-executing apps.
     this.traceOn(false);
@@ -316,8 +316,8 @@ Blockly.Workspace.prototype.highlightBlock = function(id) {
   // Select the current block.
   if (block) {
     block.select();
-  } else if (Blockly.selected) {
-    Blockly.selected.unselect();
+  } else if (Blockly.Cake.selected) {
+    Blockly.Cake.selected.unselect();
   }
   // Restore the monitor for user activity after the selection event has fired.
   var thisWorkspace = this;
@@ -329,16 +329,16 @@ Blockly.Workspace.prototype.highlightBlock = function(id) {
  * edits, mutations, connections, etc.  Groups of simultaneous changes (e.g.
  * a tree of blocks being deleted) are merged into one event.
  * Applications may hook workspace changes by listening for
- * 'blocklyWorkspaceChange' on Blockly.mainWorkspace.getCanvas().
+ * 'blocklyWorkspaceChange' on Blockly.Cake.mainWorkspace.getCanvas().
  */
-Blockly.Workspace.prototype.fireChangeEvent = function() {
+Blockly.Cake.Workspace.prototype.fireChangeEvent = function() {
   if (this.fireChangeEventPid_) {
     window.clearTimeout(this.fireChangeEventPid_);
   }
   var canvas = this.svgBlockCanvas_;
   if (canvas) {
     this.fireChangeEventPid_ = window.setTimeout(function() {
-        Blockly.fireUiEvent(canvas, 'blocklyWorkspaceChange');
+        Blockly.Cake.fireUiEvent(canvas, 'blocklyWorkspaceChange');
       }, 0);
   }
 };
@@ -347,17 +347,17 @@ Blockly.Workspace.prototype.fireChangeEvent = function() {
  * Paste the provided block onto the workspace.
  * @param {!Element} xmlBlock XML block element.
  */
-Blockly.Workspace.prototype.paste = function(xmlBlock) {
+Blockly.Cake.Workspace.prototype.paste = function(xmlBlock) {
   if (xmlBlock.getElementsByTagName('block').length >=
       this.remainingCapacity()) {
     return;
   }
-  var block = Blockly.Xml.domToBlock(this, xmlBlock);
+  var block = Blockly.Cake.Xml.domToBlock(this, xmlBlock);
   // Move the duplicate to original position.
   var blockX = parseInt(xmlBlock.getAttribute('x'), 10);
   var blockY = parseInt(xmlBlock.getAttribute('y'), 10);
   if (!isNaN(blockX) && !isNaN(blockY)) {
-    if (Blockly.RTL) {
+    if (Blockly.Cake.RTL) {
       blockX = -blockX;
     }
     // Offset block until not clobbering another block.
@@ -368,12 +368,12 @@ Blockly.Workspace.prototype.paste = function(xmlBlock) {
         var otherXY = otherBlock.getRelativeToSurfaceXY();
         if (Math.abs(blockX - otherXY.x) <= 1 &&
             Math.abs(blockY - otherXY.y) <= 1) {
-          if (Blockly.RTL) {
-            blockX -= Blockly.SNAP_RADIUS;
+          if (Blockly.Cake.RTL) {
+            blockX -= Blockly.Cake.SNAP_RADIUS;
           } else {
-            blockX += Blockly.SNAP_RADIUS;
+            blockX += Blockly.Cake.SNAP_RADIUS;
           }
-          blockY += Blockly.SNAP_RADIUS * 2;
+          blockY += Blockly.Cake.SNAP_RADIUS * 2;
           collide = true;
         }
       }
@@ -388,7 +388,7 @@ Blockly.Workspace.prototype.paste = function(xmlBlock) {
  *     the maxBlocks.
  * @return {number} Number of blocks left.
  */
-Blockly.Workspace.prototype.remainingCapacity = function() {
+Blockly.Cake.Workspace.prototype.remainingCapacity = function() {
   if (this.maxBlocks == Infinity) {
     return Infinity;
   }
@@ -396,4 +396,4 @@ Blockly.Workspace.prototype.remainingCapacity = function() {
 };
 
 // Export symbols that would otherwise be renamed by Closure compiler.
-Blockly.Workspace.prototype['clear'] = Blockly.Workspace.prototype.clear;
+Blockly.Cake.Workspace.prototype['clear'] = Blockly.Cake.Workspace.prototype.clear;

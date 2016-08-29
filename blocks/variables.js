@@ -19,28 +19,28 @@
  */
 
 /**
- * @fileoverview Variable blocks for Blockly.
+ * @fileoverview Variable blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.variables');
+goog.provide('Blockly.Cake.Blocks.variables');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['define_get'] = {
+Blockly.Cake.Blocks['define_get'] = {
     init: function() {
         this.setColour(160);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.DEFINE_GET_TITLE)
-            .appendField(new Blockly.FieldVariableDefine(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
+            .appendField(Blockly.Cake.Msg.DEFINE_GET_TITLE)
+            .appendField(new Blockly.Cake.FieldVariableDefine(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR')
+            .appendField(Blockly.Cake.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Macro');
-        this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_GET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_set';
-        this.tag = Blockly.Msg.TAG_DEFINE_GET;
+        this.tag = Blockly.Cake.Msg.TAG_DEFINE_GET;
     },
     /**
      * Return this block's tags.
@@ -52,7 +52,7 @@ Blockly.Blocks['define_get'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -62,17 +62,17 @@ Blockly.Blocks['define_get'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
     /**
      * Add menu option to create getter/setter block for this setter/getter.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         var option = {
@@ -84,40 +84,40 @@ Blockly.Blocks['define_get'] = {
         xmlField.setAttribute('name', 'VAR');
         var xmlBlock = goog.dom.createDom('block', null, xmlField);
         xmlBlock.setAttribute('type', this.contextMenuType_);
-        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
         options.push(option);
     },
 
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['define_declare'] = {
+Blockly.Cake.Blocks['define_declare'] = {
     init: function() {
        /* var DEFINE =
             [
-                [Blockly.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
-                [Blockly.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
+                [Blockly.Cake.Msg.DEFINE_SET_TYPE_CONSTANT, 'constant'],
+                [Blockly.Cake.Msg.DEFINE_SET_TYPE_MACRO, 'macro']
             ];*/
         this.setColour(160);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.DEFINE_DECLARE_DEFAULT_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.DEFINE_DECLARE_DEFAULT_NAME, this);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.DEFINE_DECLARE_TITLE  + ' ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
-            Blockly.Msg.DEFINE_DECLARE_INIT + ' %2',
-            ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['VALUE', null, Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.DEFINE_DECLARE_TITLE  + ' ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %1 ' +
+            Blockly.Cake.Msg.DEFINE_DECLARE_INIT + ' %2',
+            ['VAR', new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename)],
+            ['VALUE', null, Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
 
         this.setPreviousStatement(true, ['define_declare']);
         this.setNextStatement(true, ['define_declare', 'main_block']);
-        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_DECLARE_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'define_get';
-        this.tag = Blockly.Msg.TAG_DEFINE_DECLARE;
+        this.tag = Blockly.Cake.Msg.TAG_DEFINE_DECLARE;
         this.macroType_ = 'Macro';
     },
 
@@ -127,7 +127,7 @@ Blockly.Blocks['define_declare'] = {
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getTypes: function() {
         return [this.macroType_];
@@ -163,7 +163,7 @@ Blockly.Blocks['define_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -173,18 +173,18 @@ Blockly.Blocks['define_declare'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['define_get'].customContextMenu,
+    customContextMenu: Blockly.Cake.Blocks['define_get'].customContextMenu,
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireOutFunction();
+        Blockly.Cake.Blocks.requireOutFunction();
         if (this.getInputTargetBlock('VALUE')) {
             var targetBlock = this.getInputTargetBlock('VALUE');
 
@@ -206,27 +206,27 @@ Blockly.Blocks['define_declare'] = {
     }
 };
 
-Blockly.Blocks['variables_get'] = {
+Blockly.Cake.Blocks['variables_get'] = {
     /**
      * Block for variable getter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(350);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.VARIABLES_GET_TITLE)
-            .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
+            .appendField(Blockly.Cake.Msg.VARIABLES_GET_TITLE)
+            .appendField(new Blockly.Cake.FieldVariable(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR')
+            .appendField(Blockly.Cake.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Variable');
-        this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_GET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_set';
-        this.tag = Blockly.Msg.TAG_VARIABLE_GET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_GET;
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -242,17 +242,17 @@ Blockly.Blocks['variables_get'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
     /**
      * Add menu option to create getter/setter block for this setter/getter.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         var option = {
@@ -264,15 +264,15 @@ Blockly.Blocks['variables_get'] = {
         xmlField.setAttribute('name', 'VAR');
         var xmlBlock = goog.dom.createDom('block', null, xmlField);
         xmlBlock.setAttribute('type', this.contextMenuType_);
-        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
         options.push(option);
     },
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction(this);
+        Blockly.Cake.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
-        var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+        var varType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
         this.setOutputType('VAR', varType);
     },
 
@@ -297,33 +297,33 @@ Blockly.Blocks['variables_get'] = {
     }
 };
 
-Blockly.Blocks['variables_set'] = {
+Blockly.Cake.Blocks['variables_set'] = {
     /**
      * Block for variable setter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(350);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-            Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-            ['VAR', new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this)],
-            ['VALUE', null, Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+            Blockly.Cake.Msg.VARIABLES_SET_TAIL + ' %2',
+            ['VAR', new Blockly.Cake.FieldVariable(Blockly.Cake.Msg.SELECT_MENU, null, this)],
+            ['VALUE', null, Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_SET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_SET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_SET;
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -339,62 +339,62 @@ Blockly.Blocks['variables_set'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
+    customContextMenu: Blockly.Cake.Blocks['variables_get'].customContextMenu,
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction(this);
+        Blockly.Cake.Blocks.requireInFunction(this);
         var varName = this.getFieldValue('VAR');
-        var type = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+        var type = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
         if (type == false) {
             type = 'int';
         }
         if (this.getInputTargetBlock('VALUE')) {
-            Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
+            Blockly.Cake.Blocks.setCheckVariable(this, type, 'VALUE');
         }
     }
 };
 
-Blockly.Blocks['variables_declare'] = {
+Blockly.Cake.Blocks['variables_declare'] = {
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(350);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.VARIABLES_DECLARE_TITLE + '%1 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-            Blockly.Msg.VARIABLES_DECLARE_INIT + ' %3 ',
-            ['TYPES', new Blockly.FieldDropdown(TYPE, null, this)],
-            ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['VALUE', null, Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.VARIABLES_DECLARE_TITLE + '%1 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_INIT + ' %3 ',
+            ['TYPES', new Blockly.Cake.FieldDropdown(TYPE, null, this)],
+            ['VAR', new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename)],
+            ['VALUE', null, Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_DECLARE_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_DECLARE;
     },
 
-    initVar: Blockly.Blocks['define_declare'].initVar,
+    initVar: Blockly.Cake.Blocks['define_declare'].initVar,
 
     /**
      * Return 'variables'.
@@ -425,7 +425,7 @@ Blockly.Blocks['variables_declare'] = {
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getTypes: function() {
         return [this.getFieldValue('TYPES')];
@@ -433,7 +433,7 @@ Blockly.Blocks['variables_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -441,7 +441,7 @@ Blockly.Blocks['variables_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getDeclare: function() {
         return [this.getFieldValue('VAR')];
@@ -451,51 +451,51 @@ Blockly.Blocks['variables_declare'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['variables_get'].customContextMenu,
+    customContextMenu: Blockly.Cake.Blocks['variables_get'].customContextMenu,
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck(this);
+        Blockly.Cake.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
         if (type == false) {
             type = 'int';
         }
 
         //if (this.getInputTargetBlock('VALUE')) {
-            Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
+            Blockly.Cake.Blocks.setCheckVariable(this, type, 'VALUE');
         //}
 
     }
 };
 
-Blockly.Blocks['variables_pointer_get'] = {
+Blockly.Cake.Blocks['variables_pointer_get'] = {
     /**
      * Block for pointer getter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(25);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.POINTER_GET_TITLE)
-            .appendField(new Blockly.FieldVariablePointer(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
+            .appendField(Blockly.Cake.Msg.POINTER_GET_TITLE)
+            .appendField(new Blockly.Cake.FieldVariablePointer(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR')
+            .appendField(Blockly.Cake.Msg.VARIABLES_GET_TAIL);
         this.setOutput(true, 'Pointer');
-        this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_GET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_pointer_set';
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_GET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_POINTER_GET;
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -511,17 +511,17 @@ Blockly.Blocks['variables_pointer_get'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
     /**
      * Add menu option to create getter/setter block for this setter/getter.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         var option = {
@@ -533,17 +533,17 @@ Blockly.Blocks['variables_pointer_get'] = {
         xmlField.setAttribute('name', 'VAR');
         var xmlBlock = goog.dom.createDom('block', null, xmlField);
         xmlBlock.setAttribute('type', this.contextMenuType_);
-        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
         options.push(option);
     },
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction(this);
+        Blockly.Cake.Blocks.requireInFunction(this);
 
         var varName = this.getFieldValue('VAR');
-        var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
-        var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+        var varType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
+        var dimension = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 5);
         if (dimension == '*') {
             this.setOutputType('PTR', varType);
         }
@@ -551,36 +551,36 @@ Blockly.Blocks['variables_pointer_get'] = {
             this.setOutputType('DBPTR', varType);
         }
     },
-    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+    setOutputType: Blockly.Cake.Blocks['variables_get'].setOutputType
 };
 
-Blockly.Blocks['variables_pointer_set'] = {
+Blockly.Cake.Blocks['variables_pointer_set'] = {
     /**
      * Block for pointer setter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(25);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.VARIABLES_SET_TITLE + ' %1 ' +
-            Blockly.Msg.VARIABLES_SET_TAIL + ' %2',
-            ['VAR', null, Blockly.ALIGN_RIGHT],
-            ['VALUE', null, Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.VARIABLES_SET_TITLE + ' %1 ' +
+            Blockly.Cake.Msg.VARIABLES_SET_TAIL + ' %2',
+            ['VAR', null, Blockly.Cake.ALIGN_RIGHT],
+            ['VALUE', null, Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_SET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_pointer_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_SET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_POINTER_SET;
     },
 
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getInputTargetBlock('VAR')];
@@ -596,62 +596,62 @@ Blockly.Blocks['variables_pointer_set'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
+    customContextMenu: Blockly.Cake.Blocks['variables_pointer_get'].customContextMenu,
 
     //when the block is changed,
-    onchange: //Blockly.Blocks.requireInFunction
+    onchange: //Blockly.Cake.Blocks.requireInFunction
         function() {
-            Blockly.Blocks.requireInFunction(this);
+            Blockly.Cake.Blocks.requireInFunction(this);
 
             if(this.getInput('VAR')) {
                 var ptrName = this.getInputTargetBlock('VAR').getFieldValue('VAR');
-                var ptrType = Blockly.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
-                Blockly.Blocks.setCheckPointer(this, ptrType, 'VALUE');
+                var ptrType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(ptrName, 0);
+                Blockly.Cake.Blocks.setCheckPointer(this, ptrType, 'VALUE');
             }
         }
 };
 
-Blockly.Blocks['variables_pointer_declare'] = {
+Blockly.Cake.Blocks['variables_pointer_declare'] = {
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(25);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.VARIABLES_POINTER_DECLARE_TITLE + '%1 ' +
-            Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
-            Blockly.Msg.VARIABLES_DECLARE_INIT + ' %4 ',
-            ['TYPES', new Blockly.FieldDropdown(TYPE, null, this)],
-            ['ITERATION', new Blockly.FieldTextInput('*')],
-            ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['VALUE', null, Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.VARIABLES_POINTER_DECLARE_TITLE + '%1 ' +
+            Blockly.Cake.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %3 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_INIT + ' %4 ',
+            ['TYPES', new Blockly.Cake.FieldDropdown(TYPE, null, this)],
+            ['ITERATION', new Blockly.Cake.FieldTextInput('*')],
+            ['VAR', new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename)],
+            ['VALUE', null, Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_DECLARE_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_pointer_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_POINTER_DECLARE;
     },
 
-    initVar: Blockly.Blocks['define_declare'].initVar,
+    initVar: Blockly.Cake.Blocks['define_declare'].initVar,
 
     /**
      * Return 'pointer'.
@@ -673,7 +673,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getTypes: function() {
         if (this.getFieldValue('ITERATION') == '**'){
@@ -685,7 +685,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
     /**
      * Return Pointer's Scope
      */
-    getScope: Blockly.Blocks['variables_declare'].getScope,
+    getScope: Blockly.Cake.Blocks['variables_declare'].getScope,
     //    function() {
     //    return this.getSurroundParent().getName();
     //},
@@ -698,7 +698,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -706,7 +706,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getDeclare: function() {
         return [this.getFieldValue('VAR')];
@@ -716,59 +716,59 @@ Blockly.Blocks['variables_pointer_declare'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['variables_pointer_get'].customContextMenu,
+    customContextMenu: Blockly.Cake.Blocks['variables_pointer_get'].customContextMenu,
 
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.variablePlaceCheck(this);
+        Blockly.Cake.Blocks.variablePlaceCheck(this);
         var type = this.getFieldValue('TYPES');
 
         if (type == false) {
             type = 'int';
         }
         if (this.getFieldValue('ITERATION') == '*') {
-            Blockly.Blocks.setCheckPointer(this, type, 'VALUE');
+            Blockly.Cake.Blocks.setCheckPointer(this, type, 'VALUE');
         }
         else if (this.getFieldValue('ITERATION') == '**') {
-            Blockly.Blocks.setCheckPointer(this, 'db' + type, 'VALUE');
+            Blockly.Cake.Blocks.setCheckPointer(this, 'db' + type, 'VALUE');
         }
 
     }
 };
 
-Blockly.Blocks['variables_array_get'] = {
+Blockly.Cake.Blocks['variables_array_get'] = {
     /**
      * Block for array getter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(48);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
-            .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
+            .appendField(Blockly.Cake.Msg.ARRAY_GET_TITLE)
+            .appendField(new Blockly.Cake.FieldVariableArray(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR')
+            .appendField(new Blockly.Cake.FieldTextInput('0'), 'LENGTH_1')
+            .appendField(new Blockly.Cake.FieldTextInput(''), 'LENGTH_2')
+            .appendField(new Blockly.Cake.FieldTextInput(''), 'LENGTH_3')
+            .appendField(Blockly.Cake.Msg.VARIABLES_GET_TAIL);
 
         this.setOutput(true, 'Array');
 
-        this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_GET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_array_set';
-        this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_GET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_ARRAY_GET;
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -784,17 +784,17 @@ Blockly.Blocks['variables_array_get'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
     /**
      * Add menu option to create getter/setter block for this setter/getter.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         var option = {
@@ -806,7 +806,7 @@ Blockly.Blocks['variables_array_get'] = {
         xmlField.setAttribute('name', 'VAR');
         var xmlBlock = goog.dom.createDom('block', null, xmlField);
         xmlBlock.setAttribute('type', this.contextMenuType_);
-        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
         options.push(option);
     },
 
@@ -843,11 +843,11 @@ Blockly.Blocks['variables_array_get'] = {
     },
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction(this);
+        Blockly.Cake.Blocks.requireInFunction(this);
 
         var arrName = this.getFieldValue('VAR');
-        var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(arrName);
-        var arrType = Blockly.FieldDropdown.prototype.getTypefromVars(arrName, 0);
+        var arrIdxLength = Blockly.Cake.FieldVariableArray.getBlockIdxLength(arrName);
+        var arrType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(arrName, 0);
 
         var inputLength = this.getInputIdxLength();
 
@@ -863,37 +863,37 @@ Blockly.Blocks['variables_array_get'] = {
             this.changeOutput('Array');
         }
     },
-    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+    setOutputType: Blockly.Cake.Blocks['variables_get'].setOutputType
 };
 
-Blockly.Blocks['variables_array_set'] = {
+Blockly.Cake.Blocks['variables_array_set'] = {
     /**
      * Block for variable setter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(48);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
-            .appendField(Blockly.Msg.VARIABLES_SET_TAIL);
+            .appendField(Blockly.Cake.Msg.VARIABLES_SET_TITLE)
+            .appendField(new Blockly.Cake.FieldVariableArray(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR')
+            .appendField(new Blockly.Cake.FieldTextInput('0'), 'LENGTH_1')
+            .appendField(new Blockly.Cake.FieldTextInput(''), 'LENGTH_2')
+            .appendField(new Blockly.Cake.FieldTextInput(''), 'LENGTH_3')
+            .appendField(Blockly.Cake.Msg.VARIABLES_SET_TAIL);
         this.appendValueInput('VALUE');
 
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_SET_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_array_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_SET;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_ARRAY_SET;
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -909,10 +909,10 @@ Blockly.Blocks['variables_array_set'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
@@ -922,65 +922,65 @@ Blockly.Blocks['variables_array_set'] = {
      * @param withinIdx2
      * @param withinIdx3
      */
-    initIdx: Blockly.Blocks['variables_array_get'].initIdx,
-    customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
-    getInputIdxLength: Blockly.Blocks['variables_array_get'].getInputIdxLength,
+    initIdx: Blockly.Cake.Blocks['variables_array_get'].initIdx,
+    customContextMenu: Blockly.Cake.Blocks['variables_array_get'].customContextMenu,
+    getInputIdxLength: Blockly.Cake.Blocks['variables_array_get'].getInputIdxLength,
     //when the block is changed,
     onchange: function() {
-        Blockly.Blocks.requireInFunction(this);
+        Blockly.Cake.Blocks.requireInFunction(this);
 
         if (this.getFieldValue('VAR')) {
             var option = this.getFieldValue('VAR');
-            var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
-            var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(option);
+            var type = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(option, 0);
+            var arrIdxLength = Blockly.Cake.FieldVariableArray.getBlockIdxLength(option);
 
             var inputLength = this.getInputIdxLength();
             // type: variable
             if (arrIdxLength == inputLength) {
-                Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
+                Blockly.Cake.Blocks.setCheckVariable(this, type, 'VALUE');
             }
             // type: pointer
             else {
-                Blockly.Blocks.setCheckPointer(this, type, 'VALUE');
+                Blockly.Cake.Blocks.setCheckPointer(this, type, 'VALUE');
             }
         }
     }
 };
 
-Blockly.Blocks['variables_array_declare'] = {
+Blockly.Cake.Blocks['variables_array_declare'] = {
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(48);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
 
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' + ' '+
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
-            Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
-            ['TYPES', new Blockly.FieldDropdown(TYPE)],
-            ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['LENGTH_1', new Blockly.FieldTextInput('1')],
-            ['LENGTH_2', new Blockly.FieldTextInput('')],
-            ['LENGTH_3', new Blockly.FieldTextInput('')],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.VARIABLES_ARRAY_DECLARE_TITLE + ' %1 ' + ' '+
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
+            ['TYPES', new Blockly.Cake.FieldDropdown(TYPE)],
+            ['VAR', new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename)],
+            ['LENGTH_1', new Blockly.Cake.FieldTextInput('1')],
+            ['LENGTH_2', new Blockly.Cake.FieldTextInput('')],
+            ['LENGTH_3', new Blockly.Cake.FieldTextInput('')],
+            Blockly.Cake.ALIGN_RIGHT);
 
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
-        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.VARIABLES_DECLARE_TOOLTIP);
+        this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         this.contextMenuType_ = 'variables_array_get';
-        this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_ARRAY_DECLARE;
     },
 
-    initVar: Blockly.Blocks['define_declare'].initVar,
+    initVar: Blockly.Cake.Blocks['define_declare'].initVar,
 
     /**
      * Return 'array'.
@@ -991,7 +991,7 @@ Blockly.Blocks['variables_array_declare'] = {
     /**
      * Return Array's Scope
      */
-    getScope: Blockly.Blocks['variables_declare'].getScope,
+    getScope: Blockly.Cake.Blocks['variables_declare'].getScope,
     //    function() {
     //    return this.getSurroundParent().getName();
     //},
@@ -1021,11 +1021,11 @@ Blockly.Blocks['variables_array_declare'] = {
             return [3, length_1, length_2, length_3];
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.variablePlaceCheck,
+    onchange: Blockly.Cake.Blocks.variablePlaceCheck,
     /**
      * Return all variables's types referenced by this block.
      * @return {!Array.<string>} List of variable types.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getTypes: function() {
         return [this.getFieldValue('TYPES')];
@@ -1036,7 +1036,7 @@ Blockly.Blocks['variables_array_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return [this.getFieldValue('VAR')];
@@ -1044,7 +1044,7 @@ Blockly.Blocks['variables_array_declare'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getDeclare: function() {
         return [this.getFieldValue('VAR')];
@@ -1054,26 +1054,26 @@ Blockly.Blocks['variables_array_declare'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
     },
-    customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
+    customContextMenu: Blockly.Cake.Blocks['variables_array_get'].customContextMenu
 };
 
-Blockly.Blocks['variables_pointer_&'] = {
+Blockly.Cake.Blocks['variables_pointer_&'] = {
     init: function() {
         this.setColour(25);
         this.interpolateMsg(
             '&' + ' %1 ', ['VALUE',
                 ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
-                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setOutput(true, 'Address');
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_POINTER_ADDR;
     },
 
     onchange: function() {
@@ -1081,7 +1081,7 @@ Blockly.Blocks['variables_pointer_&'] = {
         {
             var nextblock = this.getInputTargetBlock('VALUE');
             var varName = nextblock.getVars();
-            var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+            var varType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
             if(nextblock.type.search('variables') ==  0) {
                 // & POINTER -> Double Pointer
@@ -1090,7 +1090,7 @@ Blockly.Blocks['variables_pointer_&'] = {
                 }
                 // & ARRAY (variable) -> Pointer , & ARRAY (pointer) -> Double Pointer
                 else if (nextblock.type.search('array') > 0) {
-                    var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(varName);
+                    var arrIdxLength = Blockly.Cake.FieldVariableArray.getBlockIdxLength(varName);
                     var inputIdxLength = nextblock.getInputIdxLength();
 
                     // type: variable
@@ -1109,18 +1109,18 @@ Blockly.Blocks['variables_pointer_&'] = {
             }
         }
     },
-    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+    setOutputType: Blockly.Cake.Blocks['variables_get'].setOutputType
 };
 
-Blockly.Blocks['variables_pointer_*'] = {
+Blockly.Cake.Blocks['variables_pointer_*'] = {
     init: function() {
         this.setColour(25);
         this.interpolateMsg(
             '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
-                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setOutput(true, 'Aster');
-        this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;
+        this.tag = Blockly.Cake.Msg.TAG_VARIABLE_POINTER_ASTR;
     },
 
     onchange: function() {
@@ -1137,8 +1137,8 @@ Blockly.Blocks['variables_pointer_*'] = {
                      if (nextblock.type.search('variables') == 0) {
                          if (nextblock.type.search('pointer') > 0) {
                              var varName = nextblock.getVars();
-                             var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
-                             var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+                             var varType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
+                             var dimension = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 5);
                              // **DOUBLE POINTER -> Variable
                              if (dimension == '**') {
                                  this.setOutputType('VAR', varType);
@@ -1151,11 +1151,11 @@ Blockly.Blocks['variables_pointer_*'] = {
             // * variables
             else if (nextblock.type.search('variables') == 0) {
                 var varName = nextblock.getVars();
-                var varType = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 0);
+                var varType = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 0);
 
                 // POINTER
                 if (nextblock.type.search('pointer') > 0) {
-                    var dimension = Blockly.FieldDropdown.prototype.getTypefromVars(varName, 5);
+                    var dimension = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(varName, 5);
                     // *POINTER -> Variable
                     if (dimension == '*') {
                         this.setOutputType('VAR', varType);
@@ -1167,7 +1167,7 @@ Blockly.Blocks['variables_pointer_*'] = {
                 }
                 // ARRAY
                 else if (nextblock.type.search('array') > 0) {
-                    var arrIdxLength = Blockly.FieldVariableArray.getBlockIdxLength(varName);
+                    var arrIdxLength = Blockly.Cake.FieldVariableArray.getBlockIdxLength(varName);
                     var inputIdxLength = nextblock.getInputIdxLength();
                     // *ARRAY(pointer) -> Variable
                     if (arrIdxLength > inputIdxLength) {
@@ -1181,6 +1181,6 @@ Blockly.Blocks['variables_pointer_*'] = {
         }
 
     },
-    setOutputType: Blockly.Blocks['variables_get'].setOutputType
+    setOutputType: Blockly.Cake.Blocks['variables_get'].setOutputType
 
 };

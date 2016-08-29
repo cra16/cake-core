@@ -24,14 +24,14 @@
  */
 'use strict';
 
-goog.provide('Blockly.Bubble');
+goog.provide('Blockly.Cake.Bubble');
 
-goog.require('Blockly.Workspace');
+goog.require('Blockly.Cake.Workspace');
 
 
 /**
  * Class for UI bubble.
- * @param {!Blockly.Workspace} workspace The workspace on which to draw the
+ * @param {!Blockly.Cake.Workspace} workspace The workspace on which to draw the
  *     bubble.
  * @param {!Element} content SVG content for the bubble.
  * @param {Element} shape SVG element to avoid eclipsing.
@@ -41,11 +41,11 @@ goog.require('Blockly.Workspace');
  * @param {?number} bubbleHeight Height of bubble, or null if not resizable.
  * @constructor
  */
-Blockly.Bubble = function(workspace, content, shape,
+Blockly.Cake.Bubble = function(workspace, content, shape,
                           anchorX, anchorY,
                           bubbleWidth, bubbleHeight) {
-  var angle = Blockly.Bubble.ARROW_ANGLE;
-  if (Blockly.RTL) {
+  var angle = Blockly.Cake.Bubble.ARROW_ANGLE;
+  if (Blockly.Cake.RTL) {
     angle = -angle;
   }
   this.arrow_radians_ = angle / 360 * Math.PI * 2;
@@ -59,8 +59,8 @@ Blockly.Bubble = function(workspace, content, shape,
   this.setAnchorLocation(anchorX, anchorY);
   if (!bubbleWidth || !bubbleHeight) {
     var bBox = /** @type {SVGLocatable} */ (this.content_).getBBox();
-    bubbleWidth = bBox.width + 2 * Blockly.Bubble.BORDER_WIDTH;
-    bubbleHeight = bBox.height + 2 * Blockly.Bubble.BORDER_WIDTH;
+    bubbleWidth = bBox.width + 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
+    bubbleHeight = bBox.height + 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
   }
   this.setBubbleSize(bubbleWidth, bubbleHeight);
 
@@ -69,11 +69,11 @@ Blockly.Bubble = function(workspace, content, shape,
   this.renderArrow_();
   this.rendered_ = true;
 
-  if (!Blockly.readOnly) {
-    Blockly.bindEvent_(this.bubbleBack_, 'mousedown', this,
+  if (!Blockly.Cake.readOnly) {
+    Blockly.Cake.bindEvent_(this.bubbleBack_, 'mousedown', this,
                        this.bubbleMouseDown_);
     if (this.resizeGroup_) {
-      Blockly.bindEvent_(this.resizeGroup_, 'mousedown', this,
+      Blockly.Cake.bindEvent_(this.resizeGroup_, 'mousedown', this,
                          this.resizeMouseDown_);
     }
   }
@@ -82,55 +82,55 @@ Blockly.Bubble = function(workspace, content, shape,
 /**
  * Width of the border around the bubble.
  */
-Blockly.Bubble.BORDER_WIDTH = 6;
+Blockly.Cake.Bubble.BORDER_WIDTH = 6;
 
 /**
  * Determines the thickness of the base of the arrow in relation to the size
  * of the bubble.  Higher numbers result in thinner arrows.
  */
-Blockly.Bubble.ARROW_THICKNESS = 10;
+Blockly.Cake.Bubble.ARROW_THICKNESS = 10;
 
 /**
  * The number of degrees that the arrow bends counter-clockwise.
  */
-Blockly.Bubble.ARROW_ANGLE = 20;
+Blockly.Cake.Bubble.ARROW_ANGLE = 20;
 
 /**
  * The sharpness of the arrow's bend.  Higher numbers result in smoother arrows.
  */
-Blockly.Bubble.ARROW_BEND = 4;
+Blockly.Cake.Bubble.ARROW_BEND = 4;
 
 /**
  * Distance between arrow point and anchor point.
  */
-Blockly.Bubble.ANCHOR_RADIUS = 8;
+Blockly.Cake.Bubble.ANCHOR_RADIUS = 8;
 
 /**
  * Wrapper function called when a mouseUp occurs during a drag operation.
  * @type {Array.<!Array>}
  * @private
  */
-Blockly.Bubble.onMouseUpWrapper_ = null;
+Blockly.Cake.Bubble.onMouseUpWrapper_ = null;
 
 /**
  * Wrapper function called when a mouseMove occurs during a drag operation.
  * @type {Array.<!Array>}
  * @private
  */
-Blockly.Bubble.onMouseMoveWrapper_ = null;
+Blockly.Cake.Bubble.onMouseMoveWrapper_ = null;
 
 /**
  * Stop binding to the global mouseup and mousemove events.
  * @private
  */
-Blockly.Bubble.unbindDragEvents_ = function() {
-  if (Blockly.Bubble.onMouseUpWrapper_) {
-    Blockly.unbindEvent_(Blockly.Bubble.onMouseUpWrapper_);
-    Blockly.Bubble.onMouseUpWrapper_ = null;
+Blockly.Cake.Bubble.unbindDragEvents_ = function() {
+  if (Blockly.Cake.Bubble.onMouseUpWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Bubble.onMouseUpWrapper_);
+    Blockly.Cake.Bubble.onMouseUpWrapper_ = null;
   }
-  if (Blockly.Bubble.onMouseMoveWrapper_) {
-    Blockly.unbindEvent_(Blockly.Bubble.onMouseMoveWrapper_);
-    Blockly.Bubble.onMouseMoveWrapper_ = null;
+  if (Blockly.Cake.Bubble.onMouseMoveWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Bubble.onMouseMoveWrapper_);
+    Blockly.Cake.Bubble.onMouseMoveWrapper_ = null;
   }
 };
 
@@ -138,50 +138,50 @@ Blockly.Bubble.unbindDragEvents_ = function() {
  * Flag to stop incremental rendering during construction.
  * @private
  */
-Blockly.Bubble.prototype.rendered_ = false;
+Blockly.Cake.Bubble.prototype.rendered_ = false;
 
 /**
  * Absolute X coordinate of anchor point.
  * @private
  */
-Blockly.Bubble.prototype.anchorX_ = 0;
+Blockly.Cake.Bubble.prototype.anchorX_ = 0;
 
 /**
  * Absolute Y coordinate of anchor point.
  * @private
  */
-Blockly.Bubble.prototype.anchorY_ = 0;
+Blockly.Cake.Bubble.prototype.anchorY_ = 0;
 
 /**
  * Relative X coordinate of bubble with respect to the anchor's centre.
  * In RTL mode the initial value is negated.
  * @private
  */
-Blockly.Bubble.prototype.relativeLeft_ = 0;
+Blockly.Cake.Bubble.prototype.relativeLeft_ = 0;
 
 /**
  * Relative Y coordinate of bubble with respect to the anchor's centre.
  * @private
  */
-Blockly.Bubble.prototype.relativeTop_ = 0;
+Blockly.Cake.Bubble.prototype.relativeTop_ = 0;
 
 /**
  * Width of bubble.
  * @private
  */
-Blockly.Bubble.prototype.width_ = 0;
+Blockly.Cake.Bubble.prototype.width_ = 0;
 
 /**
  * Height of bubble.
  * @private
  */
-Blockly.Bubble.prototype.height_ = 0;
+Blockly.Cake.Bubble.prototype.height_ = 0;
 
 /**
  * Automatically position and reposition the bubble.
  * @private
  */
-Blockly.Bubble.prototype.autoLayout_ = true;
+Blockly.Cake.Bubble.prototype.autoLayout_ = true;
 
 /**
  * Create the bubble's DOM.
@@ -190,7 +190,7 @@ Blockly.Bubble.prototype.autoLayout_ = true;
  * @return {!Element} The bubble's SVG group.
  * @private
  */
-Blockly.Bubble.prototype.createDom_ = function(content, hasResize) {
+Blockly.Cake.Bubble.prototype.createDom_ = function(content, hasResize) {
   /* Create the bubble.  Here's the markup that will be generated:
   <g>
     <g filter="url(#blocklyEmboss)">
@@ -205,27 +205,27 @@ Blockly.Bubble.prototype.createDom_ = function(content, hasResize) {
     [...content goes here...]
   </g>
   */
-  this.bubbleGroup_ = Blockly.createSvgElement('g', {}, null);
-  var bubbleEmboss = Blockly.createSvgElement('g',
+  this.bubbleGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  var bubbleEmboss = Blockly.Cake.createSvgElement('g',
       {'filter': 'url(#blocklyEmboss)'}, this.bubbleGroup_);
-  this.bubbleArrow_ = Blockly.createSvgElement('path', {}, bubbleEmboss);
-  this.bubbleBack_ = Blockly.createSvgElement('rect',
+  this.bubbleArrow_ = Blockly.Cake.createSvgElement('path', {}, bubbleEmboss);
+  this.bubbleBack_ = Blockly.Cake.createSvgElement('rect',
       {'class': 'blocklyDraggable', 'x': 0, 'y': 0,
-      'rx': Blockly.Bubble.BORDER_WIDTH, 'ry': Blockly.Bubble.BORDER_WIDTH},
+      'rx': Blockly.Cake.Bubble.BORDER_WIDTH, 'ry': Blockly.Cake.Bubble.BORDER_WIDTH},
       bubbleEmboss);
   if (hasResize) {
-    this.resizeGroup_ = Blockly.createSvgElement('g',
-        {'class': Blockly.RTL ? 'blocklyResizeSW' : 'blocklyResizeSE'},
+    this.resizeGroup_ = Blockly.Cake.createSvgElement('g',
+        {'class': Blockly.Cake.RTL ? 'blocklyResizeSW' : 'blocklyResizeSE'},
         this.bubbleGroup_);
-    var resizeSize = 2 * Blockly.Bubble.BORDER_WIDTH;
-    Blockly.createSvgElement('polygon',
+    var resizeSize = 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
+    Blockly.Cake.createSvgElement('polygon',
         {'points': '0,x x,x x,0'.replace(/x/g, resizeSize.toString())},
         this.resizeGroup_);
-    Blockly.createSvgElement('line',
+    Blockly.Cake.createSvgElement('line',
         {'class': 'blocklyResizeLine',
         'x1': resizeSize / 3, 'y1': resizeSize - 1,
         'x2': resizeSize - 1, 'y2': resizeSize / 3}, this.resizeGroup_);
-    Blockly.createSvgElement('line',
+    Blockly.Cake.createSvgElement('line',
         {'class': 'blocklyResizeLine',
         'x1': resizeSize * 2 / 3, 'y1': resizeSize - 1,
         'x2': resizeSize - 1, 'y2': resizeSize * 2 / 3}, this.resizeGroup_);
@@ -241,31 +241,31 @@ Blockly.Bubble.prototype.createDom_ = function(content, hasResize) {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.Bubble.prototype.bubbleMouseDown_ = function(e) {
+Blockly.Cake.Bubble.prototype.bubbleMouseDown_ = function(e) {
   this.promote_();
-  Blockly.Bubble.unbindDragEvents_();
-  if (Blockly.isRightButton(e)) {
+  Blockly.Cake.Bubble.unbindDragEvents_();
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     return;
-  } else if (Blockly.isTargetInput_(e)) {
+  } else if (Blockly.Cake.isTargetInput_(e)) {
     // When focused on an HTML text input widget, don't trap any events.
     return;
   }
   // Left-click (or middle click)
-  Blockly.setCursorHand_(true);
+  Blockly.Cake.setCursorHand_(true);
   // Record the starting offset between the current location and the mouse.
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     this.dragDeltaX = this.relativeLeft_ + e.clientX;
   } else {
     this.dragDeltaX = this.relativeLeft_ - e.clientX;
   }
   this.dragDeltaY = this.relativeTop_ - e.clientY;
 
-  Blockly.Bubble.onMouseUpWrapper_ = Blockly.bindEvent_(document,
-      'mouseup', this, Blockly.Bubble.unbindDragEvents_);
-  Blockly.Bubble.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
+  Blockly.Cake.Bubble.onMouseUpWrapper_ = Blockly.Cake.bindEvent_(document,
+      'mouseup', this, Blockly.Cake.Bubble.unbindDragEvents_);
+  Blockly.Cake.Bubble.onMouseMoveWrapper_ = Blockly.Cake.bindEvent_(document,
       'mousemove', this, this.bubbleMouseMove_);
-  Blockly.hideChaff();
+  Blockly.Cake.hideChaff();
   // This event has been handled.  No need to bubble up to the document.
   e.stopPropagation();
 };
@@ -275,9 +275,9 @@ Blockly.Bubble.prototype.bubbleMouseDown_ = function(e) {
  * @param {!Event} e Mouse move event.
  * @private
  */
-Blockly.Bubble.prototype.bubbleMouseMove_ = function(e) {
+Blockly.Cake.Bubble.prototype.bubbleMouseMove_ = function(e) {
   this.autoLayout_ = false;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     this.relativeLeft_ = this.dragDeltaX - e.clientX;
   } else {
     this.relativeLeft_ = this.dragDeltaX + e.clientX;
@@ -292,28 +292,28 @@ Blockly.Bubble.prototype.bubbleMouseMove_ = function(e) {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.Bubble.prototype.resizeMouseDown_ = function(e) {
+Blockly.Cake.Bubble.prototype.resizeMouseDown_ = function(e) {
   this.promote_();
-  Blockly.Bubble.unbindDragEvents_();
-  if (Blockly.isRightButton(e)) {
+  Blockly.Cake.Bubble.unbindDragEvents_();
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     return;
   }
   // Left-click (or middle click)
-  Blockly.setCursorHand_(true);
+  Blockly.Cake.setCursorHand_(true);
   // Record the starting offset between the current location and the mouse.
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     this.resizeDeltaWidth = this.width_ + e.clientX;
   } else {
     this.resizeDeltaWidth = this.width_ - e.clientX;
   }
   this.resizeDeltaHeight = this.height_ - e.clientY;
 
-  Blockly.Bubble.onMouseUpWrapper_ = Blockly.bindEvent_(document,
-      'mouseup', this, Blockly.Bubble.unbindDragEvents_);
-  Blockly.Bubble.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
+  Blockly.Cake.Bubble.onMouseUpWrapper_ = Blockly.Cake.bindEvent_(document,
+      'mouseup', this, Blockly.Cake.Bubble.unbindDragEvents_);
+  Blockly.Cake.Bubble.onMouseMoveWrapper_ = Blockly.Cake.bindEvent_(document,
       'mousemove', this, this.resizeMouseMove_);
-  Blockly.hideChaff();
+  Blockly.Cake.hideChaff();
   // This event has been handled.  No need to bubble up to the document.
   e.stopPropagation();
 };
@@ -323,11 +323,11 @@ Blockly.Bubble.prototype.resizeMouseDown_ = function(e) {
  * @param {!Event} e Mouse move event.
  * @private
  */
-Blockly.Bubble.prototype.resizeMouseMove_ = function(e) {
+Blockly.Cake.Bubble.prototype.resizeMouseMove_ = function(e) {
   this.autoLayout_ = false;
   var w = this.resizeDeltaWidth;
   var h = this.resizeDeltaHeight + e.clientY;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     // RTL drags the bottom-left corner.
     w -= e.clientX;
   } else {
@@ -335,7 +335,7 @@ Blockly.Bubble.prototype.resizeMouseMove_ = function(e) {
     w += e.clientX;
   }
   this.setBubbleSize(w, h);
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     // RTL requires the bubble to move its left edge.
     this.positionBubble_();
   }
@@ -346,15 +346,15 @@ Blockly.Bubble.prototype.resizeMouseMove_ = function(e) {
  * @param {Object} thisObject The value of 'this' in the callback.
  * @param {!Function} callback The function to call on resize.
  */
-Blockly.Bubble.prototype.registerResizeEvent = function(thisObject, callback) {
-  Blockly.bindEvent_(this.bubbleGroup_, 'resize', thisObject, callback);
+Blockly.Cake.Bubble.prototype.registerResizeEvent = function(thisObject, callback) {
+  Blockly.Cake.bindEvent_(this.bubbleGroup_, 'resize', thisObject, callback);
 };
 
 /**
  * Move this bubble to the top of the stack.
  * @private
  */
-Blockly.Bubble.prototype.promote_ = function() {
+Blockly.Cake.Bubble.prototype.promote_ = function() {
   var svgGroup = this.bubbleGroup_.parentNode;
   svgGroup.appendChild(this.bubbleGroup_);
 };
@@ -365,7 +365,7 @@ Blockly.Bubble.prototype.promote_ = function() {
  * @param {number} x Absolute horizontal location.
  * @param {number} y Absolute vertical location.
  */
-Blockly.Bubble.prototype.setAnchorLocation = function(x, y) {
+Blockly.Cake.Bubble.prototype.setAnchorLocation = function(x, y) {
   this.anchorX_ = x;
   this.anchorY_ = y;
   if (this.rendered_) {
@@ -377,18 +377,18 @@ Blockly.Bubble.prototype.setAnchorLocation = function(x, y) {
  * Position the bubble so that it does not fall offscreen.
  * @private
  */
-Blockly.Bubble.prototype.layoutBubble_ = function() {
+Blockly.Cake.Bubble.prototype.layoutBubble_ = function() {
   // Compute the preferred bubble location.
   var relativeLeft = -this.width_ / 4;
-  var relativeTop = -this.height_ - Blockly.BlockSvg.MIN_BLOCK_Y;
+  var relativeTop = -this.height_ - Blockly.Cake.BlockSvg.MIN_BLOCK_Y;
   // Prevent the bubble from being offscreen.
   var metrics = this.workspace_.getMetrics();
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     if (this.anchorX_ - metrics.viewLeft - relativeLeft - this.width_ <
-        Blockly.Scrollbar.scrollbarThickness) {
+        Blockly.Cake.Scrollbar.scrollbarThickness) {
       // Slide the bubble right until it is onscreen.
       relativeLeft = this.anchorX_ - metrics.viewLeft - this.width_ -
-        Blockly.Scrollbar.scrollbarThickness;
+        Blockly.Cake.Scrollbar.scrollbarThickness;
     } else if (this.anchorX_ - metrics.viewLeft - relativeLeft >
                metrics.viewWidth) {
       // Slide the bubble left until it is onscreen.
@@ -400,11 +400,11 @@ Blockly.Bubble.prototype.layoutBubble_ = function() {
       relativeLeft = metrics.viewLeft - this.anchorX_;
     } else if (metrics.viewLeft + metrics.viewWidth <
         this.anchorX_ + relativeLeft + this.width_ +
-        Blockly.BlockSvg.SEP_SPACE_X +
-        Blockly.Scrollbar.scrollbarThickness) {
+        Blockly.Cake.BlockSvg.SEP_SPACE_X +
+        Blockly.Cake.Scrollbar.scrollbarThickness) {
       // Slide the bubble left until it is onscreen.
       relativeLeft = metrics.viewLeft + metrics.viewWidth - this.anchorX_ -
-          this.width_ - Blockly.Scrollbar.scrollbarThickness;
+          this.width_ - Blockly.Cake.Scrollbar.scrollbarThickness;
     }
   }
   if (this.anchorY_ + relativeTop < metrics.viewTop) {
@@ -420,9 +420,9 @@ Blockly.Bubble.prototype.layoutBubble_ = function() {
  * Move the bubble to a location relative to the anchor's centre.
  * @private
  */
-Blockly.Bubble.prototype.positionBubble_ = function() {
+Blockly.Cake.Bubble.prototype.positionBubble_ = function() {
   var left;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     left = this.anchorX_ - this.relativeLeft_ - this.width_;
   } else {
     left = this.anchorX_ + this.relativeLeft_;
@@ -436,7 +436,7 @@ Blockly.Bubble.prototype.positionBubble_ = function() {
  * Get the dimensions of this bubble.
  * @return {!Object} Object with width and height properties.
  */
-Blockly.Bubble.prototype.getBubbleSize = function() {
+Blockly.Cake.Bubble.prototype.getBubbleSize = function() {
   return {width: this.width_, height: this.height_};
 };
 
@@ -445,19 +445,19 @@ Blockly.Bubble.prototype.getBubbleSize = function() {
  * @param {number} width Width of the bubble.
  * @param {number} height Height of the bubble.
  */
-Blockly.Bubble.prototype.setBubbleSize = function(width, height) {
-  var doubleBorderWidth = 2 * Blockly.Bubble.BORDER_WIDTH;
+Blockly.Cake.Bubble.prototype.setBubbleSize = function(width, height) {
+  var doubleBorderWidth = 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
   // Minimum size of a bubble.
   width = Math.max(width, doubleBorderWidth + 45);
-  height = Math.max(height, doubleBorderWidth + Blockly.BlockSvg.FIELD_HEIGHT);
+  height = Math.max(height, doubleBorderWidth + Blockly.Cake.BlockSvg.FIELD_HEIGHT);
   this.width_ = width;
   this.height_ = height;
   this.bubbleBack_.setAttribute('width', width);
   this.bubbleBack_.setAttribute('height', height);
   if (this.resizeGroup_) {
-    if (Blockly.RTL) {
+    if (Blockly.Cake.RTL) {
       // Mirror the resize group.
-      var resizeSize = 2 * Blockly.Bubble.BORDER_WIDTH;
+      var resizeSize = 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
       this.resizeGroup_.setAttribute('transform', 'translate(' +
           resizeSize + ', ' +
           (height - doubleBorderWidth) + ') scale(-1 1)');
@@ -475,14 +475,14 @@ Blockly.Bubble.prototype.setBubbleSize = function(width, height) {
     this.renderArrow_();
   }
   // Fire an event to allow the contents to resize.
-  Blockly.fireUiEvent(this.bubbleGroup_, 'resize');
+  Blockly.Cake.fireUiEvent(this.bubbleGroup_, 'resize');
 };
 
 /**
  * Draw the arrow between the bubble and the origin.
  * @private
  */
-Blockly.Bubble.prototype.renderArrow_ = function() {
+Blockly.Cake.Bubble.prototype.renderArrow_ = function() {
   var steps = [];
   // Find the relative coordinates of the center of the bubble.
   var relBubbleX = this.width_ / 2;
@@ -498,7 +498,7 @@ Blockly.Bubble.prototype.renderArrow_ = function() {
     // Compute the angle of the arrow's line.
     var rise = relAnchorY - relBubbleY;
     var run = relAnchorX - relBubbleX;
-    if (Blockly.RTL) {
+    if (Blockly.Cake.RTL) {
       run *= -1;
     }
     var hypotenuse = Math.sqrt(rise * rise + run * run);
@@ -517,11 +517,11 @@ Blockly.Bubble.prototype.renderArrow_ = function() {
     // Calculate the thickness of the base of the arrow.
     var bubbleSize = this.getBubbleSize();
     var thickness = (bubbleSize.width + bubbleSize.height) /
-                    Blockly.Bubble.ARROW_THICKNESS;
+                    Blockly.Cake.Bubble.ARROW_THICKNESS;
     thickness = Math.min(thickness, bubbleSize.width, bubbleSize.height) / 2;
 
     // Back the tip of the arrow off of the anchor.
-    var backoffRatio = 1 - Blockly.Bubble.ANCHOR_RADIUS / hypotenuse;
+    var backoffRatio = 1 - Blockly.Cake.Bubble.ANCHOR_RADIUS / hypotenuse;
     relAnchorX = relBubbleX + backoffRatio * run;
     relAnchorY = relBubbleY + backoffRatio * rise;
 
@@ -537,9 +537,9 @@ Blockly.Bubble.prototype.renderArrow_ = function() {
       swirlAngle -= Math.PI * 2;
     }
     var swirlRise = Math.sin(swirlAngle) *
-        hypotenuse / Blockly.Bubble.ARROW_BEND;
+        hypotenuse / Blockly.Cake.Bubble.ARROW_BEND;
     var swirlRun = Math.cos(swirlAngle) *
-        hypotenuse / Blockly.Bubble.ARROW_BEND;
+        hypotenuse / Blockly.Cake.Bubble.ARROW_BEND;
 
     steps.push('M' + baseX1 + ',' + baseY1);
     steps.push('C' + (baseX1 + swirlRun) + ',' + (baseY1 + swirlRise) +
@@ -557,7 +557,7 @@ Blockly.Bubble.prototype.renderArrow_ = function() {
  * Change the colour of a bubble.
  * @param {string} hexColour Hex code of colour.
  */
-Blockly.Bubble.prototype.setColour = function(hexColour) {
+Blockly.Cake.Bubble.prototype.setColour = function(hexColour) {
   this.bubbleBack_.setAttribute('fill', hexColour);
   this.bubbleArrow_.setAttribute('fill', hexColour);
 };
@@ -565,8 +565,8 @@ Blockly.Bubble.prototype.setColour = function(hexColour) {
 /**
  * Dispose of this bubble.
  */
-Blockly.Bubble.prototype.dispose = function() {
-  Blockly.Bubble.unbindDragEvents_();
+Blockly.Cake.Bubble.prototype.dispose = function() {
+  Blockly.Cake.Bubble.unbindDragEvents_();
   // Dispose of and unlink the bubble.
   goog.dom.removeNode(this.bubbleGroup_);
   this.bubbleGroup_ = null;

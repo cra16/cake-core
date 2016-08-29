@@ -24,19 +24,21 @@
  */
 'use strict';
 
-goog.provide('Blockly.Block');
+goog.provide('Blockly.Cake.Block');
 
-goog.require('Blockly.BlockSvg');
-goog.require('Blockly.Blocks');
-goog.require('Blockly.Comment');
-goog.require('Blockly.Connection');
-goog.require('Blockly.ContextMenu');
-goog.require('Blockly.Input');
-goog.require('Blockly.Msg');
-goog.require('Blockly.Mutator');
-goog.require('Blockly.Warning');
-goog.require('Blockly.Workspace');
-goog.require('Blockly.Xml');
+goog.require('Blockly.Block');
+
+goog.require('Blockly.Cake.BlockSvg');
+goog.require('Blockly.Cake.Blocks');
+goog.require('Blockly.Cake.Comment');
+goog.require('Blockly.Cake.Connection');
+goog.require('Blockly.Cake.ContextMenu');
+goog.require('Blockly.Cake.Input');
+goog.require('Blockly.Cake.Msg');
+goog.require('Blockly.Cake.Mutator');
+goog.require('Blockly.Cake.Warning');
+goog.require('Blockly.Cake.Workspace');
+goog.require('Blockly.Cake.Xml');
 goog.require('goog.Timer');
 goog.require('goog.array');
 goog.require('goog.asserts');
@@ -47,22 +49,22 @@ goog.require('goog.string');
  * Unique ID counter for created blocks.
  * @private
  */
-Blockly.uidCounter_ = 0;
+Blockly.Cake.uidCounter_ = 0;
 
 /**
- * Get the Blockly.uidCounter_
+ * Get the Blockly.Cake.uidCounter_
  * @return {number}
  */
-Blockly.getUidCounter = function() {
-  return Blockly.uidCounter_;
+Blockly.Cake.getUidCounter = function() {
+  return Blockly.Cake.uidCounter_;
 };
 
 /**
- * Set the Blockly.uidCounter_
+ * Set the Blockly.Cake.uidCounter_
  * @param {number} val The value to set the counter to.
  */
-Blockly.setUidCounter = function(val) {
-  Blockly.uidCounter_ = val;
+Blockly.Cake.setUidCounter = function(val) {
+  Blockly.Cake.uidCounter_ = val;
 };
 
 /**
@@ -70,10 +72,10 @@ Blockly.setUidCounter = function(val) {
  * whether we are in single user or realtime collaborative mode.
  * @return {string}
  */
-Blockly.genUid = function() {
-  var uid = (++Blockly.uidCounter_).toString();
-  if (Blockly.Realtime.isEnabled()) {
-    return Blockly.Realtime.genUid(uid);
+Blockly.Cake.genUid = function() {
+  var uid = (++Blockly.Cake.uidCounter_).toString();
+  if (Blockly.Cake.Realtime.isEnabled()) {
+    return Blockly.Cake.Realtime.genUid(uid);
   } else {
     return uid;
   }
@@ -83,25 +85,25 @@ Blockly.genUid = function() {
  * Class for one block.
  * @constructor
  */
-Blockly.Block = function() {
+Blockly.Cake.Block = function() {
   // We assert this here because there may be users of the previous form of
   // this constructor, which took arguments.
   goog.asserts.assert(arguments.length == 0,
-    'Please use Blockly.Block.obtain.');
+    'Please use Blockly.Cake.Block.obtain.');
 };
 
 /**
  * Obtain a newly created block.
- * @param {!Blockly.Workspace} workspace The block's workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The block's workspace.
  * @param {?string} prototypeName Name of the language object containing
  *     type-specific functions for this block.
- * @return {!Blockly.Block} The created block
+ * @return {!Blockly.Cake.Block} The created block
  */
-Blockly.Block.obtain = function(workspace, prototypeName) {
-  if (Blockly.Realtime.isEnabled()) {
-    return Blockly.Realtime.obtainBlock(workspace, prototypeName);
+Blockly.Cake.Block.obtain = function(workspace, prototypeName) {
+  if (Blockly.Cake.Realtime.isEnabled()) {
+    return Blockly.Cake.Realtime.obtainBlock(workspace, prototypeName);
   } else {
-    var newBlock = new Blockly.Block();
+    var newBlock = new Blockly.Cake.Block();
     newBlock.initialize(workspace, prototypeName);
     return newBlock;
   }
@@ -109,27 +111,27 @@ Blockly.Block.obtain = function(workspace, prototypeName) {
 
 /**
  * Initialization for one block.
- * @param {!Blockly.Workspace} workspace The new block's workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The new block's workspace.
  * @param {?string} prototypeName Name of the language object containing
  *     type-specific functions for this block.
  */
-Blockly.Block.prototype.initialize = function(workspace, prototypeName) {
-  this.id = Blockly.genUid();
+Blockly.Cake.Block.prototype.initialize = function(workspace, prototypeName) {
+  this.id = Blockly.Cake.genUid();
   workspace.addTopBlock(this);
   this.fill(workspace, prototypeName);
   // Bind an onchange function, if it exists.
   if (goog.isFunction(this.onchange)) {
-    Blockly.bindEvent_(workspace.getCanvas(), 'blocklyWorkspaceChange', this,
+    Blockly.Cake.bindEvent_(workspace.getCanvas(), 'blocklyWorkspaceChange', this,
       this.onchange);
   }
 };
 
 /**
  * Fill a block with initial values.
- * @param {!Blockly.Workspace} workspace The workspace to use.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to use.
  * @param {string} prototypeName The typename of the block.
  */
-Blockly.Block.prototype.fill = function(workspace, prototypeName) {
+Blockly.Cake.Block.prototype.fill = function(workspace, prototypeName) {
   this.outputConnection = null;
   this.nextConnection = null;
   this.previousConnection = null;
@@ -153,7 +155,7 @@ Blockly.Block.prototype.fill = function(workspace, prototypeName) {
   // Copy the type-specific functions and data from the prototype.
   if (prototypeName) {
     this.type = prototypeName;
-    var prototype = Blockly.Blocks[prototypeName];
+    var prototype = Blockly.Cake.Blocks[prototypeName];
     goog.asserts.assertObject(prototype,
       'Error: "%s" is an unknown language block.', prototypeName);
     goog.mixin(this, prototype);
@@ -167,12 +169,12 @@ Blockly.Block.prototype.fill = function(workspace, prototypeName) {
 /**
  * Get an existing block.
  * @param {string} id The block's id.
- * @param {!Blockly.Workspace} workspace The block's workspace.
- * @return {Blockly.Block} The found block, or null if not found.
+ * @param {!Blockly.Cake.Workspace} workspace The block's workspace.
+ * @return {Blockly.Cake.Block} The found block, or null if not found.
  */
-Blockly.Block.getById = function(id, workspace) {
-  if (Blockly.Realtime.isEnabled()) {
-    return Blockly.Realtime.getBlockById(id);
+Blockly.Cake.Block.getById = function(id, workspace) {
+  if (Blockly.Cake.Realtime.isEnabled()) {
+    return Blockly.Cake.Realtime.getBlockById(id);
   } else {
     return workspace.getBlockById(id);
   }
@@ -180,34 +182,34 @@ Blockly.Block.getById = function(id, workspace) {
 
 /**
  * Pointer to SVG representation of the block.
- * @type {Blockly.BlockSvg}
+ * @type {Blockly.Cake.BlockSvg}
  * @private
  */
-Blockly.Block.prototype.svg_ = null;
+Blockly.Cake.Block.prototype.svg_ = null;
 
 /**
  * Block's mutator icon (if any).
- * @type {Blockly.Mutator}
+ * @type {Blockly.Cake.Mutator}
  */
-Blockly.Block.prototype.mutator = null;
+Blockly.Cake.Block.prototype.mutator = null;
 
 /**
  * Block's comment icon (if any).
- * @type {Blockly.Comment}
+ * @type {Blockly.Cake.Comment}
  */
-Blockly.Block.prototype.comment = null;
+Blockly.Cake.Block.prototype.comment = null;
 
 /**
  * Block's warning icon (if any).
- * @type {Blockly.Warning}
+ * @type {Blockly.Cake.Warning}
  */
-Blockly.Block.prototype.warning = null;
+Blockly.Cake.Block.prototype.warning = null;
 
 /**
  * Returns a list of mutator, comment, and warning icons.
  * @return {!Array} List of icons.
  */
-Blockly.Block.prototype.getIcons = function() {
+Blockly.Cake.Block.prototype.getIcons = function() {
   var icons = [];
   if (this.mutator) {
     icons.push(this.mutator);
@@ -224,11 +226,11 @@ Blockly.Block.prototype.getIcons = function() {
 /**
  * Create and initialize the SVG representation of the block.
  */
-Blockly.Block.prototype.initSvg = function() {
-  this.svg_ = new Blockly.BlockSvg(this);
+Blockly.Cake.Block.prototype.initSvg = function() {
+  this.svg_ = new Blockly.Cake.BlockSvg(this);
   this.svg_.init();
-  if (!Blockly.readOnly) {
-    Blockly.bindEvent_(this.svg_.getRootElement(), 'mousedown', this,
+  if (!Blockly.Cake.readOnly) {
+    Blockly.Cake.bindEvent_(this.svg_.getRootElement(), 'mousedown', this,
       this.onMouseDown_);
   }
   this.workspace.getCanvas().appendChild(this.svg_.getRootElement());
@@ -238,7 +240,7 @@ Blockly.Block.prototype.initSvg = function() {
  * Return the root node of the SVG or null if none exists.
  * @return {Element} The root SVG node (probably a group).
  */
-Blockly.Block.prototype.getSvgRoot = function() {
+Blockly.Cake.Block.prototype.getSvgRoot = function() {
   return this.svg_ && this.svg_.getRootElement();
 };
 
@@ -249,37 +251,37 @@ Blockly.Block.prototype.getSvgRoot = function() {
  * 2 - Freely draggable.
  * @private
  */
-Blockly.Block.dragMode_ = 0;
+Blockly.Cake.Block.dragMode_ = 0;
 
 /**
  * Wrapper function called when a mouseUp occurs during a drag operation.
  * @type {Array.<!Array>}
  * @private
  */
-Blockly.Block.onMouseUpWrapper_ = null;
+Blockly.Cake.Block.onMouseUpWrapper_ = null;
 
 /**
  * Wrapper function called when a mouseMove occurs during a drag operation.
  * @type {Array.<!Array>}
  * @private
  */
-Blockly.Block.onMouseMoveWrapper_ = null;
+Blockly.Cake.Block.onMouseMoveWrapper_ = null;
 
 /**
  * Stop binding to the global mouseup and mousemove events.
  * @private
  */
-Blockly.Block.terminateDrag_ = function() {
-  if (Blockly.Block.onMouseUpWrapper_) {
-    Blockly.unbindEvent_(Blockly.Block.onMouseUpWrapper_);
-    Blockly.Block.onMouseUpWrapper_ = null;
+Blockly.Cake.Block.terminateDrag_ = function() {
+  if (Blockly.Cake.Block.onMouseUpWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Block.onMouseUpWrapper_);
+    Blockly.Cake.Block.onMouseUpWrapper_ = null;
   }
-  if (Blockly.Block.onMouseMoveWrapper_) {
-    Blockly.unbindEvent_(Blockly.Block.onMouseMoveWrapper_);
-    Blockly.Block.onMouseMoveWrapper_ = null;
+  if (Blockly.Cake.Block.onMouseMoveWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Block.onMouseMoveWrapper_);
+    Blockly.Cake.Block.onMouseMoveWrapper_ = null;
   }
-  var selected = Blockly.selected;
-  if (Blockly.Block.dragMode_ == 2) {
+  var selected = Blockly.Cake.selected;
+  if (Blockly.Cake.Block.dragMode_ == 2) {
     // Terminate a drag operation.
     if (selected) {
       // Update the connection locations.
@@ -291,39 +293,39 @@ Blockly.Block.terminateDrag_ = function() {
       selected.setDragging_(false);
       selected.render();
       goog.Timer.callOnce(
-        selected.bumpNeighbours_, Blockly.BUMP_DELAY, selected);
+        selected.bumpNeighbours_, Blockly.Cake.BUMP_DELAY, selected);
       // Fire an event to allow scrollbars to resize.
-      Blockly.fireUiEvent(window, 'resize');
+      Blockly.Cake.fireUiEvent(window, 'resize');
     }
   }
   if (selected) {
     selected.workspace.fireChangeEvent();
   }
-  Blockly.Block.dragMode_ = 0;
+  Blockly.Cake.Block.dragMode_ = 0;
 };
 
 /**
  * Select this block.  Highlight it visually.
  */
-Blockly.Block.prototype.select = function() {
+Blockly.Cake.Block.prototype.select = function() {
   goog.asserts.assertObject(this.svg_, 'Block is not rendered.');
-  if (Blockly.selected) {
+  if (Blockly.Cake.selected) {
     // Unselect any previously selected block.
-    Blockly.selected.unselect();
+    Blockly.Cake.selected.unselect();
   }
-  Blockly.selected = this;
+  Blockly.Cake.selected = this;
   this.svg_.addSelect();
-  Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
+  Blockly.Cake.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
 };
 
 /**
  * Unselect this block.  Remove its highlighting.
  */
-Blockly.Block.prototype.unselect = function() {
+Blockly.Cake.Block.prototype.unselect = function() {
   goog.asserts.assertObject(this.svg_, 'Block is not rendered.');
-  Blockly.selected = null;
+  Blockly.Cake.selected = null;
   this.svg_.removeSelect();
-  Blockly.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
+  Blockly.Cake.fireUiEvent(this.workspace.getCanvas(), 'blocklySelectChange');
 };
 
 /**
@@ -335,7 +337,7 @@ Blockly.Block.prototype.unselect = function() {
  * @param {boolean} dontRemoveFromWorkspace If true, don't remove this block
  *     from the workspace's list of top blocks.
  */
-Blockly.Block.prototype.dispose = function(healStack, animate,
+Blockly.Cake.Block.prototype.dispose = function(healStack, animate,
   dontRemoveFromWorkspace) {
   // Switch off rerendering.
   this.rendered = false;
@@ -356,15 +358,15 @@ Blockly.Block.prototype.dispose = function(healStack, animate,
   // well as corruption of the connection database.  Therefore we must
   // methodically step through the blocks and carefully disassemble them.
 
-  if (Blockly.selected == this) {
-    Blockly.selected = null;
+  if (Blockly.Cake.selected == this) {
+    Blockly.Cake.selected = null;
     // If there's a drag in-progress, unlink the mouse events.
-    Blockly.terminateDrag_();
+    Blockly.Cake.terminateDrag_();
   }
 
   // If this block has a context menu open, close it.
-  if (Blockly.ContextMenu.currentBlock == this) {
-    Blockly.ContextMenu.hide();
+  if (Blockly.Cake.ContextMenu.currentBlock == this) {
+    Blockly.Cake.ContextMenu.hide();
   }
 
   // First, dispose of all my children.
@@ -396,8 +398,8 @@ Blockly.Block.prototype.dispose = function(healStack, animate,
     this.svg_ = null;
   }
   // Remove from Realtime set of blocks.
-  if (Blockly.Realtime.isEnabled() && !Blockly.Realtime.withinSync) {
-    Blockly.Realtime.removeBlock(this);
+  if (Blockly.Cake.Realtime.isEnabled() && !Blockly.Cake.Realtime.withinSync) {
+    Blockly.Cake.Realtime.removeBlock(this);
   }
 };
 
@@ -407,7 +409,7 @@ Blockly.Block.prototype.dispose = function(healStack, animate,
  * @param {boolean} healStack Disconnect child statement and reconnect stack.
  * @param {boolean} bump Move the unplugged block sideways a short distance.
  */
-Blockly.Block.prototype.unplug = function(healStack, bump) {
+Blockly.Cake.Block.prototype.unplug = function(healStack, bump) {
   bump = bump && !!this.getParent();
   if (this.outputConnection) {
     if (this.outputConnection.targetConnection) {
@@ -435,8 +437,8 @@ Blockly.Block.prototype.unplug = function(healStack, bump) {
   }
   if (bump) {
     // Bump the block sideways.
-    var dx = Blockly.SNAP_RADIUS * (Blockly.RTL ? -1 : 1);
-    var dy = Blockly.SNAP_RADIUS * 2;
+    var dx = Blockly.Cake.SNAP_RADIUS * (Blockly.Cake.RTL ? -1 : 1);
+    var dy = Blockly.Cake.SNAP_RADIUS * 2;
     this.moveBy(dx, dy);
   }
 };
@@ -446,14 +448,14 @@ Blockly.Block.prototype.unplug = function(healStack, bump) {
  * drawing surface's origin (0,0).
  * @return {!Object} Object with .x and .y properties.
  */
-Blockly.Block.prototype.getRelativeToSurfaceXY = function() {
+Blockly.Cake.Block.prototype.getRelativeToSurfaceXY = function() {
   var x = 0;
   var y = 0;
   if (this.svg_) {
     var element = this.svg_.getRootElement();
     do {
       // Loop through this block and every parent.
-      var xy = Blockly.getRelativeXY_(element);
+      var xy = Blockly.Cake.getRelativeXY_(element);
       x += xy.x;
       y += xy.y;
       element = element.parentNode;
@@ -470,12 +472,12 @@ Blockly.Block.prototype.getRelativeToSurfaceXY = function() {
  * @param {number} dx Horizontal offset.
  * @param {number} dy Vertical offset.
  */
-Blockly.Block.prototype.moveBy = function(dx, dy) {
+Blockly.Cake.Block.prototype.moveBy = function(dx, dy) {
   var xy = this.getRelativeToSurfaceXY();
   this.svg_.getRootElement().setAttribute('transform',
     'translate(' + (xy.x + dx) + ', ' + (xy.y + dy) + ')');
   this.moveConnections_(dx, dy);
-  Blockly.Realtime.blockChanged(this);
+  Blockly.Cake.Realtime.blockChanged(this);
 };
 
 /**
@@ -483,7 +485,7 @@ Blockly.Block.prototype.moveBy = function(dx, dy) {
  * and any blocks stacked below it.
  * @return {!Object} Object with height and width properties.
  */
-Blockly.Block.prototype.getHeightWidth = function() {
+Blockly.Cake.Block.prototype.getHeightWidth = function() {
   var height = this.svg_.height;
   var width = this.svg_.width;
   // Recursively add size of subsequent blocks.
@@ -504,16 +506,16 @@ Blockly.Block.prototype.getHeightWidth = function() {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.Block.prototype.onMouseDown_ = function(e) {
+Blockly.Cake.Block.prototype.onMouseDown_ = function(e) {
   if (this.isInFlyout) {
     return;
   }
-  // Update Blockly's knowledge of its own location.
-  Blockly.svgResize();
-  Blockly.terminateDrag_();
+  // Update Blockly.Cake's knowledge of its own location.
+  Blockly.Cake.svgResize();
+  Blockly.Cake.terminateDrag_();
   this.select();
-  Blockly.hideChaff();
-  if (Blockly.isRightButton(e)) {
+  Blockly.Cake.hideChaff();
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     this.showContextMenu_(e);
   } else if (!this.isMovable()) {
@@ -523,8 +525,8 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
     return;
   } else {
     // Left-click (or middle click)
-    Blockly.removeAllRanges();
-    Blockly.setCursorHand_(true);
+    Blockly.Cake.removeAllRanges();
+    Blockly.Cake.setCursorHand_(true);
     // Look up the current translation and record it.
     var xy = this.getRelativeToSurfaceXY();
     this.startDragX = xy.x;
@@ -532,10 +534,10 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
     // Record the current mouse position.
     this.startDragMouseX = e.clientX;
     this.startDragMouseY = e.clientY;
-    Blockly.Block.dragMode_ = 1;
-    Blockly.Block.onMouseUpWrapper_ = Blockly.bindEvent_(document,
+    Blockly.Cake.Block.dragMode_ = 1;
+    Blockly.Cake.Block.onMouseUpWrapper_ = Blockly.Cake.bindEvent_(document,
       'mouseup', this, this.onMouseUp_);
-    Blockly.Block.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
+    Blockly.Cake.Block.onMouseMoveWrapper_ = Blockly.Cake.bindEvent_(document,
       'mousemove', this, this.onMouseMove_);
     // Build a list of bubbles that need to be moved and where they started.
     this.draggedBubbles_ = [];
@@ -560,21 +562,21 @@ Blockly.Block.prototype.onMouseDown_ = function(e) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.Block.prototype.onMouseUp_ = function(e) {
+Blockly.Cake.Block.prototype.onMouseUp_ = function(e) {
   var this_ = this;
-  Blockly.doCommand(function() {
-    Blockly.terminateDrag_();
-    if (Blockly.selected && Blockly.highlightedConnection_) {
+  Blockly.Cake.doCommand(function() {
+    Blockly.Cake.terminateDrag_();
+    if (Blockly.Cake.selected && Blockly.Cake.highlightedConnection_) {
       // Connect two blocks together.
-      Blockly.localConnection_.connect(Blockly.highlightedConnection_);
+      Blockly.Cake.localConnection_.connect(Blockly.Cake.highlightedConnection_);
       if (this_.svg_) {
         // Trigger a connection animation.
         // Determine which connection is inferior (lower in the source stack).
         var inferiorConnection;
-        if (Blockly.localConnection_.isSuperior()) {
-          inferiorConnection = Blockly.highlightedConnection_;
+        if (Blockly.Cake.localConnection_.isSuperior()) {
+          inferiorConnection = Blockly.Cake.highlightedConnection_;
         } else {
-          inferiorConnection = Blockly.localConnection_;
+          inferiorConnection = Blockly.Cake.localConnection_;
         }
         inferiorConnection.sourceBlock_.svg_.connectionUiEffect();
       }
@@ -585,15 +587,15 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
     } else if (this_.workspace.trashcan && this_.workspace.trashcan.isOpen) {
       var trashcan = this_.workspace.trashcan;
       goog.Timer.callOnce(trashcan.close, 100, trashcan);
-      Blockly.selected.dispose(false, true);
+      Blockly.Cake.selected.dispose(false, true);
       // Dropping a block on the trash can will usually cause the workspace to
       // resize to contain the newly positioned block.  Force a second resize
       // now that the block has been deleted.
-      Blockly.fireUiEvent(window, 'resize');
+      Blockly.Cake.fireUiEvent(window, 'resize');
     }
-    if (Blockly.highlightedConnection_) {
-      Blockly.highlightedConnection_.unhighlight();
-      Blockly.highlightedConnection_ = null;
+    if (Blockly.Cake.highlightedConnection_) {
+      Blockly.Cake.highlightedConnection_.unhighlight();
+      Blockly.Cake.highlightedConnection_ = null;
     }
   });
 };
@@ -602,7 +604,7 @@ Blockly.Block.prototype.onMouseUp_ = function(e) {
  * Load the block's help page in a new window.
  * @private
  */
-Blockly.Block.prototype.showHelp_ = function() {
+Blockly.Cake.Block.prototype.showHelp_ = function() {
   var url = goog.isFunction(this.helpUrl) ? this.helpUrl() : this.helpUrl;
   if (url) {
     window.open(url);
@@ -611,24 +613,24 @@ Blockly.Block.prototype.showHelp_ = function() {
 
 /**
  * Duplicate this block and its children.
- * @return {!Blockly.Block} The duplicate.
+ * @return {!Blockly.Cake.Block} The duplicate.
  * @private
  */
-Blockly.Block.prototype.duplicate_ = function() {
+Blockly.Cake.Block.prototype.duplicate_ = function() {
   // Create a duplicate via XML.
-  var xmlBlock = Blockly.Xml.blockToDom_(this);
-  Blockly.Xml.deleteNext(xmlBlock);
-  var newBlock = Blockly.Xml.domToBlock(
-    /** @type {!Blockly.Workspace} */
+  var xmlBlock = Blockly.Cake.Xml.blockToDom_(this);
+  Blockly.Cake.Xml.deleteNext(xmlBlock);
+  var newBlock = Blockly.Cake.Xml.domToBlock(
+    /** @type {!Blockly.Cake.Workspace} */
     (this.workspace), xmlBlock);
   // Move the duplicate next to the old block.
   var xy = this.getRelativeToSurfaceXY();
-  if (Blockly.RTL) {
-    xy.x -= Blockly.SNAP_RADIUS;
+  if (Blockly.Cake.RTL) {
+    xy.x -= Blockly.Cake.SNAP_RADIUS;
   } else {
-    xy.x += Blockly.SNAP_RADIUS;
+    xy.x += Blockly.Cake.SNAP_RADIUS;
   }
-  xy.y += Blockly.SNAP_RADIUS * 2;
+  xy.y += Blockly.Cake.SNAP_RADIUS * 2;
   newBlock.moveBy(xy.x, xy.y);
   newBlock.select();
   return newBlock;
@@ -639,8 +641,8 @@ Blockly.Block.prototype.duplicate_ = function() {
  * @param {!Event} e Mouse event.
  * @private
  */
-Blockly.Block.prototype.showContextMenu_ = function(e) {
-  if (Blockly.readOnly || !this.contextMenu) {
+Blockly.Cake.Block.prototype.showContextMenu_ = function(e) {
+  if (Blockly.Cake.readOnly || !this.contextMenu) {
     return;
   }
   // Save the current block in a variable for use in closures.
@@ -650,7 +652,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
   if (this.isDeletable() && !block.isInFlyout) {
     // Option to duplicate this block.
     var duplicateOption = {
-      text: Blockly.Msg.DUPLICATE_BLOCK,
+      text: Blockly.Cake.Msg.DUPLICATE_BLOCK,
       enabled: true,
       callback: function() {
         block.duplicate_();
@@ -667,12 +669,12 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
         enabled: true
       };
       if (this.comment) {
-        commentOption.text = Blockly.Msg.REMOVE_COMMENT;
+        commentOption.text = Blockly.Cake.Msg.REMOVE_COMMENT;
         commentOption.callback = function() {
           block.setCommentText(null);
         };
       } else {
-        commentOption.text = Blockly.Msg.ADD_COMMENT;
+        commentOption.text = Blockly.Cake.Msg.ADD_COMMENT;
         commentOption.callback = function() {
           block.setCommentText('');
         };
@@ -683,13 +685,13 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
     // Option to make block inline.
     if (!this.collapsed_) {
       for (var i = 0; i < this.inputList.length; i++) {
-        if (this.inputList[i].type == Blockly.INPUT_VALUE) {
+        if (this.inputList[i].type == Blockly.Cake.INPUT_VALUE) {
           // Only display this option if there is a value input on the block.
           var inlineOption = {
             enabled: true
           };
-          inlineOption.text = this.inputsInline ? Blockly.Msg.EXTERNAL_INPUTS :
-            Blockly.Msg.INLINE_INPUTS;
+          inlineOption.text = this.inputsInline ? Blockly.Cake.Msg.EXTERNAL_INPUTS :
+            Blockly.Cake.Msg.INLINE_INPUTS;
           inlineOption.callback = function() {
             block.setInputsInline(!block.inputsInline);
           };
@@ -699,13 +701,13 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
       }
     }
 
-    if (Blockly.collapse) {
+    if (Blockly.Cake.collapse) {
       // Option to collapse/expand block.
       if (this.collapsed_) {
         var expandOption = {
           enabled: true
         };
-        expandOption.text = Blockly.Msg.EXPAND_BLOCK;
+        expandOption.text = Blockly.Cake.Msg.EXPAND_BLOCK;
         expandOption.callback = function() {
           block.setCollapsed(false);
         };
@@ -714,7 +716,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
         var collapseOption = {
           enabled: true
         };
-        collapseOption.text = Blockly.Msg.COLLAPSE_BLOCK;
+        collapseOption.text = Blockly.Cake.Msg.COLLAPSE_BLOCK;
         collapseOption.callback = function() {
           block.setCollapsed(true);
         };
@@ -725,7 +727,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
     // Option to disable/enable block.
     var disableOption = {
       text: this.disabled ?
-        Blockly.Msg.ENABLE_BLOCK : Blockly.Msg.DISABLE_BLOCK,
+        Blockly.Cake.Msg.ENABLE_BLOCK : Blockly.Cake.Msg.DISABLE_BLOCK,
       enabled: !this.getInheritedDisabled(),
       callback: function() {
         block.setDisabled(!block.disabled);
@@ -742,7 +744,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
       descendantCount -= nextBlock.getDescendants().length;
     }
     var deleteOption = {
-      text: descendantCount == 1 ? Blockly.Msg.DELETE_BLOCK : Blockly.Msg.DELETE_X_BLOCKS.replace('%1', String(descendantCount)),
+      text: descendantCount == 1 ? Blockly.Cake.Msg.DELETE_BLOCK : Blockly.Cake.Msg.DELETE_X_BLOCKS.replace('%1', String(descendantCount)),
       enabled: true,
       callback: function() {
         block.dispose(true, true);
@@ -756,7 +758,7 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
   var helpOption = {
     enabled: !!url
   };
-  helpOption.text = Blockly.Msg.HELP;
+  helpOption.text = Blockly.Cake.Msg.HELP;
   helpOption.callback = function() {
     block.showHelp_();
   };
@@ -767,18 +769,18 @@ Blockly.Block.prototype.showContextMenu_ = function(e) {
     this.customContextMenu(options);
   }
 
-  Blockly.ContextMenu.show(e, options);
-  Blockly.ContextMenu.currentBlock = this;
+  Blockly.Cake.ContextMenu.show(e, options);
+  Blockly.Cake.ContextMenu.currentBlock = this;
 };
 
 /**
  * Returns all connections originating from this block.
  * @param {boolean} all If true, return all connections even hidden ones.
  *     Otherwise return those that are visible.
- * @return {!Array.<!Blockly.Connection>} Array of connections.
+ * @return {!Array.<!Blockly.Cake.Connection>} Array of connections.
  * @private
  */
-Blockly.Block.prototype.getConnections_ = function(all) {
+Blockly.Cake.Block.prototype.getConnections_ = function(all) {
   var myConnections = [];
   if (all || this.rendered) {
     if (this.outputConnection) {
@@ -808,7 +810,7 @@ Blockly.Block.prototype.getConnections_ = function(all) {
  * @param {number} dy Vertical offset from current location.
  * @private
  */
-Blockly.Block.prototype.moveConnections_ = function(dx, dy) {
+Blockly.Cake.Block.prototype.moveConnections_ = function(dx, dy) {
   if (!this.rendered) {
     // Rendering is required to lay out the blocks.
     // This is probably an invisible block attached to a collapsed block.
@@ -834,7 +836,7 @@ Blockly.Block.prototype.moveConnections_ = function(dx, dy) {
  * @param {boolean} adding True if adding, false if removing.
  * @private
  */
-Blockly.Block.prototype.setDragging_ = function(adding) {
+Blockly.Cake.Block.prototype.setDragging_ = function(adding) {
   if (adding) {
     this.svg_.addDragging();
   } else {
@@ -851,9 +853,9 @@ Blockly.Block.prototype.setDragging_ = function(adding) {
  * @param {!Event} e Mouse move event.
  * @private
  */
-Blockly.Block.prototype.onMouseMove_ = function(e) {
+Blockly.Cake.Block.prototype.onMouseMove_ = function(e) {
   var this_ = this;
-  Blockly.doCommand(function() {
+  Blockly.Cake.doCommand(function() {
     if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
       e.button == 0) {
       /* HACK:
@@ -864,21 +866,21 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       e.stopPropagation();
       return;
     }
-    Blockly.removeAllRanges();
+    Blockly.Cake.removeAllRanges();
     var dx = e.clientX - this_.startDragMouseX;
     var dy = e.clientY - this_.startDragMouseY;
-    if (Blockly.Block.dragMode_ == 1) {
+    if (Blockly.Cake.Block.dragMode_ == 1) {
       // Still dragging within the sticky DRAG_RADIUS.
       var dr = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-      if (dr > Blockly.DRAG_RADIUS) {
+      if (dr > Blockly.Cake.DRAG_RADIUS) {
         // Switch to unrestricted dragging.
-        Blockly.Block.dragMode_ = 2;
+        Blockly.Cake.Block.dragMode_ = 2;
         // Push this block to the very top of the stack.
         this_.setParent(null);
         this_.setDragging_(true);
       }
     }
-    if (Blockly.Block.dragMode_ == 2) {
+    if (Blockly.Cake.Block.dragMode_ == 2) {
       // Unrestricted dragging.
       var x = this_.startDragX + dx;
       var y = this_.startDragY + dy;
@@ -896,7 +898,7 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       var myConnections = this_.getConnections_(false);
       var closestConnection = null;
       var localConnection = null;
-      var radiusConnection = Blockly.SNAP_RADIUS;
+      var radiusConnection = Blockly.Cake.SNAP_RADIUS;
       for (var i = 0; i < myConnections.length; i++) {
         var myConnection = myConnections[i];
         var neighbour = myConnection.closest(radiusConnection, dx, dy);
@@ -908,18 +910,18 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
       }
 
       // Remove connection highlighting if needed.
-      if (Blockly.highlightedConnection_ &&
-        Blockly.highlightedConnection_ != closestConnection) {
-        Blockly.highlightedConnection_.unhighlight();
-        Blockly.highlightedConnection_ = null;
-        Blockly.localConnection_ = null;
+      if (Blockly.Cake.highlightedConnection_ &&
+        Blockly.Cake.highlightedConnection_ != closestConnection) {
+        Blockly.Cake.highlightedConnection_.unhighlight();
+        Blockly.Cake.highlightedConnection_ = null;
+        Blockly.Cake.localConnection_ = null;
       }
       // Add connection highlighting if needed.
       if (closestConnection &&
-        closestConnection != Blockly.highlightedConnection_) {
+        closestConnection != Blockly.Cake.highlightedConnection_) {
         closestConnection.highlight();
-        Blockly.highlightedConnection_ = closestConnection;
-        Blockly.localConnection_ = localConnection;
+        Blockly.Cake.highlightedConnection_ = closestConnection;
+        Blockly.Cake.localConnection_ = localConnection;
       }
       // Flip the trash can lid if needed.
       if (this_.workspace.trashcan && this_.isDeletable()) {
@@ -936,8 +938,8 @@ Blockly.Block.prototype.onMouseMove_ = function(e) {
  * connected should not coincidentally line up on screen.
  * @private
  */
-Blockly.Block.prototype.bumpNeighbours_ = function() {
-  if (Blockly.Block.dragMode_ != 0) {
+Blockly.Cake.Block.prototype.bumpNeighbours_ = function() {
+  if (Blockly.Cake.Block.dragMode_ != 0) {
     // Don't bump blocks during a drag.
     return;
   }
@@ -955,7 +957,7 @@ Blockly.Block.prototype.bumpNeighbours_ = function() {
       connection.targetBlock().bumpNeighbours_();
     }
 
-    var neighbours = connection.neighbours_(Blockly.SNAP_RADIUS);
+    var neighbours = connection.neighbours_(Blockly.Cake.SNAP_RADIUS);
     for (var y = 0; y < neighbours.length; y++) {
       var otherConnection = neighbours[y];
       // If both connections are connected, that's probably fine.  But if
@@ -977,9 +979,9 @@ Blockly.Block.prototype.bumpNeighbours_ = function() {
 
 /**
  * Return the parent block or null if this block is at the top level.
- * @return {Blockly.Block} The block that holds the current block.
+ * @return {Blockly.Cake.Block} The block that holds the current block.
  */
-Blockly.Block.prototype.getParent = function() {
+Blockly.Cake.Block.prototype.getParent = function() {
   // Look at the DOM to see if we are nested in another block.
   return this.parentBlock_;
 };
@@ -988,9 +990,9 @@ Blockly.Block.prototype.getParent = function() {
  * Return the parent block that surrounds the current block, or null if this
  * block has no surrounding block.  A parent block might just be the previous
  * statement, whereas the surrounding block is an if statement, while loop, etc.
- * @return {Blockly.Block} The block that surrounds the current block.
+ * @return {Blockly.Cake.Block} The block that surrounds the current block.
  */
-Blockly.Block.prototype.getSurroundParent = function() {
+Blockly.Cake.Block.prototype.getSurroundParent = function() {
   var block = this;
   while (true) {
     do {
@@ -1008,18 +1010,18 @@ Blockly.Block.prototype.getSurroundParent = function() {
 
 /**
  * Return the next statement block directly connected to this block.
- * @return {Blockly.Block} The next statement block or null.
+ * @return {Blockly.Cake.Block} The next statement block or null.
  */
-Blockly.Block.prototype.getNextBlock = function() {
+Blockly.Cake.Block.prototype.getNextBlock = function() {
   return this.nextConnection && this.nextConnection.targetBlock();
 };
 
 /**
  * Return the top-most block in this block's tree.
  * This will return itself if this block is at the top level.
- * @return {!Blockly.Block} The root block.
+ * @return {!Blockly.Cake.Block} The root block.
  */
-Blockly.Block.prototype.getRootBlock = function() {
+Blockly.Cake.Block.prototype.getRootBlock = function() {
   var rootBlock;
   var block = this;
   do {
@@ -1033,17 +1035,17 @@ Blockly.Block.prototype.getRootBlock = function() {
  * Find all the blocks that are directly nested inside this one.
  * Includes value and block inputs, as well as any following statement.
  * Excludes any connection on an output tab or any preceding statement.
- * @return {!Array.<!Blockly.Block>} Array of blocks.
+ * @return {!Array.<!Blockly.Cake.Block>} Array of blocks.
  */
-Blockly.Block.prototype.getChildren = function() {
+Blockly.Cake.Block.prototype.getChildren = function() {
   return this.childBlocks_;
 };
 
 /**
  * Set parent of this block to be a new block or null.
- * @param {Blockly.Block} newParent New parent block.
+ * @param {Blockly.Cake.Block} newParent New parent block.
  */
-Blockly.Block.prototype.setParent = function(newParent) {
+Blockly.Cake.Block.prototype.setParent = function(newParent) {
   if (this.parentBlock_) {
     // Remove this block from the old parent's child list.
     var children = this.parentBlock_.childBlocks_;
@@ -1100,9 +1102,9 @@ Blockly.Block.prototype.setParent = function(newParent) {
  * Includes this block in the list.
  * Includes value and block inputs, as well as any following statements.
  * Excludes any connection on an output tab or any preceding statements.
- * @return {!Array.<!Blockly.Block>} Flattened array of blocks.
+ * @return {!Array.<!Blockly.Cake.Block>} Flattened array of blocks.
  */
-Blockly.Block.prototype.getDescendants = function() {
+Blockly.Cake.Block.prototype.getDescendants = function() {
   var blocks = [this];
   for (var child, x = 0; child = this.childBlocks_[x]; x++) {
     blocks.push.apply(blocks, child.getDescendants());
@@ -1114,15 +1116,15 @@ Blockly.Block.prototype.getDescendants = function() {
  * Get whether this block is deletable or not.
  * @return {boolean} True if deletable.
  */
-Blockly.Block.prototype.isDeletable = function() {
-  return this.deletable_ && !Blockly.readOnly;
+Blockly.Cake.Block.prototype.isDeletable = function() {
+  return this.deletable_ && !Blockly.Cake.readOnly;
 };
 
 /**
  * Set whether this block is deletable or not.
  * @param {boolean} deletable True if deletable.
  */
-Blockly.Block.prototype.setDeletable = function(deletable) {
+Blockly.Cake.Block.prototype.setDeletable = function(deletable) {
   this.deletable_ = deletable;
   this.svg_ && this.svg_.updateMovable();
 };
@@ -1131,15 +1133,15 @@ Blockly.Block.prototype.setDeletable = function(deletable) {
  * Get whether this block is movable or not.
  * @return {boolean} True if movable.
  */
-Blockly.Block.prototype.isMovable = function() {
-  return this.movable_ && !Blockly.readOnly;
+Blockly.Cake.Block.prototype.isMovable = function() {
+  return this.movable_ && !Blockly.Cake.readOnly;
 };
 
 /**
  * Set whether this block is movable or not.
  * @param {boolean} movable True if movable.
  */
-Blockly.Block.prototype.setMovable = function(movable) {
+Blockly.Cake.Block.prototype.setMovable = function(movable) {
   this.movable_ = movable;
 };
 
@@ -1147,15 +1149,15 @@ Blockly.Block.prototype.setMovable = function(movable) {
  * Get whether this block is editable or not.
  * @return {boolean} True if editable.
  */
-Blockly.Block.prototype.isEditable = function() {
-  return this.editable_ && !Blockly.readOnly;
+Blockly.Cake.Block.prototype.isEditable = function() {
+  return this.editable_ && !Blockly.Cake.readOnly;
 };
 
 /**
  * Set whether this block is editable or not.
  * @param {boolean} editable True if editable.
  */
-Blockly.Block.prototype.setEditable = function(editable) {
+Blockly.Cake.Block.prototype.setEditable = function(editable) {
   this.editable_ = editable;
   for (var x = 0, input; input = this.inputList[x]; x++) {
     for (var y = 0, field; field = input.fieldRow[y]; y++) {
@@ -1173,7 +1175,7 @@ Blockly.Block.prototype.setEditable = function(editable) {
  * @param {string|Function} url URL string for block help, or function that
  *     returns a URL.  Null for no help.
  */
-Blockly.Block.prototype.setHelpUrl = function(url) {
+Blockly.Cake.Block.prototype.setHelpUrl = function(url) {
   this.helpUrl = url;
 };
 
@@ -1181,7 +1183,7 @@ Blockly.Block.prototype.setHelpUrl = function(url) {
  * Get the colour of a block.
  * @return {number} HSV hue value.
  */
-Blockly.Block.prototype.getColour = function() {
+Blockly.Cake.Block.prototype.getColour = function() {
   return this.colourHue_;
 };
 
@@ -1189,7 +1191,7 @@ Blockly.Block.prototype.getColour = function() {
  * Change the colour of a block.
  * @param {number} colourHue HSV hue value.
  */
-Blockly.Block.prototype.setColour = function(colourHue) {
+Blockly.Cake.Block.prototype.setColour = function(colourHue) {
   this.colourHue_ = colourHue;
   if (this.svg_) {
     this.svg_.updateColour();
@@ -1212,10 +1214,10 @@ Blockly.Block.prototype.setColour = function(colourHue) {
 /**
  * Returns the named field from a block.
  * @param {string} name The name of the field.
- * @return {Blockly.Field} Named field, or null if field does not exist.
+ * @return {Blockly.Cake.Field} Named field, or null if field does not exist.
  * @private
  */
-Blockly.Block.prototype.getField_ = function(name) {
+Blockly.Cake.Block.prototype.getField_ = function(name) {
   for (var x = 0, input; input = this.inputList[x]; x++) {
     for (var y = 0, field; field = input.fieldRow[y]; y++) {
       if (field.name === name) {
@@ -1231,7 +1233,7 @@ Blockly.Block.prototype.getField_ = function(name) {
  * @param {string} name The name of the field.
  * @return {?string} Value from the field or null if field does not exist.
  */
-Blockly.Block.prototype.getFieldValue = function(name) {
+Blockly.Cake.Block.prototype.getFieldValue = function(name) {
   var field = this.getField_(name);
   if (field) {
     return field.getValue();
@@ -1245,7 +1247,7 @@ Blockly.Block.prototype.getFieldValue = function(name) {
  * @return {?string} Value from the field or null if field does not exist.
  * @deprecated December 2013
  */
-Blockly.Block.prototype.getTitleValue = function(name) {
+Blockly.Cake.Block.prototype.getTitleValue = function(name) {
   console.log('Deprecated call to getTitleValue, use getFieldValue instead.');
   return this.getFieldValue(name);
 };
@@ -1255,7 +1257,7 @@ Blockly.Block.prototype.getTitleValue = function(name) {
  * @param {string} newValue Value to be the new field.
  * @param {string} name The name of the field.
  */
-Blockly.Block.prototype.setFieldValue = function(newValue, name) {
+Blockly.Cake.Block.prototype.setFieldValue = function(newValue, name) {
   var field = this.getField_(name);
   goog.asserts.assertObject(field, 'Field "%s" not found.', name);
   field.setValue(newValue);
@@ -1267,7 +1269,7 @@ Blockly.Block.prototype.setFieldValue = function(newValue, name) {
  * @param {string} name The name of the field.
  * @deprecated December 2013
  */
-Blockly.Block.prototype.setTitleValue = function(newValue, name) {
+Blockly.Cake.Block.prototype.setTitleValue = function(newValue, name) {
   console.log('Deprecated call to setTitleValue, use setFieldValue instead.');
   this.setFieldValue(newValue, name);
 };
@@ -1277,7 +1279,7 @@ Blockly.Block.prototype.setTitleValue = function(newValue, name) {
  * @param {string|!Function} newTip Text for tooltip or a parent element to
  *     link to for its tooltip.  May be a function that returns a string.
  */
-Blockly.Block.prototype.setTooltip = function(newTip) {
+Blockly.Cake.Block.prototype.setTooltip = function(newTip) {
   this.tooltip = newTip;
 };
 
@@ -1287,7 +1289,7 @@ Blockly.Block.prototype.setTooltip = function(newTip) {
  * @param {string|Array.<string>|null} opt_check Statement type or list of
  *     statement types.  Null or undefined if any type could be connected.
  */
-Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
+Blockly.Cake.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
   if (this.previousConnection) {
     goog.asserts.assert(!this.previousConnection.targetConnection,
       'Must disconnect previous statement before removing connection.');
@@ -1301,7 +1303,7 @@ Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
       opt_check = null;
     }
     this.previousConnection =
-      new Blockly.Connection(this, Blockly.PREVIOUS_STATEMENT);
+      new Blockly.Cake.Connection(this, Blockly.Cake.PREVIOUS_STATEMENT);
     this.previousConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1316,7 +1318,7 @@ Blockly.Block.prototype.setPreviousStatement = function(newBoolean, opt_check) {
  * @param {string|Array.<string>|null} opt_check Statement type or list of
  *     statement types.  Null or undefined if any type could be connected.
  */
-Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
+Blockly.Cake.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
   if (this.nextConnection) {
     goog.asserts.assert(!this.nextConnection.targetConnection,
       'Must disconnect next statement before removing connection.');
@@ -1328,7 +1330,7 @@ Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
       opt_check = null;
     }
     this.nextConnection =
-      new Blockly.Connection(this, Blockly.NEXT_STATEMENT);
+      new Blockly.Cake.Connection(this, Blockly.Cake.NEXT_STATEMENT);
     this.nextConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1344,7 +1346,7 @@ Blockly.Block.prototype.setNextStatement = function(newBoolean, opt_check) {
  *     returned types.  Null or undefined if any type could be returned
  *     (e.g. variable get).
  */
-Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
+Blockly.Cake.Block.prototype.setOutput = function(newBoolean, opt_check) {
   if (this.outputConnection) {
     goog.asserts.assert(!this.outputConnection.targetConnection,
       'Must disconnect output value before removing connection.');
@@ -1358,7 +1360,7 @@ Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
       opt_check = null;
     }
     this.outputConnection =
-      new Blockly.Connection(this, Blockly.OUTPUT_VALUE);
+      new Blockly.Cake.Connection(this, Blockly.Cake.OUTPUT_VALUE);
     this.outputConnection.setCheck(opt_check);
   }
   if (this.rendered) {
@@ -1376,7 +1378,7 @@ Blockly.Block.prototype.setOutput = function(newBoolean, opt_check) {
  * @throws {goog.asserts.AssertionError} if the block did not already have an
  *     output.
  */
-Blockly.Block.prototype.changeOutput = function(check) {
+Blockly.Cake.Block.prototype.changeOutput = function(check) {
   goog.asserts.assert(this.outputConnection,
     'Only use changeOutput() on blocks that already have an output.');
   this.outputConnection.setCheck(check);
@@ -1386,7 +1388,7 @@ Blockly.Block.prototype.changeOutput = function(check) {
  * Set whether value inputs are arranged horizontally or vertically.
  * @param {boolean} newBoolean True if inputs are horizontal.
  */
-Blockly.Block.prototype.setInputsInline = function(newBoolean) {
+Blockly.Cake.Block.prototype.setInputsInline = function(newBoolean) {
   this.inputsInline = newBoolean;
   if (this.rendered) {
     this.render();
@@ -1399,7 +1401,7 @@ Blockly.Block.prototype.setInputsInline = function(newBoolean) {
  * Set whether the block is disabled or not.
  * @param {boolean} disabled True if disabled.
  */
-Blockly.Block.prototype.setDisabled = function(disabled) {
+Blockly.Cake.Block.prototype.setDisabled = function(disabled) {
   if (this.disabled == disabled) {
     return;
   }
@@ -1413,7 +1415,7 @@ Blockly.Block.prototype.setDisabled = function(disabled) {
  * The block's own disabled property is not considered.
  * @return {boolean} True if disabled.
  */
-Blockly.Block.prototype.getInheritedDisabled = function() {
+Blockly.Cake.Block.prototype.getInheritedDisabled = function() {
   var block = this;
   while (true) {
     block = block.getSurroundParent();
@@ -1430,7 +1432,7 @@ Blockly.Block.prototype.getInheritedDisabled = function() {
  * Get whether the block is collapsed or not.
  * @return {boolean} True if collapsed.
  */
-Blockly.Block.prototype.isCollapsed = function() {
+Blockly.Cake.Block.prototype.isCollapsed = function() {
   return this.collapsed_;
 };
 
@@ -1438,7 +1440,7 @@ Blockly.Block.prototype.isCollapsed = function() {
  * Set whether the block is collapsed or not.
  * @param {boolean} collapsed True if collapsed.
  */
-Blockly.Block.prototype.setCollapsed = function(collapsed) {
+Blockly.Cake.Block.prototype.setCollapsed = function(collapsed) {
   if (this.collapsed_ == collapsed) {
     return;
   }
@@ -1455,7 +1457,7 @@ Blockly.Block.prototype.setCollapsed = function(collapsed) {
     for (var x = 0; x < icons.length; x++) {
       icons[x].setVisible(false);
     }
-    var text = this.toString(Blockly.COLLAPSE_CHARS);
+    var text = this.toString(Blockly.Cake.COLLAPSE_CHARS);
     this.appendDummyInput(COLLAPSED_INPUT_NAME).appendField(text);
   } else {
     this.removeInput(COLLAPSED_INPUT_NAME);
@@ -1478,7 +1480,7 @@ Blockly.Block.prototype.setCollapsed = function(collapsed) {
  * @param {?number} opt_maxLength Truncate the string to this length.
  * @return {string} Text of block.
  */
-Blockly.Block.prototype.toString = function(opt_maxLength) {
+Blockly.Cake.Block.prototype.toString = function(opt_maxLength) {
   var text = [];
   for (var x = 0, input; input = this.inputList[x]; x++) {
     for (var y = 0, field; field = input.fieldRow[y]; y++) {
@@ -1506,45 +1508,45 @@ Blockly.Block.prototype.toString = function(opt_maxLength) {
  * Shortcut for appending a value input row.
  * @param {string} name Language-neutral identifier which may used to find this
  *     input again.  Should be unique to this block.
- * @return {!Blockly.Input} The input object created.
+ * @return {!Blockly.Cake.Input} The input object created.
  */
-Blockly.Block.prototype.appendValueInput = function(name) {
-  return this.appendInput_(Blockly.INPUT_VALUE, name);
+Blockly.Cake.Block.prototype.appendValueInput = function(name) {
+  return this.appendInput_(Blockly.Cake.INPUT_VALUE, name);
 };
 
 /**
  * Shortcut for appending a statement input row.
  * @param {string} name Language-neutral identifier which may used to find this
  *     input again.  Should be unique to this block.
- * @return {!Blockly.Input} The input object created.
+ * @return {!Blockly.Cake.Input} The input object created.
  */
-Blockly.Block.prototype.appendStatementInput = function(name) {
-  return this.appendInput_(Blockly.NEXT_STATEMENT, name);
+Blockly.Cake.Block.prototype.appendStatementInput = function(name) {
+  return this.appendInput_(Blockly.Cake.NEXT_STATEMENT, name);
 };
 
 /**
  * Shortcut for appending a dummy input row.
  * @param {string} opt_name Language-neutral identifier which may used to find
  *     this input again.  Should be unique to this block.
- * @return {!Blockly.Input} The input object created.
+ * @return {!Blockly.Cake.Input} The input object created.
  */
-Blockly.Block.prototype.appendDummyInput = function(opt_name) {
-  return this.appendInput_(Blockly.DUMMY_INPUT, opt_name || '');
+Blockly.Cake.Block.prototype.appendDummyInput = function(opt_name) {
+  return this.appendInput_(Blockly.Cake.DUMMY_INPUT, opt_name || '');
 };
 
 /**
  * Interpolate a message string, creating fields and inputs.
  * @param {string} msg The message string to parse.  %1, %2, etc. are symbols
  *     for value inputs or for Fields, such as an instance of
- *     Blockly.FieldDropdown, which would be placed as a field in either the
+ *     Blockly.Cake.FieldDropdown, which would be placed as a field in either the
  *     following value input or a dummy input.  The newline character forces
  *     the creation of an unnamed dummy input if any fields need placement.
  *     Note that '%10' would be interpreted as a reference to the tenth
  *     argument.  To show the first argument followed by a zero, use '%1 0'.
  *     (Spaces around tokens are stripped.)  To display a percentage sign
  *     followed by a number (e.g., "%123"), put that text in a
- *     Blockly.FieldLabel (as described below).
- * @param {!Array.<?string|number|Array.<string>|Blockly.Field>|number} var_args
+ *     Blockly.Cake.FieldLabel (as described below).
+ * @param {!Array.<?string|number|Array.<string>|Blockly.Cake.Field>|number} var_args
  *     A series of tuples that each specify the value inputs to create.  Each
  *     tuple has at least two elements.  The first is its name; the second is
  *     its type, which can be any of:
@@ -1553,8 +1555,8 @@ Blockly.Block.prototype.appendDummyInput = function(opt_name) {
  *     - An array of strings (such as ['Number', 'List']), denoting the
  *       different types allowed in the corresponding socket.
  *     - null, denoting that any type is allowed in the corresponding socket.
- *     - Blockly.Field, in which case that field instance, such as an
- *       instance of Blockly.FieldDropdown, appears (instead of a socket).
+ *     - Blockly.Cake.Field, in which case that field instance, such as an
+ *       instance of Blockly.Cake.FieldDropdown, appears (instead of a socket).
  *     If the type is any of the first three options (which are legal arguments
  *     to setCheck()), there should be a third element in the tuple, giving its
  *     alignment.
@@ -1563,15 +1565,15 @@ Blockly.Block.prototype.appendDummyInput = function(opt_name) {
  *     any number of tuples (though the number of tuples must match the symbols
  *     in msg).
  */
-Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
+Blockly.Cake.Block.prototype.interpolateMsg = function(msg, var_args) {
   /**
    * Add a field to this input.
-   * @this !Blockly.Input
-   * @param {Blockly.Field|Array.<string|Blockly.Field>} field
+   * @this !Blockly.Cake.Input
+   * @param {Blockly.Cake.Field|Array.<string|Blockly.Cake.Field>} field
    *     This is either a Field or a tuple of a name and a Field.
    */
   function addFieldToInput(field) {
-    if (field instanceof Blockly.Field) {
+    if (field instanceof Blockly.Cake.Field) {
       this.appendField(field);
     } else {
       goog.asserts.assert(goog.isArray(field));
@@ -1584,9 +1586,9 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   goog.asserts.assertString(msg);
   var dummyAlign = arguments[arguments.length - 1];
   goog.asserts.assert(
-    dummyAlign === Blockly.ALIGN_LEFT ||
-    dummyAlign === Blockly.ALIGN_CENTRE ||
-    dummyAlign === Blockly.ALIGN_RIGHT,
+    dummyAlign === Blockly.Cake.ALIGN_LEFT ||
+    dummyAlign === Blockly.Cake.ALIGN_CENTRE ||
+    dummyAlign === Blockly.Cake.ALIGN_RIGHT,
     'Illegal final argument "%d" is not an alignment.', dummyAlign);
   arguments.length = arguments.length - 1;
 
@@ -1596,7 +1598,7 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
     var text = goog.string.trim(tokens[i]);
     var input = undefined;
     if (text) {
-      fields.push(new Blockly.FieldLabel(text));
+      fields.push(new Blockly.Cake.FieldLabel(text));
     }
     var symbol = tokens[i + 1];
     if (symbol && symbol.charAt(0) == '%') {
@@ -1607,7 +1609,7 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
         'Message symbol "%s" is out of range.', symbol);
       goog.asserts.assertArray(tuple,
         'Argument "%s" is not a tuple.', symbol);
-      if (tuple[1] instanceof Blockly.Field) {
+      if (tuple[1] instanceof Blockly.Cake.Field) {
         fields.push([tuple[0], tuple[1]]);
       } else {
         input = this.appendValueInput(tuple[0])
@@ -1642,25 +1644,25 @@ Blockly.Block.prototype.interpolateMsg = function(msg, var_args) {
   this.setInputsInline(!msg.match(this.interpolateMsg.INLINE_REGEX_));
 };
 
-Blockly.Block.prototype.interpolateMsg.SPLIT_REGEX_ = /(%\d+|\n)/;
-Blockly.Block.prototype.interpolateMsg.INLINE_REGEX_ = /%1\s*$/;
+Blockly.Cake.Block.prototype.interpolateMsg.SPLIT_REGEX_ = /(%\d+|\n)/;
+Blockly.Cake.Block.prototype.interpolateMsg.INLINE_REGEX_ = /%1\s*$/;
 
 
 /**
  * Add a value input, statement input or local variable to this block.
- * @param {number} type Either Blockly.INPUT_VALUE or Blockly.NEXT_STATEMENT or
- *     Blockly.DUMMY_INPUT.
+ * @param {number} type Either Blockly.Cake.INPUT_VALUE or Blockly.Cake.NEXT_STATEMENT or
+ *     Blockly.Cake.DUMMY_INPUT.
  * @param {string} name Language-neutral identifier which may used to find this
  *     input again.  Should be unique to this block.
- * @return {!Blockly.Input} The input object created.
+ * @return {!Blockly.Cake.Input} The input object created.
  * @private
  */
-Blockly.Block.prototype.appendInput_ = function(type, name) {
+Blockly.Cake.Block.prototype.appendInput_ = function(type, name) {
   var connection = null;
-  if (type == Blockly.INPUT_VALUE || type == Blockly.NEXT_STATEMENT) {
-    connection = new Blockly.Connection(this, type);
+  if (type == Blockly.Cake.INPUT_VALUE || type == Blockly.Cake.NEXT_STATEMENT) {
+    connection = new Blockly.Cake.Connection(this, type);
   }
-  var input = new Blockly.Input(type, name, this, connection);
+  var input = new Blockly.Cake.Input(type, name, this, connection);
   // Append input to list.
   this.inputList.push(input);
   if (this.rendered) {
@@ -1677,7 +1679,7 @@ Blockly.Block.prototype.appendInput_ = function(type, name) {
  * @param {?string} refName Name of input that should be after the moved input,
  *   or null to be the input at the end.
  */
-Blockly.Block.prototype.moveInputBefore = function(name, refName) {
+Blockly.Cake.Block.prototype.moveInputBefore = function(name, refName) {
   if (name == refName) {
     return;
   }
@@ -1708,7 +1710,7 @@ Blockly.Block.prototype.moveInputBefore = function(name, refName) {
  * @param {number} inputIndex Index of the input to move.
  * @param {number} refIndex Index of input that should be after the moved input.
  */
-Blockly.Block.prototype.moveNumberedInputBefore = function(
+Blockly.Cake.Block.prototype.moveNumberedInputBefore = function(
   inputIndex, refIndex) {
   // Validate arguments.
   goog.asserts.assert(inputIndex != refIndex, 'Can\'t move input to itself.');
@@ -1738,7 +1740,7 @@ Blockly.Block.prototype.moveNumberedInputBefore = function(
  * @throws {goog.asserts.AssertionError} if the input is not present and
  *     opt_quiet is not true.
  */
-Blockly.Block.prototype.removeInput = function(name, opt_quiet) {
+Blockly.Cake.Block.prototype.removeInput = function(name, opt_quiet) {
   for (var x = 0, input; input = this.inputList[x]; x++) {
     if (input.name == name) {
       if (input.connection && input.connection.targetConnection) {
@@ -1765,7 +1767,7 @@ Blockly.Block.prototype.removeInput = function(name, opt_quiet) {
  * @param {string} name The name of the input.
  * @return {Object} The input object, or null of the input does not exist.
  */
-Blockly.Block.prototype.getInput = function(name) {
+Blockly.Cake.Block.prototype.getInput = function(name) {
   for (var x = 0, input; input = this.inputList[x]; x++) {
     if (input.name == name) {
       return input;
@@ -1778,19 +1780,19 @@ Blockly.Block.prototype.getInput = function(name) {
 /**
  * Fetches the block attached to the named input.
  * @param {string} name The name of the input.
- * @return {Blockly.Block} The attached value block, or null if the input is
+ * @return {Blockly.Cake.Block} The attached value block, or null if the input is
  *     either disconnected or if the input does not exist.
  */
-Blockly.Block.prototype.getInputTargetBlock = function(name) {
+Blockly.Cake.Block.prototype.getInputTargetBlock = function(name) {
   var input = this.getInput(name);
   return input && input.connection && input.connection.targetBlock();
 };
 
 /**
  * Give this block a mutator dialog.
- * @param {Blockly.Mutator} mutator A mutator dialog instance or null to remove.
+ * @param {Blockly.Cake.Mutator} mutator A mutator dialog instance or null to remove.
  */
-Blockly.Block.prototype.setMutator = function(mutator) {
+Blockly.Cake.Block.prototype.setMutator = function(mutator) {
   if (this.mutator && this.mutator !== mutator) {
     this.mutator.dispose();
   }
@@ -1807,7 +1809,7 @@ Blockly.Block.prototype.setMutator = function(mutator) {
  * Returns the comment on this block (or '' if none).
  * @return {string} Block's comment.
  */
-Blockly.Block.prototype.getCommentText = function() {
+Blockly.Cake.Block.prototype.getCommentText = function() {
   if (this.comment) {
     var comment = this.comment.getText();
     // Trim off trailing whitespace.
@@ -1820,11 +1822,11 @@ Blockly.Block.prototype.getCommentText = function() {
  * Set this block's comment text.
  * @param {?string} text The text, or null to delete.
  */
-Blockly.Block.prototype.setCommentText = function(text) {
+Blockly.Cake.Block.prototype.setCommentText = function(text) {
   var changedState = false;
   if (goog.isString(text)) {
     if (!this.comment) {
-      this.comment = new Blockly.Comment(this);
+      this.comment = new Blockly.Cake.Comment(this);
       changedState = true;
     }
     this.comment.setText( /** @type {string} */ (text));
@@ -1847,14 +1849,14 @@ Blockly.Block.prototype.setCommentText = function(text) {
  * Set this block's warning text.
  * @param {?string} text The text, or null to delete.
  */
-Blockly.Block.prototype.setWarningText = function(text) {
+Blockly.Cake.Block.prototype.setWarningText = function(text) {
   if (this.isInFlyout) {
     text = null;
   }
   var changedState = false;
   if (goog.isString(text)) {
     if (!this.warning) {
-      this.warning = new Blockly.Warning(this);
+      this.warning = new Blockly.Cake.Warning(this);
       changedState = true;
     }
     this.warning.setText( /** @type {string} */ (text));
@@ -1877,15 +1879,15 @@ Blockly.Block.prototype.setWarningText = function(text) {
  * Render the block.
  * Lays out and reflows a block based on its contents and settings.
  */
-Blockly.Block.prototype.render = function() {
+Blockly.Cake.Block.prototype.render = function() {
   goog.asserts.assertObject(this.svg_,
     'Uninitialized block cannot be rendered.  Call block.initSvg()');
   this.svg_.render();
-  Blockly.Realtime.blockChanged(this);
+  Blockly.Cake.Realtime.blockChanged(this);
 };
 
 
-Blockly.Blocks.CNameValidator = function(newVar) {
+Blockly.Cake.Blocks.CNameValidator = function(newVar) {
   //Regex tests whether name is a valid C identifier
   if (!new RegExp('^[a-zA-Z_][a-zA-Z0-9_]*$').test(newVar)) {
     return null;
@@ -1895,7 +1897,7 @@ Blockly.Blocks.CNameValidator = function(newVar) {
     return null;
   }
   //Avoid clobbering global names
-  if (Blockly.cake.RESERVED_WORDS_.indexOf(',' + newVar + ',') !== -1) {
+  if (Blockly.Cake.cake.RESERVED_WORDS_.indexOf(',' + newVar + ',') !== -1) {
     return null;
   };
   return newVar;
@@ -1906,21 +1908,21 @@ Blockly.Blocks.CNameValidator = function(newVar) {
  * @constructor
  */
 
-Blockly.Blocks.CreateMainBlock = function(){
-    var flyout = this;
-    this.workspace_ = new Blockly.Workspace(
-        function() {return flyout.getMetrics_();},
-        function(ratio) {return flyout.setMetrics_(ratio);});
-    
-    var block = Blockly.Block.obtain(this.workspace_, 'main_block');
+Blockly.Cake.Blocks.CreateMainBlock = function(){
+  var flyout = this;
+  this.workspace_ = new Blockly.Cake.Workspace(
+      function() {return flyout.getMetrics_();},
+      function(ratio) {return flyout.setMetrics_(ratio);});
 
-    var xmlBlock = Blockly.Xml.blockToDom_(block);
-    Blockly.Xml.domToBlock(Blockly.mainWorkspace, xmlBlock).moveBy(20, 100);
+  var block = Blockly.Cake.Block.obtain(this.workspace_, 'main_block');
+
+  var xmlBlock = Blockly.Cake.Xml.blockToDom_(block);
+  Blockly.Cake.Xml.domToBlock(Blockly.Cake.mainWorkspace, xmlBlock).moveBy(20, 100);
 
 
-    //main_block attribute setting
-    xmlBlock.setAttribute('deletable', false);
-    xmlBlock.setAttribute('movable', false);
-    xmlBlock.setAttribute('editable', false);
+  //main_block attribute setting
+  xmlBlock.setAttribute('deletable', false);
+  xmlBlock.setAttribute('movable', false);
+  xmlBlock.setAttribute('editable', false);
 
 };

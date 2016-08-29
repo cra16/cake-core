@@ -24,12 +24,12 @@
  */
 'use strict';
 
-goog.provide('Blockly.Input');
+goog.provide('Blockly.Cake.Input');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.Connection');
-goog.require('Blockly.FieldLabel');
+// goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.Connection');
+goog.require('Blockly.Cake.FieldLabel');
 goog.require('goog.asserts');
 
 
@@ -38,36 +38,36 @@ goog.require('goog.asserts');
  * @param {number} type The type of the input.
  * @param {string} name Language-neutral identifier which may used to find this
  *     input again.
- * @param {!Blockly.Block} block The block containing this input.
- * @param {Blockly.Connection} connection Optional connection for this input.
+ * @param {!Blockly.Cake.Block} block The block containing this input.
+ * @param {Blockly.Cake.Connection} connection Optional connection for this input.
  * @constructor
  */
-Blockly.Input = function(type, name, block, connection) {
+Blockly.Cake.Input = function(type, name, block, connection) {
   this.type = type;
   this.name = name;
   this.sourceBlock_ = block;
   this.connection = connection;
   this.fieldRow = [];
-  this.align = Blockly.ALIGN_LEFT;
+  this.align = Blockly.Cake.ALIGN_LEFT;
 
   this.visible_ = true;
 };
 
 /**
  * Add an item to the end of the input's field row.
- * @param {string|!Blockly.Field} field Something to add as a field.
+ * @param {string|!Blockly.Cake.Field} field Something to add as a field.
  * @param {string} opt_name Language-neutral identifier which may used to find
  *     this field again.  Should be unique to the host block.
- * @return {!Blockly.Input} The input being append to (to allow chaining).
+ * @return {!Blockly.Cake.Input} The input being append to (to allow chaining).
  */
-Blockly.Input.prototype.appendField = function(field, opt_name) {
+Blockly.Cake.Input.prototype.appendField = function(field, opt_name) {
   // Empty string, Null or undefined generates no field, unless field is named.
   if (!field && !opt_name) {
     return this;
   }
   // Generate a FieldLabel when given a plain text field.
   if (goog.isString(field)) {
-    field = new Blockly.FieldLabel(/** @type {string} */ (field));
+    field = new Blockly.Cake.FieldLabel(/** @type {string} */ (field));
   }
   if (this.sourceBlock_.svg_) {
     field.init(this.sourceBlock_);
@@ -98,10 +98,10 @@ Blockly.Input.prototype.appendField = function(field, opt_name) {
  * @param {*} field Something to add as a field.
  * @param {string} opt_name Language-neutral identifier which may used to find
  *     this field again.  Should be unique to the host block.
- * @return {!Blockly.Input} The input being append to (to allow chaining).
+ * @return {!Blockly.Cake.Input} The input being append to (to allow chaining).
  * @deprecated December 2013
  */
-Blockly.Input.prototype.appendTitle = function(field, opt_name) {
+Blockly.Cake.Input.prototype.appendTitle = function(field, opt_name) {
   console.log('Deprecated call to appendTitle, use appendField instead.');
   return this.appendField(field, opt_name);
 };
@@ -111,7 +111,7 @@ Blockly.Input.prototype.appendTitle = function(field, opt_name) {
  * @param {string} name The name of the field.
  * @throws {goog.asserts.AssertionError} if the field is not present.
  */
-Blockly.Input.prototype.removeField = function(name) {
+Blockly.Cake.Input.prototype.removeField = function(name) {
   for (var i = 0, field; field = this.fieldRow[i]; i++) {
     if (field.name === name) {
       field.dispose();
@@ -131,16 +131,16 @@ Blockly.Input.prototype.removeField = function(name) {
  * Gets whether this input is visible or not.
  * @return {boolean} True if visible.
  */
-Blockly.Input.prototype.isVisible = function() {
+Blockly.Cake.Input.prototype.isVisible = function() {
   return this.visible_;
 };
 
 /**
  * Sets whether this input is visible or not.
  * @param {boolean} visible True if visible.
- * @return {!Array.<!Blockly.Block>} List of blocks to render.
+ * @return {!Array.<!Blockly.Cake.Block>} List of blocks to render.
  */
-Blockly.Input.prototype.setVisible = function(visible) {
+Blockly.Cake.Input.prototype.setVisible = function(visible) {
   var renderList = [];
   if (this.visible_ == visible) {
     return renderList;
@@ -173,9 +173,9 @@ Blockly.Input.prototype.setVisible = function(visible) {
  * Change a connection's compatibility.
  * @param {string|Array.<string>|null} check Compatible value type or
  *     list of value types.  Null if all types are compatible.
- * @return {!Blockly.Input} The input being modified (to allow chaining).
+ * @return {!Blockly.Cake.Input} The input being modified (to allow chaining).
  */
-Blockly.Input.prototype.setCheck = function(check) {
+Blockly.Cake.Input.prototype.setCheck = function(check) {
   if (!this.connection) {
     throw 'This input does not have a connection.';
   }
@@ -185,11 +185,11 @@ Blockly.Input.prototype.setCheck = function(check) {
 
 /**
  * Change the alignment of the connection's field(s).
- * @param {number} align One of Blockly.ALIGN_LEFT, ALIGN_CENTRE, ALIGN_RIGHT.
+ * @param {number} align One of Blockly.Cake.ALIGN_LEFT, ALIGN_CENTRE, ALIGN_RIGHT.
  *   In RTL mode directions are reversed, and ALIGN_RIGHT aligns to the left.
- * @return {!Blockly.Input} The input being modified (to allow chaining).
+ * @return {!Blockly.Cake.Input} The input being modified (to allow chaining).
  */
-Blockly.Input.prototype.setAlign = function(align) {
+Blockly.Cake.Input.prototype.setAlign = function(align) {
   this.align = align;
   if (this.sourceBlock_.rendered) {
     this.sourceBlock_.render();
@@ -200,7 +200,7 @@ Blockly.Input.prototype.setAlign = function(align) {
 /**
  * Initialize the fields on this input.
  */
-Blockly.Input.prototype.init = function() {
+Blockly.Cake.Input.prototype.init = function() {
   for (var x = 0; x < this.fieldRow.length; x++) {
     this.fieldRow[x].init(this.sourceBlock_);
   }
@@ -209,7 +209,7 @@ Blockly.Input.prototype.init = function() {
 /**
  * Sever all links to this input.
  */
-Blockly.Input.prototype.dispose = function() {
+Blockly.Cake.Input.prototype.dispose = function() {
   for (var i = 0, field; field = this.fieldRow[i]; i++) {
     field.dispose();
   }

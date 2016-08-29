@@ -19,7 +19,7 @@
  */
 
 /**
- * @fileoverview Core JavaScript library for Blockly.
+ * @fileoverview Core JavaScript library for Blockly.Cake.
  * @author scr@google.com (Sheridan Rawlins)
  */
 'use strict';
@@ -28,4 +28,4 @@
  * Name space for the Msg singleton.
  * Msg gets populated in the message files.
  */
-goog.provide('Blockly.Msg');
+goog.provide('Blockly.Cake.Msg');

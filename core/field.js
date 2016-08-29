@@ -21,16 +21,16 @@
 /**
  * @fileoverview Input field.  Used for editable titles, variables, etc.
  * This is an abstract class that defines the UI on the block.  Actual
- * instances would be Blockly.FieldTextInput, Blockly.FieldDropdown, etc.
+ * instances would be Blockly.Cake.FieldTextInput, Blockly.Cake.FieldDropdown, etc.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Field');
+goog.provide('Blockly.Cake.Field');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.BlockSvg');
+// goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.BlockSvg');
 goog.require('goog.asserts');
 
 
@@ -39,17 +39,17 @@ goog.require('goog.asserts');
  * @param {string} text The initial content of the field.
  * @constructor
  */
-Blockly.Field = function(text) {
+Blockly.Cake.Field = function(text) {
   this.sourceBlock_ = null;
   // Build the DOM.
-  this.fieldGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.borderRect_ = Blockly.createSvgElement('rect',
+  this.fieldGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  this.borderRect_ = Blockly.Cake.createSvgElement('rect',
       {'rx': 4,
        'ry': 4,
-       'x': -Blockly.BlockSvg.SEP_SPACE_X / 2,
+       'x': -Blockly.Cake.BlockSvg.SEP_SPACE_X / 2,
        'y': -12,
        'height': 16}, this.fieldGroup_);
-  this.textElement_ = Blockly.createSvgElement('text',
+  this.textElement_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyText'}, this.fieldGroup_);
   this.size_ = {height: 25, width: 0};
   this.setText(text);
@@ -62,7 +62,7 @@ Blockly.Field = function(text) {
  * throws an exception.
  * @throws {goog.assert.AssertionError}
  */
-Blockly.Field.prototype.clone = function() {
+Blockly.Cake.Field.prototype.clone = function() {
   goog.asserts.fail('There should never be an instance of Field, ' +
       'only its derived classes.');
 };
@@ -70,18 +70,18 @@ Blockly.Field.prototype.clone = function() {
 /**
  * Non-breaking space.
  */
-Blockly.Field.NBSP = '\u00A0';
+Blockly.Cake.Field.NBSP = '\u00A0';
 
 /**
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
-Blockly.Field.prototype.EDITABLE = true;
+Blockly.Cake.Field.prototype.EDITABLE = true;
 
 /**
  * Install this field on a block.
- * @param {!Blockly.Block} block The block containing this field.
+ * @param {!Blockly.Cake.Block} block The block containing this field.
  */
-Blockly.Field.prototype.init = function(block) {
+Blockly.Cake.Field.prototype.init = function(block) {
   if (this.sourceBlock_) {
     throw 'Field has already been initialized once.';
   }
@@ -89,7 +89,7 @@ Blockly.Field.prototype.init = function(block) {
   this.updateEditable();
   block.getSvgRoot().appendChild(this.fieldGroup_);
   this.mouseUpWrapper_ =
-      Blockly.bindEvent_(this.fieldGroup_, 'mouseup', this, this.onMouseUp_);
+      Blockly.Cake.bindEvent_(this.fieldGroup_, 'mouseup', this, this.onMouseUp_);
   // Bump to set the colours for dropdown arrows.
   this.setText(null);
 };
@@ -97,9 +97,9 @@ Blockly.Field.prototype.init = function(block) {
 /**
  * Dispose of all DOM objects belonging to this editable field.
  */
-Blockly.Field.prototype.dispose = function() {
+Blockly.Cake.Field.prototype.dispose = function() {
   if (this.mouseUpWrapper_) {
-    Blockly.unbindEvent_(this.mouseUpWrapper_);
+    Blockly.Cake.unbindEvent_(this.mouseUpWrapper_);
     this.mouseUpWrapper_ = null;
   }
   this.sourceBlock_ = null;
@@ -112,20 +112,20 @@ Blockly.Field.prototype.dispose = function() {
 /**
  * Add or remove the UI indicating if this field is editable or not.
  */
-Blockly.Field.prototype.updateEditable = function() {
+Blockly.Cake.Field.prototype.updateEditable = function() {
   if (!this.EDITABLE) {
     return;
   }
   if (this.sourceBlock_.isEditable()) {
-    Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+    Blockly.Cake.addClass_(/** @type {!Element} */ (this.fieldGroup_),
                       'blocklyEditableText');
-    Blockly.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
+    Blockly.Cake.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
                          'blocklyNoNEditableText');
     this.fieldGroup_.style.cursor = this.CURSOR;
   } else {
-    Blockly.addClass_(/** @type {!Element} */ (this.fieldGroup_),
+    Blockly.Cake.addClass_(/** @type {!Element} */ (this.fieldGroup_),
                       'blocklyNonEditableText');
-    Blockly.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
+    Blockly.Cake.removeClass_(/** @type {!Element} */ (this.fieldGroup_),
                          'blocklyEditableText');
     this.fieldGroup_.style.cursor = '';
   }
@@ -135,7 +135,7 @@ Blockly.Field.prototype.updateEditable = function() {
  * Gets whether this editable field is visible or not.
  * @return {boolean} True if visible.
  */
-Blockly.Field.prototype.isVisible = function() {
+Blockly.Cake.Field.prototype.isVisible = function() {
   return this.visible_;
 };
 
@@ -143,7 +143,7 @@ Blockly.Field.prototype.isVisible = function() {
  * Sets whether this editable field is visible or not.
  * @param {boolean} visible True if visible.
  */
-Blockly.Field.prototype.setVisible = function(visible) {
+Blockly.Cake.Field.prototype.setVisible = function(visible) {
   this.visible_ = visible;
   this.getRootElement().style.display = visible ? 'block' : 'none';
   this.render_();
@@ -154,7 +154,7 @@ Blockly.Field.prototype.setVisible = function(visible) {
  * Used for measuring the size and for positioning.
  * @return {!Element} The group element.
  */
-Blockly.Field.prototype.getRootElement = function() {
+Blockly.Cake.Field.prototype.getRootElement = function() {
   return /** @type {!Element} */ (this.fieldGroup_);
 };
 
@@ -163,11 +163,11 @@ Blockly.Field.prototype.getRootElement = function() {
  * Saves the computed width in a property.
  * @private
  */
-Blockly.Field.prototype.render_ = function() {
+Blockly.Cake.Field.prototype.render_ = function() {
   var width = this.textElement_.getComputedTextLength();
   if (this.borderRect_) {
     this.borderRect_.setAttribute('width',
-        width + Blockly.BlockSvg.SEP_SPACE_X);
+        width + Blockly.Cake.BlockSvg.SEP_SPACE_X);
   }
   this.size_.width = width;
 };
@@ -176,7 +176,7 @@ Blockly.Field.prototype.render_ = function() {
  * Returns the height and width of the field.
  * @return {!Object} Height and width.
  */
-Blockly.Field.prototype.getSize = function() {
+Blockly.Cake.Field.prototype.getSize = function() {
   if (!this.size_.width) {
     this.render_();
   }
@@ -187,7 +187,7 @@ Blockly.Field.prototype.getSize = function() {
  * Get the text from this field.
  * @return {string} Current text.
  */
-Blockly.Field.prototype.getText = function() {
+Blockly.Cake.Field.prototype.getText = function() {
   return this.text_;
 };
 
@@ -195,7 +195,7 @@ Blockly.Field.prototype.getText = function() {
  * Set the text in this field.  Trigger a rerender of the source block.
  * @param {?string} text New text.
  */
-Blockly.Field.prototype.setText = function(text) {
+Blockly.Cake.Field.prototype.setText = function(text) {
   if (text === null || text === this.text_) {
     // No change if null.
     return;
@@ -214,19 +214,19 @@ Blockly.Field.prototype.setText = function(text) {
  * Update the text node of this field to display the current text.
  * @private
  */
-Blockly.Field.prototype.updateTextNode_ = function() {
+Blockly.Cake.Field.prototype.updateTextNode_ = function() {
   var text = this.text_;
   // Empty the text element.
   goog.dom.removeChildren(/** @type {!Element} */ (this.textElement_));
   // Replace whitespace with non-breaking spaces so the text doesn't collapse.
-  text = text.replace(/\s/g, Blockly.Field.NBSP);
-  if (Blockly.RTL && text) {
+  text = text.replace(/\s/g, Blockly.Cake.Field.NBSP);
+  if (Blockly.Cake.RTL && text) {
     // The SVG is LTR, force text to be RTL.
     text += '\u200F';
   }
   if (!text) {
     // Prevent the field from disappearing if empty.
-    text = Blockly.Field.NBSP;
+    text = Blockly.Cake.Field.NBSP;
   }
   var textNode = document.createTextNode(text);
   this.textElement_.appendChild(textNode);
@@ -240,7 +240,7 @@ Blockly.Field.prototype.updateTextNode_ = function() {
  * the language-neutral values.  Subclasses (such as dropdown) may define this.
  * @return {string} Current text.
  */
-Blockly.Field.prototype.getValue = function() {
+Blockly.Cake.Field.prototype.getValue = function() {
   return this.getText();
 };
 
@@ -249,7 +249,7 @@ Blockly.Field.prototype.getValue = function() {
  * the language-neutral values.  Subclasses (such as dropdown) may define this.
  * @param {string} text New text.
  */
-Blockly.Field.prototype.setValue = function(text) {
+Blockly.Cake.Field.prototype.setValue = function(text) {
   this.setText(text);
 };
 
@@ -258,11 +258,11 @@ Blockly.Field.prototype.setValue = function(text) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.Field.prototype.onMouseUp_ = function(e) {
-  if (Blockly.isRightButton(e)) {
+Blockly.Cake.Field.prototype.onMouseUp_ = function(e) {
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     return;
-  } else if (Blockly.Block.dragMode_ == 2) {
+  } else if (Blockly.Cake.Block.dragMode_ == 2) {
     // Drag operation is concluding.  Don't open the editor.
     return;
   } else if (this.sourceBlock_.isEditable()) {
@@ -276,6 +276,6 @@ Blockly.Field.prototype.onMouseUp_ = function(e) {
  * @param {string|!Element} newTip Text for tooltip or a parent element to
  *     link to for its tooltip.
  */
-Blockly.Field.prototype.setTooltip = function(newTip) {
+Blockly.Cake.Field.prototype.setTooltip = function(newTip) {
   // Non-abstract sub-classes may wish to implement this.  See FieldLabel.
 };

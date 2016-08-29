@@ -24,47 +24,47 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldLabel');
+goog.provide('Blockly.Cake.FieldLabel');
 
-goog.require('Blockly.Field');
-goog.require('Blockly.Tooltip');
+goog.require('Blockly.Cake.Field');
+goog.require('Blockly.Cake.Tooltip');
 
 
 /**
  * Class for a non-editable field.
  * @param {string} text The initial content of the field.
- * @extends {Blockly.Field}
+ * @extends {Blockly.Cake.Field}
  * @constructor
  */
-Blockly.FieldLabel = function(text) {
+Blockly.Cake.FieldLabel = function(text) {
   this.sourceBlock_ = null;
   // Build the DOM.
-  this.textElement_ = Blockly.createSvgElement('text',
+  this.textElement_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyText'}, null);
   this.size_ = {height: 25, width: 0};
   this.setText(text);
 };
-goog.inherits(Blockly.FieldLabel, Blockly.Field);
+goog.inherits(Blockly.Cake.FieldLabel, Blockly.Cake.Field);
 
 /**
  * Clone this FieldLabel.
- * @return {!Blockly.FieldLabel} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldLabel} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldLabel.prototype.clone = function() {
-  return new Blockly.FieldLabel(this.getText());
+Blockly.Cake.FieldLabel.prototype.clone = function() {
+  return new Blockly.Cake.FieldLabel(this.getText());
 };
 
 /**
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
-Blockly.FieldLabel.prototype.EDITABLE = false;
+Blockly.Cake.FieldLabel.prototype.EDITABLE = false;
 
 /**
  * Install this text on a block.
- * @param {!Blockly.Block} block The block containing this text.
+ * @param {!Blockly.Cake.Block} block The block containing this text.
  */
-Blockly.FieldLabel.prototype.init = function(block) {
+Blockly.Cake.FieldLabel.prototype.init = function(block) {
   if (this.sourceBlock_) {
     throw 'Text has already been initialized once.';
   }
@@ -73,13 +73,13 @@ Blockly.FieldLabel.prototype.init = function(block) {
 
   // Configure the field to be transparent with respect to tooltips.
   this.textElement_.tooltip = this.sourceBlock_;
-  Blockly.Tooltip.bindMouseEvents(this.textElement_);
+  Blockly.Cake.Tooltip.bindMouseEvents(this.textElement_);
 };
 
 /**
  * Dispose of all DOM objects belonging to this text.
  */
-Blockly.FieldLabel.prototype.dispose = function() {
+Blockly.Cake.FieldLabel.prototype.dispose = function() {
   goog.dom.removeNode(this.textElement_);
   this.textElement_ = null;
 };
@@ -89,7 +89,7 @@ Blockly.FieldLabel.prototype.dispose = function() {
  * Used for measuring the size and for positioning.
  * @return {!Element} The group element.
  */
-Blockly.FieldLabel.prototype.getRootElement = function() {
+Blockly.Cake.FieldLabel.prototype.getRootElement = function() {
   return /** @type {!Element} */ (this.textElement_);
 };
 
@@ -98,6 +98,6 @@ Blockly.FieldLabel.prototype.getRootElement = function() {
  * @param {string|!Element} newTip Text for tooltip or a parent element to
  *     link to for its tooltip.
  */
-Blockly.FieldLabel.prototype.setTooltip = function(newTip) {
+Blockly.Cake.FieldLabel.prototype.setTooltip = function(newTip) {
   this.textElement_.tooltip = newTip;
 };

@@ -19,114 +19,114 @@
  */
 
 /**
- * @fileoverview Loop blocks for Blockly.
+ * @fileoverview Loop blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.loops');
+goog.provide('Blockly.Cake.Blocks.loops');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['controls_whileUntil'] = {
+Blockly.Cake.Blocks['controls_whileUntil'] = {
   /**
    * Block for 'do while/until' loop.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
-         [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+        [[Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+         [Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
     this.setColour(220);
     this.appendValueInput('BOOL')
         .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'MODE');
     this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+        .appendField(Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-      this.tag = Blockly.Msg.TAG_LOOP_WHILE;
+      this.tag = Blockly.Cake.Msg.TAG_LOOP_WHILE;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('MODE');
       var TOOLTIPS = {
-        'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-        'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+        'WHILE': Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
+        'UNTIL': Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
       };
       return TOOLTIPS[op];
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_doWhile'] = {
+Blockly.Cake.Blocks['controls_doWhile'] = {
     /**
      * Block for 'do while/until' loop.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var OPERATORS =
-            [[Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
-                [Blockly.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
+            [[Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_OPERATOR_WHILE, 'WHILE'],
+                [Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_OPERATOR_UNTIL, 'UNTIL']];
         this.setColour(220);
         this.appendStatementInput('DO')
-            .appendField(Blockly.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
+            .appendField(Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_INPUT_DO);
         this.appendValueInput('BOOL')
             .setCheck(['Boolean', 'Number', 'INT', 'VAR_INT'])
-            .appendField(new Blockly.FieldDropdown(OPERATORS), 'MODE');
+            .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'MODE');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         // Assign 'this' to a variable for use in the tooltip closure below.
         var thisBlock = this;
-        this.tag = Blockly.Msg.TAG_LOOP_WHILE;
+        this.tag = Blockly.Cake.Msg.TAG_LOOP_WHILE;
         this.setTooltip(function() {
             var op = thisBlock.getFieldValue('MODE');
             var TOOLTIPS = {
-                'WHILE': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
-                'UNTIL': Blockly.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
+                'WHILE': Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_WHILE,
+                'UNTIL': Blockly.Cake.Msg.CONTROLS_WHILEUNTIL_TOOLTIP_UNTIL
             };
             return TOOLTIPS[op];
         });
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_for'] = {
+Blockly.Cake.Blocks['controls_for'] = {
   /**
    * Block for 'for' loop.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(220);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_WITH)
-        .appendField(new Blockly.FieldVariable(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
-    this.interpolateMsg(Blockly.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
-                        ['FROM', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-                        ['TO', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-                        ['BY', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+        .appendField(Blockly.Cake.Msg.CONTROLS_FOR_INPUT_WITH)
+        .appendField(new Blockly.Cake.FieldVariable(Blockly.Cake.Msg.SELECT_MENU, null, this), 'VAR');
+    this.interpolateMsg(Blockly.Cake.Msg.CONTROLS_FOR_INPUT_FROM_TO_BY,
+                        ['FROM', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.Cake.ALIGN_RIGHT],
+                        ['TO', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.Cake.ALIGN_RIGHT],
+                        ['BY', ['Number', 'Variable', 'INT', 'NEGATIVE', 'VAR_INT', 'VAR_UNINT'], Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.appendStatementInput('DO')
-        .appendField(Blockly.Msg.CONTROLS_FOR_INPUT_DO);
+        .appendField(Blockly.Cake.Msg.CONTROLS_FOR_INPUT_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-      this.tag = Blockly.Msg.TAG_LOOP_FOR;
+      this.tag = Blockly.Cake.Msg.TAG_LOOP_FOR;
     this.setTooltip(function() {
-      return Blockly.Msg.CONTROLS_FOR_TOOLTIP.replace('%1',
+      return Blockly.Cake.Msg.CONTROLS_FOR_TOOLTIP.replace('%1',
           thisBlock.getFieldValue('VAR'));
     });
   },
   /**
    * Return all variables referenced by this block.
    * @return {!Array.<string>} List of variable names.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   getVars: function() {
     return [this.getFieldValue('VAR')];
@@ -136,57 +136,57 @@ Blockly.Blocks['controls_for'] = {
    * If the name matches one of this block's variables, rename it.
    * @param {string} oldName Previous name of variable.
    * @param {string} newName Renamed variable.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   renameVar: function(oldName, newName) {
-    if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+    if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('VAR'))) {
       this.setFieldValue(newName, 'VAR');
     }
   },
   /**
    * Add menu option to create getter block for loop variable.
    * @param {!Array} options List of menu options to add to.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   customContextMenu: function(options) {
     if (!this.isCollapsed()) {
       var option = {enabled: true};
       var name = this.getFieldValue('VAR');
-      option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
+      option.text = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
       var xmlField = goog.dom.createDom('field', null, name);
       xmlField.setAttribute('name', 'VAR');
       var xmlBlock = goog.dom.createDom('block', null, xmlField);
       xmlBlock.setAttribute('type', 'variables_get');
-      option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+      option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
       options.push(option);
     }
   },
 
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_flow_statements'] = {
+Blockly.Cake.Blocks['controls_flow_statements'] = {
   /**
    * Block for flow statements: continue, break.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
-         [Blockly.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
+        [[Blockly.Cake.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_BREAK, 'BREAK'],
+         [Blockly.Cake.Msg.CONTROLS_FLOW_STATEMENTS_OPERATOR_CONTINUE, 'CONTINUE']];
     this.setColour(220);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'FLOW');
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'FLOW');
     this.setPreviousStatement(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-      this.tag = Blockly.Msg.TAG_LOOP_FLOW;
+      this.tag = Blockly.Cake.Msg.TAG_LOOP_FLOW;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('FLOW');
       var TOOLTIPS = {
-        'BREAK': Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK,
-        'CONTINUE': Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE
+        'BREAK': Blockly.Cake.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK,
+        'CONTINUE': Blockly.Cake.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_CONTINUE
       };
       return TOOLTIPS[op];
     });
@@ -194,7 +194,7 @@ Blockly.Blocks['controls_flow_statements'] = {
   /**
    * Called whenever anything on the workspace changes.
    * Add warning if this flow block is not nested inside a loop.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   onchange: function() {
     if (!this.workspace) {
@@ -215,7 +215,7 @@ Blockly.Blocks['controls_flow_statements'] = {
     if (legal) {
       this.setWarningText(null);
     } else {
-      this.setWarningText(Blockly.Msg.CONTROLS_FLOW_STATEMENTS_WARNING);
+      this.setWarningText(Blockly.Cake.Msg.CONTROLS_FLOW_STATEMENTS_WARNING);
     }
   }
 };

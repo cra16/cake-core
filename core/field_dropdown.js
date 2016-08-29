@@ -26,9 +26,9 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldDropdown');
+goog.provide('Blockly.Cake.FieldDropdown');
 
-goog.require('Blockly.Field');
+goog.require('Blockly.Cake.Field');
 goog.require('goog.dom');
 goog.require('goog.style');
 goog.require('goog.ui.Menu');
@@ -44,10 +44,10 @@ goog.require('goog.ui.MenuItem');
  *     If it returns a value, that value (which must be one of the options) will
  *     become selected in place of the newly selected option, unless the return
  *     value is null, in which case the change is aborted.
- * @extends {Blockly.Field}
+ * @extends {Blockly.Cake.Field}
  * @constructor
  */
-Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler, block) {
+Blockly.Cake.FieldDropdown = function(menuGenerator, opt_changeHandler, block) {
   this.menuGenerator_ = menuGenerator;
   this.changeHandler_ = opt_changeHandler;
   this.trimOptions_();
@@ -58,39 +58,39 @@ Blockly.FieldDropdown = function(menuGenerator, opt_changeHandler, block) {
   // Add dropdown arrow: "option ▾" (LTR) or "▾ אופציה" (RTL)
   // Android can't (in 2014) display "▾", so use "▼" instead.
   var arrowChar = goog.userAgent.ANDROID ? '\u25BC' : '\u25BE';
-  this.arrow_ = Blockly.createSvgElement('tspan', {}, null);
+  this.arrow_ = Blockly.Cake.createSvgElement('tspan', {}, null);
   this.arrow_.appendChild(document.createTextNode(
-      Blockly.RTL ? arrowChar + ' ' : ' ' + arrowChar));
+      Blockly.Cake.RTL ? arrowChar + ' ' : ' ' + arrowChar));
   // Call parent's constructor.
-  Blockly.FieldDropdown.superClass_.constructor.call(this, firstTuple[0]);
+  Blockly.Cake.FieldDropdown.superClass_.constructor.call(this, firstTuple[0]);
 };
-goog.inherits(Blockly.FieldDropdown, Blockly.Field);
+goog.inherits(Blockly.Cake.FieldDropdown, Blockly.Cake.Field);
 
 /**
  * Horizontal distance that a checkmark ovehangs the dropdown.
  */
-Blockly.FieldDropdown.CHECKMARK_OVERHANG = 25;
+Blockly.Cake.FieldDropdown.CHECKMARK_OVERHANG = 25;
 
 /**
  * Clone this FieldDropdown.
- * @return {!Blockly.FieldDropdown} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldDropdown} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldDropdown.prototype.clone = function() {
-  return new Blockly.FieldDropdown(this.menuGenerator_, this.changeHandler_);
+Blockly.Cake.FieldDropdown.prototype.clone = function() {
+  return new Blockly.Cake.FieldDropdown(this.menuGenerator_, this.changeHandler_);
 };
 
 /**
  * Mouse cursor style when over the hotspot that initiates the editor.
  */
-Blockly.FieldDropdown.prototype.CURSOR = 'default';
+Blockly.Cake.FieldDropdown.prototype.CURSOR = 'default';
 
 /**
  * Create a dropdown menu under the text.
  * @private
  */
-Blockly.FieldDropdown.prototype.showEditor_ = function() {
-  Blockly.WidgetDiv.show(this, null);
+Blockly.Cake.FieldDropdown.prototype.showEditor_ = function() {
+  Blockly.Cake.WidgetDiv.show(this, null);
   var thisField = this;
 
   function callback(e) {
@@ -108,7 +108,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
         thisField.setValue(value);
       }
     }
-    Blockly.WidgetDiv.hideIfOwner(thisField);
+    Blockly.Cake.WidgetDiv.hideIfOwner(thisField);
   }
 
   var menu = new goog.ui.Menu();
@@ -126,12 +126,12 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   // Record windowSize and scrollOffset before adding menu.
   var windowSize = goog.dom.getViewportSize();
   var scrollOffset = goog.style.getViewportPageOffset(document);
-  var xy = Blockly.getAbsoluteXY_(/** @type {!Element} */ (this.borderRect_));
+  var xy = Blockly.Cake.getAbsoluteXY_(/** @type {!Element} */ (this.borderRect_));
   var borderBBox = this.borderRect_.getBBox();
-  var div = Blockly.WidgetDiv.DIV;
+  var div = Blockly.Cake.WidgetDiv.DIV;
   menu.render(div);
   var menuDom = menu.getElement();
-  Blockly.addClass_(menuDom, 'blocklyDropdownMenu');
+  Blockly.Cake.addClass_(menuDom, 'blocklyDropdownMenu');
   // Record menuSize after adding menu.
   var menuSize = goog.style.getSize(menuDom);
 
@@ -143,21 +143,21 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
   } else {
     xy.y += borderBBox.height;
   }
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     xy.x += borderBBox.width;
-    xy.x += Blockly.FieldDropdown.CHECKMARK_OVERHANG;
+    xy.x += Blockly.Cake.FieldDropdown.CHECKMARK_OVERHANG;
     // Don't go offscreen left.
     if (xy.x < scrollOffset.x + menuSize.width) {
       xy.x = scrollOffset.x + menuSize.width;
     }
   } else {
-    xy.x -= Blockly.FieldDropdown.CHECKMARK_OVERHANG;
+    xy.x -= Blockly.Cake.FieldDropdown.CHECKMARK_OVERHANG;
     // Don't go offscreen right.
     if (xy.x > windowSize.width + scrollOffset.x - menuSize.width) {
       xy.x = windowSize.width + scrollOffset.x - menuSize.width;
     }
   }
-  Blockly.WidgetDiv.position(xy.x, xy.y, windowSize, scrollOffset);
+  Blockly.Cake.WidgetDiv.position(xy.x, xy.y, windowSize, scrollOffset);
   menu.setAllowAutoFocus(true);
   menuDom.focus();
 };
@@ -167,7 +167,7 @@ Blockly.FieldDropdown.prototype.showEditor_ = function() {
  * Create prefix and/or suffix labels.
  * @private
  */
-Blockly.FieldDropdown.prototype.trimOptions_ = function() {
+Blockly.Cake.FieldDropdown.prototype.trimOptions_ = function() {
   this.prefixField = null;
   this.suffixField = null;
   var options = this.menuGenerator_;
@@ -175,9 +175,9 @@ Blockly.FieldDropdown.prototype.trimOptions_ = function() {
     return;
   }
   var strings = options.map(function(t) {return t[0];});
-  var shortest = Blockly.shortestStringLength(strings);
-  var prefixLength = Blockly.commonWordPrefix(strings, shortest);
-  var suffixLength = Blockly.commonWordSuffix(strings, shortest);
+  var shortest = Blockly.Cake.shortestStringLength(strings);
+  var prefixLength = Blockly.Cake.commonWordPrefix(strings, shortest);
+  var suffixLength = Blockly.Cake.commonWordSuffix(strings, shortest);
   if (!prefixLength && !suffixLength) {
     return;
   }
@@ -208,7 +208,7 @@ Blockly.FieldDropdown.prototype.trimOptions_ = function() {
  *     (human-readable text, language-neutral name).
  * @private
  */
-Blockly.FieldDropdown.prototype.getOptions_ = function(block) {
+Blockly.Cake.FieldDropdown.prototype.getOptions_ = function(block) {
   if (goog.isFunction(this.menuGenerator_)) {
     return this.menuGenerator_.call(this, block);
   }
@@ -219,7 +219,7 @@ Blockly.FieldDropdown.prototype.getOptions_ = function(block) {
  * Get the language-neutral value from this dropdown menu.
  * @return {string} Current text.
  */
-Blockly.FieldDropdown.prototype.getValue = function() {
+Blockly.Cake.FieldDropdown.prototype.getValue = function() {
   return this.value_;
 };
 
@@ -227,7 +227,7 @@ Blockly.FieldDropdown.prototype.getValue = function() {
  * Set the language-neutral value for this dropdown menu.
  * @param {string} newValue New value to set.
  */
-Blockly.FieldDropdown.prototype.setValue = function(newValue) {
+Blockly.Cake.FieldDropdown.prototype.setValue = function(newValue) {
   this.value_ = newValue;
   // Look up and display the human-readable text.
   var options = this.getOptions_();
@@ -247,10 +247,10 @@ Blockly.FieldDropdown.prototype.setValue = function(newValue) {
  * Set the text in this field.  Trigger a rerender of the source block.
  * @param {?string} text New text.
  */
-Blockly.FieldDropdown.prototype.setText = function(text) {
+Blockly.Cake.FieldDropdown.prototype.setText = function(text) {
   if (this.sourceBlock_) {
     // Update arrow's colour.
-    this.arrow_.style.fill = Blockly.makeColour(this.sourceBlock_.getColour());
+    this.arrow_.style.fill = Blockly.Cake.makeColour(this.sourceBlock_.getColour());
   }
   if (text === null || text === this.text_) {
     // No change if null.
@@ -260,7 +260,7 @@ Blockly.FieldDropdown.prototype.setText = function(text) {
   this.updateTextNode_();
 
   // Insert dropdown arrow.
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     this.textElement_.insertBefore(this.arrow_, this.textElement_.firstChild);
   } else {
     this.textElement_.appendChild(this.arrow_);
@@ -276,9 +276,9 @@ Blockly.FieldDropdown.prototype.setText = function(text) {
 /**
  * Close the dropdown menu if this input is being deleted.
  */
-Blockly.FieldDropdown.prototype.dispose = function() {
-  Blockly.WidgetDiv.hideIfOwner(this);
-  Blockly.FieldDropdown.superClass_.dispose.call(this);
+Blockly.Cake.FieldDropdown.prototype.dispose = function() {
+  Blockly.Cake.WidgetDiv.hideIfOwner(this);
+  Blockly.Cake.FieldDropdown.superClass_.dispose.call(this);
 };
 
 
@@ -288,10 +288,10 @@ Blockly.FieldDropdown.prototype.dispose = function() {
  * @param option: wanted value -> type = 0, dimension = 5
  * @returns {*}
  */
-Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
+Blockly.Cake.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
 
     var wantedValue;
-    var variableList = Blockly.Variables.allVariables();
+    var variableList = Blockly.Cake.Variables.allVariables();
 
     for (var temp = 0; temp < variableList.length; temp++) {
         if (variableList[temp][2] == blockVars) {
@@ -309,7 +309,7 @@ Blockly.FieldDropdown.prototype.getTypefromVars = function(blockVars, option) {
  * @param strDist : string type of dist('variables', 'variables_pointer', 'varibles_array')
  * @returns {*}
  */
-Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
+Blockly.Cake.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
 
     var parentType = null;
 
@@ -439,8 +439,8 @@ Blockly.FieldDropdown.prototype.getParentType = function(curBlock, strDist) {
  * @returns {Array}
  */
 
-Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
-    var variableList = Blockly.Variables.allVariables();
+Blockly.Cake.FieldDropdown.prototype.listCreate = function(block, varDist) {
+    var variableList = Blockly.Cake.Variables.allVariables();
     var variableListPop = []; // 보여줄 리스트 거를 것.
     var thisPosition = block.getRelativeToSurfaceXY().y;
 
@@ -466,7 +466,7 @@ Blockly.FieldDropdown.prototype.listCreate = function(block, varDist) {
             break;
     }
 
-    var parentType = Blockly.FieldDropdown.prototype.getParentType(block, strDist);
+    var parentType = Blockly.Cake.FieldDropdown.prototype.getParentType(block, strDist);
 
     while((block.getSurroundParent()) && (block.getSurroundParent().type != 'main_block') &&
     (block.getSurroundParent().type != 'procedures_defnoreturn') && (block.getSurroundParent().type != 'procedures_defreturn')){

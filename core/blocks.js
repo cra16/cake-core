@@ -24,7 +24,7 @@
  */
 'use strict';
 goog.require('goog.asserts');
-goog.require('Blockly.Warning');
+goog.require('Blockly.Cake.Warning');
 goog.require('goog.events.BrowserFeature');
 goog.require('goog.html.SafeHtml');
 goog.require('goog.style');
@@ -37,24 +37,24 @@ goog.require('goog.Disposable');
  * Blocks gets populated in the blocks files, possibly through calls to
  * Blocks.addTemplate().
  */
-goog.provide('Blockly.Blocks');
+goog.provide('Blockly.Cake.Blocks');
 /**
- * Create a block template and add it as a field to Blockly.Blocks with the
+ * Create a block template and add it as a field to Blockly.Cake.Blocks with the
  * name details.blockName.
  * @param {!Object} details Details about the block that should be created.
  *     The following fields are used:
  *     - blockName {string} The name of the block, which should be unique.
  *     - colour {number} The hue value of the colour to use for the block.
- *       (Blockly.HSV_SATURATION and Blockly.HSV_VALUE are used for saturation
+ *       (Blockly.Cake.HSV_SATURATION and Blockly.Cake.HSV_VALUE are used for saturation
  *       and value, respectively.)
  *     - output {?string|Array.<string>} Output type.  If undefined, there are
  *       assumed to be no outputs.  Otherwise, this is interpreted the same way
- *       as arguments to Blockly.Block.setCheck():
+ *       as arguments to Blockly.Cake.Block.setCheck():
  *       - null: Any type can be produced.
  *       - String: Only the specified type (e.g., 'Number') can be produced.
  *       - Array.<string>: Any of the specified types can be produced.
  *     - message {string} A message suitable for passing as a first argument to
- *       Blockly.Block.interpolateMsg().  Specifically, it should consist of
+ *       Blockly.Cake.Block.interpolateMsg().  Specifically, it should consist of
  *       text to be displayed on the block, optionally interspersed with
  *       references to inputs (one-based indices into the args array) or fields,
  *       such as '%1' for the first element of args.  The creation of dummy
@@ -63,12 +63,12 @@ goog.provide('Blockly.Blocks');
  *       TODO: Add Fields and statement stacks.
  *       Each object in the array can have the following fields:
  *       - name {string} The name of the input.
- *       - type {?number} One of Blockly.INPUT_VALUE, Blockly.NEXT_STATEMENT, or
- *         ??.   If not provided, it is assumed to be Blockly.INPUT_VALUE.
+ *       - type {?number} One of Blockly.Cake.INPUT_VALUE, Blockly.Cake.NEXT_STATEMENT, or
+ *         ??.   If not provided, it is assumed to be Blockly.Cake.INPUT_VALUE.
  *       - check {?string|Array.<string>} Input type.  See description of the
  *         output field above.
- *       - align {?number} One of Blockly.ALIGN_LEFT, Blockly.ALIGN_CENTRE, or
- *         Blockly.ALIGN_RIGHT (the default value, if not explicitly provided).
+ *       - align {?number} One of Blockly.Cake.ALIGN_LEFT, Blockly.Cake.ALIGN_CENTRE, or
+ *         Blockly.Cake.ALIGN_RIGHT (the default value, if not explicitly provided).
  *     - inline {?boolean}: Whether inputs should be inline (true) or external
  *       (false).  If not explicitly specified, inputs will be inline if message
  *       references, and ends with, a single value input.
@@ -95,11 +95,11 @@ goog.provide('Blockly.Blocks');
  *     - customContextMenuFunc {Function} TODO desc.
  *     Additional fields will be ignored.
  */
-Blockly.Blocks.addTemplate = function(details) {
+Blockly.Cake.Blocks.addTemplate = function(details) {
     // Validate inputs.  TODO: Add more.
     goog.asserts.assert(details.blockName);
-    goog.asserts.assert(Blockly.Blocks[details.blockName],
-        'Blockly.Blocks already has a field named ', details.blockName);
+    goog.asserts.assert(Blockly.Cake.Blocks[details.blockName],
+        'Blockly.Cake.Blocks already has a field named ', details.blockName);
     goog.asserts.assert(details.message);
     goog.asserts.assert(details.colour && typeof details.colour == 'number' &&
         details.colour >= 0 && details.colour < 360,
@@ -145,10 +145,10 @@ Blockly.Blocks.addTemplate = function(details) {
             details.args.forEach(function(arg) {
                 goog.asserts.assert(arg.name);
                 goog.asserts.assert(arg.check != 'undefined');
-                if (arg.type == 'undefined' || arg.type == Blockly.INPUT_VALUE) {
+                if (arg.type == 'undefined' || arg.type == Blockly.Cake.INPUT_VALUE) {
                     interpArgs.push([arg.name,
                         arg.check,
-                        typeof arg.align == 'undefined' ? Blockly.ALIGN_RIGHT : arg.align
+                        typeof arg.align == 'undefined' ? Blockly.Cake.ALIGN_RIGHT : arg.align
                     ]);
                 } else {
                     // TODO: Write code for other input types.
@@ -158,11 +158,11 @@ Blockly.Blocks.addTemplate = function(details) {
         }
         // Neil, how would you recommend specifying the final dummy alignment?
         // Should it be a top-level field in details?
-        interpArgs.push(Blockly.ALIGN_RIGHT);
+        interpArgs.push(Blockly.Cake.ALIGN_RIGHT);
         if (details.inline) {
             this.setInlineInputs(details.inline);
         }
-        Blockly.Block.prototype.interpolateMsg.apply(this, interpArgs);
+        Blockly.Cake.Block.prototype.interpolateMsg.apply(this, interpArgs);
     };
 
     // Create mutationToDom if needed.
@@ -177,15 +177,15 @@ Blockly.Blocks.addTemplate = function(details) {
     }
     // TODO: Add domToMutation and customContextMenu.
 
-    // Add new block to Blockly.Blocks.
-    Blockly.Blocks[details.blockName] = block;
+    // Add new block to Blockly.Cake.Blocks.
+    Blockly.Cake.Blocks[details.blockName] = block;
 };
 
 /*
  The Function to set warning text and show it when the block
  that must be in function is out of function.
  */
-Blockly.Blocks.requireInFunction = function(block) {
+Blockly.Cake.Blocks.requireInFunction = function(block) {
     if(!block) {
         if (!this.workspace) {
             // Block has been deleted.
@@ -194,7 +194,7 @@ Blockly.Blocks.requireInFunction = function(block) {
         if (this.getSurroundParent()) {
             this.setWarningText(null);
         } else {
-            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+            this.setWarningText(Blockly.Cake.Msg.PLZ_INSIDE_FUNCTION);
         }
     }
     else {
@@ -205,14 +205,14 @@ Blockly.Blocks.requireInFunction = function(block) {
         if (block.getSurroundParent()) {
             block.setWarningText(null);
         } else {
-            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+            block.setWarningText(Blockly.Cake.Msg.PLZ_INSIDE_FUNCTION);
         }
     }
 };
 /*
  The Function to check if variable, array, #define, or pointer declare block's position is legal or illegal.
  */
-Blockly.Blocks.variablePlaceCheck = function(block) {
+Blockly.Cake.Blocks.variablePlaceCheck = function(block) {
     if(!block) {
         if (!this.workspace) {
             // Block has been deleted.
@@ -221,9 +221,9 @@ Blockly.Blocks.variablePlaceCheck = function(block) {
         if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
             this.setWarningText(null);
         } else if (this.getSurroundParent()) {
-            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+            this.setWarningText(Blockly.Cake.Msg.PLZ_OUT_OF_BLOCK);
         } else {
-            this.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+            this.setWarningText(Blockly.Cake.Msg.PLZ_INSIDE_FUNCTION);
         }
     }
     else {
@@ -234,21 +234,21 @@ Blockly.Blocks.variablePlaceCheck = function(block) {
         if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
             block.setWarningText(null);
         } else if (block.getSurroundParent()) {
-            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_BLOCK);
+            block.setWarningText(Blockly.Cake.Msg.PLZ_OUT_OF_BLOCK);
         } else {
-            block.setWarningText(Blockly.Msg.PLZ_INSIDE_FUNCTION);
+            block.setWarningText(Blockly.Cake.Msg.PLZ_INSIDE_FUNCTION);
         }
     }
 };
 
-Blockly.Blocks.requireOutFunction=function(block){
+Blockly.Cake.Blocks.requireOutFunction=function(block){
     if(!block) {
         if (!this.workspace) {
             // Block has been deleted.
             return;
         }
         if (this.getSurroundParent() && (this.getSurroundParent().type == 'main_block' || this.getSurroundParent().type == 'procedures_defnoreturn' || this.getSurroundParent().type == 'procedures_defreturn')) {
-            this.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+            this.setWarningText(Blockly.Cake.Msg.PLZ_OUT_OF_FUNCTION);
         } else {
             this.setWarningText(null);
         }
@@ -259,14 +259,14 @@ Blockly.Blocks.requireOutFunction=function(block){
             return;
         }
         if (block.getSurroundParent() && (block.getSurroundParent().type == 'main_block' || block.getSurroundParent().type == 'procedures_defnoreturn' || block.getSurroundParent().type == 'procedures_defreturn')) {
-            block.setWarningText(Blockly.Msg.PLZ_OUT_OF_FUNCTION);
+            block.setWarningText(Blockly.Cake.Msg.PLZ_OUT_OF_FUNCTION);
         } else {
             block.setWarningText(null);
         }
     }
 };
 
-Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
+Blockly.Cake.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
     // if inputNum is variable
     if (isNaN(inputNum) == true ){
         return true;
@@ -278,8 +278,8 @@ Blockly.Blocks.checkArrayIndex = function(inputNum, arrayIdx) {
         return true;
 };
 
-Blockly.Blocks.getWantedBlockArray = function(wantedType) {
-    var varList = Blockly.Variables.allVariables();
+Blockly.Cake.Blocks.getWantedBlockArray = function(wantedType) {
+    var varList = Blockly.Cake.Variables.allVariables();
     var wantedList = [];
     for (var temp = 0 ; temp < varList.length ; temp++ ){
         if (varList[temp][1] == wantedType) {
@@ -290,7 +290,7 @@ Blockly.Blocks.getWantedBlockArray = function(wantedType) {
     return wantedList;
 };
 
-Blockly.Blocks.getIndexArray = function(arrList, arrName) {
+Blockly.Cake.Blocks.getIndexArray = function(arrList, arrName) {
     var idxList = [];
     var fixedIdx1, fixedIdx2, fixedIdx3;
     for (var temp = 0 ; temp < arrList.length ; temp++) {
@@ -320,7 +320,7 @@ Blockly.Blocks.getIndexArray = function(arrList, arrName) {
 };
 
 
-Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
+Blockly.Cake.Blocks.arrayTestFunction = function(block, len1, len2, len3){
 
     if(len1 != 0 && len2 == 0 && len3 == 0)
         block.setWarningText(null);
@@ -338,9 +338,9 @@ Blockly.Blocks.arrayTestFunction = function(block, len1, len2, len3){
  * just use searchTag function and showResult function.
  * @param searchingWord
  */
-Blockly.Blocks.search = function(searchingWord){
-    var result = Blockly.Blocks.searchTag(searchingWord);
-    Blockly.Blocks.showResult(result);
+Blockly.Cake.Blocks.search = function(searchingWord){
+    var result = Blockly.Cake.Blocks.searchTag(searchingWord);
+    Blockly.Cake.Blocks.showResult(result);
 };
 
 /**
@@ -349,36 +349,36 @@ Blockly.Blocks.search = function(searchingWord){
  * @param searchingTag
  * @returns {Array}
  */
-Blockly.Blocks.searchTag = function(searchingTag){
-    var tree = Blockly.Toolbox.tree_;
+Blockly.Cake.Blocks.searchTag = function(searchingTag){
+    var tree = Blockly.Cake.Toolbox.tree_;
     var blocks = [];
     for (var i = 0; i<tree.children_.length; i++) {
         var tree_i =tree.children_[i];
         if(tree_i.blocks == 'PROCEDURE'){
-            var proNoReturn = new Blockly.Block();
-            proNoReturn.id = Blockly.genUid();
-            proNoReturn.fill(Blockly.mainWorkspace, "procedures_defnoreturn");
+            var proNoReturn = new Blockly.Cake.Block();
+            proNoReturn.id = Blockly.Cake.genUid();
+            proNoReturn.fill(Blockly.Cake.mainWorkspace, "procedures_defnoreturn");
             blocks.push(proNoReturn);
 
-            var proReturn = new Blockly.Block();
-            proReturn.id = Blockly.genUid();
-            proReturn.fill(Blockly.mainWorkspace, "procedures_defreturn");
+            var proReturn = new Blockly.Cake.Block();
+            proReturn.id = Blockly.Cake.genUid();
+            proReturn.fill(Blockly.Cake.mainWorkspace, "procedures_defreturn");
             blocks.push(proReturn);
         }
         else if(tree_i.blocks =='STRUCTURE'){
-            var structDefine = new Blockly.Block();
-            structDefine.id = Blockly.genUid();
-            structDefine.fill(Blockly.mainWorkspace, "structure_define");
+            var structDefine = new Blockly.Cake.Block();
+            structDefine.id = Blockly.Cake.genUid();
+            structDefine.fill(Blockly.Cake.mainWorkspace, "structure_define");
             blocks.push(structDefine);
 
-            var structDeclare = new Blockly.Block();
-            structDeclare.id = Blockly.genUid();
-            structDeclare.fill(Blockly.mainWorkspace, "structure_declare");
+            var structDeclare = new Blockly.Cake.Block();
+            structDeclare.id = Blockly.Cake.genUid();
+            structDeclare.fill(Blockly.Cake.mainWorkspace, "structure_declare");
             blocks.push(structDeclare);
         }
         else if(tree_i.blocks.length){
             for(var j =0;j<tree_i.blocks.length;j++){
-                var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_i.blocks[j]);
+                var block = Blockly.Cake.Xml.domToBlockObject(Blockly.Cake.mainWorkspace, tree_i.blocks[j]);
                 blocks.push(block);
             }
         }
@@ -387,7 +387,7 @@ Blockly.Blocks.searchTag = function(searchingTag){
                 var tree_j=tree_i.children_[j];
                 if(tree_j.blocks){
                     for(var k=0;k<tree_j.blocks.length;k++){
-                        var block = Blockly.Xml.domToBlockObject(Blockly.mainWorkspace, tree_j.blocks[k]);
+                        var block = Blockly.Cake.Xml.domToBlockObject(Blockly.Cake.mainWorkspace, tree_j.blocks[k]);
                         blocks.push(block);
                     }
                 }
@@ -417,7 +417,7 @@ Blockly.Blocks.searchTag = function(searchingTag){
  * @param result: list of blocks.
  * @returns {number}
  */
-Blockly.Blocks.checkResult = function(type, result){
+Blockly.Cake.Blocks.checkResult = function(type, result){
     var returnValue = -1;
     for(var i=0;i<result.length;i++){
         if(result[i].type.toUpperCase() == type){
@@ -431,22 +431,22 @@ Blockly.Blocks.checkResult = function(type, result){
  * rendering the block into main workspace to show the result to user
  * @param result
  */
-Blockly.Blocks.showResult = function(result){
+Blockly.Cake.Blocks.showResult = function(result){
 
-    var tree = new Blockly.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
-        Blockly.Toolbox.CONFIG_);
-    Blockly.Toolbox.tree_ = tree;
+    var tree = new Blockly.Cake.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
+        Blockly.Cake.Toolbox.CONFIG_);
+    Blockly.Cake.Toolbox.tree_ = tree;
     tree.setShowRootNode(false);
     tree.setShowLines(false);
     tree.setShowExpandIcons(false);
 
 
-    var rootOut = Blockly.Toolbox.tree_;
+    var rootOut = Blockly.Cake.Toolbox.tree_;
     rootOut.removeChildren();  // Delete any existing content.
     rootOut.blocks = [];
     var searchResult = rootOut.createNode("result");
     searchResult.blocks = [];
-    Blockly.Toolbox.tree_.add(searchResult);
+    Blockly.Cake.Toolbox.tree_.add(searchResult);
     function syncTrees(treeIn, treeOut) {
         for (var i = 0, childIn; childIn = treeIn.childNodes[i]; i++) {
             if (!childIn.tagName) {
@@ -467,7 +467,7 @@ Blockly.Blocks.showResult = function(result){
                         }
                         var childName = child.tagName.toUpperCase();
                         if(childName == 'BLOCK'){
-                            var check = Blockly.Blocks.checkResult(child.getAttribute('type').toUpperCase(), result);
+                            var check = Blockly.Cake.Blocks.checkResult(child.getAttribute('type').toUpperCase(), result);
                             if(check != -1){
                                 result.splice(check, 1);
                                 searchResult.blocks.push(child);
@@ -479,7 +479,7 @@ Blockly.Blocks.showResult = function(result){
                 }
             } else if (name == 'BLOCK') {
                 treeOut.blocks.push(childIn);
-                var check = Blockly.Blocks.checkResult(childIn.getAttribute('type').toUpperCase(), result);
+                var check = Blockly.Cake.Blocks.checkResult(childIn.getAttribute('type').toUpperCase(), result);
                 if(check != -1){
                     result.splice(check, 1);
                     searchResult.blocks.push(childIn);
@@ -487,20 +487,20 @@ Blockly.Blocks.showResult = function(result){
             }
         }
     }
-    syncTrees(Blockly.languageTree, Blockly.Toolbox.tree_);
+    syncTrees(Blockly.Cake.languageTree, Blockly.Cake.Toolbox.tree_);
 
     if (rootOut.blocks.length) {
         throw 'Toolbox cannot have both blocks and categories in the root level.';
     }
 
     // Fire a resize event since the toolbox may have changed width and height.
-    Blockly.fireUiEvent(window, 'resize');
-    Blockly.Toolbox.HtmlDiv.childNodes[0].remove();
+    Blockly.Cake.fireUiEvent(window, 'resize');
+    Blockly.Cake.Toolbox.HtmlDiv.childNodes[0].remove();
     tree.setSelectedItem(searchResult);
-    tree.render(Blockly.Toolbox.HtmlDiv);
+    tree.render(Blockly.Cake.Toolbox.HtmlDiv);
 };
 
-Blockly.Blocks.checkLegalName = function(msg, name){
+Blockly.Cake.Blocks.checkLegalName = function(msg, name){
     var err = 0;
 
     if(name.length>0){
@@ -530,7 +530,7 @@ Blockly.Blocks.checkLegalName = function(msg, name){
  * @param varType
  * @param inputName
  */
-Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
+Blockly.Cake.Blocks.setCheckVariable = function(block, varType, inputName) {
     switch (varType)
     {
         case('int'):
@@ -567,7 +567,7 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
  * @param ptrType
  * @param inputName
  */
-Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
+Blockly.Cake.Blocks.setCheckPointer = function(block, ptrType, inputName) {
     switch (ptrType) {
         case ('int'):
             block.getInput(inputName).setCheck(['PTR_INT', 'Address', 'Pointer', 'Array', 'Aster']);
@@ -604,7 +604,7 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
          */    }
 };
 
-Blockly.Blocks.checkUnselect = function(content){
+Blockly.Cake.Blocks.checkUnselect = function(content){
     if(content == '___EC_84_A0_ED_83_9D__' || content == '--Select--' || content == '___ED_83_80_EC_9E_85__' || content == '--Type--'){
         content = 'unselected';
     }

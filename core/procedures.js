@@ -24,20 +24,20 @@
  */
 'use strict';
 
-goog.provide('Blockly.Procedures');
+goog.provide('Blockly.Cake.Procedures');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.FieldVariable');
-goog.require('Blockly.Names');
-goog.require('Blockly.Workspace');
-goog.require('Blockly.Block');
-goog.require('Blockly.Connection');
+// goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.FieldVariable');
+goog.require('Blockly.Cake.Names');
+goog.require('Blockly.Cake.Workspace');
+goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.Connection');
 
 /**
  * Category to separate procedure names from variables and generated functions.
  */
-Blockly.Procedures.NAME_TYPE = 'PROCEDURE';
+Blockly.Cake.Procedures.NAME_TYPE = 'PROCEDURE';
 
 /**
  * Find all user-created procedure definitions.
@@ -46,8 +46,8 @@ Blockly.Procedures.NAME_TYPE = 'PROCEDURE';
  *     Each procedure is defined by a three-element list of name, parameter
  *     list, and return value boolean.
  */
-Blockly.Procedures.allProcedures = function() {
-  var blocks = Blockly.mainWorkspace.getAllBlocks();
+Blockly.Cake.Procedures.allProcedures = function() {
+  var blocks = Blockly.Cake.mainWorkspace.getAllBlocks();
   var proceduresReturn = [];
   var proceduresNoReturn = [];
   for (var x = 0; x < blocks.length; x++) {
@@ -64,8 +64,8 @@ Blockly.Procedures.allProcedures = function() {
     }
   }
 
-  proceduresNoReturn.sort(Blockly.Procedures.procTupleComparator_);
-  proceduresReturn.sort(Blockly.Procedures.procTupleComparator_);
+  proceduresNoReturn.sort(Blockly.Cake.Procedures.procTupleComparator_);
+  proceduresReturn.sort(Blockly.Cake.Procedures.procTupleComparator_);
   return [proceduresNoReturn, proceduresReturn];
 };
 
@@ -77,7 +77,7 @@ Blockly.Procedures.allProcedures = function() {
  * @return {number} -1, 0, or 1 to signify greater than, equality, or less than.
  * @private
  */
-Blockly.Procedures.procTupleComparator_ = function(ta, tb) {
+Blockly.Cake.Procedures.procTupleComparator_ = function(ta, tb) {
   var a = ta[1].toLowerCase();
   var b = tb[1].toLowerCase();
   if (a > b) {
@@ -92,15 +92,15 @@ Blockly.Procedures.procTupleComparator_ = function(ta, tb) {
 /**
  * Ensure two identically-named procedures don't exist.
  * @param {string} name Proposed procedure name.
- * @param {!Blockly.Block} block Block to disambiguate.
+ * @param {!Blockly.Cake.Block} block Block to disambiguate.
  * @return {string} Non-colliding name.
  */
-Blockly.Procedures.findLegalName = function(name, block) {
+Blockly.Cake.Procedures.findLegalName = function(name, block) {
   if (block.isInFlyout) {
     // Flyouts can have multiple procedures called 'procedure'.
     return name;
   }
-  while (!Blockly.Procedures.isLegalName(name, block.workspace, block)) {
+  while (!Blockly.Cake.Procedures.isLegalName(name, block.workspace, block)) {
     // Collision with another procedure.
     var r = name.match(/^(.*?)(\d+)$/);
     if (!r) {
@@ -116,12 +116,12 @@ Blockly.Procedures.findLegalName = function(name, block) {
  * Does this procedure have a legal name?  Illegal names include names of
  * procedures already defined.
  * @param {string} name The questionable name.
- * @param {!Blockly.Workspace} workspace The workspace to scan for collisions.
- * @param {Blockly.Block} opt_exclude Optional block to exclude from
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to scan for collisions.
+ * @param {Blockly.Cake.Block} opt_exclude Optional block to exclude from
  *     comparisons (one doesn't want to collide with oneself).
  * @return {boolean} True if the name is legal.
  */
-Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
+Blockly.Cake.Procedures.isLegalName = function(name, workspace, opt_exclude) {
   var blocks = workspace.getAllBlocks();
   // Iterate through every block and check the name.
   for (var x = 0; x < blocks.length; x++) {
@@ -144,13 +144,13 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
 
           // for function, structures
           if(func == blocks[x].getProcedureDef) {
-              if (Blockly.Names.equals(procName[1], name)) {
+              if (Blockly.Cake.Names.equals(procName[1], name)) {
                   return false;
               }
           }
 
           // for variables, pointer, array
-          else if (Blockly.Names.equals(procName[0], name)) {
+          else if (Blockly.Cake.Names.equals(procName[0], name)) {
               return false;
           }
       }
@@ -162,14 +162,14 @@ Blockly.Procedures.isLegalName = function(name, workspace, opt_exclude) {
  * Rename a procedure.  Called by the editable field.
  * @param {string} text The proposed new name.
  * @return {string} The accepted name.
- * @this {!Blockly.FieldVariable}
+ * @this {!Blockly.Cake.FieldVariable}
  */
-Blockly.Procedures.rename = function(text) {
+Blockly.Cake.Procedures.rename = function(text) {
   // Strip leading and trailing whitespace.  Beyond this, all names are legal.
   text = text.replace(/^[\s\xa0]+|[\s\xa0]+$/g, '');
 
   // Ensure two identically-named procedures don't exist.
-  text = Blockly.Procedures.findLegalName(text, this.sourceBlock_);
+  text = Blockly.Cake.Procedures.findLegalName(text, this.sourceBlock_);
   // Rename any callers.
   var blocks = this.sourceBlock_.workspace.getAllBlocks();
   for (var x = 0; x < blocks.length; x++) {
@@ -178,33 +178,33 @@ Blockly.Procedures.rename = function(text) {
       func.call(blocks[x], this.text_, text);
     }
   }
-    text = Blockly.Names.prototype.safeName_(text);
+    text = Blockly.Cake.Names.prototype.safeName_(text);
 
     return text;
 };
 
 /**
  * Construct the blocks required by the flyout for the procedure category.
- * @param {!Array.<!Blockly.Block>} blocks List of blocks to show.
+ * @param {!Array.<!Blockly.Cake.Block>} blocks List of blocks to show.
  * @param {!Array.<number>} gaps List of widths between blocks.
  * @param {number} margin Standard margin width for calculating gaps.
- * @param {!Blockly.Workspace} workspace The flyout's workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The flyout's workspace.
  */
-Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
-  if (Blockly.Blocks['procedures_defnoreturn']) {
-    var block = Blockly.Block.obtain(workspace, 'procedures_defnoreturn');
+Blockly.Cake.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
+  if (Blockly.Cake.Blocks['procedures_defnoreturn']) {
+    var block = Blockly.Cake.Block.obtain(workspace, 'procedures_defnoreturn');
       block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
   }
-  if (Blockly.Blocks['procedures_defreturn']) {
-    var block = Blockly.Block.obtain(workspace, 'procedures_defreturn');
+  if (Blockly.Cake.Blocks['procedures_defreturn']) {
+    var block = Blockly.Cake.Block.obtain(workspace, 'procedures_defreturn');
     block.initSvg();
     blocks.push(block);
     gaps.push(margin * 2);
   }
-    if (Blockly.Blocks['procedures_return']) {
-        var block = Blockly.Block.obtain(workspace, 'procedures_return');
+    if (Blockly.Cake.Blocks['procedures_return']) {
+        var block = Blockly.Cake.Block.obtain(workspace, 'procedures_return');
         block.initSvg();
         blocks.push(block);
         gaps.push(margin * 2);
@@ -216,7 +216,7 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
 
   function populateProcedures(procedureList, templateName) {
     for (var x = 0; x < procedureList.length; x++) {
-      var block = Blockly.Block.obtain(workspace, templateName);
+      var block = Blockly.Cake.Block.obtain(workspace, templateName);
       block.setFieldValue(procedureList[x][1], 'NAME');
       var tempIds = [];
       for (var t = 0; t < procedureList[x][3].length; t++) {
@@ -229,7 +229,7 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
     }
   }
 
-  var tuple = Blockly.Procedures.allProcedures();
+  var tuple = Blockly.Cake.Procedures.allProcedures();
   populateProcedures(tuple[0], 'procedures_callnoreturn');
   populateProcedures(tuple[1], 'procedures_callreturn');
 };
@@ -237,10 +237,10 @@ Blockly.Procedures.flyoutCategory = function(blocks, gaps, margin, workspace) {
 /**
  * Find all the callers of a named procedure.
  * @param {string} name Name of procedure.
- * @param {!Blockly.Workspace} workspace The workspace to find callers in.
- * @return {!Array.<!Blockly.Block>} Array of caller blocks.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to find callers in.
+ * @return {!Array.<!Blockly.Cake.Block>} Array of caller blocks.
  */
-Blockly.Procedures.getCallers = function(name, workspace) {
+Blockly.Cake.Procedures.getCallers = function(name, workspace) {
   var callers = [];
   var blocks = workspace.getAllBlocks();
   // Iterate through every block and check the name.
@@ -249,7 +249,7 @@ Blockly.Procedures.getCallers = function(name, workspace) {
     if (func) {
       var procName = func.call(blocks[x]);
       // Procedure name may be null if the block is only half-built.
-      if (procName && Blockly.Names.equals(procName, name)) {
+      if (procName && Blockly.Cake.Names.equals(procName, name)) {
         callers.push(blocks[x]);
       }
     }
@@ -261,10 +261,10 @@ Blockly.Procedures.getCallers = function(name, workspace) {
  * When a procedure definition is disposed of, find and dispose of all its
  *     callers.
  * @param {string} name Name of deleted procedure definition.
- * @param {!Blockly.Workspace} workspace The workspace to delete callers from.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to delete callers from.
  */
-Blockly.Procedures.disposeCallers = function(name, workspace) {
-  var callers = Blockly.Procedures.getCallers(name, workspace);
+Blockly.Cake.Procedures.disposeCallers = function(name, workspace) {
+  var callers = Blockly.Cake.Procedures.getCallers(name, workspace);
   for (var x = 0; x < callers.length; x++) {
     callers[x].dispose(true, false);
   }
@@ -274,13 +274,13 @@ Blockly.Procedures.disposeCallers = function(name, workspace) {
  * When a procedure definition changes its parameters, find and edit all its
  * callers.
  * @param {string} name Name of edited procedure definition.
- * @param {!Blockly.Workspace} workspace The workspace to delete callers from.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to delete callers from.
  * @param {!Array.<string>} paramNames Array of new parameter names.
  * @param {!Array.<string>} paramIds Array of unique parameter IDs.
  */
-Blockly.Procedures.mutateCallers = function(name, types, workspace,
+Blockly.Cake.Procedures.mutateCallers = function(name, types, workspace,
   paramNames, paramTypes, paramDist, paramSpec, paramIds) {
-  var callers = Blockly.Procedures.getCallers(name, workspace);
+  var callers = Blockly.Cake.Procedures.getCallers(name, workspace);
   for (var x = 0; x < callers.length; x++) {
     callers[x].setProcedureParameters(paramNames, paramTypes, paramDist, paramSpec, paramIds);
   }
@@ -289,16 +289,16 @@ Blockly.Procedures.mutateCallers = function(name, types, workspace,
 /**
  * Find the definition block for the named procedure.
  * @param {string} name Name of procedure.
- * @param {!Blockly.Workspace} workspace The workspace to search.
- * @return {Blockly.Block} The procedure definition block, or null not found.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace to search.
+ * @return {Blockly.Cake.Block} The procedure definition block, or null not found.
  */
-Blockly.Procedures.getDefinition = function(name, workspace) {
+Blockly.Cake.Procedures.getDefinition = function(name, workspace) {
   var blocks = workspace.getAllBlocks();
   for (var x = 0; x < blocks.length; x++) {
     var func = blocks[x].getProcedureDef;
     if (func) {
       var tuple = func.call(blocks[x]);
-      if (tuple && Blockly.Names.equals(tuple[1], name)) {
+      if (tuple && Blockly.Cake.Names.equals(tuple[1], name)) {
         return blocks[x];
       }
     }
@@ -306,7 +306,7 @@ Blockly.Procedures.getDefinition = function(name, workspace) {
   return null;
 };
 
-Blockly.Procedures.typeCheck = function() {
+Blockly.Cake.Procedures.typeCheck = function() {
   var type = ['int', 'float', 'double', 'long', 'short', 'long', 'char'];
   var pointer_iteration = ['Normal', 'Double', 'Triple'];
 };
@@ -315,16 +315,16 @@ Blockly.Procedures.typeCheck = function() {
  * @param {string} returnType Return type of function
  * @param {string, integer, float, double, etc} returnValue Actual return value of function
  */
-Blockly.Procedures.returnTypeCheck = function(returnType, returnValue) {
+Blockly.Cake.Procedures.returnTypeCheck = function(returnType, returnValue) {
   var available = true;
 
   //if return value is not proper, block show the warning meesage
   if (!available) {
-    Blockly.Block.setWarningText('Warning: return value is not proper.\nPlease confirm the return type');
+    Blockly.Cake.Block.setWarningText('Warning: return value is not proper.\nPlease confirm the return type');
   }
 };
 
-Blockly.Procedures.getTypePlusArgs = function(block) {
+Blockly.Cake.Procedures.getTypePlusArgs = function(block) {
     var args = [];
     var argTypes = [];
     var argDist = [];
@@ -332,8 +332,8 @@ Blockly.Procedures.getTypePlusArgs = function(block) {
     var typePlusArgs = [];
 
     for (var x = 0; x < block.arguments_.length; x++) {
-        args[x] = Blockly.cake.variableDB_.getName(block.arguments_[x],
-            Blockly.Variables.NAME_TYPE);
+        args[x] = Blockly.Cake.cake.variableDB_.getName(block.arguments_[x],
+            Blockly.Cake.Variables.NAME_TYPE);
         argTypes[x] = block.types_[x];
         argDist[x] = block.dist_[x];
         argSpec[x] = block.spec_[x];

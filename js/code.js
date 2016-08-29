@@ -4,18 +4,18 @@ var rtl = (document.location.search == '?rtl');
 var block = null;
 
 function start() {
-  Blockly.inject(document.getElementById('blocklyDiv'), 
+  Blockly.Cake.inject(document.getElementById('blocklyDiv'),
       {
-        path: '../', 
+        path: '../',
         toolbox: document.getElementById('toolbox')
       }
   );
-  Blockly.addChangeListener(renderContent);
+  Blockly.Cake.addChangeListener(renderContent);
 }
 
 function renderContent() {
   var content = document.getElementById('code');
-  var code = Blockly.cake.workspaceToCode();
+  var code = Blockly.Cake.cake.workspaceToCode();
   content.textContent = code;
   if (typeof prettyPrintOne == 'function') {
     code = content.innerHTML;
@@ -28,9 +28,9 @@ function renderContent() {
  * Discard all blocks from the workspace.
  */
 function discard() {
-  var count = Blockly.mainWorkspace.getAllBlocks().length;
+  var count = Blockly.Cake.mainWorkspace.getAllBlocks().length;
   if (count < 2 || window.confirm("Remove all blocks?")) {
-    Blockly.mainWorkspace.clear();
+    Blockly.Cake.mainWorkspace.clear();
     window.location.hash = '';
   }
 }
@@ -60,7 +60,7 @@ jQuery(function($, undefined) {
  * https://github.com/eligrey/FileSaver.js
  */
 function downloadCode() {
-  var code = Blockly.cake.workspaceToCode();
+  var code = Blockly.Cake.cake.workspaceToCode();
   var codeArray = [];
   codeArray.push(code);
   console.log(code);

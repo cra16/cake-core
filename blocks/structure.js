@@ -19,28 +19,28 @@
  */
 
 /**
- * @fileoverview Procedure blocks for Blockly.
+ * @fileoverview Procedure blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.structure');
+goog.provide('Blockly.Cake.Blocks.structure');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['structure_define'] = {
+Blockly.Cake.Blocks['structure_define'] = {
     init: function() {
         this.setColour(370);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.STRUCTURE_DEFINE_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.STRUCTURE_DEFINE_NAME, this);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STRUCTURE_DEFINE_TITLE)
-            .appendField(new Blockly.FieldTextInput(name,
-                Blockly.Procedures.rename), 'NAME')
+            .appendField(Blockly.Cake.Msg.STRUCTURE_DEFINE_TITLE)
+            .appendField(new Blockly.Cake.FieldTextInput(name,
+                Blockly.Cake.Procedures.rename), 'NAME')
             .appendField('', 'PARAMS');
-        this.setMutator(new Blockly.Mutator(['structure_mutatormem', 'structure_mutatormem_pointer', 'structure_mutatormem_array']));
-        this.setTooltip(Blockly.Msg.STRUCTURE_DEFINE_TOOPTIP);
+        this.setMutator(new Blockly.Cake.Mutator(['structure_mutatormem', 'structure_mutatormem_pointer', 'structure_mutatormem_array']));
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_DEFINE_TOOPTIP);
         this.members_ = [];
         this.types_ = [];
         this.dist_ = [];
@@ -48,7 +48,7 @@ Blockly.Blocks['structure_define'] = {
         this.statementConnection_ = null;
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.tag = Blockly.Msg.TAG_STRUCTURE_DEFINE;
+        this.tag = Blockly.Cake.Msg.TAG_STRUCTURE_DEFINE;
     },
     initName: function() {
         this.setFieldValue('', 'NAME');
@@ -65,14 +65,14 @@ Blockly.Blocks['structure_define'] = {
             hash['arg_' + this.members_[x].toLowerCase()] = true;
         }
         if (badArg) {
-            this.setWarningText(Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
+            this.setWarningText(Blockly.Cake.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
         } else {
             this.setWarningText(null);
         }
         // Merge the arguments into a human-readable list.
         var paramString = '';
         if (this.members_.length) {
-            paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS;
+            paramString = Blockly.Cake.Msg.PROCEDURES_BEFORE_PARAMS;
             for (var x = 0; x < this.members_.length; x++) {
                 if (x == 0) {
                     if(this.dist_[x]=='v'){
@@ -103,7 +103,7 @@ Blockly.Blocks['structure_define'] = {
     /**
      * Create XML to represent the argument inputs.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         var container = document.createElement('mutation');
@@ -127,7 +127,7 @@ Blockly.Blocks['structure_define'] = {
     /**
      * Parse XML to restore the argument inputs.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         this.members_ = [];
@@ -151,12 +151,12 @@ Blockly.Blocks['structure_define'] = {
     },
     /**
      * Populate the mutator's dialog with this block's components.
-     * @param {!Blockly.Workspace} workspace Mutator's workspace.
-     * @return {!Blockly.Block} Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Cake.Block} Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     decompose: function(workspace) {
-        var containerBlock = Blockly.Block.obtain(workspace,
+        var containerBlock = Blockly.Cake.Block.obtain(workspace,
             'structure_mutatorcontainer');
         containerBlock.initSvg();
 
@@ -166,20 +166,20 @@ Blockly.Blocks['structure_define'] = {
         for (var x = 0; x < this.members_.length; x++) {
             var paramBlock;
             if(this.dist_[x]=='v'){
-                paramBlock = Blockly.Block.obtain(workspace, 'structure_mutatormem');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'structure_mutatormem');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.members_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
             }
             else if(this.dist_[x]=='a'){
-                paramBlock = Blockly.Block.obtain(workspace, 'structure_mutatormem_array');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'structure_mutatormem_array');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.members_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
                 paramBlock.setFieldValue(this.spec_[x], 'LENGTH');
             }
             else if(this.dist_[x]=='p'){
-                paramBlock = Blockly.Block.obtain(workspace, 'structure_mutatormem_pointer');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'structure_mutatormem_pointer');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.members_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
@@ -191,14 +191,14 @@ Blockly.Blocks['structure_define'] = {
             connection = paramBlock.nextConnection;
         }
         // Initialize procedure's callers with blank IDs.
-        Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
+        Blockly.Cake.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
             this.workspace, this.members_, this.types_, this.dist_, this.spec_, null);
         return containerBlock;
     },
     /**
      * Reconfigure this block based on the mutator dialog's components.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     compose: function(containerBlock) {
         // Parameter list.
@@ -226,7 +226,7 @@ Blockly.Blocks['structure_define'] = {
             paramBlock.nextConnection.targetBlock();
         }
         this.updateParams_();
-        Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
+        Blockly.Cake.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
             this.workspace, this.members_, this.types_, this.dist_, this.spec_, this.paramIds_);
 
         // Show/hide the statement input.
@@ -262,19 +262,19 @@ Blockly.Blocks['structure_define'] = {
     },
     /**
      * Dispose of any callers.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     dispose: function() {
         var name = this.getFieldValue('NAME');
         var type = this.getFieldValue('TYPES');
-        Blockly.Procedures.disposeCallers(name, this.workspace);
+        Blockly.Cake.Procedures.disposeCallers(name, this.workspace);
         // Call parent's destructor.
-        Blockly.Block.prototype.dispose.apply(this, arguments);
+        Blockly.Cake.Block.prototype.dispose.apply(this, arguments);
     },
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getMems: function() {
         return this.members_;
@@ -287,12 +287,12 @@ Blockly.Blocks['structure_define'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
         var change = false;
         for (var x = 0; x < this.members_.length; x++) {
-            if (Blockly.Names.equals(oldName, this.members_[x])) {
+            if (Blockly.Cake.Names.equals(oldName, this.members_[x])) {
                 this.members_[x] = newName;
                 change = true;
             }
@@ -304,7 +304,7 @@ Blockly.Blocks['structure_define'] = {
                 var blocks = this.mutator.workspace_.getAllBlocks();
                 for (var x = 0, block; block = blocks[x]; x++) {
                     if (block.type == 'structure_mutatormem' &&
-                        Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+                        Blockly.Cake.Names.equals(oldName, block.getFieldValue('NAME'))) {
                         block.setFieldValue(newName, 'NAME');
                     }
                 }
@@ -323,34 +323,34 @@ Blockly.Blocks['structure_define'] = {
     callType_: 'procedures_callnoreturn'
 };
 
-Blockly.Blocks['structure_declare'] = {
+Blockly.Cake.Blocks['structure_declare'] = {
     /**
      * Block for pointer setter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(370);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.STRUCTURE_DECLARE_NAME, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.STRUCTURE_DECLARE_NAME, this);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.STRUCTURE_DECLARE_TITLE + ' %1 ' +
-            Blockly.Msg.STRUCTURE_DECLARE_TALE + ' %2',
-            ['TYPES', new Blockly.FieldStructure(Blockly.Msg.SELECT_TYPE, null)],
-            ['NAME', new Blockly.FieldTextInput(name, Blockly.Procedures.rename), Blockly.ALIGN_RIGHT],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.STRUCTURE_DECLARE_TITLE + ' %1 ' +
+            Blockly.Cake.Msg.STRUCTURE_DECLARE_TALE + ' %2',
+            ['TYPES', new Blockly.Cake.FieldStructure(Blockly.Cake.Msg.SELECT_TYPE, null)],
+            ['NAME', new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename), Blockly.Cake.ALIGN_RIGHT],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_DECLARE_TOOPTIP);
-        this.tag = Blockly.Msg.TAG_STRUCTURE_DECLARE;
-        // this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_DECLARE_TOOPTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STRUCTURE_DECLARE;
+        // this.contextMenuMsg_ = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET;
         // this.contextMenuType_ = 'variables_pointer_get';
     },
-    initName: Blockly.Blocks['structure_define'].initName,
+    initName: Blockly.Cake.Blocks['structure_define'].initName,
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getTypes: function() {
         return [this.getFieldValue('TYPES')];
@@ -360,10 +360,10 @@ Blockly.Blocks['structure_declare'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getFieldValue('NAME'))) {
+        if (Blockly.Cake.Names.equals(oldName, this.getFieldValue('NAME'))) {
             this.setFieldValue(newName, 'NAME');
         }
     },
@@ -374,23 +374,23 @@ Blockly.Blocks['structure_declare'] = {
         return [this.getFieldValue('NAME')];
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.variablePlaceCheck
+    onchange: Blockly.Cake.Blocks.variablePlaceCheck
 };
 
-Blockly.Blocks['structure_get'] = {
+Blockly.Cake.Blocks['structure_get'] = {
     /**
      * Block for variable getter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(370);
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
-            .appendField(Blockly.Msg.STRUCTURE_GET_MEMBER)
-            .appendField(new Blockly.FieldStructureMember(Blockly.Msg.SELECT_MENU, null, this), 'Mem');
+            .appendField(Blockly.Cake.Msg.STRUCTURE_GET_MEMBER)
+            .appendField(new Blockly.Cake.FieldStructureMember(Blockly.Cake.Msg.SELECT_MENU, null, this), 'Mem');
         this.setOutput(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_GET_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STRUCTURE_GET;
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_GET_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STRUCTURE_GET;
     },
 
     getStructureCall: function() {
@@ -402,20 +402,20 @@ Blockly.Blocks['structure_get'] = {
      * If the name matches this block's procedure, rename it.
      * @param {string} oldName Previous name of procedure.
      * @param {string} newName Renamed procedure.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameProcedure: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getStructureCall())) {
+        if (Blockly.Cake.Names.equals(oldName, this.getStructureCall())) {
             this.setFieldValue(newName, 'NAME');
             this.setTooltip(
-                (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+                (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
                     .replace('%1', newName));
         }
     },
     /**
      * Create XML to represent the (non-editable) name and arguments.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         var container = document.createElement('mutation');
@@ -425,36 +425,36 @@ Blockly.Blocks['structure_get'] = {
     /**
      * Parse XML to restore the (non-editable) name and parameters.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         var name = xmlElement.getAttribute('name');
         this.setFieldValue(name, 'NAME');
         this.setTooltip(
-            (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+            (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
 
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['structure_set'] = {
+Blockly.Cake.Blocks['structure_set'] = {
     /**
      * Block for variable setter.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(370);
         this.appendDummyInput('struct')
             .appendField('', 'NAME')
-            .appendField(Blockly.Msg.STRUCTURE_SET_MEMBER)
-            .appendField(new Blockly.FieldStructureMember(Blockly.Msg.SELECT_MENU, null, this), 'Mem');
+            .appendField(Blockly.Cake.Msg.STRUCTURE_SET_MEMBER)
+            .appendField(new Blockly.Cake.FieldStructureMember(Blockly.Cake.Msg.SELECT_MENU, null, this), 'Mem');
         this.appendValueInput('VALUE');
         this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_SET_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STRUCTURE_SET;
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_SET_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STRUCTURE_SET;
     },
 
     getStructureCall: function() {
@@ -466,20 +466,20 @@ Blockly.Blocks['structure_set'] = {
      * If the name matches this block's procedure, rename it.
      * @param {string} oldName Previous name of procedure.
      * @param {string} newName Renamed procedure.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameProcedure: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getStructureCall())) {
+        if (Blockly.Cake.Names.equals(oldName, this.getStructureCall())) {
             this.setFieldValue(newName, 'NAME');
             this.setTooltip(
-                (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+                (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
                     .replace('%1', newName));
         }
     },
     /**
      * Create XML to represent the (non-editable) name and arguments.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         var container = document.createElement('mutation');
@@ -489,56 +489,56 @@ Blockly.Blocks['structure_set'] = {
     /**
      * Parse XML to restore the (non-editable) name and parameters.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         var name = xmlElement.getAttribute('name');
         this.setFieldValue(name, 'NAME');
         this.setTooltip(
-            (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+            (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
 
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['structure_mutatorcontainer'] = {
+Blockly.Cake.Blocks['structure_mutatorcontainer'] = {
     /**
      * Mutator block for procedure container.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(370);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TITLE);
+            .appendField(Blockly.Cake.Msg.STRUCTURE_MUTATORCONTAINER_TITLE);
         this.appendStatementInput('STACK');
-        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_MUTATORCONTAINER_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['structure_mutatormem'] = {
+Blockly.Cake.Blocks['structure_mutatormem'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(370);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STRUCTURE_MUTATORMEM_VAR)
-            .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
-            .appendField(Blockly.Msg.STRUCTURE_MUTATORARG_NAME)
-            .appendField(new Blockly.FieldTextInput('x', this.validator_), 'NAME');
+            .appendField(Blockly.Cake.Msg.STRUCTURE_MUTATORMEM_VAR)
+            .appendField(new Blockly.Cake.FieldDropdown(TYPE), 'TYPES')
+            .appendField(Blockly.Cake.Msg.STRUCTURE_MUTATORARG_NAME)
+            .appendField(new Blockly.Cake.FieldTextInput('x', this.validator_), 'NAME');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -548,7 +548,7 @@ Blockly.Blocks['structure_mutatormem'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
@@ -565,28 +565,28 @@ Blockly.Blocks['structure_mutatormem'] = {
     }
 };
 
-Blockly.Blocks['structure_mutatormem_array'] = {
+Blockly.Cake.Blocks['structure_mutatormem_array'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(370);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.STRUCTURE_MUTATORMEM_ARRAY +'%1 ' + Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %2 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['LENGTH', new Blockly.FieldTextInput('1')], ['NAME', new Blockly.FieldTextInput('z', Blockly.Blocks.CNameValidator)],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.STRUCTURE_MUTATORMEM_ARRAY +'%1 ' + Blockly.Cake.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.Cake.FieldDropdown(TYPE)], ['LENGTH', new Blockly.Cake.FieldTextInput('1')], ['NAME', new Blockly.Cake.FieldTextInput('z', Blockly.Cake.Blocks.CNameValidator)],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -596,7 +596,7 @@ Blockly.Blocks['structure_mutatormem_array'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
@@ -613,34 +613,34 @@ Blockly.Blocks['structure_mutatormem_array'] = {
     }
 };
 
-Blockly.Blocks['structure_mutatormem_pointer'] = {
+Blockly.Cake.Blocks['structure_mutatormem_pointer'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         var ITERATION =
             [
-                [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, '*'],
-                [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, '**'],
-                [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, '***']
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_NORMAL, '*'],
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_DOUBLE, '**'],
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_TRIPLE, '***']
             ];
         this.setColour(370);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            Blockly.Msg.STRUCTURE_MUTATORMEM_POINTER+ '%1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['ITERATION', new Blockly.FieldDropdown(ITERATION)], ['NAME', new Blockly.FieldTextInput('y', Blockly.Blocks.CNameValidator)],
-            Blockly.ALIGN_RIGHT);
+            Blockly.Cake.Msg.STRUCTURE_MUTATORMEM_POINTER+ '%1 ' + Blockly.Cake.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.Cake.FieldDropdown(TYPE)], ['ITERATION', new Blockly.Cake.FieldDropdown(ITERATION)], ['NAME', new Blockly.Cake.FieldTextInput('y', Blockly.Cake.Blocks.CNameValidator)],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STRUCTURE_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -650,7 +650,7 @@ Blockly.Blocks['structure_mutatormem_pointer'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');

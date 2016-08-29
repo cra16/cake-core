@@ -24,9 +24,9 @@
  */
 'use strict';
 
-goog.provide('Blockly.Toolbox');
+goog.provide('Blockly.Cake.Toolbox');
 
-goog.require('Blockly.Flyout');
+goog.require('Blockly.Cake.Flyout');
 goog.require('goog.events.BrowserFeature');
 goog.require('goog.html.SafeHtml');
 goog.require('goog.style');
@@ -38,14 +38,14 @@ goog.require('goog.ui.tree.TreeNode');
  * Width of the toolbox.
  * @type {number}
  */
-Blockly.Toolbox.width = 0;
+Blockly.Cake.Toolbox.width = 0;
 
 /**
  * The SVG group currently selected.
  * @type {SVGGElement}
  * @private
  */
-Blockly.Toolbox.selectedOption_ = null;
+Blockly.Cake.Toolbox.selectedOption_ = null;
 
 /**
  * Configuration constants for Closure's tree UI.
@@ -53,7 +53,7 @@ Blockly.Toolbox.selectedOption_ = null;
  * @const
  * @private
  */
-Blockly.Toolbox.CONFIG_ = {
+Blockly.Cake.Toolbox.CONFIG_ = {
   indentWidth: 19,
   cssRoot: 'blocklyTreeRoot',
   cssHideRoot: 'blocklyHidden',
@@ -71,28 +71,28 @@ Blockly.Toolbox.CONFIG_ = {
  * @param {!Element} svg The top-level SVG element.
  * @param {!Element} container The SVG's HTML parent element.
  */
-Blockly.Toolbox.createDom = function(svg, container) {
+Blockly.Cake.Toolbox.createDom = function(svg, container) {
   // Create an HTML container for the Toolbox menu.
-  Blockly.Toolbox.HtmlDiv = goog.dom.createDom('div', 'blocklyToolboxDiv');
-  Blockly.Toolbox.HtmlDiv.setAttribute('dir', Blockly.RTL ? 'RTL' : 'LTR');
-  container.appendChild(Blockly.Toolbox.HtmlDiv);
+  Blockly.Cake.Toolbox.HtmlDiv = goog.dom.createDom('div', 'blocklyToolboxDiv');
+  Blockly.Cake.Toolbox.HtmlDiv.setAttribute('dir', Blockly.Cake.RTL ? 'RTL' : 'LTR');
+  container.appendChild(Blockly.Cake.Toolbox.HtmlDiv);
 
   /**
-   * @type {!Blockly.Flyout}
+   * @type {!Blockly.Cake.Flyout}
    * @private
    */
-  Blockly.Toolbox.flyout_ = new Blockly.Flyout();
-  svg.appendChild(Blockly.Toolbox.flyout_.createDom());
+  Blockly.Cake.Toolbox.flyout_ = new Blockly.Cake.Flyout();
+  svg.appendChild(Blockly.Cake.Toolbox.flyout_.createDom());
 
   // Clicking on toolbar closes popups.
-  Blockly.bindEvent_(Blockly.Toolbox.HtmlDiv, 'mousedown', null,
+  Blockly.Cake.bindEvent_(Blockly.Cake.Toolbox.HtmlDiv, 'mousedown', null,
       function(e) {
-        if (Blockly.isRightButton(e) || e.target == Blockly.Toolbox.HtmlDiv) {
+        if (Blockly.Cake.isRightButton(e) || e.target == Blockly.Cake.Toolbox.HtmlDiv) {
           // Close flyout.
-          Blockly.hideChaff(false);
+          Blockly.Cake.hideChaff(false);
         } else {
           // Just close popups.
-          Blockly.hideChaff(true);
+          Blockly.Cake.hideChaff(true);
         }
       });
 };
@@ -100,77 +100,77 @@ Blockly.Toolbox.createDom = function(svg, container) {
 /**
  * Initializes the toolbox.
  */
-Blockly.Toolbox.init = function() {
-    Blockly.Toolbox.CONFIG_['cleardotPath'] =
-        Blockly.pathToBlockly + 'media/1x1.gif';
-    Blockly.Toolbox.CONFIG_['cssCollapsedFolderIcon'] =
-        'blocklyTreeIconClosed' + (Blockly.RTL ? 'Rtl' : 'Ltr');
-    var tree = new Blockly.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
-        Blockly.Toolbox.CONFIG_);
-    Blockly.Toolbox.tree_ = tree;
+Blockly.Cake.Toolbox.init = function() {
+    Blockly.Cake.Toolbox.CONFIG_['cleardotPath'] =
+        Blockly.Cake.pathToBlockly + 'media/1x1.gif';
+    Blockly.Cake.Toolbox.CONFIG_['cssCollapsedFolderIcon'] =
+        'blocklyTreeIconClosed' + (Blockly.Cake.RTL ? 'Rtl' : 'Ltr');
+    var tree = new Blockly.Cake.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
+        Blockly.Cake.Toolbox.CONFIG_);
+    Blockly.Cake.Toolbox.tree_ = tree;
     tree.setShowRootNode(false);
     tree.setShowLines(false);
     tree.setShowExpandIcons(false);
     tree.setSelectedItem(null);
 
-    Blockly.Toolbox.HtmlDiv.style.display = 'block';
-    Blockly.Toolbox.flyout_.init(Blockly.mainWorkspace, true);
-    Blockly.Toolbox.populate_();
-    tree.render(Blockly.Toolbox.HtmlDiv);
+    Blockly.Cake.Toolbox.HtmlDiv.style.display = 'block';
+    Blockly.Cake.Toolbox.flyout_.init(Blockly.Cake.mainWorkspace, true);
+    Blockly.Cake.Toolbox.populate_();
+    tree.render(Blockly.Cake.Toolbox.HtmlDiv);
 
     // If the document resizes, reposition the toolbox.
     goog.events.listen(window, goog.events.EventType.RESIZE,
-        Blockly.Toolbox.position_);
-    Blockly.Toolbox.position_();
+        Blockly.Cake.Toolbox.position_);
+    Blockly.Cake.Toolbox.position_();
 };
 
 /**
  * Updates the toolbox.
  */
-Blockly.Toolbox.update = function() {
-    //Blockly.Toolbox.clearData();
-    Blockly.Toolbox.CONFIG_['cleardotPath'] =
-        Blockly.pathToBlockly + 'media/1x1.gif';
-    Blockly.Toolbox.CONFIG_['cssCollapsedFolderIcon'] =
-        'blocklyTreeIconClosed' + (Blockly.RTL ? 'Rtl' : 'Ltr');
-    var tree = new Blockly.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
-        Blockly.Toolbox.CONFIG_);
-    Blockly.Toolbox.tree_ = tree;
+Blockly.Cake.Toolbox.update = function() {
+    //Blockly.Cake.Toolbox.clearData();
+    Blockly.Cake.Toolbox.CONFIG_['cleardotPath'] =
+        Blockly.Cake.pathToBlockly + 'media/1x1.gif';
+    Blockly.Cake.Toolbox.CONFIG_['cssCollapsedFolderIcon'] =
+        'blocklyTreeIconClosed' + (Blockly.Cake.RTL ? 'Rtl' : 'Ltr');
+    var tree = new Blockly.Cake.Toolbox.TreeControl(goog.html.SafeHtml.EMPTY,
+        Blockly.Cake.Toolbox.CONFIG_);
+    Blockly.Cake.Toolbox.tree_ = tree;
     tree.setShowRootNode(false);
     tree.setShowLines(false);
     tree.setShowExpandIcons(false);
     tree.setSelectedItem(null);
 
-    Blockly.Toolbox.HtmlDiv.style.display = 'block';
-    Blockly.Toolbox.flyout_.init(Blockly.mainWorkspace, true);
-    Blockly.Toolbox.populate_();
-    tree.render(Blockly.Toolbox.HtmlDiv);
+    Blockly.Cake.Toolbox.HtmlDiv.style.display = 'block';
+    Blockly.Cake.Toolbox.flyout_.init(Blockly.Cake.mainWorkspace, true);
+    Blockly.Cake.Toolbox.populate_();
+    tree.render(Blockly.Cake.Toolbox.HtmlDiv);
 
     // If the document resizes, reposition the toolbox.
     goog.events.listen(window, goog.events.EventType.RESIZE,
-        Blockly.Toolbox.position_);
-    Blockly.Toolbox.position_();
+        Blockly.Cake.Toolbox.position_);
+    Blockly.Cake.Toolbox.position_();
 };
 
 /**
  * Move the toolbox to the edge.
  * @private
  */
-Blockly.Toolbox.position_ = function() {
-  var treeDiv = Blockly.Toolbox.HtmlDiv;
-  var svgBox = goog.style.getBorderBox(Blockly.svg);
-  var svgSize = Blockly.svgSize();
-  if (Blockly.RTL) {
-    var xy = Blockly.convertCoordinates(0, 0, false);
+Blockly.Cake.Toolbox.position_ = function() {
+  var treeDiv = Blockly.Cake.Toolbox.HtmlDiv;
+  var svgBox = goog.style.getBorderBox(Blockly.Cake.svg);
+  var svgSize = Blockly.Cake.svgSize();
+  if (Blockly.Cake.RTL) {
+    var xy = Blockly.Cake.convertCoordinates(0, 0, false);
     treeDiv.style.left = (xy.x + svgSize.width - treeDiv.offsetWidth) + 'px';
   } else {
     treeDiv.style.marginLeft = svgBox.left;
   }
   treeDiv.style.height = (svgSize.height + 1) + 'px';
-  Blockly.Toolbox.width = treeDiv.offsetWidth;
-  if (!Blockly.RTL) {
+  Blockly.Cake.Toolbox.width = treeDiv.offsetWidth;
+  if (!Blockly.Cake.RTL) {
     // For some reason the LTR toolbox now reports as 1px too wide.
-    Blockly.Toolbox.width -= 1;
+    Blockly.Cake.Toolbox.width -= 1;
   }
 };
 
@@ -178,8 +178,8 @@ Blockly.Toolbox.position_ = function() {
  * Fill the toolbox with categories and blocks.
  * @private
  */
-Blockly.Toolbox.populate_ = function() {
-  var rootOut = Blockly.Toolbox.tree_;
+Blockly.Cake.Toolbox.populate_ = function() {
+  var rootOut = Blockly.Cake.Toolbox.tree_;
   rootOut.removeChildren();  // Delete any existing content.
   rootOut.blocks = [];
   function syncTrees(treeIn, treeOut) {
@@ -205,21 +205,21 @@ Blockly.Toolbox.populate_ = function() {
       }
     }
   }
-  syncTrees(Blockly.languageTree, Blockly.Toolbox.tree_);
+  syncTrees(Blockly.Cake.languageTree, Blockly.Cake.Toolbox.tree_);
 
   if (rootOut.blocks.length) {
     throw 'Toolbox cannot have both blocks and categories in the root level.';
   }
 
   // Fire a resize event since the toolbox may have changed width and height.
-  Blockly.fireUiEvent(window, 'resize');
+  Blockly.Cake.fireUiEvent(window, 'resize');
 };
 
 /**
  * Unhighlight any previously specified option.
  */
-Blockly.Toolbox.clearSelection = function() {
-  Blockly.Toolbox.tree_.setSelectedItem(null);
+Blockly.Cake.Toolbox.clearSelection = function() {
+  Blockly.Cake.Toolbox.tree_.setSelectedItem(null);
 };
 
 // Extending Closure's Tree UI.
@@ -234,22 +234,22 @@ Blockly.Toolbox.clearSelection = function() {
  * @constructor
  * @extends {goog.ui.tree.TreeControl}
  */
-Blockly.Toolbox.TreeControl = function(html, opt_config, opt_domHelper) {
+Blockly.Cake.Toolbox.TreeControl = function(html, opt_config, opt_domHelper) {
   goog.ui.tree.TreeControl.call(this, html, opt_config, opt_domHelper);
 };
-goog.inherits(Blockly.Toolbox.TreeControl, goog.ui.tree.TreeControl);
+goog.inherits(Blockly.Cake.Toolbox.TreeControl, goog.ui.tree.TreeControl);
 
 /**
  * Adds touch handling to TreeControl.
  * @override
  */
-Blockly.Toolbox.TreeControl.prototype.enterDocument = function() {
-  Blockly.Toolbox.TreeControl.superClass_.enterDocument.call(this);
+Blockly.Cake.Toolbox.TreeControl.prototype.enterDocument = function() {
+  Blockly.Cake.Toolbox.TreeControl.superClass_.enterDocument.call(this);
 
   // Add touch handler.
   if (goog.events.BrowserFeature.TOUCH_ENABLED) {
     var el = this.getElement();
-    Blockly.bindEvent_(el, goog.events.EventType.TOUCHSTART, this,
+    Blockly.Cake.bindEvent_(el, goog.events.EventType.TOUCHSTART, this,
         this.handleTouchEvent_);
   }
 };
@@ -258,7 +258,7 @@ Blockly.Toolbox.TreeControl.prototype.enterDocument = function() {
  * @param {!goog.events.BrowserEvent} e The browser event.
  * @private
  */
-Blockly.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
+Blockly.Cake.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
   e.preventDefault();
   var node = this.getNodeFromEvent_(e);
   if (node && e.type === goog.events.EventType.TOUCHSTART) {
@@ -276,8 +276,8 @@ Blockly.Toolbox.TreeControl.prototype.handleTouchEvent_ = function(e) {
  * @return {!goog.ui.tree.TreeNode} The new item.
  * @override
  */
-Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
-  return new Blockly.Toolbox.TreeNode(opt_html ?
+Blockly.Cake.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
+  return new Blockly.Cake.Toolbox.TreeNode(opt_html ?
       goog.html.SafeHtml.htmlEscape(opt_html) : goog.html.SafeHtml.EMPTY,
       this.getConfig(), this.getDomHelper());
 };
@@ -287,21 +287,21 @@ Blockly.Toolbox.TreeControl.prototype.createNode = function(opt_html) {
  * @param {goog.ui.tree.BaseNode} node The item to select.
  * @override
  */
-Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
+Blockly.Cake.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
   if (this.selectedItem_ == node) {
     return;
   }
   goog.ui.tree.TreeControl.prototype.setSelectedItem.call(this, node);
   if (node && node.blocks && node.blocks.length) {
-    Blockly.Toolbox.flyout_.show(node.blocks);
+    Blockly.Cake.Toolbox.flyout_.show(node.blocks);
   } else {
     // Hide the flyout.
-    Blockly.Toolbox.flyout_.hide();
+    Blockly.Cake.Toolbox.flyout_.hide();
   }
 };
 
 /**
- * An single node in the tree, customized for Blockly's UI.
+ * An single node in the tree, customized for Blockly.Cake's UI.
  * @param {!goog.html.SafeHtml} html The HTML content of the node label.
  * @param {Object=} opt_config The configuration for the tree. See
  *    goog.ui.tree.TreeControl.DefaultConfig. If not specified, a default config
@@ -310,18 +310,18 @@ Blockly.Toolbox.TreeControl.prototype.setSelectedItem = function(node) {
  * @constructor
  * @extends {goog.ui.tree.TreeNode}
  */
-Blockly.Toolbox.TreeNode = function(html, opt_config, opt_domHelper) {
+Blockly.Cake.Toolbox.TreeNode = function(html, opt_config, opt_domHelper) {
   goog.ui.tree.TreeNode.call(this, html, opt_config, opt_domHelper);
   var resize = function() {
-    Blockly.fireUiEvent(window, 'resize');
+    Blockly.Cake.fireUiEvent(window, 'resize');
   };
   // Fire a resize event since the toolbox may have changed width.
-  goog.events.listen(Blockly.Toolbox.tree_,
+  goog.events.listen(Blockly.Cake.Toolbox.tree_,
       goog.ui.tree.BaseNode.EventType.EXPAND, resize);
-  goog.events.listen(Blockly.Toolbox.tree_,
+  goog.events.listen(Blockly.Cake.Toolbox.tree_,
       goog.ui.tree.BaseNode.EventType.COLLAPSE, resize);
 };
-goog.inherits(Blockly.Toolbox.TreeNode, goog.ui.tree.TreeNode);
+goog.inherits(Blockly.Cake.Toolbox.TreeNode, goog.ui.tree.TreeNode);
 
 /**
  * Supress population of the +/- icon.
@@ -337,7 +337,7 @@ goog.ui.tree.BaseNode.prototype.getExpandIconSafeHtml = function() {
  * @param {!goog.events.BrowserEvent} e The browser event.
  * @override
  */
-Blockly.Toolbox.TreeNode.prototype.onMouseDown = function(e) {
+Blockly.Cake.Toolbox.TreeNode.prototype.onMouseDown = function(e) {
   // Expand icon.
   if (this.hasChildren() && this.isUserCollapsible_) {
     this.toggle();
@@ -356,6 +356,6 @@ Blockly.Toolbox.TreeNode.prototype.onMouseDown = function(e) {
  * @override
  * @private
  */
-Blockly.Toolbox.TreeNode.prototype.onDoubleClick_ = function(e) {
+Blockly.Cake.Toolbox.TreeNode.prototype.onDoubleClick_ = function(e) {
   // NOP.
 };

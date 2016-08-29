@@ -19,38 +19,38 @@
  */
 
 /**
- * @fileoverview A div that floats on top of Blockly.  This singleton contains
+ * @fileoverview A div that floats on top of Blockly.Cake.  This singleton contains
  *     temporary HTML UI widgets that the user is currently interacting with.
  *     E.g. text input areas, colour pickers, context menus.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.WidgetDiv');
+goog.provide('Blockly.Cake.WidgetDiv');
 
-goog.require('Blockly.Css');
+goog.require('Blockly.Cake.Css');
 goog.require('goog.dom');
 
 
 /**
- * The HTML container.  Set once by inject.js's Blockly.createDom_.
+ * The HTML container.  Set once by inject.js's Blockly.Cake.createDom_.
  * @type Element
  */
-Blockly.WidgetDiv.DIV = null;
+Blockly.Cake.WidgetDiv.DIV = null;
 
 /**
  * The object currently using this container.
  * @private
  * @type Object
  */
-Blockly.WidgetDiv.owner_ = null;
+Blockly.Cake.WidgetDiv.owner_ = null;
 
 /**
  * Optional cleanup function set by whichever object uses the widget.
  * @private
  * @type Function
  */
-Blockly.WidgetDiv.dispose_ = null;
+Blockly.Cake.WidgetDiv.dispose_ = null;
 
 /**
  * Initialize and display the widget div.  Close the old one if needed.
@@ -58,23 +58,23 @@ Blockly.WidgetDiv.dispose_ = null;
  * @param {Function} dispose Optional cleanup function to be run when the widget
  *   is closed.
  */
-Blockly.WidgetDiv.show = function(newOwner, dispose) {
-  Blockly.WidgetDiv.hide();
-  Blockly.WidgetDiv.owner_ = newOwner;
-  Blockly.WidgetDiv.dispose_ = dispose;
-  Blockly.WidgetDiv.DIV.style.display = 'block';
+Blockly.Cake.WidgetDiv.show = function(newOwner, dispose) {
+  Blockly.Cake.WidgetDiv.hide();
+  Blockly.Cake.WidgetDiv.owner_ = newOwner;
+  Blockly.Cake.WidgetDiv.dispose_ = dispose;
+  Blockly.Cake.WidgetDiv.DIV.style.display = 'block';
 };
 
 /**
  * Destroy the widget and hide the div.
  */
-Blockly.WidgetDiv.hide = function() {
-  if (Blockly.WidgetDiv.owner_) {
-    Blockly.WidgetDiv.DIV.style.display = 'none';
-    Blockly.WidgetDiv.dispose_ && Blockly.WidgetDiv.dispose_();
-    Blockly.WidgetDiv.owner_ = null;
-    Blockly.WidgetDiv.dispose_ = null;
-    goog.dom.removeChildren(Blockly.WidgetDiv.DIV);
+Blockly.Cake.WidgetDiv.hide = function() {
+  if (Blockly.Cake.WidgetDiv.owner_) {
+    Blockly.Cake.WidgetDiv.DIV.style.display = 'none';
+    Blockly.Cake.WidgetDiv.dispose_ && Blockly.Cake.WidgetDiv.dispose_();
+    Blockly.Cake.WidgetDiv.owner_ = null;
+    Blockly.Cake.WidgetDiv.dispose_ = null;
+    goog.dom.removeChildren(Blockly.Cake.WidgetDiv.DIV);
   }
 };
 
@@ -82,8 +82,8 @@ Blockly.WidgetDiv.hide = function() {
  * Is the container visible?
  * @return {boolean} True if visible.
  */
-Blockly.WidgetDiv.isVisible = function() {
-  return !!Blockly.WidgetDiv.owner_;
+Blockly.Cake.WidgetDiv.isVisible = function() {
+  return !!Blockly.Cake.WidgetDiv.owner_;
 };
 
 /**
@@ -91,9 +91,9 @@ Blockly.WidgetDiv.isVisible = function() {
  *   object.
  * @param {!Object} oldOwner The object that was using this container.
  */
-Blockly.WidgetDiv.hideIfOwner = function(oldOwner) {
-  if (Blockly.WidgetDiv.owner_ == oldOwner) {
-    Blockly.WidgetDiv.hide();
+Blockly.Cake.WidgetDiv.hideIfOwner = function(oldOwner) {
+  if (Blockly.Cake.WidgetDiv.owner_ == oldOwner) {
+    Blockly.Cake.WidgetDiv.hide();
   }
 };
 
@@ -105,13 +105,13 @@ Blockly.WidgetDiv.hideIfOwner = function(oldOwner) {
  * @param {!goog.math.Size} windowSize Height/width of window.
  * @param {!goog.math.Coordinate} scrollOffset X/y of window scrollbars.
  */
-Blockly.WidgetDiv.position = function(anchorX, anchorY, windowSize,
+Blockly.Cake.WidgetDiv.position = function(anchorX, anchorY, windowSize,
                                       scrollOffset) {
   // Don't let the widget go above the top edge of the window.
   if (anchorY < scrollOffset.y) {
     anchorY = scrollOffset.y;
   }
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     // Don't let the menu go right of the right edge of the window.
     if (anchorX > windowSize.width + scrollOffset.x) {
       anchorX = windowSize.width + scrollOffset.x;
@@ -122,6 +122,6 @@ Blockly.WidgetDiv.position = function(anchorX, anchorY, windowSize,
       anchorX = scrollOffset.x;
     }
   }
-  Blockly.WidgetDiv.DIV.style.left = anchorX + 'px';
-  Blockly.WidgetDiv.DIV.style.top = anchorY + 'px';
+  Blockly.Cake.WidgetDiv.DIV.style.left = anchorX + 'px';
+  Blockly.Cake.WidgetDiv.DIV.style.top = anchorY + 'px';
 };

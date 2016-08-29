@@ -20,13 +20,13 @@
 
 /**
  * @fileoverview Utility methods.
- * These methods are not specific to Blockly, and could be factored out if
+ * These methods are not specific to Blockly.Cake, and could be factored out if
  * a JavaScript framework such as Closure were used.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.utils');
+goog.provide('Blockly.Cake.utils');
 
 
 /**
@@ -36,7 +36,7 @@ goog.provide('Blockly.utils');
  * @param {string} className Name of class to add.
  * @private
  */
-Blockly.addClass_ = function(element, className) {
+Blockly.Cake.addClass_ = function(element, className) {
   var classes = element.getAttribute('class') || '';
   if ((' ' + classes + ' ').indexOf(' ' + className + ' ') == -1) {
     if (classes) {
@@ -53,7 +53,7 @@ Blockly.addClass_ = function(element, className) {
  * @param {string} className Name of class to remove.
  * @private
  */
-Blockly.removeClass_ = function(element, className) {
+Blockly.Cake.removeClass_ = function(element, className) {
   var classes = element.getAttribute('class');
   if ((' ' + classes + ' ').indexOf(' ' + className + ' ') != -1) {
     var classList = classes.split(/\s+/);
@@ -80,14 +80,14 @@ Blockly.removeClass_ = function(element, className) {
  * @return {!Array.<!Array>} Opaque data that can be passed to unbindEvent_.
  * @private
  */
-Blockly.bindEvent_ = function(node, name, thisObject, func) {
+Blockly.Cake.bindEvent_ = function(node, name, thisObject, func) {
   var wrapFunc = function(e) {
     func.apply(thisObject, arguments);
   };
   node.addEventListener(name, wrapFunc, false);
   var bindData = [[node, name, wrapFunc]];
   // Add equivalent touch event.
-  if (name in Blockly.bindEvent_.TOUCH_MAP) {
+  if (name in Blockly.Cake.bindEvent_.TOUCH_MAP) {
     wrapFunc = function(e) {
       // Punt on multitouch events.
       if (e.changedTouches.length == 1) {
@@ -100,9 +100,9 @@ Blockly.bindEvent_ = function(node, name, thisObject, func) {
       // Stop the browser from scrolling/zooming the page
       e.preventDefault();
     };
-    node.addEventListener(Blockly.bindEvent_.TOUCH_MAP[name],
+    node.addEventListener(Blockly.Cake.bindEvent_.TOUCH_MAP[name],
                              wrapFunc, false);
-    bindData.push([node, Blockly.bindEvent_.TOUCH_MAP[name], wrapFunc]);
+    bindData.push([node, Blockly.Cake.bindEvent_.TOUCH_MAP[name], wrapFunc]);
   }
   return bindData;
 };
@@ -112,9 +112,9 @@ Blockly.bindEvent_ = function(node, name, thisObject, func) {
  * in conjunction with mouse events.
  * @type {Object}
  */
-Blockly.bindEvent_.TOUCH_MAP = {};
+Blockly.Cake.bindEvent_.TOUCH_MAP = {};
 if ('ontouchstart' in document.documentElement) {
-  Blockly.bindEvent_.TOUCH_MAP = {
+  Blockly.Cake.bindEvent_.TOUCH_MAP = {
     'mousedown': 'touchstart',
     'mousemove': 'touchmove',
     'mouseup': 'touchend'
@@ -128,7 +128,7 @@ if ('ontouchstart' in document.documentElement) {
  * @return {!Function} The function call.
  * @private
  */
-Blockly.unbindEvent_ = function(bindData) {
+Blockly.Cake.unbindEvent_ = function(bindData) {
   while (bindData.length) {
     var bindDatum = bindData.pop();
     var node = bindDatum[0];
@@ -144,7 +144,7 @@ Blockly.unbindEvent_ = function(bindData) {
  * @param {!EventTarget} node The event's target node.
  * @param {string} eventName Name of event (e.g. 'click').
  */
-Blockly.fireUiEventNow = function(node, eventName) {
+Blockly.Cake.fireUiEventNow = function(node, eventName) {
   var doc = document;
   if (doc.createEvent) {
     // W3
@@ -165,9 +165,9 @@ Blockly.fireUiEventNow = function(node, eventName) {
  * @param {!EventTarget} node The event's target node.
  * @param {string} eventName Name of event (e.g. 'click').
  */
-Blockly.fireUiEvent = function(node, eventName) {
+Blockly.Cake.fireUiEvent = function(node, eventName) {
   var fire = function() {
-    Blockly.fireUiEventNow(node, eventName);
+    Blockly.Cake.fireUiEventNow(node, eventName);
   }
   setTimeout(fire, 0);
 };
@@ -176,7 +176,7 @@ Blockly.fireUiEvent = function(node, eventName) {
  * Don't do anything for this event, just halt propagation.
  * @param {!Event} e An event.
  */
-Blockly.noEvent = function(e) {
+Blockly.Cake.noEvent = function(e) {
   // This event has been handled.  No need to bubble up to the document.
   e.preventDefault();
   e.stopPropagation();
@@ -189,7 +189,7 @@ Blockly.noEvent = function(e) {
  * @return {!Object} Object with .x and .y properties.
  * @private
  */
-Blockly.getRelativeXY_ = function(element) {
+Blockly.Cake.getRelativeXY_ = function(element) {
   var xy = {x: 0, y: 0};
   // First, check for x and y attributes.
   var x = element.getAttribute('x');
@@ -219,21 +219,21 @@ Blockly.getRelativeXY_ = function(element) {
 
 /**
  * Return the absolute coordinates of the top-left corner of this element.
- * The origin (0,0) is the top-left corner of the Blockly svg.
+ * The origin (0,0) is the top-left corner of the Blockly.Cake svg.
  * @param {!Element} element Element to find the coordinates of.
  * @return {!Object} Object with .x and .y properties.
  * @private
  */
-Blockly.getSvgXY_ = function(element) {
+Blockly.Cake.getSvgXY_ = function(element) {
   var x = 0;
   var y = 0;
   do {
     // Loop through this block and every parent.
-    var xy = Blockly.getRelativeXY_(element);
+    var xy = Blockly.Cake.getRelativeXY_(element);
     x += xy.x;
     y += xy.y;
     element = element.parentNode;
-  } while (element && element != Blockly.svg);
+  } while (element && element != Blockly.Cake.svg);
   return {x: x, y: y};
 };
 
@@ -244,9 +244,9 @@ Blockly.getSvgXY_ = function(element) {
  * @return {!Object} Object with .x and .y properties.
  * @private
  */
-Blockly.getAbsoluteXY_ = function(element) {
-  var xy = Blockly.getSvgXY_(element);
-  return Blockly.convertCoordinates(xy.x, xy.y, false);
+Blockly.Cake.getAbsoluteXY_ = function(element) {
+  var xy = Blockly.Cake.getSvgXY_(element);
+  return Blockly.Cake.convertCoordinates(xy.x, xy.y, false);
 };
 
 /**
@@ -256,9 +256,9 @@ Blockly.getAbsoluteXY_ = function(element) {
  * @param {Element=} opt_parent Optional parent on which to append the element.
  * @return {!SVGElement} Newly created SVG element.
  */
-Blockly.createSvgElement = function(name, attrs, opt_parent) {
+Blockly.Cake.createSvgElement = function(name, attrs, opt_parent) {
   var e = /** @type {!SVGElement} */ (
-      document.createElementNS(Blockly.SVG_NS, name));
+      document.createElementNS(Blockly.Cake.SVG_NS, name));
   for (var key in attrs) {
     e.setAttribute(key, attrs[key]);
   }
@@ -279,7 +279,7 @@ Blockly.createSvgElement = function(name, attrs, opt_parent) {
  * @param {!Event} e Mouse event.
  * @return {boolean} True if right-click.
  */
-Blockly.isRightButton = function(e) {
+Blockly.Cake.isRightButton = function(e) {
   // Control-clicking in WebKit on Mac OS X fails to change button to 2.
   return e.button == 2 || e.ctrlKey;
 };
@@ -292,15 +292,15 @@ Blockly.isRightButton = function(e) {
  *     False to convert to mouse/HTML coordinates.
  * @return {!Object} Object with x and y properties in output coordinates.
  */
-Blockly.convertCoordinates = function(x, y, toSvg) {
+Blockly.Cake.convertCoordinates = function(x, y, toSvg) {
   if (toSvg) {
     x -= window.scrollX || window.pageXOffset;
     y -= window.scrollY || window.pageYOffset;
   }
-  var svgPoint = Blockly.svg.createSVGPoint();
+  var svgPoint = Blockly.Cake.svg.createSVGPoint();
   svgPoint.x = x;
   svgPoint.y = y;
-  var matrix = Blockly.svg.getScreenCTM();
+  var matrix = Blockly.Cake.svg.getScreenCTM();
   if (toSvg) {
     matrix = matrix.inverse();
   }
@@ -314,14 +314,14 @@ Blockly.convertCoordinates = function(x, y, toSvg) {
 
 /**
  * Return the converted coordinates of the given mouse event.
- * The origin (0,0) is the top-left corner of the Blockly svg.
+ * The origin (0,0) is the top-left corner of the Blockly.Cake svg.
  * @param {!Event} e Mouse event.
  * @return {!Object} Object with .x and .y properties.
  */
-Blockly.mouseToSvg = function(e) {
+Blockly.Cake.mouseToSvg = function(e) {
   var scrollX = window.scrollX || window.pageXOffset;
   var scrollY = window.scrollY || window.pageYOffset;
-  return Blockly.convertCoordinates(e.clientX + scrollX,
+  return Blockly.Cake.convertCoordinates(e.clientX + scrollX,
                                     e.clientY + scrollY, true);
 };
 
@@ -330,7 +330,7 @@ Blockly.mouseToSvg = function(e) {
  * @param {!Array.<string>} array Array of strings.
  * @return {number} Length of shortest string.
  */
-Blockly.shortestStringLength = function(array) {
+Blockly.Cake.shortestStringLength = function(array) {
   if (!array.length) {
     return 0;
   }
@@ -348,14 +348,14 @@ Blockly.shortestStringLength = function(array) {
  * @param {?number} opt_shortest Length of shortest string.
  * @return {number} Length of common prefix.
  */
-Blockly.commonWordPrefix = function(array, opt_shortest) {
+Blockly.Cake.commonWordPrefix = function(array, opt_shortest) {
   if (!array.length) {
     return 0;
   } else if (array.length == 1) {
     return array[0].length;
   }
   var wordPrefix = 0;
-  var max = opt_shortest || Blockly.shortestStringLength(array);
+  var max = opt_shortest || Blockly.Cake.shortestStringLength(array);
   for (var len = 0; len < max; len++) {
     var letter = array[0][len];
     for (var i = 1; i < array.length; i++) {
@@ -383,14 +383,14 @@ Blockly.commonWordPrefix = function(array, opt_shortest) {
  * @param {?number} opt_shortest Length of shortest string.
  * @return {number} Length of common suffix.
  */
-Blockly.commonWordSuffix = function(array, opt_shortest) {
+Blockly.Cake.commonWordSuffix = function(array, opt_shortest) {
   if (!array.length) {
     return 0;
   } else if (array.length == 1) {
     return array[0].length;
   }
   var wordPrefix = 0;
-  var max = opt_shortest || Blockly.shortestStringLength(array);
+  var max = opt_shortest || Blockly.Cake.shortestStringLength(array);
   for (var len = 0; len < max; len++) {
     var letter = array[0].substr(-len - 1, 1);
     for (var i = 1; i < array.length; i++) {
@@ -416,6 +416,6 @@ Blockly.commonWordSuffix = function(array, opt_shortest) {
  * @param {string} str Input string.
  * @return {boolean} True if number, false otherwise.
  */
-Blockly.isNumber = function(str) {
+Blockly.Cake.isNumber = function(str) {
   return !!str.match(/^\s*-?\d+(\.\d+)?\s*$/);
 };

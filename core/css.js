@@ -19,12 +19,12 @@
  */
 
 /**
- * @fileoverview Inject Blockly's CSS synchronously.
+ * @fileoverview Inject Blockly.Cake's CSS synchronously.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Css');
+goog.provide('Blockly.Cake.Css');
 
 goog.require('goog.cssom');
 
@@ -36,18 +36,18 @@ goog.require('goog.cssom');
  * b) It speeds up loading by not blocking on a separate HTTP transfer.
  * c) The CSS content may be made dynamic depending on init options.
  */
-Blockly.Css.inject = function() {
-  var text = Blockly.Css.CONTENT.join('\n');
+Blockly.Cake.Css.inject = function() {
+  var text = Blockly.Cake.Css.CONTENT.join('\n');
   // Strip off any trailing slash (either Unix or Windows).
-  var path = Blockly.pathToBlockly.replace(/[\\\/]$/, '');
+  var path = Blockly.Cake.pathToBlockly.replace(/[\\\/]$/, '');
   text = text.replace(/<<<PATH>>>/g, path);
   goog.cssom.addCssText(text);
 };
 
 /**
- * Array making up the CSS content for Blockly.
+ * Array making up the CSS content for Blockly.Cake.
  */
-Blockly.Css.CONTENT = [
+Blockly.Cake.Css.CONTENT = [
   '.blocklySvg {',
   '  background-color: #fff;',
   '  border: 1px solid #ddd;',

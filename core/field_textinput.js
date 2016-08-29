@@ -24,10 +24,10 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldTextInput');
+goog.provide('Blockly.Cake.FieldTextInput');
 
-goog.require('Blockly.Field');
-goog.require('Blockly.Msg');
+goog.require('Blockly.Cake.Field');
+goog.require('Blockly.Cake.Msg');
 goog.require('goog.asserts');
 goog.require('goog.userAgent');
 
@@ -39,36 +39,36 @@ goog.require('goog.userAgent');
  *     to validate any constraints on what the user entered.  Takes the new
  *     text as an argument and returns either the accepted text, a replacement
  *     text, or null to abort the change.
- * @extends {Blockly.Field}
+ * @extends {Blockly.Cake.Field}
  * @constructor
  */
-Blockly.FieldTextInput = function(text, opt_changeHandler) {
-  Blockly.FieldTextInput.superClass_.constructor.call(this, text);
+Blockly.Cake.FieldTextInput = function(text, opt_changeHandler) {
+  Blockly.Cake.FieldTextInput.superClass_.constructor.call(this, text);
 
   this.changeHandler_ = opt_changeHandler;
 };
-goog.inherits(Blockly.FieldTextInput, Blockly.Field);
+goog.inherits(Blockly.Cake.FieldTextInput, Blockly.Cake.Field);
 
 /**
  * Clone this FieldTextInput.
- * @return {!Blockly.FieldTextInput} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldTextInput} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldTextInput.prototype.clone = function() {
-  return new Blockly.FieldTextInput(this.getText(), this.changeHandler_);
+Blockly.Cake.FieldTextInput.prototype.clone = function() {
+  return new Blockly.Cake.FieldTextInput(this.getText(), this.changeHandler_);
 };
 
 /**
  * Mouse cursor style when over the hotspot that initiates the editor.
  */
-Blockly.FieldTextInput.prototype.CURSOR = 'text';
+Blockly.Cake.FieldTextInput.prototype.CURSOR = 'text';
 
 /**
  * Close the input widget if this input is being deleted.
  */
-Blockly.FieldTextInput.prototype.dispose = function() {
-  Blockly.WidgetDiv.hideIfOwner(this);
-  Blockly.FieldTextInput.superClass_.dispose.call(this);
+Blockly.Cake.FieldTextInput.prototype.dispose = function() {
+  Blockly.Cake.WidgetDiv.hideIfOwner(this);
+  Blockly.Cake.FieldTextInput.superClass_.dispose.call(this);
 };
 
 /**
@@ -76,7 +76,7 @@ Blockly.FieldTextInput.prototype.dispose = function() {
  * @param {?string} text New text.
  * @override
  */
-Blockly.FieldTextInput.prototype.setText = function(text) {
+Blockly.Cake.FieldTextInput.prototype.setText = function(text) {
   if (text === null) {
     // No change if null.
     return;
@@ -89,7 +89,7 @@ Blockly.FieldTextInput.prototype.setText = function(text) {
       text = validated;
     }
   }
-  Blockly.Field.prototype.setText.call(this, text);
+  Blockly.Cake.Field.prototype.setText.call(this, text);
 };
 
 /**
@@ -98,12 +98,12 @@ Blockly.FieldTextInput.prototype.setText = function(text) {
  *     focus.  Defaults to false.
  * @private
  */
-Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
+Blockly.Cake.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
   var quietInput = opt_quietInput || false;
   if (!quietInput && (goog.userAgent.MOBILE || goog.userAgent.ANDROID ||
                       goog.userAgent.IPAD)) {
     // Mobile browsers have issues with in-line textareas (focus & keyboards).
-    var newValue = window.prompt(Blockly.Msg.CHANGE_VALUE_TITLE, this.text_);
+    var newValue = window.prompt(Blockly.Cake.Msg.CHANGE_VALUE_TITLE, this.text_);
     if (this.changeHandler_) {
       var override = this.changeHandler_(newValue);
       if (override !== undefined) {
@@ -116,11 +116,11 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
     return;
   }
 
-  Blockly.WidgetDiv.show(this, this.widgetDispose_());
-  var div = Blockly.WidgetDiv.DIV;
+  Blockly.Cake.WidgetDiv.show(this, this.widgetDispose_());
+  var div = Blockly.Cake.WidgetDiv.DIV;
   // Create the input.
   var htmlInput = goog.dom.createDom('input', 'blocklyHtmlInput');
-  Blockly.FieldTextInput.htmlInput_ = htmlInput;
+  Blockly.Cake.FieldTextInput.htmlInput_ = htmlInput;
   div.appendChild(htmlInput);
 
   htmlInput.value = htmlInput.defaultValue = this.text_;
@@ -134,13 +134,13 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
 
   // Bind to keyup -- trap Enter and Esc; resize after every keystroke.
   htmlInput.onKeyUpWrapper_ =
-      Blockly.bindEvent_(htmlInput, 'keyup', this, this.onHtmlInputChange_);
+      Blockly.Cake.bindEvent_(htmlInput, 'keyup', this, this.onHtmlInputChange_);
   // Bind to keyPress -- repeatedly resize when holding down a key.
   htmlInput.onKeyPressWrapper_ =
-      Blockly.bindEvent_(htmlInput, 'keypress', this, this.onHtmlInputChange_);
+      Blockly.Cake.bindEvent_(htmlInput, 'keypress', this, this.onHtmlInputChange_);
   var workspaceSvg = this.sourceBlock_.workspace.getCanvas();
   htmlInput.onWorkspaceChangeWrapper_ =
-      Blockly.bindEvent_(workspaceSvg, 'blocklyWorkspaceChange', this,
+      Blockly.Cake.bindEvent_(workspaceSvg, 'blocklyWorkspaceChange', this,
       this.resizeEditor_);
 };
 
@@ -149,15 +149,15 @@ Blockly.FieldTextInput.prototype.showEditor_ = function(opt_quietInput) {
  * @param {!Event} e Keyboard event.
  * @private
  */
-Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
-  var htmlInput = Blockly.FieldTextInput.htmlInput_;
+Blockly.Cake.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
+  var htmlInput = Blockly.Cake.FieldTextInput.htmlInput_;
   if (e.keyCode == 13) {
     // Enter
-    Blockly.WidgetDiv.hide();
+    Blockly.Cake.WidgetDiv.hide();
   } else if (e.keyCode == 27) {
     // Esc
     this.setText(htmlInput.defaultValue);
-    Blockly.WidgetDiv.hide();
+    Blockly.Cake.WidgetDiv.hide();
   } else {
     // Update source block.
     var text = htmlInput.value;
@@ -178,17 +178,17 @@ Blockly.FieldTextInput.prototype.onHtmlInputChange_ = function(e) {
  * Style the editor accordingly.
  * @private
  */
-Blockly.FieldTextInput.prototype.validate_ = function() {
+Blockly.Cake.FieldTextInput.prototype.validate_ = function() {
   var valid = true;
-  goog.asserts.assertObject(Blockly.FieldTextInput.htmlInput_);
-  var htmlInput = /** @type {!Element} */ (Blockly.FieldTextInput.htmlInput_);
+  goog.asserts.assertObject(Blockly.Cake.FieldTextInput.htmlInput_);
+  var htmlInput = /** @type {!Element} */ (Blockly.Cake.FieldTextInput.htmlInput_);
   if (this.changeHandler_) {
     valid = this.changeHandler_(htmlInput.value);
   }
   if (valid === null) {
-    Blockly.addClass_(htmlInput, 'blocklyInvalidInput');
+    Blockly.Cake.addClass_(htmlInput, 'blocklyInvalidInput');
   } else {
-    Blockly.removeClass_(htmlInput, 'blocklyInvalidInput');
+    Blockly.Cake.removeClass_(htmlInput, 'blocklyInvalidInput');
   }
 };
 
@@ -196,14 +196,14 @@ Blockly.FieldTextInput.prototype.validate_ = function() {
  * Resize the editor and the underlying block to fit the text.
  * @private
  */
-Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
-  var div = Blockly.WidgetDiv.DIV;
+Blockly.Cake.FieldTextInput.prototype.resizeEditor_ = function() {
+  var div = Blockly.Cake.WidgetDiv.DIV;
   var bBox = this.fieldGroup_.getBBox();
   div.style.width = bBox.width + 'px';
-  var xy = Blockly.getAbsoluteXY_(/** @type {!Element} */ (this.borderRect_));
+  var xy = Blockly.Cake.getAbsoluteXY_(/** @type {!Element} */ (this.borderRect_));
   // In RTL mode block fields and LTR input fields the left edge moves,
   // whereas the right edge is fixed.  Reposition the editor.
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     var borderBBox = this.borderRect_.getBBox();
     xy.x += borderBBox.width;
     xy.x -= div.offsetWidth;
@@ -223,10 +223,10 @@ Blockly.FieldTextInput.prototype.resizeEditor_ = function() {
  * @return {!Function} Closure to call on destruction of the WidgetDiv.
  * @private
  */
-Blockly.FieldTextInput.prototype.widgetDispose_ = function() {
+Blockly.Cake.FieldTextInput.prototype.widgetDispose_ = function() {
   var thisField = this;
   return function() {
-    var htmlInput = Blockly.FieldTextInput.htmlInput_;
+    var htmlInput = Blockly.Cake.FieldTextInput.htmlInput_;
     // Save the edit (if it validates).
     var text = htmlInput.value;
     if (thisField.changeHandler_) {
@@ -238,12 +238,12 @@ Blockly.FieldTextInput.prototype.widgetDispose_ = function() {
     }
     thisField.setText(text);
     thisField.sourceBlock_.rendered && thisField.sourceBlock_.render();
-    Blockly.unbindEvent_(htmlInput.onKeyUpWrapper_);
-    Blockly.unbindEvent_(htmlInput.onKeyPressWrapper_);
-    Blockly.unbindEvent_(htmlInput.onWorkspaceChangeWrapper_);
-    Blockly.FieldTextInput.htmlInput_ = null;
+    Blockly.Cake.unbindEvent_(htmlInput.onKeyUpWrapper_);
+    Blockly.Cake.unbindEvent_(htmlInput.onKeyPressWrapper_);
+    Blockly.Cake.unbindEvent_(htmlInput.onWorkspaceChangeWrapper_);
+    Blockly.Cake.FieldTextInput.htmlInput_ = null;
     // Delete the width property.
-    Blockly.WidgetDiv.DIV.style.width = 'auto';
+    Blockly.Cake.WidgetDiv.DIV.style.width = 'auto';
   };
 };
 
@@ -252,7 +252,7 @@ Blockly.FieldTextInput.prototype.widgetDispose_ = function() {
  * @param {string} text The user's text.
  * @return {?string} A string representing a valid number, or null if invalid.
  */
-Blockly.FieldTextInput.numberValidator = function(text) {
+Blockly.Cake.FieldTextInput.numberValidator = function(text) {
   // TODO: Handle cases like 'ten', '1.203,14', etc.
   // 'O' is sometimes mistaken for '0' by inexperienced users.
   text = text.replace(/O/ig, '0');
@@ -267,8 +267,8 @@ Blockly.FieldTextInput.numberValidator = function(text) {
  * @param {string} text The user's text.
  * @return {?string} A string representing a valid int, or null if invalid.
  */
-Blockly.FieldTextInput.nonnegativeIntegerValidator = function(text) {
-  var n = Blockly.FieldTextInput.numberValidator(text);
+Blockly.Cake.FieldTextInput.nonnegativeIntegerValidator = function(text) {
+  var n = Blockly.Cake.FieldTextInput.numberValidator(text);
   if (n) {
     n = String(Math.max(0, Math.floor(n)));
   }

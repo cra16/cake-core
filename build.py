@@ -105,14 +105,16 @@ var dir = window.BLOCKLY_DIR.match(/[^\\/]+$/)[0];
     # Find the Blockly directory name and replace it with a JS variable.
     # This allows blockly_uncompressed.js to be compiled on one computer and be
     # used on another, even if the directory name differs.
-    m = re.search('[\\/]([^\\/]+)[\\/]core[\\/]blockly.js', add_dependency)
-    add_dependency = re.sub('([\\/])' + re.escape(m.group(1)) +
+    m = re.search('[\\/]([^\\/]+)[\\/]core[\\/]blockly.js', add_dependency)    
+    add_dependency = re.sub('([\\/])'  + re.escape(m.group(1)) +
         '([\\/]core[\\/])', '\\1" + dir + "\\2', add_dependency)
     f.write(add_dependency + '\n')
 
     provides = []
-    for dep in calcdeps.BuildDependenciesFromFiles(self.search_paths):
+    for dep in calcdeps.BuildDependenciesFromFiles(self.search_paths):            
       if not dep.filename.startswith(os.pardir + os.sep):  # '../'
+        provides.extend(dep.provides)
+      if dep.filename.startswith('..\\blockly\\core'):
         provides.extend(dep.provides)
     provides.sort()
     f.write('\n')
@@ -173,7 +175,7 @@ class Gen_compressed(threading.Thread):
         [os.path.join('core', 'blockly.js')])
     for filename in filenames:
       # Filter out the Closure files (the compiler will add them).
-      if filename.startswith(os.pardir + os.sep):  # '../'
+      if filename.startswith(os.pardir + os.sep) and not filename.startswith(os.pardir + os.sep + 'blockly\\core'):  # '../'
         continue
       f = open(filename)
       params.append(('js_code', ''.join(f.readlines())))
@@ -195,7 +197,7 @@ class Gen_compressed(threading.Thread):
 
     # Read in all the source files.
     # Add Blockly.Blocks to be compatible with the compiler.
-    params.append(('js_code', "goog.provide('Blockly.Blocks');"))
+    params.append(('js_code', "goog.provide('Blockly.Cake.Blocks');"))
     filenames = glob.glob(os.path.join('blocks', '*.js'))
     for filename in filenames:
       f = open(filename)
@@ -220,7 +222,7 @@ class Gen_compressed(threading.Thread):
 
     # Read in all the source files.
     # Add Blockly.Generator to be compatible with the compiler.
-    params.append(('js_code', "goog.provide('Blockly.Generator');"))
+    params.append(('js_code', "goog.provide('Blockly.Cake.Generator');"))
     filenames = glob.glob(
         os.path.join('generators', language, '*.js'))
     filenames.insert(0, os.path.join('generators', language + '.js'))
@@ -412,7 +414,7 @@ if __name__ == '__main__':
 http://code.google.com/p/blockly/wiki/Closure""")
     sys.exit(1)
   search_paths = calcdeps.ExpandDirectories(
-      ['core', os.path.join(os.path.pardir, 'closure-library-read-only')])
+      ['core', '../blockly/core', os.path.join(os.path.pardir, 'closure-library-read-only')])
 
   # Run both tasks in parallel threads.
   # Uncompressed is limited by processor speed.
@@ -422,3 +424,4 @@ http://code.google.com/p/blockly/wiki/Closure""")
 
   # This is run locally in a separate thread.
   Gen_langfiles().start()
+  a = input("confirm...");

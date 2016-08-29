@@ -24,11 +24,11 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldStructure');
+goog.provide('Blockly.Cake.FieldStructure');
 
-goog.require('Blockly.FieldDropdown');
-goog.require('Blockly.Msg');
-goog.require('Blockly.Structure');
+goog.require('Blockly.Cake.FieldDropdown');
+goog.require('Blockly.Cake.Msg');
+goog.require('Blockly.Cake.Structure');
 
 
 /**
@@ -38,30 +38,30 @@ goog.require('Blockly.Structure');
  * @param {Function} opt_changeHandler A function that is executed when a new
  *     option is selected.  Its sole argument is the new option value.  Its
  *     return value is ignored.
- * @extends {Blockly.FieldDropdown}
+ * @extends {Blockly.Cake.FieldDropdown}
  * @constructor
  */
 
-Blockly.FieldStructure = function(varname, opt_changeHandler) {
+Blockly.Cake.FieldStructure = function(varname, opt_changeHandler) {
 
-  Blockly.FieldStructure.superClass_.constructor.call(this,
-    Blockly.FieldStructure.dropdownCreate, opt_changeHandler);
+  Blockly.Cake.FieldStructure.superClass_.constructor.call(this,
+    Blockly.Cake.FieldStructure.dropdownCreate, opt_changeHandler);
 
   if (varname) {
     this.setValue(varname);
   } else {
-    this.setValue(Blockly.Variables.generateUniqueName());
+    this.setValue(Blockly.Cake.Variables.generateUniqueName());
   }
 };
-goog.inherits(Blockly.FieldStructure, Blockly.FieldDropdown);
+goog.inherits(Blockly.Cake.FieldStructure, Blockly.Cake.FieldDropdown);
 
 /**
  * Clone this FieldVariable.
- * @return {!Blockly.FieldVariable} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldVariable} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldStructure.prototype.clone = function() {
-  return new Blockly.FieldStructure(this.getValue(), this.changeHandler_);
+Blockly.Cake.FieldStructure.prototype.clone = function() {
+  return new Blockly.Cake.FieldStructure(this.getValue(), this.changeHandler_);
 };
 
 /**
@@ -69,7 +69,7 @@ Blockly.FieldStructure.prototype.clone = function() {
  * Unline a regular dropdown, variables are literal and have no neutral value.
  * @return {string} Current text.
  */
-Blockly.FieldStructure.prototype.getValue = function() {
+Blockly.Cake.FieldStructure.prototype.getValue = function() {
   return this.getText();
 };
 
@@ -77,7 +77,7 @@ Blockly.FieldStructure.prototype.getValue = function() {
  * Set the variable name.
  * @param {string} text New text.
  */
-Blockly.FieldStructure.prototype.setValue = function(text) {
+Blockly.Cake.FieldStructure.prototype.setValue = function(text) {
   this.value_ = text;
   this.setText(text);
 };
@@ -86,10 +86,10 @@ Blockly.FieldStructure.prototype.setValue = function(text) {
  * Return a sorted list of variable names for variable dropdown menus.
  * Include a special option at the end for creating a new variable name.
  * @return {!Array.<string>} Array of variable names.
- * @this {!Blockly.FieldStructure}
+ * @this {!Blockly.Cake.FieldStructure}
  */
-Blockly.FieldStructure.dropdownCreate = function() {
-  var structureList = Blockly.Structure.allStructure();
+Blockly.Cake.FieldStructure.dropdownCreate = function() {
+  var structureList = Blockly.Cake.Structure.allStructure();
   var structureListPop = []; // 보여줄 리스트 거를 것.
 
   for (var temp = 0; temp < structureList[0].length; temp++) {

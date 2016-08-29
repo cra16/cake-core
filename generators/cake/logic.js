@@ -24,32 +24,32 @@
  */
 'use strict';
 
-goog.provide('Blockly.cake.logic');
+goog.provide('Blockly.Cake.cake.logic');
 
-goog.require('Blockly.cake');
+goog.require('Blockly.Cake.cake');
 
 
-Blockly.cake['controls_if'] = function(block) {
+Blockly.Cake.cake['controls_if'] = function(block) {
   // If/elseif/else condition.
   var n = 0;
-  var argument = Blockly.cake.valueToCode(block, 'IF' + n,
-    Blockly.cake.ORDER_NONE) || '0';
-  var branch = Blockly.cake.statementToCode(block, 'DO' + n);
+  var argument = Blockly.Cake.cake.valueToCode(block, 'IF' + n,
+    Blockly.Cake.cake.ORDER_NONE) || '0';
+  var branch = Blockly.Cake.cake.statementToCode(block, 'DO' + n);
   var code = 'if (' + argument + ') {\n' + branch + '}';
   for (n = 1; n <= block.elseifCount_; n++) {
-    argument = Blockly.cake.valueToCode(block, 'IF' + n,
-      Blockly.cake.ORDER_NONE) || '0';
-    branch = Blockly.cake.statementToCode(block, 'DO' + n);
+    argument = Blockly.Cake.cake.valueToCode(block, 'IF' + n,
+      Blockly.Cake.cake.ORDER_NONE) || '0';
+    branch = Blockly.Cake.cake.statementToCode(block, 'DO' + n);
     code += ' else if (' + argument + ') {\n' + branch + '}';
   }
   if (block.elseCount_) {
-    branch = Blockly.cake.statementToCode(block, 'ELSE');
+    branch = Blockly.Cake.cake.statementToCode(block, 'ELSE');
     code += ' else {\n' + branch + '}';
   }
   return code + '\n';
 };
 
-Blockly.cake['logic_compare'] = function(block) {
+Blockly.Cake.cake['logic_compare'] = function(block) {
   // Comparison operator.
   var OPERATORS = {
     'EQ': '==',
@@ -61,20 +61,20 @@ Blockly.cake['logic_compare'] = function(block) {
   };
   var operator = OPERATORS[block.getFieldValue('OP')];
   var order = (operator == '==' || operator == '!=') ?
-    Blockly.cake.ORDER_EQUALITY : Blockly.cake.ORDER_RELATIONAL;
-  var argument0 = Blockly.cake.valueToCode(block, 'A', order) || '0';
-  var argument1 = Blockly.cake.valueToCode(block, 'B', order) || '0';
+    Blockly.Cake.cake.ORDER_EQUALITY : Blockly.Cake.cake.ORDER_RELATIONAL;
+  var argument0 = Blockly.Cake.cake.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.Cake.cake.valueToCode(block, 'B', order) || '0';
   var code = argument0 + ' ' + operator + ' ' + argument1;
   return [code, order];
 };
 
-Blockly.cake['logic_operation'] = function(block) {
+Blockly.Cake.cake['logic_operation'] = function(block) {
   // Operations 'and', 'or'.
   var operator = (block.getFieldValue('OP') == 'AND') ? '&&' : '||';
-  var order = (operator == '&&') ? Blockly.cake.ORDER_LOGICAL_AND :
-    Blockly.cake.ORDER_LOGICAL_OR;
-  var argument0 = Blockly.cake.valueToCode(block, 'A', order);
-  var argument1 = Blockly.cake.valueToCode(block, 'B', order);
+  var order = (operator == '&&') ? Blockly.Cake.cake.ORDER_LOGICAL_AND :
+    Blockly.Cake.cake.ORDER_LOGICAL_OR;
+  var argument0 = Blockly.Cake.cake.valueToCode(block, 'A', order);
+  var argument1 = Blockly.Cake.cake.valueToCode(block, 'B', order);
   if (!argument0 && !argument1) {
     // If there are no arguments, then the return value is false.
     argument0 = '0';
@@ -93,55 +93,55 @@ Blockly.cake['logic_operation'] = function(block) {
   return [code, order];
 };
 
-Blockly.cake['logic_negate'] = function(block) {
+Blockly.Cake.cake['logic_negate'] = function(block) {
   // Negation.
-  var order = Blockly.cake.ORDER_LOGICAL_NOT;
-  var argument0 = Blockly.cake.valueToCode(block, 'BOOL', order) ||
+  var order = Blockly.Cake.cake.ORDER_LOGICAL_NOT;
+  var argument0 = Blockly.Cake.cake.valueToCode(block, 'BOOL', order) ||
     '1';
   var code = '!' + argument0;
   return [code, order];
 };
 
-Blockly.cake['logic_boolean'] = function(block) {
+Blockly.Cake.cake['logic_boolean'] = function(block) {
   // Boolean values true and false.
   var code = (block.getFieldValue('BOOL') == 'TRUE') ? '1' : '0';
-  return [code, Blockly.cake.ORDER_ATOMIC];
+  return [code, Blockly.Cake.cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['logic_null'] = function(block) {
+Blockly.Cake.cake['logic_null'] = function(block) {
   // Null data type.
-  return ['null', Blockly.cake.ORDER_ATOMIC];
+  return ['null', Blockly.Cake.cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['logic_ternary'] = function(block) {
+Blockly.Cake.cake['logic_ternary'] = function(block) {
   // Ternary operator.
-  var value_if = Blockly.cake.valueToCode(block, 'IF',
-    Blockly.cake.ORDER_CONDITIONAL) || '0';
-  var value_then = Blockly.cake.valueToCode(block, 'THEN',
-    Blockly.cake.ORDER_CONDITIONAL) || 'null';
-  var value_else = Blockly.cake.valueToCode(block, 'ELSE',
-    Blockly.cake.ORDER_CONDITIONAL) || 'null';
+  var value_if = Blockly.Cake.cake.valueToCode(block, 'IF',
+    Blockly.Cake.cake.ORDER_CONDITIONAL) || '0';
+  var value_then = Blockly.Cake.cake.valueToCode(block, 'THEN',
+    Blockly.Cake.cake.ORDER_CONDITIONAL) || 'null';
+  var value_else = Blockly.Cake.cake.valueToCode(block, 'ELSE',
+    Blockly.Cake.cake.ORDER_CONDITIONAL) || 'null';
   var code = value_if + ' ? ' + value_then + ' : ' + value_else;
-  return [code, Blockly.cake.ORDER_CONDITIONAL];
+  return [code, Blockly.Cake.cake.ORDER_CONDITIONAL];
 };
 
-Blockly.cake['controls_switch'] = function(block) {
+Blockly.Cake.cake['controls_switch'] = function(block) {
   var n = 0;
-  var condition = Blockly.cake.valueToCode(block, 'SWITCH', Blockly.cake.ORDER_NONE) || '0';
-  var argument = Blockly.cake.valueToCode(block, 'CASE' + n,
-    Blockly.cake.ORDER_NONE) || n;
-  var branch = Blockly.cake.statementToCode(block, 'DO' + n);
-    var defaultBranch = Blockly.cake.statementToCode(block, 'DEFAULT');
+  var condition = Blockly.Cake.cake.valueToCode(block, 'SWITCH', Blockly.Cake.cake.ORDER_NONE) || '0';
+  var argument = Blockly.Cake.cake.valueToCode(block, 'CASE' + n,
+    Blockly.Cake.cake.ORDER_NONE) || n;
+  var branch = Blockly.Cake.cake.statementToCode(block, 'DO' + n);
+    var defaultBranch = Blockly.Cake.cake.statementToCode(block, 'DEFAULT');
   var code = 'switch (' + condition + ') {\n'+'\ncase ' + argument + ' : \n'+ branch;
   for (n = 1; n <= block.caseCount_; n++) {
-    argument = Blockly.cake.valueToCode(block, 'CASE' + n,
-      Blockly.cake.ORDER_NONE) || n;
-    branch = Blockly.cake.statementToCode(block, 'DO' + n);
+    argument = Blockly.Cake.cake.valueToCode(block, 'CASE' + n,
+      Blockly.Cake.cake.ORDER_NONE) || n;
+    branch = Blockly.Cake.cake.statementToCode(block, 'DO' + n);
     code += '\ncase ' + argument + ' : ' + '\n' + branch;
   }
   return code + '\ndefault : \n' + defaultBranch +'}\n';
 };
 
-Blockly.cake['controls_switch_break'] = function(block) {
+Blockly.Cake.cake['controls_switch_break'] = function(block) {
     return 'break;\n';
 }

@@ -19,51 +19,51 @@
  */
 
 /**
- * @fileoverview List blocks for Blockly.
+ * @fileoverview List blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.lists');
+goog.provide('Blockly.Cake.Blocks.lists');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['lists_create_empty'] = {
+Blockly.Cake.Blocks['lists_create_empty'] = {
   /**
    * Block for creating an empty list.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LISTS_CREATE_EMPTY_HELPURL);
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_CREATE_EMPTY_HELPURL);
     this.setColour(260);
     this.setOutput(true, 'Array');
     this.appendDummyInput()
-        .appendField(Blockly.Msg.LISTS_CREATE_EMPTY_TITLE);
-    this.setTooltip(Blockly.Msg.LISTS_CREATE_EMPTY_TOOLTIP);
+        .appendField(Blockly.Cake.Msg.LISTS_CREATE_EMPTY_TITLE);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_CREATE_EMPTY_TOOLTIP);
   }
 };
 
-Blockly.Blocks['lists_create_with'] = {
+Blockly.Cake.Blocks['lists_create_with'] = {
   /**
    * Block for creating a list with any number of elements of any type.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(260);
     this.appendValueInput('ADD0')
-        .appendField(Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+        .appendField(Blockly.Cake.Msg.LISTS_CREATE_WITH_INPUT_WITH);
     this.appendValueInput('ADD1');
     this.appendValueInput('ADD2');
     this.setOutput(true, 'Array');
-    this.setMutator(new Blockly.Mutator(['lists_create_with_item']));
-    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_TOOLTIP);
+    this.setMutator(new Blockly.Cake.Mutator(['lists_create_with_item']));
+    this.setTooltip(Blockly.Cake.Msg.LISTS_CREATE_WITH_TOOLTIP);
     this.itemCount_ = 3;
   },
   /**
    * Create XML to represent list inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
@@ -73,7 +73,7 @@ Blockly.Blocks['lists_create_with'] = {
   /**
    * Parse XML to restore the list inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     for (var x = 0; x < this.itemCount_; x++) {
@@ -83,27 +83,27 @@ Blockly.Blocks['lists_create_with'] = {
     for (var x = 0; x < this.itemCount_; x++) {
       var input = this.appendValueInput('ADD' + x);
       if (x == 0) {
-        input.appendField(Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+        input.appendField(Blockly.Cake.Msg.LISTS_CREATE_WITH_INPUT_WITH);
       }
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendField(Blockly.Msg.LISTS_CREATE_EMPTY_TITLE);
+          .appendField(Blockly.Cake.Msg.LISTS_CREATE_EMPTY_TITLE);
     }
   },
   /**
    * Populate the mutator's dialog with this block's components.
-   * @param {!Blockly.Workspace} workspace Mutator's workspace.
-   * @return {!Blockly.Block} Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Cake.Block} Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   decompose: function(workspace) {
     var containerBlock =
-        Blockly.Block.obtain(workspace, 'lists_create_with_container');
+        Blockly.Cake.Block.obtain(workspace, 'lists_create_with_container');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 0; x < this.itemCount_; x++) {
-      var itemBlock = Blockly.Block.obtain(workspace, 'lists_create_with_item');
+      var itemBlock = Blockly.Cake.Block.obtain(workspace, 'lists_create_with_item');
       itemBlock.initSvg();
       connection.connect(itemBlock.previousConnection);
       connection = itemBlock.nextConnection;
@@ -112,8 +112,8 @@ Blockly.Blocks['lists_create_with'] = {
   },
   /**
    * Reconfigure this block based on the mutator dialog's components.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   compose: function(containerBlock) {
     // Disconnect all input blocks and remove all inputs.
@@ -130,7 +130,7 @@ Blockly.Blocks['lists_create_with'] = {
     while (itemBlock) {
       var input = this.appendValueInput('ADD' + this.itemCount_);
       if (this.itemCount_ == 0) {
-        input.appendField(Blockly.Msg.LISTS_CREATE_WITH_INPUT_WITH);
+        input.appendField(Blockly.Cake.Msg.LISTS_CREATE_WITH_INPUT_WITH);
       }
       // Reconnect any child blocks.
       if (itemBlock.valueConnection_) {
@@ -142,13 +142,13 @@ Blockly.Blocks['lists_create_with'] = {
     }
     if (this.itemCount_ == 0) {
       this.appendDummyInput('EMPTY')
-          .appendField(Blockly.Msg.LISTS_CREATE_EMPTY_TITLE);
+          .appendField(Blockly.Cake.Msg.LISTS_CREATE_EMPTY_TITLE);
     }
   },
   /**
    * Store pointers to any connected child blocks.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   saveConnections: function(containerBlock) {
     var itemBlock = containerBlock.getInputTargetBlock('STACK');
@@ -163,141 +163,141 @@ Blockly.Blocks['lists_create_with'] = {
   }
 };
 
-Blockly.Blocks['lists_create_with_container'] = {
+Blockly.Cake.Blocks['lists_create_with_container'] = {
   /**
    * Mutator block for list container.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(260);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TITLE_ADD);
+        .appendField(Blockly.Cake.Msg.LISTS_CREATE_WITH_CONTAINER_TITLE_ADD);
     this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_CONTAINER_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_CREATE_WITH_CONTAINER_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['lists_create_with_item'] = {
+Blockly.Cake.Blocks['lists_create_with_item'] = {
   /**
    * Mutator bolck for adding items.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(260);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.LISTS_CREATE_WITH_ITEM_TITLE);
+        .appendField(Blockly.Cake.Msg.LISTS_CREATE_WITH_ITEM_TITLE);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.LISTS_CREATE_WITH_ITEM_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_CREATE_WITH_ITEM_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['lists_repeat'] = {
+Blockly.Cake.Blocks['lists_repeat'] = {
   /**
    * Block for creating a list with one element repeated.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LISTS_REPEAT_HELPURL);
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_REPEAT_HELPURL);
     this.setColour(260);
     this.setOutput(true, 'Array');
-    this.interpolateMsg(Blockly.Msg.LISTS_REPEAT_TITLE,
-                        ['ITEM', null, Blockly.ALIGN_RIGHT],
-                        ['NUM', 'Number', Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
-    this.setTooltip(Blockly.Msg.LISTS_REPEAT_TOOLTIP);
+    this.interpolateMsg(Blockly.Cake.Msg.LISTS_REPEAT_TITLE,
+                        ['ITEM', null, Blockly.Cake.ALIGN_RIGHT],
+                        ['NUM', 'Number', Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_REPEAT_TOOLTIP);
   }
 };
 
-Blockly.Blocks['lists_length'] = {
+Blockly.Cake.Blocks['lists_length'] = {
   /**
    * Block for list length.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LISTS_LENGTH_HELPURL);
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_LENGTH_HELPURL);
     this.setColour(260);
-    this.interpolateMsg(Blockly.Msg.LISTS_LENGTH_TITLE,
-                        ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+    this.interpolateMsg(Blockly.Cake.Msg.LISTS_LENGTH_TITLE,
+                        ['VALUE', ['Array', 'String'], Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.setOutput(true, 'Number');
-    this.setTooltip(Blockly.Msg.LISTS_LENGTH_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_LENGTH_TOOLTIP);
   }
 };
 
-Blockly.Blocks['lists_isEmpty'] = {
+Blockly.Cake.Blocks['lists_isEmpty'] = {
   /**
    * Block for is the list empty?
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
-    this.setHelpUrl(Blockly.Msg.LISTS_IS_EMPTY_HELPURL);
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_IS_EMPTY_HELPURL);
     this.setColour(260);
-    this.interpolateMsg(Blockly.Msg.LISTS_IS_EMPTY_TITLE,
-                        ['VALUE', ['Array', 'String'], Blockly.ALIGN_RIGHT],
-                        Blockly.ALIGN_RIGHT);
+    this.interpolateMsg(Blockly.Cake.Msg.LISTS_IS_EMPTY_TITLE,
+                        ['VALUE', ['Array', 'String'], Blockly.Cake.ALIGN_RIGHT],
+                        Blockly.Cake.ALIGN_RIGHT);
     this.setInputsInline(true);
     this.setOutput(true, 'Boolean');
-    this.setTooltip(Blockly.Msg.LISTS_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_TOOLTIP);
   }
 };
 
-Blockly.Blocks['lists_indexOf'] = {
+Blockly.Cake.Blocks['lists_indexOf'] = {
   /**
    * Block for finding an item in the list.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
-        [[Blockly.Msg.LISTS_INDEX_OF_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_INDEX_OF_LAST, 'LAST']];
-    this.setHelpUrl(Blockly.Msg.LISTS_INDEX_OF_HELPURL);
+        [[Blockly.Cake.Msg.LISTS_INDEX_OF_FIRST, 'FIRST'],
+         [Blockly.Cake.Msg.LISTS_INDEX_OF_LAST, 'LAST']];
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_INDEX_OF_HELPURL);
     this.setColour(260);
     this.setOutput(true, 'Number');
     this.appendValueInput('VALUE')
         .setCheck('Array')
-        .appendField(Blockly.Msg.LISTS_INDEX_OF_INPUT_IN_LIST);
+        .appendField(Blockly.Cake.Msg.LISTS_INDEX_OF_INPUT_IN_LIST);
     this.appendValueInput('FIND')
-        .appendField(new Blockly.FieldDropdown(OPERATORS), 'END');
+        .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'END');
     this.setInputsInline(true);
-    this.setTooltip(Blockly.Msg.LISTS_INDEX_OF_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_INDEX_OF_TOOLTIP);
   }
 };
 
-Blockly.Blocks['lists_getIndex'] = {
+Blockly.Cake.Blocks['lists_getIndex'] = {
   /**
    * Block for getting element at index.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var MODE =
-        [[Blockly.Msg.LISTS_GET_INDEX_GET, 'GET'],
-         [Blockly.Msg.LISTS_GET_INDEX_GET_REMOVE, 'GET_REMOVE'],
-         [Blockly.Msg.LISTS_GET_INDEX_REMOVE, 'REMOVE']];
+        [[Blockly.Cake.Msg.LISTS_GET_INDEX_GET, 'GET'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_GET_REMOVE, 'GET_REMOVE'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_REMOVE, 'REMOVE']];
     this.WHERE_OPTIONS =
-        [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
-         [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
-    this.setHelpUrl(Blockly.Msg.LISTS_GET_INDEX_HELPURL);
+        [[Blockly.Cake.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_GET_INDEX_HELPURL);
     this.setColour(260);
-    var modeMenu = new Blockly.FieldDropdown(MODE, function(value) {
+    var modeMenu = new Blockly.Cake.FieldDropdown(MODE, function(value) {
       var isStatement = (value == 'REMOVE');
       this.sourceBlock_.updateStatement_(isStatement);
     });
     this.appendValueInput('VALUE')
         .setCheck('Array')
-        .appendField(Blockly.Msg.LISTS_GET_INDEX_INPUT_IN_LIST);
+        .appendField(Blockly.Cake.Msg.LISTS_GET_INDEX_INPUT_IN_LIST);
     this.appendDummyInput()
         .appendField(modeMenu, 'MODE')
         .appendField('', 'SPACE');
     this.appendDummyInput('AT');
-    if (Blockly.Msg.LISTS_GET_INDEX_TAIL) {
+    if (Blockly.Cake.Msg.LISTS_GET_INDEX_TAIL) {
       this.appendDummyInput('TAIL')
-          .appendField(Blockly.Msg.LISTS_GET_INDEX_TAIL);
+          .appendField(Blockly.Cake.Msg.LISTS_GET_INDEX_TAIL);
     }
     this.setInputsInline(true);
     this.setOutput(true);
@@ -307,27 +307,27 @@ Blockly.Blocks['lists_getIndex'] = {
     this.setTooltip(function() {
       var combo = thisBlock.getFieldValue('MODE') + '_' +
           thisBlock.getFieldValue('WHERE');
-      return Blockly.Msg['LISTS_GET_INDEX_TOOLTIP_' + combo];
+      return Blockly.Cake.Msg['LISTS_GET_INDEX_TOOLTIP_' + combo];
     });
   },
   /**
    * Create XML to represent whether the block is a statement or a value.
    * Also represent whether there is an 'AT' input.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
     var isStatement = !this.outputConnection;
     container.setAttribute('statement', isStatement);
-    var isAt = this.getInput('AT').type == Blockly.INPUT_VALUE;
+    var isAt = this.getInput('AT').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at', isAt);
     return container;
   },
   /**
    * Parse XML to restore the 'AT' input.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     // Note: Until January 2013 this block did not have mutations,
@@ -342,7 +342,7 @@ Blockly.Blocks['lists_getIndex'] = {
    * @param {boolean} newStatement True if the block should be a statement.
    *     False if the block should be a value.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateStatement_: function(newStatement) {
     var oldStatement = !this.outputConnection;
@@ -363,7 +363,7 @@ Blockly.Blocks['lists_getIndex'] = {
    * Create or delete an input for the numeric index.
    * @param {boolean} isAt True if the input should exist.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateAt_: function(isAt) {
     // Destroy old 'AT' and 'ORDINAL' inputs.
@@ -372,14 +372,14 @@ Blockly.Blocks['lists_getIndex'] = {
     // Create either a value 'AT' input or a dummy input.
     if (isAt) {
       this.appendValueInput('AT').setCheck('Number');
-      if (Blockly.Msg.ORDINAL_NUMBER_SUFFIX) {
+      if (Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX) {
         this.appendDummyInput('ORDINAL')
-            .appendField(Blockly.Msg.ORDINAL_NUMBER_SUFFIX);
+            .appendField(Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX);
       }
     } else {
       this.appendDummyInput('AT');
     }
-    var menu = new Blockly.FieldDropdown(this.WHERE_OPTIONS, function(value) {
+    var menu = new Blockly.Cake.FieldDropdown(this.WHERE_OPTIONS, function(value) {
       var newAt = (value == 'FROM_START') || (value == 'FROM_END');
       // The 'isAt' variable is available due to this function being a closure.
       if (newAt != isAt) {
@@ -392,66 +392,66 @@ Blockly.Blocks['lists_getIndex'] = {
       return undefined;
     });
     this.getInput('AT').appendField(menu, 'WHERE');
-    if (Blockly.Msg.LISTS_GET_INDEX_TAIL) {
+    if (Blockly.Cake.Msg.LISTS_GET_INDEX_TAIL) {
       this.moveInputBefore('TAIL', null);
     }
   }
 };
 
-Blockly.Blocks['lists_setIndex'] = {
+Blockly.Cake.Blocks['lists_setIndex'] = {
   /**
    * Block for setting the element at index.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var MODE =
-        [[Blockly.Msg.LISTS_SET_INDEX_SET, 'SET'],
-         [Blockly.Msg.LISTS_SET_INDEX_INSERT, 'INSERT']];
+        [[Blockly.Cake.Msg.LISTS_SET_INDEX_SET, 'SET'],
+         [Blockly.Cake.Msg.LISTS_SET_INDEX_INSERT, 'INSERT']];
     this.WHERE_OPTIONS =
-        [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
-         [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
-    this.setHelpUrl(Blockly.Msg.LISTS_SET_INDEX_HELPURL);
+        [[Blockly.Cake.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
+         [Blockly.Cake.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_SET_INDEX_HELPURL);
     this.setColour(260);
     this.appendValueInput('LIST')
         .setCheck('Array')
-        .appendField(Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST);
+        .appendField(Blockly.Cake.Msg.LISTS_SET_INDEX_INPUT_IN_LIST);
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(MODE), 'MODE')
+        .appendField(new Blockly.Cake.FieldDropdown(MODE), 'MODE')
         .appendField('', 'SPACE');
     this.appendDummyInput('AT');
     this.appendValueInput('TO')
-        .appendField(Blockly.Msg.LISTS_SET_INDEX_INPUT_TO);
+        .appendField(Blockly.Cake.Msg.LISTS_SET_INDEX_INPUT_TO);
     this.setInputsInline(true);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.LISTS_SET_INDEX_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_SET_INDEX_TOOLTIP);
     this.updateAt_(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       var combo = thisBlock.getFieldValue('MODE') + '_' +
           thisBlock.getFieldValue('WHERE');
-      return Blockly.Msg['LISTS_SET_INDEX_TOOLTIP_' + combo];
+      return Blockly.Cake.Msg['LISTS_SET_INDEX_TOOLTIP_' + combo];
     });
   },
   /**
    * Create XML to represent whether there is an 'AT' input.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var isAt = this.getInput('AT').type == Blockly.INPUT_VALUE;
+    var isAt = this.getInput('AT').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at', isAt);
     return container;
   },
   /**
    * Parse XML to restore the 'AT' input.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     // Note: Until January 2013 this block did not have mutations,
@@ -463,7 +463,7 @@ Blockly.Blocks['lists_setIndex'] = {
    * Create or delete an input for the numeric index.
    * @param {boolean} isAt True if the input should exist.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateAt_: function(isAt) {
     // Destroy old 'AT' and 'ORDINAL' input.
@@ -472,14 +472,14 @@ Blockly.Blocks['lists_setIndex'] = {
     // Create either a value 'AT' input or a dummy input.
     if (isAt) {
       this.appendValueInput('AT').setCheck('Number');
-      if (Blockly.Msg.ORDINAL_NUMBER_SUFFIX) {
+      if (Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX) {
         this.appendDummyInput('ORDINAL')
-            .appendField(Blockly.Msg.ORDINAL_NUMBER_SUFFIX);
+            .appendField(Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX);
       }
     } else {
       this.appendDummyInput('AT');
     }
-    var menu = new Blockly.FieldDropdown(this.WHERE_OPTIONS, function(value) {
+    var menu = new Blockly.Cake.FieldDropdown(this.WHERE_OPTIONS, function(value) {
       var newAt = (value == 'FROM_START') || (value == 'FROM_END');
       // The 'isAt' variable is available due to this function being a closure.
       if (newAt != isAt) {
@@ -500,54 +500,54 @@ Blockly.Blocks['lists_setIndex'] = {
   }
 };
 
-Blockly.Blocks['lists_getSublist'] = {
+Blockly.Cake.Blocks['lists_getSublist'] = {
   /**
    * Block for getting sublist.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.WHERE_OPTIONS_1 =
-        [[Blockly.Msg.LISTS_GET_SUBLIST_START_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_SUBLIST_START_FROM_END, 'FROM_END'],
-         [Blockly.Msg.LISTS_GET_SUBLIST_START_FIRST, 'FIRST']];
+        [[Blockly.Cake.Msg.LISTS_GET_SUBLIST_START_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.LISTS_GET_SUBLIST_START_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.LISTS_GET_SUBLIST_START_FIRST, 'FIRST']];
     this.WHERE_OPTIONS_2 =
-        [[Blockly.Msg.LISTS_GET_SUBLIST_END_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_SUBLIST_END_FROM_END, 'FROM_END'],
-         [Blockly.Msg.LISTS_GET_SUBLIST_END_LAST, 'LAST']];
-    this.setHelpUrl(Blockly.Msg.LISTS_GET_SUBLIST_HELPURL);
+        [[Blockly.Cake.Msg.LISTS_GET_SUBLIST_END_FROM_START, 'FROM_START'],
+         [Blockly.Cake.Msg.LISTS_GET_SUBLIST_END_FROM_END, 'FROM_END'],
+         [Blockly.Cake.Msg.LISTS_GET_SUBLIST_END_LAST, 'LAST']];
+    this.setHelpUrl(Blockly.Cake.Msg.LISTS_GET_SUBLIST_HELPURL);
     this.setColour(260);
     this.appendValueInput('LIST')
         .setCheck('Array')
-        .appendField(Blockly.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST);
+        .appendField(Blockly.Cake.Msg.LISTS_GET_SUBLIST_INPUT_IN_LIST);
     this.appendDummyInput('AT1');
     this.appendDummyInput('AT2');
-    if (Blockly.Msg.LISTS_GET_SUBLIST_TAIL) {
+    if (Blockly.Cake.Msg.LISTS_GET_SUBLIST_TAIL) {
       this.appendDummyInput('TAIL')
-          .appendField(Blockly.Msg.LISTS_GET_SUBLIST_TAIL);
+          .appendField(Blockly.Cake.Msg.LISTS_GET_SUBLIST_TAIL);
     }
     this.setInputsInline(true);
     this.setOutput(true, 'Array');
     this.updateAt_(1, true);
     this.updateAt_(2, true);
-    this.setTooltip(Blockly.Msg.LISTS_GET_SUBLIST_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.LISTS_GET_SUBLIST_TOOLTIP);
   },
   /**
    * Create XML to represent whether there are 'AT' inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     var container = document.createElement('mutation');
-    var isAt1 = this.getInput('AT1').type == Blockly.INPUT_VALUE;
+    var isAt1 = this.getInput('AT1').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at1', isAt1);
-    var isAt2 = this.getInput('AT2').type == Blockly.INPUT_VALUE;
+    var isAt2 = this.getInput('AT2').type == Blockly.Cake.INPUT_VALUE;
     container.setAttribute('at2', isAt2);
     return container;
   },
   /**
    * Parse XML to restore the 'AT' inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     var isAt1 = (xmlElement.getAttribute('at1') == 'true');
@@ -561,7 +561,7 @@ Blockly.Blocks['lists_getSublist'] = {
    * @param {number} n Specify first or second input (1 or 2).
    * @param {boolean} isAt True if the input should exist.
    * @private
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   updateAt_: function(n, isAt) {
     // Create or delete an input for the numeric index.
@@ -571,14 +571,14 @@ Blockly.Blocks['lists_getSublist'] = {
     // Create either a value 'AT' input or a dummy input.
     if (isAt) {
       this.appendValueInput('AT' + n).setCheck('Number');
-      if (Blockly.Msg.ORDINAL_NUMBER_SUFFIX) {
+      if (Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX) {
         this.appendDummyInput('ORDINAL' + n)
-            .appendField(Blockly.Msg.ORDINAL_NUMBER_SUFFIX);
+            .appendField(Blockly.Cake.Msg.ORDINAL_NUMBER_SUFFIX);
       }
     } else {
       this.appendDummyInput('AT' + n);
     }
-    var menu = new Blockly.FieldDropdown(this['WHERE_OPTIONS_' + n],
+    var menu = new Blockly.Cake.FieldDropdown(this['WHERE_OPTIONS_' + n],
         function(value) {
       var newAt = (value == 'FROM_START') || (value == 'FROM_END');
       // The 'isAt' variable is available due to this function being a closure.
@@ -599,7 +599,7 @@ Blockly.Blocks['lists_getSublist'] = {
         this.moveInputBefore('ORDINAL1', 'AT2');
       }
     }
-    if (Blockly.Msg.LISTS_GET_SUBLIST_TAIL) {
+    if (Blockly.Cake.Msg.LISTS_GET_SUBLIST_TAIL) {
       this.moveInputBefore('TAIL', null);
     }
   }

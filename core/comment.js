@@ -24,63 +24,63 @@
  */
 'use strict';
 
-goog.provide('Blockly.Comment');
+goog.provide('Blockly.Cake.Comment');
 
-goog.require('Blockly.Bubble');
-goog.require('Blockly.Icon');
+goog.require('Blockly.Cake.Bubble');
+goog.require('Blockly.Cake.Icon');
 goog.require('goog.userAgent');
 
 
 /**
  * Class for a comment.
- * @param {!Blockly.Block} block The block associated with this comment.
- * @extends {Blockly.Icon}
+ * @param {!Blockly.Cake.Block} block The block associated with this comment.
+ * @extends {Blockly.Cake.Icon}
  * @constructor
  */
-Blockly.Comment = function(block) {
-  Blockly.Comment.superClass_.constructor.call(this, block);
+Blockly.Cake.Comment = function(block) {
+  Blockly.Cake.Comment.superClass_.constructor.call(this, block);
   this.createIcon_();
 };
-goog.inherits(Blockly.Comment, Blockly.Icon);
+goog.inherits(Blockly.Cake.Comment, Blockly.Cake.Icon);
 
 
 /**
  * Comment text (if bubble is not visible).
  * @private
  */
-Blockly.Comment.prototype.text_ = '';
+Blockly.Cake.Comment.prototype.text_ = '';
 
 /**
  * Width of bubble.
  * @private
  */
-Blockly.Comment.prototype.width_ = 160;
+Blockly.Cake.Comment.prototype.width_ = 160;
 
 /**
  * Height of bubble.
  * @private
  */
-Blockly.Comment.prototype.height_ = 80;
+Blockly.Cake.Comment.prototype.height_ = 80;
 
 /**
  * Create the icon on the block.
  * @private
  */
-Blockly.Comment.prototype.createIcon_ = function() {
-  Blockly.Icon.prototype.createIcon_.call(this);
+Blockly.Cake.Comment.prototype.createIcon_ = function() {
+  Blockly.Cake.Icon.prototype.createIcon_.call(this);
   /* Here's the markup that will be generated:
   <circle class="blocklyIconShield" r="8" cx="8" cy="8"/>
   <text class="blocklyIconMark" x="8" y="13">?</text>
   */
-  var iconShield = Blockly.createSvgElement('circle',
+  var iconShield = Blockly.Cake.createSvgElement('circle',
       {'class': 'blocklyIconShield',
-       'r': Blockly.Icon.RADIUS,
-       'cx': Blockly.Icon.RADIUS,
-       'cy': Blockly.Icon.RADIUS}, this.iconGroup_);
-  this.iconMark_ = Blockly.createSvgElement('text',
+       'r': Blockly.Cake.Icon.RADIUS,
+       'cx': Blockly.Cake.Icon.RADIUS,
+       'cy': Blockly.Cake.Icon.RADIUS}, this.iconGroup_);
+  this.iconMark_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyIconMark',
-       'x': Blockly.Icon.RADIUS,
-       'y': 2 * Blockly.Icon.RADIUS - 3}, this.iconGroup_);
+       'x': Blockly.Cake.Icon.RADIUS,
+       'y': 2 * Blockly.Cake.Icon.RADIUS - 3}, this.iconGroup_);
   this.iconMark_.appendChild(document.createTextNode('?'));
 };
 
@@ -89,7 +89,7 @@ Blockly.Comment.prototype.createIcon_ = function() {
  * @return {!Element} The top-level node of the editor.
  * @private
  */
-Blockly.Comment.prototype.createEditor_ = function() {
+Blockly.Cake.Comment.prototype.createEditor_ = function() {
   /* Create the editor.  Here's the markup that will be generated:
     <foreignObject x="8" y="8" width="164" height="164">
       <body xmlns="http://www.w3.org/1999/xhtml" class="blocklyMinimalBody">
@@ -99,18 +99,18 @@ Blockly.Comment.prototype.createEditor_ = function() {
       </body>
     </foreignObject>
   */
-  this.foreignObject_ = Blockly.createSvgElement('foreignObject',
-      {'x': Blockly.Bubble.BORDER_WIDTH, 'y': Blockly.Bubble.BORDER_WIDTH},
+  this.foreignObject_ = Blockly.Cake.createSvgElement('foreignObject',
+      {'x': Blockly.Cake.Bubble.BORDER_WIDTH, 'y': Blockly.Cake.Bubble.BORDER_WIDTH},
       null);
-  var body = document.createElementNS(Blockly.HTML_NS, 'body');
-  body.setAttribute('xmlns', Blockly.HTML_NS);
+  var body = document.createElementNS(Blockly.Cake.HTML_NS, 'body');
+  body.setAttribute('xmlns', Blockly.Cake.HTML_NS);
   body.className = 'blocklyMinimalBody';
-  this.textarea_ = document.createElementNS(Blockly.HTML_NS, 'textarea');
+  this.textarea_ = document.createElementNS(Blockly.Cake.HTML_NS, 'textarea');
   this.textarea_.className = 'blocklyCommentTextarea';
-  this.textarea_.setAttribute('dir', Blockly.RTL ? 'RTL' : 'LTR');
+  this.textarea_.setAttribute('dir', Blockly.Cake.RTL ? 'RTL' : 'LTR');
   body.appendChild(this.textarea_);
   this.foreignObject_.appendChild(body);
-  Blockly.bindEvent_(this.textarea_, 'mouseup', this, this.textareaFocus_);
+  Blockly.Cake.bindEvent_(this.textarea_, 'mouseup', this, this.textareaFocus_);
   return this.foreignObject_;
 };
 
@@ -118,14 +118,14 @@ Blockly.Comment.prototype.createEditor_ = function() {
  * Add or remove editability of the comment.
  * @override
  */
-Blockly.Comment.prototype.updateEditable = function() {
+Blockly.Cake.Comment.prototype.updateEditable = function() {
   if (this.isVisible()) {
     // Toggling visibility will force a rerendering.
     this.setVisible(false);
     this.setVisible(true);
   }
   // Allow the icon to update.
-  Blockly.Icon.prototype.updateEditable.call(this);
+  Blockly.Cake.Icon.prototype.updateEditable.call(this);
 };
 
 /**
@@ -133,9 +133,9 @@ Blockly.Comment.prototype.updateEditable = function() {
  * Resize the text area accordingly.
  * @private
  */
-Blockly.Comment.prototype.resizeBubble_ = function() {
+Blockly.Cake.Comment.prototype.resizeBubble_ = function() {
   var size = this.bubble_.getBubbleSize();
-  var doubleBorderWidth = 2 * Blockly.Bubble.BORDER_WIDTH;
+  var doubleBorderWidth = 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
   this.foreignObject_.setAttribute('width', size.width - doubleBorderWidth);
   this.foreignObject_.setAttribute('height', size.height - doubleBorderWidth);
   this.textarea_.style.width = (size.width - doubleBorderWidth - 4) + 'px';
@@ -146,7 +146,7 @@ Blockly.Comment.prototype.resizeBubble_ = function() {
  * Show or hide the comment bubble.
  * @param {boolean} visible True if the bubble should be visible.
  */
-Blockly.Comment.prototype.setVisible = function(visible) {
+Blockly.Cake.Comment.prototype.setVisible = function(visible) {
   if (visible == this.isVisible()) {
     // No change.
     return;
@@ -156,7 +156,7 @@ Blockly.Comment.prototype.setVisible = function(visible) {
     // MSIE does not support foreignobject; textareas are impossible.
     // http://msdn.microsoft.com/en-us/library/hh834675%28v=vs.85%29.aspx
     // Always treat comments in IE as uneditable.
-    Blockly.Warning.prototype.setVisible.call(this, visible);
+    Blockly.Cake.Warning.prototype.setVisible.call(this, visible);
     return;
   }
   // Save the bubble stats before the visibility switch.
@@ -164,8 +164,8 @@ Blockly.Comment.prototype.setVisible = function(visible) {
   var size = this.getBubbleSize();
   if (visible) {
     // Create the bubble.
-    this.bubble_ = new Blockly.Bubble(
-        /** @type {!Blockly.Workspace} */ (this.block_.workspace),
+    this.bubble_ = new Blockly.Cake.Bubble(
+        /** @type {!Blockly.Cake.Workspace} */ (this.block_.workspace),
         this.createEditor_(), this.block_.svg_.svgPath_,
         this.iconX_, this.iconY_,
         this.width_, this.height_);
@@ -189,7 +189,7 @@ Blockly.Comment.prototype.setVisible = function(visible) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.Comment.prototype.textareaFocus_ = function(e) {
+Blockly.Cake.Comment.prototype.textareaFocus_ = function(e) {
   // Ideally this would be hooked to the focus event for the comment.
   // However doing so in Firefox swallows the cursor for unknown reasons.
   // So this is hooked to mouseup instead.  No big deal.
@@ -203,7 +203,7 @@ Blockly.Comment.prototype.textareaFocus_ = function(e) {
  * Get the dimensions of this comment's bubble.
  * @return {!Object} Object with width and height properties.
  */
-Blockly.Comment.prototype.getBubbleSize = function() {
+Blockly.Cake.Comment.prototype.getBubbleSize = function() {
   if (this.isVisible()) {
     return this.bubble_.getBubbleSize();
   } else {
@@ -216,7 +216,7 @@ Blockly.Comment.prototype.getBubbleSize = function() {
  * @param {number} width Width of the bubble.
  * @param {number} height Height of the bubble.
  */
-Blockly.Comment.prototype.setBubbleSize = function(width, height) {
+Blockly.Cake.Comment.prototype.setBubbleSize = function(width, height) {
   if (this.textarea_) {
     this.bubble_.setBubbleSize(width, height);
   } else {
@@ -229,7 +229,7 @@ Blockly.Comment.prototype.setBubbleSize = function(width, height) {
  * Returns this comment's text.
  * @return {string} Comment text.
  */
-Blockly.Comment.prototype.getText = function() {
+Blockly.Cake.Comment.prototype.getText = function() {
   return this.textarea_ ? this.textarea_.value : this.text_;
 };
 
@@ -237,7 +237,7 @@ Blockly.Comment.prototype.getText = function() {
  * Set this comment's text.
  * @param {string} text Comment text.
  */
-Blockly.Comment.prototype.setText = function(text) {
+Blockly.Cake.Comment.prototype.setText = function(text) {
   if (this.textarea_) {
     this.textarea_.value = text;
   } else {
@@ -248,7 +248,7 @@ Blockly.Comment.prototype.setText = function(text) {
 /**
  * Dispose of this comment.
  */
-Blockly.Comment.prototype.dispose = function() {
+Blockly.Cake.Comment.prototype.dispose = function() {
   this.block_.comment = null;
-  Blockly.Icon.prototype.dispose.call(this);
+  Blockly.Cake.Icon.prototype.dispose.call(this);
 };

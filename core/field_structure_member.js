@@ -24,12 +24,12 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldStructureMember');
+goog.provide('Blockly.Cake.FieldStructureMember');
 
-goog.require('Blockly.FieldDropdown');
-goog.require('Blockly.Msg');
-goog.require('Blockly.Structure');
-goog.require('Blockly.Field');
+goog.require('Blockly.Cake.FieldDropdown');
+goog.require('Blockly.Cake.Msg');
+goog.require('Blockly.Cake.Structure');
+goog.require('Blockly.Cake.Field');
 
 
 /**
@@ -39,30 +39,30 @@ goog.require('Blockly.Field');
  * @param {Function} opt_changeHandler A function that is executed when a new
  *     option is selected.  Its sole argument is the new option value.  Its
  *     return value is ignored.
- * @extends {Blockly.FieldDropdown}
+ * @extends {Blockly.Cake.FieldDropdown}
  * @constructor
  */
 
-Blockly.FieldStructureMember = function(varname, opt_changeHandler, block) {
+Blockly.Cake.FieldStructureMember = function(varname, opt_changeHandler, block) {
 
-  Blockly.FieldStructureMember.superClass_.constructor.call(this,
-    Blockly.FieldStructureMember.dropdownCreate, opt_changeHandler, block);
+  Blockly.Cake.FieldStructureMember.superClass_.constructor.call(this,
+    Blockly.Cake.FieldStructureMember.dropdownCreate, opt_changeHandler, block);
 
   if (varname) {
     this.setValue(varname);
   } else {
-    this.setValue(Blockly.Variables.generateUniqueName());
+    this.setValue(Blockly.Cake.Variables.generateUniqueName());
   }
 };
-goog.inherits(Blockly.FieldStructureMember, Blockly.FieldDropdown);
+goog.inherits(Blockly.Cake.FieldStructureMember, Blockly.Cake.FieldDropdown);
 
 /**
  * Clone this FieldVariable.
- * @return {!Blockly.FieldVariable} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldVariable} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldStructureMember.prototype.clone = function() {
-  return new Blockly.FieldStructureMember(this.getValue(), this.changeHandler_);
+Blockly.Cake.FieldStructureMember.prototype.clone = function() {
+  return new Blockly.Cake.FieldStructureMember(this.getValue(), this.changeHandler_);
 };
 
 /**
@@ -70,7 +70,7 @@ Blockly.FieldStructureMember.prototype.clone = function() {
  * Unline a regular dropdown, variables are literal and have no neutral value.
  * @return {string} Current text.
  */
-Blockly.FieldStructureMember.prototype.getValue = function() {
+Blockly.Cake.FieldStructureMember.prototype.getValue = function() {
   return this.getText();
 };
 
@@ -78,7 +78,7 @@ Blockly.FieldStructureMember.prototype.getValue = function() {
  * Set the variable name.
  * @param {string} text New text.
  */
-Blockly.FieldStructureMember.prototype.setValue = function(text) {
+Blockly.Cake.FieldStructureMember.prototype.setValue = function(text) {
   this.value_ = text;
   this.setText(text);
 };
@@ -87,10 +87,10 @@ Blockly.FieldStructureMember.prototype.setValue = function(text) {
  * Return a sorted list of variable names for variable dropdown menus.
  * Include a special option at the end for creating a new variable name.
  * @return {!Array.<string>} Array of variable names.
- * @this {!Blockly.FieldStructureMember}
+ * @this {!Blockly.Cake.FieldStructureMember}
  */
-Blockly.FieldStructureMember.dropdownCreate = function(block) {
-  var structureList = Blockly.Structure.allStructure();
+Blockly.Cake.FieldStructureMember.dropdownCreate = function(block) {
+  var structureList = Blockly.Cake.Structure.allStructure();
   var structureListPop = []; // 보여줄 리스트 거를 것.
   var structName = block.getInput('struct').fieldRow[0].text_;
   for (var temp = 0; temp < structureList[1].length; temp++) {
@@ -116,7 +116,7 @@ Blockly.FieldStructureMember.dropdownCreate = function(block) {
 
 };
 
-Blockly.FieldStructureMember.dropdownChange = function(block) {
+Blockly.Cake.FieldStructureMember.dropdownChange = function(block) {
   block.getInput('struct').removeField('Mem');
-  block.getInput('struct').appendField(new Blockly.FieldStructureMember('--Select--', null, block), 'Mem')
+  block.getInput('struct').appendField(new Blockly.Cake.FieldStructureMember('--Select--', null, block), 'Mem')
 }

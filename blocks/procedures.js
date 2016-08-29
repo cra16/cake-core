@@ -19,29 +19,29 @@
  */
 
 /**
- * @fileoverview Procedure blocks for Blockly.
+ * @fileoverview Procedure blocks for Blockly.Cake.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.procedures');
+goog.provide('Blockly.Cake.Blocks.procedures');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['main_block'] = {
+Blockly.Cake.Blocks['main_block'] = {
     init: function() {
         this.setColour(300);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.MAIN_BLOCK);
+            .appendField(Blockly.Cake.Msg.MAIN_BLOCK);
         this.appendStatementInput('STACK')
-            .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_DO);
         this.appendValueInput('RETURN')
-            .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField(Blockly.Msg.MAIN_BLOCK_RETURN);
-        this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
+            .setAlign(Blockly.Cake.ALIGN_RIGHT)
+            .appendField(Blockly.Cake.Msg.MAIN_BLOCK_RETURN);
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
         this.arguments_ = [];
         this.types_ = [];
         this.types_[0] = 'int';
@@ -52,7 +52,7 @@ Blockly.Blocks['main_block'] = {
         this.setPreviousStatement(true, ["define_declare"]);
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
 
-        Blockly.Blocks.setCheckVariable(this, 'int', 'RETURN');
+        Blockly.Cake.Blocks.setCheckVariable(this, 'int', 'RETURN');
     },
     getName: function(){
         return ['Main'];
@@ -70,16 +70,16 @@ Blockly.Blocks['main_block'] = {
     }
 };
 
-Blockly.Blocks['procedures_return'] = {
+Blockly.Cake.Blocks['procedures_return'] = {
     /**
      * Block for return in function block.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(300);
         this.appendValueInput('VALUE')
-            .appendField(Blockly.Msg.PROCEDURES_RETURN_TITLE);
-        this.setTooltip(Blockly.Msg.PROCEDURES_RETURN_TOOLTIP);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_RETURN_TITLE);
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_RETURN_TOOLTIP);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
     },
@@ -102,7 +102,7 @@ Blockly.Blocks['procedures_return'] = {
     },
 
     onchange: function() {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Cake.Blocks.requireInFunction();
 
         if (!this.workspace) {
             // Block has been deleted.
@@ -119,7 +119,7 @@ Blockly.Blocks['procedures_return'] = {
             }
         }
         if(typeConfig && block.type =='main_block'){
-            Blockly.Blocks.setCheckVariable(block, 'int', 'RETURN');
+            Blockly.Cake.Blocks.setCheckVariable(block, 'int', 'RETURN');
         }
         else if(typeConfig && (block.type == 'procedures_defnoreturn' || block.type == 'procedures_defreturn')) {
             block.updateShape();
@@ -133,40 +133,40 @@ Blockly.Blocks['procedures_return'] = {
 
             // variable
             if (dist == 'variable') {
-                Blockly.Blocks.setCheckVariable(block, type, 'RETURN');
+                Blockly.Cake.Blocks.setCheckVariable(block, type, 'RETURN');
             }
             // pointer
             else {
-                Blockly.Blocks.setCheckPointer(block, type, 'RETURN');
+                Blockly.Cake.Blocks.setCheckPointer(block, type, 'RETURN');
             }
         }
     }
 
 };
 
-Blockly.Blocks['procedures_defnoreturn'] = {
+Blockly.Cake.Blocks['procedures_defnoreturn'] = {
     /**
      * Block for defining a procedure with no return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(300);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.PROCEDURES_DEFNORETURN_PROCEDURE, this);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_TITLE)
-            .appendField(new Blockly.FieldTextInput(name,
-                Blockly.Procedures.rename), 'NAME')
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFNORETURN_TITLE)
+            .appendField(new Blockly.Cake.FieldTextInput(name,
+                Blockly.Cake.Procedures.rename), 'NAME')
             .appendField('', 'PARAMS');
         this.appendStatementInput('STACK')
-            .appendField(Blockly.Msg.PROCEDURES_DEFNORETURN_DO);
-        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));
-        this.setTooltip(Blockly.Msg.PROCEDURES_DEFNORETURN_TOOLTIP);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFNORETURN_DO);
+        this.setMutator(new Blockly.Cake.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_DEFNORETURN_TOOLTIP);
         this.arguments_ = [];
         this.types_ = [];
         this.dist_ = [];
         this.spec_ =[];
-        this.tag = Blockly.Msg.TAG_PROCEDURE_DEFNORETURN;
+        this.tag = Blockly.Cake.Msg.TAG_PROCEDURE_DEFNORETURN;
         this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn", "main_block"]);
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     },
@@ -177,12 +177,12 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     getName: function(){
         return [this.getFieldValue('NAME')];
     },
-    onchange: Blockly.Blocks.requireOutFunction,
+    onchange: Blockly.Cake.Blocks.requireOutFunction,
     /**
      * Update the display of parameters for this procedure definition block.
      * Display a warning if there are duplicately named parameters.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     updateParams_: function() {
         // Check for duplicated arguments.
@@ -196,14 +196,14 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             hash['arg_' + this.arguments_[x].toLowerCase()] = true;
         }
         if (badArg) {
-            this.setWarningText(Blockly.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
+            this.setWarningText(Blockly.Cake.Msg.PROCEDURES_DEF_DUPLICATE_WARNING);
         } else {
             this.setWarningText(null);
         }
         // Merge the arguments into a human-readable list.
         var paramString = '';
         if (this.arguments_.length) {
-            paramString = Blockly.Msg.PROCEDURES_BEFORE_PARAMS;
+            paramString = Blockly.Cake.Msg.PROCEDURES_BEFORE_PARAMS;
             for (var x = 0; x < this.arguments_.length; x++) {
                 if (x == 0) {
                     if(this.dist_[x]=='v'){
@@ -244,7 +244,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     /**
      * Create XML to represent the argument inputs.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         var container = document.createElement('mutation');
@@ -282,7 +282,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     /**
      * Parse XML to restore the argument inputs.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         this.arguments_ = [];
@@ -322,12 +322,12 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     },
     /**
      * Populate the mutator's dialog with this block's components.
-     * @param {!Blockly.Workspace} workspace Mutator's workspace.
-     * @return {!Blockly.Block} Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Cake.Block} Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     decompose: function(workspace) {
-        var containerBlock = Blockly.Block.obtain(workspace,
+        var containerBlock = Blockly.Cake.Block.obtain(workspace,
             'procedures_mutatorcontainer');
         containerBlock.initSvg();
 
@@ -345,13 +345,13 @@ Blockly.Blocks['procedures_defnoreturn'] = {
         for (var x = 0; x < this.arguments_.length; x++) {
             var paramBlock;
             if(this.dist_[x]=='v'){
-                paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'procedures_mutatorarg');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.arguments_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
             }
             else if(this.dist_[x]=='a'){
-                paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg_array');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'procedures_mutatorarg_array');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.arguments_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
@@ -368,7 +368,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
                 }
             }
             else if(this.dist_[x]=='p'){
-                paramBlock = Blockly.Block.obtain(workspace, 'procedures_mutatorarg_pointer');
+                paramBlock = Blockly.Cake.Block.obtain(workspace, 'procedures_mutatorarg_pointer');
                 paramBlock.initSvg();
                 paramBlock.setFieldValue(this.arguments_[x], 'NAME');
                 paramBlock.setFieldValue(this.types_[x], 'TYPES');
@@ -380,14 +380,14 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             connection = paramBlock.nextConnection;
         }
         // Initialize procedure's callers with blank IDs.
-        Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
+        Blockly.Cake.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
             this.workspace, this.arguments_, this.types_, this.dist_, this.spec_, null);
         return containerBlock;
     },
     /**
      * Reconfigure this block based on the mutator dialog's components.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     compose: function(containerBlock) {
         // Parameter list.
@@ -428,7 +428,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             paramBlock.nextConnection.targetBlock();
         }
         this.updateParams_();
-        Blockly.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
+        Blockly.Cake.Procedures.mutateCallers(this.getFieldValue('NAME'), this.getFieldValue('TYPES'),
             this.workspace, this.arguments_, this.types_, this.dist_, this.spec_, this.paramIds_);
 
         // Show/hide the statement input.
@@ -465,14 +465,14 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     },
     /**
      * Dispose of any callers.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     dispose: function() {
         var name = this.getFieldValue('NAME');
         var type = this.getFieldValue('TYPES');
-        Blockly.Procedures.disposeCallers(name, this.workspace);
+        Blockly.Cake.Procedures.disposeCallers(name, this.workspace);
         // Call parent's destructor.
-        Blockly.Block.prototype.dispose.apply(this, arguments);
+        Blockly.Cake.Block.prototype.dispose.apply(this, arguments);
     },
     /**
      * Return the signature of this procedure definition.
@@ -480,7 +480,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
      *     - the name of the defined procedure,
      *     - a list of all its arguments,
      *     - that it DOES NOT have a return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getProcedureDef: function() {
         return [false, this.getFieldValue('NAME'), this.getFieldValue('TYPES'), this.arguments_, this.types_, this.dist_, this.spec_];
@@ -488,7 +488,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     /**
      * Return all variables referenced by this block.
      * @return {!Array.<string>} List of variable names.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getVars: function() {
         return this.arguments_;
@@ -498,12 +498,12 @@ Blockly.Blocks['procedures_defnoreturn'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
         var change = false;
         for (var x = 0; x < this.arguments_.length; x++) {
-            if (Blockly.Names.equals(oldName, this.arguments_[x])) {
+            if (Blockly.Cake.Names.equals(oldName, this.arguments_[x])) {
                 this.arguments_[x] = newName;
                 change = true;
             }
@@ -515,13 +515,13 @@ Blockly.Blocks['procedures_defnoreturn'] = {
                 var blocks = this.mutator.workspace_.getAllBlocks();
                 for (var x = 0, block; block = blocks[x]; x++) {
                     if (block.type == 'procedures_mutatorarg' &&
-                        Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+                        Blockly.Cake.Names.equals(oldName, block.getFieldValue('NAME'))) {
                         block.setFieldValue(newName, 'NAME');
                     } else if (block.type == 'procedures_mutatorarg_pointer' &&
-                        Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+                        Blockly.Cake.Names.equals(oldName, block.getFieldValue('NAME'))) {
                         block.setFieldValue(newName, 'NAME');
                     } else if (block.type == 'procedures_mutatorarg_array' &&
-                        Blockly.Names.equals(oldName, block.getFieldValue('NAME'))) {
+                        Blockly.Cake.Names.equals(oldName, block.getFieldValue('NAME'))) {
                         block.setFieldValue(newName, 'NAME');
                     }
                 }
@@ -531,7 +531,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     /**
      * Add custom menu options to this block's context menu.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         // Add option to create caller.
@@ -539,7 +539,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
             enabled: true
         };
         var name = this.getFieldValue('NAME');
-        option.text = Blockly.Msg.PROCEDURES_CREATE_DO.replace('%1', name);
+        option.text = Blockly.Cake.Msg.PROCEDURES_CREATE_DO.replace('%1', name);
         var xmlMutation = goog.dom.createDom('mutation');
         xmlMutation.setAttribute('name', name);
         for (var x = 0; x < this.arguments_.length; x++) {
@@ -549,7 +549,7 @@ Blockly.Blocks['procedures_defnoreturn'] = {
         }
         var xmlBlock = goog.dom.createDom('block', null, xmlMutation);
         xmlBlock.setAttribute('type', this.callType_);
-        option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+        option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
         options.push(option);
 
         // Add options to create getters for each parameter.
@@ -559,12 +559,12 @@ Blockly.Blocks['procedures_defnoreturn'] = {
                     enabled: true
                 };
                 var name = this.arguments_[x];
-                option.text = Blockly.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
+                option.text = Blockly.Cake.Msg.VARIABLES_SET_CREATE_GET.replace('%1', name);
                 var xmlField = goog.dom.createDom('field', null, name);
                 xmlField.setAttribute('name', 'VAR');
                 var xmlBlock = goog.dom.createDom('block', null, xmlField);
                 xmlBlock.setAttribute('type', 'variables_declare');
-                option.callback = Blockly.ContextMenu.callbackFactory(this, xmlBlock);
+                option.callback = Blockly.Cake.ContextMenu.callbackFactory(this, xmlBlock);
                 options.push(option);
             }
         }
@@ -583,61 +583,61 @@ Blockly.Blocks['procedures_defnoreturn'] = {
     }
 };
 
-Blockly.Blocks['procedures_defreturn'] = {
+Blockly.Cake.Blocks['procedures_defreturn'] = {
     /**
      * Block for defining a procedure with a return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         var DIST = [
-            [Blockly.Msg.VARIABLES_SET_DIST_VARIABLE, 'variable'],
-            [Blockly.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
-            [Blockly.Msg.VARIABLES_SET_DIST_ARRAY, 'array']
+            [Blockly.Cake.Msg.VARIABLES_SET_DIST_VARIABLE, 'variable'],
+            [Blockly.Cake.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
+            [Blockly.Cake.Msg.VARIABLES_SET_DIST_ARRAY, 'array']
         ];
         this.setColour(300);
-        var name = Blockly.Procedures.findLegalName(
-            Blockly.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
+        var name = Blockly.Cake.Procedures.findLegalName(
+            Blockly.Cake.Msg.PROCEDURES_DEFRETURN_PROCEDURE, this);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_TITLE)
-            .appendField(new Blockly.FieldTextInput(name, Blockly.Procedures.rename), 'NAME')
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_TITLE)
+            .appendField(new Blockly.Cake.FieldTextInput(name, Blockly.Cake.Procedures.rename), 'NAME')
             .appendField('', 'PARAMS');
         this.appendStatementInput('STACK')
-            .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_DO);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_DO);
         this.appendValueInput('RETURN')
-            .appendField(Blockly.Msg.PROCEDURES_DEFRETURN_RETURN)
-            .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
-            .appendField(new Blockly.FieldDropdown(DIST), 'DISTS')
-            .setAlign(Blockly.ALIGN_RIGHT);
-        this.setMutator(new Blockly.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));
-        this.setTooltip(Blockly.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_RETURN)
+            .appendField(new Blockly.Cake.FieldDropdown(TYPE), 'TYPES')
+            .appendField(new Blockly.Cake.FieldDropdown(DIST), 'DISTS')
+            .setAlign(Blockly.Cake.ALIGN_RIGHT);
+        this.setMutator(new Blockly.Cake.Mutator(['procedures_mutatorarg', 'procedures_mutatorarg_pointer', 'procedures_mutatorarg_array']));
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_DEFRETURN_TOOLTIP);
         this.arguments_ = [];
         this.types_ = [];
         this.dist_ = [];
         this.spec_ = [];
-        this.tag = Blockly.Msg.TAG_PROCEDURE_DEFRETURN;
+        this.tag = Blockly.Cake.Msg.TAG_PROCEDURE_DEFRETURN;
         this.setPreviousStatement(true, ["procedures_defnoreturn", "procedures_defreturn", "main_block"]);
         this.setNextStatement(true, ["procedures_defnoreturn", "procedures_defreturn"]);
     },
-    initName: Blockly.Blocks['procedures_defnoreturn'].initName,
+    initName: Blockly.Cake.Blocks['procedures_defnoreturn'].initName,
     getName: function(){
         return [this.getFieldValue('NAME')];
     },
     updateShape: function(){
         var PSPEC = [
-            [Blockly.Msg.VARIABLES_SET_POINTER_SPEC_ONE, '*'],
-            [Blockly.Msg.VARIABLES_SET_POINTER_SPEC_TWO, '**']
+            [Blockly.Cake.Msg.VARIABLES_SET_POINTER_SPEC_ONE, '*'],
+            [Blockly.Cake.Msg.VARIABLES_SET_POINTER_SPEC_TWO, '**']
         ];
         var ASPEC = [
-            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_ONE, '[]'],
-            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_TWO, '[][]'],
-            [Blockly.Msg.VARIABLES_SET_ARRAY_SPEC_THREE, '[][][]']
+            [Blockly.Cake.Msg.VARIABLES_SET_ARRAY_SPEC_ONE, '[]'],
+            [Blockly.Cake.Msg.VARIABLES_SET_ARRAY_SPEC_TWO, '[][]'],
+            [Blockly.Cake.Msg.VARIABLES_SET_ARRAY_SPEC_THREE, '[][][]']
         ];
         if(this.getFieldValue('DISTS') == null){
         }
@@ -651,7 +651,7 @@ Blockly.Blocks['procedures_defreturn'] = {
         }
         else if(this.getFieldValue('DISTS') == 'pointer'){
             if(!this.getField_('PSPECS')){
-                this.inputList[2].appendField(new Blockly.FieldDropdown(PSPEC), 'PSPECS');
+                this.inputList[2].appendField(new Blockly.Cake.FieldDropdown(PSPEC), 'PSPECS');
             }
             if(this.getField_('ASPECS')){
                 this.inputList[2].removeField('ASPECS');
@@ -659,26 +659,26 @@ Blockly.Blocks['procedures_defreturn'] = {
         }
         else if(this.getFieldValue('DISTS') == 'array'){
             if(!this.getField_('ASPECS')){
-                this.inputList[2].appendField(new Blockly.FieldDropdown(ASPEC), 'ASPECS');
+                this.inputList[2].appendField(new Blockly.Cake.FieldDropdown(ASPEC), 'ASPECS');
             }
             if(this.getField_('PSPECS')){
                 this.inputList[2].removeField('PSPECS');
             }
         }
     },
-    updateParams_: Blockly.Blocks['procedures_defnoreturn'].updateParams_,
-    mutationToDom: Blockly.Blocks['procedures_defnoreturn'].mutationToDom,
-    domToMutation: Blockly.Blocks['procedures_defnoreturn'].domToMutation,
-    decompose: Blockly.Blocks['procedures_defnoreturn'].decompose,
-    compose: Blockly.Blocks['procedures_defnoreturn'].compose,
-    dispose: Blockly.Blocks['procedures_defnoreturn'].dispose,
+    updateParams_: Blockly.Cake.Blocks['procedures_defnoreturn'].updateParams_,
+    mutationToDom: Blockly.Cake.Blocks['procedures_defnoreturn'].mutationToDom,
+    domToMutation: Blockly.Cake.Blocks['procedures_defnoreturn'].domToMutation,
+    decompose: Blockly.Cake.Blocks['procedures_defnoreturn'].decompose,
+    compose: Blockly.Cake.Blocks['procedures_defnoreturn'].compose,
+    dispose: Blockly.Cake.Blocks['procedures_defnoreturn'].dispose,
     /**
      * Return the signature of this procedure definition.
      * @return {!Array} Tuple containing three elements:
      *     - the name of the defined procedure,
      *     - a list of all its arguments,
      *     - that it DOES have a return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getProcedureDef: function() {
         if(this.getFieldValue('DISTS') == 'variable'){
@@ -694,12 +694,12 @@ Blockly.Blocks['procedures_defreturn'] = {
     getType: function() {
         return [this.getFieldValue('TYPES')];
     },
-    getVars: Blockly.Blocks['procedures_defnoreturn'].getVars,
-    renameVar: Blockly.Blocks['procedures_defnoreturn'].renameVar,
-    customContextMenu: Blockly.Blocks['procedures_defnoreturn'].customContextMenu,
+    getVars: Blockly.Cake.Blocks['procedures_defnoreturn'].getVars,
+    renameVar: Blockly.Cake.Blocks['procedures_defnoreturn'].renameVar,
+    customContextMenu: Blockly.Cake.Blocks['procedures_defnoreturn'].customContextMenu,
     callType_: 'procedures_callreturn',
     onchange: function(){
-        Blockly.Blocks.requireOutFunction();
+        Blockly.Cake.Blocks.requireOutFunction();
         this.updateShape();
 
         var dist = this.getFieldValue('DISTS');
@@ -710,16 +710,16 @@ Blockly.Blocks['procedures_defreturn'] = {
 
         // variable
         if (dist == 'variable' ) {
-            Blockly.Blocks.setCheckVariable(this, type, 'RETURN');
+            Blockly.Cake.Blocks.setCheckVariable(this, type, 'RETURN');
         }
         // pointer
         else {
             var spec = this.getFieldValue('PSPECS');
             if (spec == "*") {
-                Blockly.Blocks.setCheckPointer(this, type, 'RETURN');
+                Blockly.Cake.Blocks.setCheckPointer(this, type, 'RETURN');
             }
             else if (spec == "**") {
-                Blockly.Blocks.setCheckPointer(this, 'db'+type, 'RETURN');
+                Blockly.Cake.Blocks.setCheckPointer(this, 'db'+type, 'RETURN');
 
             }
         }
@@ -742,46 +742,46 @@ Blockly.Blocks['procedures_defreturn'] = {
     }
 };
 
-Blockly.Blocks['procedures_mutatorcontainer'] = {
+Blockly.Cake.Blocks['procedures_mutatorcontainer'] = {
     /**
      * Mutator block for procedure container.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(300);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_MUTATORCONTAINER_TITLE);
         this.appendStatementInput('STACK');
         this.appendDummyInput('STATEMENT_INPUT')
-            .appendField(Blockly.Msg.PROCEDURES_ALLOW_STATEMENTS)
-            .appendField(new Blockly.FieldCheckbox('TRUE'), 'STATEMENTS');
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
+            .appendField(Blockly.Cake.Msg.PROCEDURES_ALLOW_STATEMENTS)
+            .appendField(new Blockly.Cake.FieldCheckbox('TRUE'), 'STATEMENTS');
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_MUTATORCONTAINER_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['procedures_mutatorarg'] = {
+Blockly.Cake.Blocks['procedures_mutatorarg'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(300);
         this.appendDummyInput()
             .appendField('variable')
-            .appendField(new Blockly.FieldDropdown(TYPE), 'TYPES')
-            .appendField(Blockly.Msg.PROCEDURES_MUTATORARG_TITLE)
-            .appendField(new Blockly.FieldTextInput('x', Blockly.Blocks.CNameValidator), 'NAME');
+            .appendField(new Blockly.Cake.FieldDropdown(TYPE), 'TYPES')
+            .appendField(Blockly.Cake.Msg.PROCEDURES_MUTATORARG_TITLE)
+            .appendField(new Blockly.Cake.FieldTextInput('x', Blockly.Cake.Blocks.CNameValidator), 'NAME');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -791,7 +791,7 @@ Blockly.Blocks['procedures_mutatorarg'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
@@ -808,28 +808,28 @@ Blockly.Blocks['procedures_mutatorarg'] = {
     }
 };
 
-Blockly.Blocks['procedures_mutatorarg_array'] = {
+Blockly.Cake.Blocks['procedures_mutatorarg_array'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         this.setColour(300);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            'array %1 ' + Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %2 ' +' %3 ' +' %4 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %5 ', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['LENGTH_1', new Blockly.FieldTextInput('1')], ['LENGTH_2', new Blockly.FieldTextInput(' ')], ['LENGTH_3', new Blockly.FieldTextInput(' ')], ['NAME', new Blockly.FieldTextInput('z', Blockly.Blocks.CNameValidator)],
-            Blockly.ALIGN_RIGHT);
+            'array %1 ' + Blockly.Cake.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %2 ' +' %3 ' +' %4 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %5 ', ['TYPES', new Blockly.Cake.FieldDropdown(TYPE)], ['LENGTH_1', new Blockly.Cake.FieldTextInput('1')], ['LENGTH_2', new Blockly.Cake.FieldTextInput(' ')], ['LENGTH_3', new Blockly.Cake.FieldTextInput(' ')], ['NAME', new Blockly.Cake.FieldTextInput('z', Blockly.Cake.Blocks.CNameValidator)],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -839,7 +839,7 @@ Blockly.Blocks['procedures_mutatorarg_array'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
@@ -872,34 +872,34 @@ Blockly.Blocks['procedures_mutatorarg_array'] = {
     }
 };
 
-Blockly.Blocks['procedures_mutatorarg_pointer'] = {
+Blockly.Cake.Blocks['procedures_mutatorarg_pointer'] = {
     /**
      * Mutator block for procedure argument.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         var TYPE =
             [
-                [Blockly.Msg.VARIABLES_SET_TYPE_INT, 'int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_INT, 'int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
+                [Blockly.Cake.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
         var ITERATION =
             [
-                [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, '*'],
-                [Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE, '**'],
-                [Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE, '***']
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_NORMAL, '*'],
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_DOUBLE, '**'],
+                [Blockly.Cake.Msg.VARIABLES_SET_ITERATION_TRIPLE, '***']
             ];
         this.setColour(300);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
-            'pointer %1 ' + Blockly.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
-            Blockly.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.FieldDropdown(TYPE)], ['ITERATION', new Blockly.FieldDropdown(ITERATION)], ['NAME', new Blockly.FieldTextInput('y', Blockly.Blocks.CNameValidator)],
-            Blockly.ALIGN_RIGHT);
+            'pointer %1 ' + Blockly.Cake.Msg.VARIABLES_POINTER_DECLARE_ITERATION + ' %2 ' +
+            Blockly.Cake.Msg.VARIABLES_DECLARE_NAME + ' %3 ', ['TYPES', new Blockly.Cake.FieldDropdown(TYPE)], ['ITERATION', new Blockly.Cake.FieldDropdown(ITERATION)], ['NAME', new Blockly.Cake.FieldTextInput('y', Blockly.Cake.Blocks.CNameValidator)],
+            Blockly.Cake.ALIGN_RIGHT);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.PROCEDURES_MUTATORARG_TOOLTIP);
         this.contextMenu = false;
     },
     /**
@@ -909,7 +909,7 @@ Blockly.Blocks['procedures_mutatorarg_pointer'] = {
      * @param {string} newVar User-supplied name.
      * @return {?string} Valid name, or null if a name was not specified.
      * @private
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     validator_: function(newVar) {
         newVar = newVar.replace(/[\s\xa0]+/g, ' ').replace(/^ | $/g, '');
@@ -926,17 +926,17 @@ Blockly.Blocks['procedures_mutatorarg_pointer'] = {
     }
 };
 
-Blockly.Blocks['procedures_callnoreturn'] = {
+Blockly.Cake.Blocks['procedures_callnoreturn'] = {
     /**
      * Block for calling a procedure with no return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(300);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.PROCEDURES_CALLNORETURN_CALL)
+            .appendField(Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_CALL)
             .appendField('', 'NAME')
-            .appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+            .appendField(Blockly.Cake.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         // Tooltip is set in domToMutation.
@@ -950,7 +950,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     /**
      * Returns the name of the procedure this block calls.
      * @return {string} Procedure name.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     getProcedureCall: function() {
         // The NAME field is guaranteed to exist, null will never be returned.
@@ -961,13 +961,13 @@ Blockly.Blocks['procedures_callnoreturn'] = {
      * If the name matches this block's procedure, rename it.
      * @param {string} oldName Previous name of procedure.
      * @param {string} newName Renamed procedure.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameProcedure: function(oldName, newName) {
-        if (Blockly.Names.equals(oldName, this.getProcedureCall())) {
+        if (Blockly.Cake.Names.equals(oldName, this.getProcedureCall())) {
             this.setFieldValue(newName, 'NAME');
             this.setTooltip(
-                (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
+                (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP)
                     .replace('%1', newName));
         }
     },
@@ -977,13 +977,13 @@ Blockly.Blocks['procedures_callnoreturn'] = {
      * @param {!Array.<string>} paramIds IDs of params (consistent for each
      *     parameter through the life of a mutator, regardless of param renaming),
      *     e.g. ['piua', 'f8b_', 'oi.o'].
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     setProcedureParameters: function(paramNames, paramTypes, paramDist, paramSpec, paramIds) {
         // Data structures:
         // this.arguments = ['x', 'y']
         //     Existing param names.
-        // this.quarkConnections_ {piua: null, f8b_: Blockly.Connection}
+        // this.quarkConnections_ {piua: null, f8b_: Blockly.Cake.Connection}
         //     Look-up of paramIds to connections plugged into the call block.
         // this.quarkArguments_ = ['piua', 'f8b_']
         //     Existing param IDs.
@@ -1032,41 +1032,41 @@ Blockly.Blocks['procedures_callnoreturn'] = {
             var input;
             if(this.dist_[x]=='v'){
                 input = this.appendValueInput('ARG' + x)
-                    .setAlign(Blockly.ALIGN_RIGHT)
+                    .setAlign(Blockly.Cake.ALIGN_RIGHT)
                     .appendField(this.types_[x])
                     .appendField(this.arguments_[x]);
-              //  Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
+              //  Blockly.Cake.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
             }
             else if(this.dist_[x]=='a'){
                 if(this.spec_[x][0] ==1){
                     input = this.appendValueInput('ARG' + x)
-                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .setAlign(Blockly.Cake.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']');
                     console.log('types_[x]: '+ this.types_[x]);
-                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
+                //    Blockly.Cake.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
                 else if(this.spec_[x][0] ==2){
                     input = this.appendValueInput('ARG' + x)
-                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .setAlign(Blockly.Cake.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']'+'[' + this.spec_[x][2] + ']');
-                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
+                //    Blockly.Cake.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
                 else if(this.spec_[x][0] ==3){
                     input = this.appendValueInput('ARG' + x)
-                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .setAlign(Blockly.Cake.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']'+'[' + this.spec_[x][2] + ']'+'[' + this.spec_[x][3] + ']');
-                //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
+                //    Blockly.Cake.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
             }
             else if(this.dist_[x]=='p'){
                 input = this.appendValueInput('ARG' + x)
-                    .setAlign(Blockly.ALIGN_RIGHT)
+                    .setAlign(Blockly.Cake.ALIGN_RIGHT)
                     .appendField(this.types_[x] + this.spec_[x])
                     .appendField(this.arguments_[x]);
-             //   Blockly.Blocks.setCheckPointer(this, this.types_[x], 'ARG'+x);
+             //   Blockly.Cake.Blocks.setCheckPointer(this, this.types_[x], 'ARG'+x);
             }
 
             if (this.quarkArguments_) {
@@ -1095,7 +1095,7 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     /**
      * Create XML to represent the (non-editable) name and arguments.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         var container = document.createElement('mutation');
@@ -1129,14 +1129,14 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     /**
      * Parse XML to restore the (non-editable) name and parameters.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         var name = xmlElement.getAttribute('name');
         this.setFieldValue(name, 'NAME');
         this.setTooltip(
-            (this.outputConnection ? Blockly.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
-        var def = Blockly.Procedures.getDefinition(name, this.workspace);
+            (this.outputConnection ? Blockly.Cake.Msg.PROCEDURES_CALLRETURN_TOOLTIP : Blockly.Cake.Msg.PROCEDURES_CALLNORETURN_TOOLTIP).replace('%1', name));
+        var def = Blockly.Cake.Procedures.getDefinition(name, this.workspace);
         if (def && def.mutator.isVisible()) {
             // Initialize caller with the mutator's IDs.
             this.setProcedureParameters(def.arguments_, def.types_, def.dist_, def.spec_, def.paramIds_);
@@ -1183,11 +1183,11 @@ Blockly.Blocks['procedures_callnoreturn'] = {
      * If the name matches one of this block's variables, rename it.
      * @param {string} oldName Previous name of variable.
      * @param {string} newName Renamed variable.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     renameVar: function(oldName, newName) {
         for (var x = 0; x < this.arguments_.length; x++) {
-            if (Blockly.Names.equals(oldName, this.arguments_[x])) {
+            if (Blockly.Cake.Names.equals(oldName, this.arguments_[x])) {
                 this.arguments_[x] = newName;
                 this.getInput('ARG' + x).fieldRow[0].setText(newName);
             }
@@ -1196,34 +1196,34 @@ Blockly.Blocks['procedures_callnoreturn'] = {
     /**
      * Add menu option to find the definition block for this call.
      * @param {!Array} options List of menu options to add to.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     customContextMenu: function(options) {
         var option = {
             enabled: true
         };
-        option.text = Blockly.Msg.PROCEDURES_HIGHLIGHT_DEF;
+        option.text = Blockly.Cake.Msg.PROCEDURES_HIGHLIGHT_DEF;
         var name = this.getProcedureCall();
         var workspace = this.workspace;
         option.callback = function() {
-            var def = Blockly.Procedures.getDefinition(name, workspace);
+            var def = Blockly.Cake.Procedures.getDefinition(name, workspace);
             def && def.select();
         };
         options.push(option);
     }
 };
 
-Blockly.Blocks['procedures_callreturn'] = {
+Blockly.Cake.Blocks['procedures_callreturn'] = {
     /**
      * Block for calling a procedure with a return value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(300);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.PROCEDURES_CALLRETURN_CALL)
+            .appendField(Blockly.Cake.Msg.PROCEDURES_CALLRETURN_CALL)
             .appendField('', 'NAME')
-            .appendField(Blockly.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
+            .appendField(Blockly.Cake.Msg.PROCEDURES_CALL_BEFORE_PARAMS, 'WITH');
         this.setOutput(true);
         // Tooltip is set in domToMutation.
         this.arguments_ = [];
@@ -1233,16 +1233,16 @@ Blockly.Blocks['procedures_callreturn'] = {
         this.quarkConnections_ = null;
         this.quarkArguments_ = null;
     },
-    getProcedureCall: Blockly.Blocks['procedures_callnoreturn'].getProcedureCall,
-    renameProcedure: Blockly.Blocks['procedures_callnoreturn'].renameProcedure,
-    setProcedureParameters: Blockly.Blocks['procedures_callnoreturn'].setProcedureParameters,
-    mutationToDom: Blockly.Blocks['procedures_callnoreturn'].mutationToDom,
-    domToMutation: Blockly.Blocks['procedures_callnoreturn'].domToMutation,
-    renameVar: Blockly.Blocks['procedures_callnoreturn'].renameVar,
-    customContextMenu: Blockly.Blocks['procedures_callnoreturn'].customContextMenu,
+    getProcedureCall: Blockly.Cake.Blocks['procedures_callnoreturn'].getProcedureCall,
+    renameProcedure: Blockly.Cake.Blocks['procedures_callnoreturn'].renameProcedure,
+    setProcedureParameters: Blockly.Cake.Blocks['procedures_callnoreturn'].setProcedureParameters,
+    mutationToDom: Blockly.Cake.Blocks['procedures_callnoreturn'].mutationToDom,
+    domToMutation: Blockly.Cake.Blocks['procedures_callnoreturn'].domToMutation,
+    renameVar: Blockly.Cake.Blocks['procedures_callnoreturn'].renameVar,
+    customContextMenu: Blockly.Cake.Blocks['procedures_callnoreturn'].customContextMenu,
 
     onchange: function(){
-        var tuple = Blockly.Procedures.allProcedures();
+        var tuple = Blockly.Cake.Procedures.allProcedures();
         var procedureList = tuple[1];
         var curProcedure;
         var name = this.getFieldValue('NAME');

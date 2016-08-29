@@ -24,23 +24,23 @@
  */
 'use strict';
 
-goog.provide('Blockly.Flyout');
+goog.provide('Blockly.Cake.Flyout');
 
-goog.require('Blockly.Block');
-goog.require('Blockly.Comment');
+goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.Comment');
 
 
 /**
  * Class for a flyout.
  * @constructor
  */
-Blockly.Flyout = function() {
+Blockly.Cake.Flyout = function() {
   var flyout = this;
   /**
-   * @type {!Blockly.Workspace}
+   * @type {!Blockly.Cake.Workspace}
    * @private
    */
-  this.workspace_ = new Blockly.Workspace(
+  this.workspace_ = new Blockly.Cake.Workspace(
       function() {return flyout.getMetrics_();},
       function(ratio) {return flyout.setMetrics_(ratio);});
   this.workspace_.isFlyout = true;
@@ -86,35 +86,35 @@ Blockly.Flyout = function() {
  * Does the flyout automatically close when a block is created?
  * @type {boolean}
  */
-Blockly.Flyout.prototype.autoClose = true;
+Blockly.Cake.Flyout.prototype.autoClose = true;
 
 /**
  * Corner radius of the flyout background.
  * @type {number}
  * @const
  */
-Blockly.Flyout.prototype.CORNER_RADIUS = 8;
+Blockly.Cake.Flyout.prototype.CORNER_RADIUS = 8;
 
 /**
  * Wrapper function called when a resize occurs.
  * @type {Array.<!Array>}
  * @private
  */
-Blockly.Flyout.prototype.onResizeWrapper_ = null;
+Blockly.Cake.Flyout.prototype.onResizeWrapper_ = null;
 
 /**
  * Creates the flyout's DOM.  Only needs to be called once.
  * @return {!Element} The flyout's SVG group.
  */
-Blockly.Flyout.prototype.createDom = function() {
+Blockly.Cake.Flyout.prototype.createDom = function() {
   /*
   <g>
     <path class="blocklyFlyoutBackground"/>
     <g></g>
   </g>
   */
-  this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.svgBackground_ = Blockly.createSvgElement('path',
+  this.svgGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  this.svgBackground_ = Blockly.Cake.createSvgElement('path',
       {'class': 'blocklyFlyoutBackground'}, this.svgGroup_);
   this.svgGroup_.appendChild(this.workspace_.createDom());
   return this.svgGroup_;
@@ -124,14 +124,14 @@ Blockly.Flyout.prototype.createDom = function() {
  * Dispose of this flyout.
  * Unlink from all DOM elements to prevent memory leaks.
  */
-Blockly.Flyout.prototype.dispose = function() {
+Blockly.Cake.Flyout.prototype.dispose = function() {
   this.hide();
   if (this.onResizeWrapper_) {
-    Blockly.unbindEvent_(this.onResizeWrapper_);
+    Blockly.Cake.unbindEvent_(this.onResizeWrapper_);
     this.onResizeWrapper_ = null;
   }
   if (this.changeWrapper_) {
-    Blockly.unbindEvent_(this.changeWrapper_);
+    Blockly.Cake.unbindEvent_(this.changeWrapper_);
     this.changeWrapper_ = null;
   }
   if (this.scrollbar_) {
@@ -160,7 +160,7 @@ Blockly.Flyout.prototype.dispose = function() {
  * @return {Object} Contains size and position metrics of the flyout.
  * @private
  */
-Blockly.Flyout.prototype.getMetrics_ = function() {
+Blockly.Cake.Flyout.prototype.getMetrics_ = function() {
   if (!this.isVisible()) {
     // Flyout is hidden.
     return null;
@@ -190,7 +190,7 @@ Blockly.Flyout.prototype.getMetrics_ = function() {
  *     between 0 and 1 specifying the degree of scrolling.
  * @private
  */
-Blockly.Flyout.prototype.setMetrics_ = function(yRatio) {
+Blockly.Cake.Flyout.prototype.setMetrics_ = function(yRatio) {
   var metrics = this.getMetrics_();
   // This is a fix to an apparent race condition.
   if (!metrics) {
@@ -207,26 +207,26 @@ Blockly.Flyout.prototype.setMetrics_ = function(yRatio) {
 
 /**
  * Initializes the flyout.
- * @param {!Blockly.Workspace} workspace The workspace in which to create new
+ * @param {!Blockly.Cake.Workspace} workspace The workspace in which to create new
  *     blocks.
  * @param {boolean} withScrollbar True if a scrollbar should be displayed.
  */
-Blockly.Flyout.prototype.init =
+Blockly.Cake.Flyout.prototype.init =
     function(workspace, withScrollbar) {
   this.targetWorkspace_ = workspace;
   // Add scrollbars.
   var flyout = this;
   if (withScrollbar) {
-    this.scrollbar_ = new Blockly.Scrollbar(flyout.workspace_, false, false);
+    this.scrollbar_ = new Blockly.Cake.Scrollbar(flyout.workspace_, false, false);
   }
 
   this.hide();
 
   // If the document resizes, reposition the flyout.
-  this.onResizeWrapper_ = Blockly.bindEvent_(window,
+  this.onResizeWrapper_ = Blockly.Cake.bindEvent_(window,
       goog.events.EventType.RESIZE, this, this.position_);
   this.position_();
-  this.changeWrapper_ = Blockly.bindEvent_(this.targetWorkspace_.getCanvas(),
+  this.changeWrapper_ = Blockly.Cake.bindEvent_(this.targetWorkspace_.getCanvas(),
       'blocklyWorkspaceChange', this, this.filterForCapacity_);
 };
 
@@ -234,7 +234,7 @@ Blockly.Flyout.prototype.init =
  * Move the toolbox to the edge of the workspace.
  * @private
  */
-Blockly.Flyout.prototype.position_ = function() {
+Blockly.Cake.Flyout.prototype.position_ = function() {
   if (!this.isVisible()) {
     return;
   }
@@ -244,33 +244,33 @@ Blockly.Flyout.prototype.position_ = function() {
     return;
   }
   var edgeWidth = this.width_ - this.CORNER_RADIUS;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     edgeWidth *= -1;
   }
-  var path = ['M ' + (Blockly.RTL ? this.width_ : 0) + ',0'];
+  var path = ['M ' + (Blockly.Cake.RTL ? this.width_ : 0) + ',0'];
   path.push('h', edgeWidth);
   path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
-      Blockly.RTL ? 0 : 1,
-      Blockly.RTL ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
+      Blockly.Cake.RTL ? 0 : 1,
+      Blockly.Cake.RTL ? -this.CORNER_RADIUS : this.CORNER_RADIUS,
       this.CORNER_RADIUS);
   path.push('v', Math.max(0, metrics.viewHeight - this.CORNER_RADIUS * 2));
   path.push('a', this.CORNER_RADIUS, this.CORNER_RADIUS, 0, 0,
-      Blockly.RTL ? 0 : 1,
-      Blockly.RTL ? this.CORNER_RADIUS : -this.CORNER_RADIUS,
+      Blockly.Cake.RTL ? 0 : 1,
+      Blockly.Cake.RTL ? this.CORNER_RADIUS : -this.CORNER_RADIUS,
       this.CORNER_RADIUS);
   path.push('h', -edgeWidth);
   path.push('z');
   this.svgBackground_.setAttribute('d', path.join(' '));
 
   var x = metrics.absoluteLeft;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     x += metrics.viewWidth;
     x -= this.width_;
   }
   this.svgGroup_.setAttribute('transform',
       'translate(' + x + ',' + metrics.absoluteTop + ')');
 
-  // Record the height for Blockly.Flyout.getMetrics_.
+  // Record the height for Blockly.Cake.Flyout.getMetrics_.
   this.height_ = metrics.viewHeight;
 
   // Update the scrollbar (if one exists).
@@ -283,25 +283,25 @@ Blockly.Flyout.prototype.position_ = function() {
  * Is the flyout visible?
  * @return {boolean} True if visible.
  */
-Blockly.Flyout.prototype.isVisible = function() {
+Blockly.Cake.Flyout.prototype.isVisible = function() {
   return this.svgGroup_.style.display == 'block';
 };
 
 /**
  * Hide and empty the flyout.
  */
-Blockly.Flyout.prototype.hide = function() {
+Blockly.Cake.Flyout.prototype.hide = function() {
   if (!this.isVisible()) {
     return;
   }
   this.svgGroup_.style.display = 'none';
   // Delete all the event listeners.
   for (var x = 0, listen; listen = this.listeners_[x]; x++) {
-    Blockly.unbindEvent_(listen);
+    Blockly.Cake.unbindEvent_(listen);
   }
   this.listeners_.splice(0);
   if (this.reflowWrapper_) {
-    Blockly.unbindEvent_(this.reflowWrapper_);
+    Blockly.Cake.unbindEvent_(this.reflowWrapper_);
     this.reflowWrapper_ = null;
   }
   // Delete all the blocks.
@@ -323,7 +323,7 @@ Blockly.Flyout.prototype.hide = function() {
  * @param {!Array|string} xmlList List of blocks to show.
  *     Variables and procedures have a custom set of blocks.
  */
-Blockly.Flyout.prototype.show = function(xmlList) {
+Blockly.Cake.Flyout.prototype.show = function(xmlList) {
   this.hide();
   var margin = this.CORNER_RADIUS;
   this.svgGroup_.style.display = 'block';
@@ -331,23 +331,23 @@ Blockly.Flyout.prototype.show = function(xmlList) {
   // Create the blocks to be shown in this flyout.
   var blocks = [];
   var gaps = [];
-  if (xmlList == Blockly.Variables.NAME_TYPE) {
+  if (xmlList == Blockly.Cake.Variables.NAME_TYPE) {
     // Special category for variables.
-    Blockly.Variables.flyoutCategory(blocks, gaps, margin,
-        /** @type {!Blockly.Workspace} */ (this.workspace_));
-  } else if (xmlList == Blockly.Procedures.NAME_TYPE) {
+    Blockly.Cake.Variables.flyoutCategory(blocks, gaps, margin,
+        /** @type {!Blockly.Cake.Workspace} */ (this.workspace_));
+  } else if (xmlList == Blockly.Cake.Procedures.NAME_TYPE) {
     // Special category for procedures.
-    Blockly.Procedures.flyoutCategory(blocks, gaps, margin,
-        /** @type {!Blockly.Workspace} */ (this.workspace_));
-  } else if (xmlList == Blockly.Structure.NAME_TYPE) {
+    Blockly.Cake.Procedures.flyoutCategory(blocks, gaps, margin,
+        /** @type {!Blockly.Cake.Workspace} */ (this.workspace_));
+  } else if (xmlList == Blockly.Cake.Structure.NAME_TYPE) {
     // Special category for procedures.
-    Blockly.Structure.flyoutCategory(blocks, gaps, margin,
-        /** @type {!Blockly.Workspace} */ (this.workspace_));
+    Blockly.Cake.Structure.flyoutCategory(blocks, gaps, margin,
+        /** @type {!Blockly.Cake.Workspace} */ (this.workspace_));
   } else {
     for (var i = 0, xml; xml = xmlList[i]; i++) {
       if (xml.tagName && xml.tagName.toUpperCase() == 'BLOCK') {
-        var block = Blockly.Xml.domToBlock(
-            /** @type {!Blockly.Workspace} */ (this.workspace_), xml);
+        var block = Blockly.Cake.Xml.domToBlock(
+            /** @type {!Blockly.Cake.Workspace} */ (this.workspace_), xml);
         blocks.push(block);
         gaps.push(margin * 3);
       }
@@ -371,34 +371,34 @@ Blockly.Flyout.prototype.show = function(xmlList) {
     block.render();
     var root = block.getSvgRoot();
     var blockHW = block.getHeightWidth();
-    var x = Blockly.RTL ? 0 : margin + Blockly.BlockSvg.TAB_WIDTH;
+    var x = Blockly.Cake.RTL ? 0 : margin + Blockly.Cake.BlockSvg.TAB_WIDTH;
     block.moveBy(x, cursorY);
     cursorY += blockHW.height + gaps[i];
 
     // Create an invisible rectangle under the block to act as a button.  Just
     // using the block as a button is poor, since blocks have holes in them.
-    var rect = Blockly.createSvgElement('rect', {'fill-opacity': 0}, null);
+    var rect = Blockly.Cake.createSvgElement('rect', {'fill-opacity': 0}, null);
     // Add the rectangles under the blocks, so that the blocks' tooltips work.
     this.workspace_.getCanvas().insertBefore(rect, block.getSvgRoot());
     block.flyoutRect_ = rect;
     this.buttons_[i] = rect;
 
     if (this.autoClose) {
-      this.listeners_.push(Blockly.bindEvent_(root, 'mousedown', null,
+      this.listeners_.push(Blockly.Cake.bindEvent_(root, 'mousedown', null,
           this.createBlockFunc_(block)));
     } else {
-      this.listeners_.push(Blockly.bindEvent_(root, 'mousedown', null,
+      this.listeners_.push(Blockly.Cake.bindEvent_(root, 'mousedown', null,
           this.blockMouseDown_(block)));
     }
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseover', block.svg_,
+    this.listeners_.push(Blockly.Cake.bindEvent_(root, 'mouseover', block.svg_,
         block.svg_.addSelect));
-    this.listeners_.push(Blockly.bindEvent_(root, 'mouseout', block.svg_,
+    this.listeners_.push(Blockly.Cake.bindEvent_(root, 'mouseout', block.svg_,
         block.svg_.removeSelect));
-    this.listeners_.push(Blockly.bindEvent_(rect, 'mousedown', null,
+    this.listeners_.push(Blockly.Cake.bindEvent_(rect, 'mousedown', null,
         this.createBlockFunc_(block)));
-    this.listeners_.push(Blockly.bindEvent_(rect, 'mouseover', block.svg_,
+    this.listeners_.push(Blockly.Cake.bindEvent_(rect, 'mouseover', block.svg_,
         block.svg_.addSelect));
-    this.listeners_.push(Blockly.bindEvent_(rect, 'mouseout', block.svg_,
+    this.listeners_.push(Blockly.Cake.bindEvent_(rect, 'mouseout', block.svg_,
         block.svg_.removeSelect));
   }
 
@@ -410,7 +410,7 @@ Blockly.Flyout.prototype.show = function(xmlList) {
       block.svg_.removeSelect();
     }
   };
-  this.listeners_.push(Blockly.bindEvent_(this.svgBackground_, 'mouseover',
+  this.listeners_.push(Blockly.Cake.bindEvent_(this.svgBackground_, 'mouseover',
       this, deselectAll));
 
   this.width_ = 0;
@@ -419,8 +419,8 @@ Blockly.Flyout.prototype.show = function(xmlList) {
   this.filterForCapacity_();
 
   // Fire a resize event to update the flyout's scrollbar.
-  Blockly.fireUiEventNow(window, 'resize');
-  this.reflowWrapper_ = Blockly.bindEvent_(this.workspace_.getCanvas(),
+  Blockly.Cake.fireUiEventNow(window, 'resize');
+  this.reflowWrapper_ = Blockly.Cake.bindEvent_(this.workspace_.getCanvas(),
       'blocklyWorkspaceChange', this, this.reflow);
   this.workspace_.fireChangeEvent();
 };
@@ -429,7 +429,7 @@ Blockly.Flyout.prototype.show = function(xmlList) {
  * Compute width of flyout.  Position button under each block.
  * For RTL: Lay out the blocks right-aligned.
  */
-Blockly.Flyout.prototype.reflow = function() {
+Blockly.Cake.Flyout.prototype.reflow = function() {
   var flyoutWidth = 0;
   var margin = this.CORNER_RADIUS;
   var blocks = this.workspace_.getTopBlocks(false);
@@ -438,15 +438,15 @@ Blockly.Flyout.prototype.reflow = function() {
     var blockHW = block.getHeightWidth();
     flyoutWidth = Math.max(flyoutWidth, blockHW.width);
   }
-  flyoutWidth += margin + Blockly.BlockSvg.TAB_WIDTH + margin / 2 +
-                 Blockly.Scrollbar.scrollbarThickness;
+  flyoutWidth += margin + Blockly.Cake.BlockSvg.TAB_WIDTH + margin / 2 +
+                 Blockly.Cake.Scrollbar.scrollbarThickness;
   if (this.width_ != flyoutWidth) {
     for (var x = 0, block; block = blocks[x]; x++) {
       var blockHW = block.getHeightWidth();
       var blockXY = block.getRelativeToSurfaceXY();
-      if (Blockly.RTL) {
+      if (Blockly.Cake.RTL) {
         // With the flyoutWidth known, right-align the blocks.
-        var dx = flyoutWidth - margin - Blockly.BlockSvg.TAB_WIDTH - blockXY.x;
+        var dx = flyoutWidth - margin - Blockly.Cake.BlockSvg.TAB_WIDTH - blockXY.x;
         block.moveBy(dx, 0);
         blockXY.x += dx;
       }
@@ -454,14 +454,14 @@ Blockly.Flyout.prototype.reflow = function() {
         block.flyoutRect_.setAttribute('width', blockHW.width);
         block.flyoutRect_.setAttribute('height', blockHW.height);
         block.flyoutRect_.setAttribute('x',
-            Blockly.RTL ? blockXY.x - blockHW.width : blockXY.x);
+            Blockly.Cake.RTL ? blockXY.x - blockHW.width : blockXY.x);
         block.flyoutRect_.setAttribute('y', blockXY.y);
       }
     }
     // Record the width for .getMetrics_ and .position_.
     this.width_ = flyoutWidth;
     // Fire a resize event to update the flyout's scrollbar.
-    Blockly.fireUiEvent(window, 'resize');
+    Blockly.Cake.fireUiEvent(window, 'resize');
   }
 };
 
@@ -470,7 +470,7 @@ Blockly.Flyout.prototype.reflow = function() {
  * @param {number} x Horizontal location.
  * @param {number} y Vertical location.
  */
-Blockly.Block.prototype.moveTo = function(x, y) {
+Blockly.Cake.Block.prototype.moveTo = function(x, y) {
   var oldXY = this.getRelativeToSurfaceXY();
   this.svg_.getRootElement().setAttribute('transform',
       'translate(' + x + ', ' + y + ')');
@@ -479,29 +479,29 @@ Blockly.Block.prototype.moveTo = function(x, y) {
 
 /**
  * Handle a mouse-down on an SVG block in a non-closing flyout.
- * @param {!Blockly.Block} block The flyout block to copy.
+ * @param {!Blockly.Cake.Block} block The flyout block to copy.
  * @return {!Function} Function to call when block is clicked.
  * @private
  */
-Blockly.Flyout.prototype.blockMouseDown_ = function(block) {
+Blockly.Cake.Flyout.prototype.blockMouseDown_ = function(block) {
   var flyout = this;
   return function(e) {
-    Blockly.terminateDrag_();
-    Blockly.hideChaff();
-    if (Blockly.isRightButton(e)) {
+    Blockly.Cake.terminateDrag_();
+    Blockly.Cake.hideChaff();
+    if (Blockly.Cake.isRightButton(e)) {
       // Right-click.
       block.showContextMenu_(e);
     } else {
       // Left-click (or middle click)
-      Blockly.removeAllRanges();
-      Blockly.setCursorHand_(true);
+      Blockly.Cake.removeAllRanges();
+      Blockly.Cake.setCursorHand_(true);
       // Record the current mouse position.
-      Blockly.Flyout.startDownEvent_ = e;
-      Blockly.Flyout.startBlock_ = block;
-      Blockly.Flyout.startFlyout_ = flyout;
-      Blockly.Flyout.onMouseUpWrapper_ = Blockly.bindEvent_(document,
-          'mouseup', this, Blockly.terminateDrag_);
-      Blockly.Flyout.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
+      Blockly.Cake.Flyout.startDownEvent_ = e;
+      Blockly.Cake.Flyout.startBlock_ = block;
+      Blockly.Cake.Flyout.startFlyout_ = flyout;
+      Blockly.Cake.Flyout.onMouseUpWrapper_ = Blockly.Cake.bindEvent_(document,
+          'mouseup', this, Blockly.Cake.terminateDrag_);
+      Blockly.Cake.Flyout.onMouseMoveWrapper_ = Blockly.Cake.bindEvent_(document,
           'mousemove', this, flyout.onMouseMove_);
     }
     // This event has been handled.  No need to bubble up to the document.
@@ -516,7 +516,7 @@ Blockly.Flyout.prototype.blockMouseDown_ = function(block) {
  * @param {!Event} e Mouse move event.
  * @private
  */
-Blockly.Flyout.prototype.onMouseMove_ = function(e) {
+Blockly.Cake.Flyout.prototype.onMouseMove_ = function(e) {
   if (e.type == 'mousemove' && e.clientX <= 1 && e.clientY == 0 &&
       e.button == 0) {
     /* HACK:
@@ -527,28 +527,28 @@ Blockly.Flyout.prototype.onMouseMove_ = function(e) {
     e.stopPropagation();
     return;
   }
-  Blockly.removeAllRanges();
-  var dx = e.clientX - Blockly.Flyout.startDownEvent_.clientX;
-  var dy = e.clientY - Blockly.Flyout.startDownEvent_.clientY;
+  Blockly.Cake.removeAllRanges();
+  var dx = e.clientX - Blockly.Cake.Flyout.startDownEvent_.clientX;
+  var dy = e.clientY - Blockly.Cake.Flyout.startDownEvent_.clientY;
   // Still dragging within the sticky DRAG_RADIUS.
   var dr = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-  if (dr > Blockly.DRAG_RADIUS) {
+  if (dr > Blockly.Cake.DRAG_RADIUS) {
     // Create the block.
-    Blockly.Flyout.startFlyout_.createBlockFunc_(Blockly.Flyout.startBlock_)
-        (Blockly.Flyout.startDownEvent_);
+    Blockly.Cake.Flyout.startFlyout_.createBlockFunc_(Blockly.Cake.Flyout.startBlock_)
+        (Blockly.Cake.Flyout.startDownEvent_);
   }
 };
 
 /**
  * Create a copy of this block on the workspace.
- * @param {!Blockly.Block} originBlock The flyout block to copy.
+ * @param {!Blockly.Cake.Block} originBlock The flyout block to copy.
  * @return {!Function} Function to call when block is clicked.
  * @private
  */
-Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
+Blockly.Cake.Flyout.prototype.createBlockFunc_ = function(originBlock) {
   var flyout = this;
   return function(e) {
-    if (Blockly.isRightButton(e)) {
+    if (Blockly.Cake.isRightButton(e)) {
       // Right-click.  Don't create a block, let the context menu show.
       return;
     }
@@ -557,19 +557,19 @@ Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
       return;
     }
     // Create the new block by cloning the block in the flyout (via XML).
-    var xml = Blockly.Xml.blockToDom_(originBlock);
-    var block = Blockly.Xml.domToBlock(flyout.targetWorkspace_, xml);
+    var xml = Blockly.Cake.Xml.blockToDom_(originBlock);
+    var block = Blockly.Cake.Xml.domToBlock(flyout.targetWorkspace_, xml);
     // Place it in the same spot as the flyout copy.
     var svgRootOld = originBlock.getSvgRoot();
     if (!svgRootOld) {
       throw 'originBlock is not rendered.';
     }
-    var xyOld = Blockly.getSvgXY_(svgRootOld);
+    var xyOld = Blockly.Cake.getSvgXY_(svgRootOld);
     var svgRootNew = block.getSvgRoot();
     if (!svgRootNew) {
       throw 'block is not rendered.';
     }
-    var xyNew = Blockly.getSvgXY_(svgRootNew);
+    var xyNew = Blockly.Cake.getSvgXY_(svgRootNew);
     block.moveBy(xyOld.x - xyNew.x, xyOld.y - xyNew.y);
     if (flyout.autoClose) {
       flyout.hide();
@@ -586,7 +586,7 @@ Blockly.Flyout.prototype.createBlockFunc_ = function(originBlock) {
  * capacity limit.
  * @private
  */
-Blockly.Flyout.prototype.filterForCapacity_ = function() {
+Blockly.Cake.Flyout.prototype.filterForCapacity_ = function() {
   var remainingCapacity = this.targetWorkspace_.remainingCapacity();
   var blocks = this.workspace_.getTopBlocks(false);
   for (var i = 0, block; block = blocks[i]; i++) {
@@ -600,16 +600,16 @@ Blockly.Flyout.prototype.filterForCapacity_ = function() {
  * Stop binding to the global mouseup and mousemove events.
  * @private
  */
-Blockly.Flyout.terminateDrag_ = function() {
-  if (Blockly.Flyout.onMouseUpWrapper_) {
-    Blockly.unbindEvent_(Blockly.Flyout.onMouseUpWrapper_);
-    Blockly.Flyout.onMouseUpWrapper_ = null;
+Blockly.Cake.Flyout.terminateDrag_ = function() {
+  if (Blockly.Cake.Flyout.onMouseUpWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Flyout.onMouseUpWrapper_);
+    Blockly.Cake.Flyout.onMouseUpWrapper_ = null;
   }
-  if (Blockly.Flyout.onMouseMoveWrapper_) {
-    Blockly.unbindEvent_(Blockly.Flyout.onMouseMoveWrapper_);
-    Blockly.Flyout.onMouseMoveWrapper_ = null;
+  if (Blockly.Cake.Flyout.onMouseMoveWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Flyout.onMouseMoveWrapper_);
+    Blockly.Cake.Flyout.onMouseMoveWrapper_ = null;
   }
-  Blockly.Flyout.startDownEvent_ = null;
-  Blockly.Flyout.startBlock_ = null;
-  Blockly.Flyout.startFlyout_ = null;
+  Blockly.Cake.Flyout.startDownEvent_ = null;
+  Blockly.Cake.Flyout.startBlock_ = null;
+  Blockly.Cake.Flyout.startFlyout_ = null;
 };

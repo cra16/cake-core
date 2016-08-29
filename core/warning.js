@@ -24,23 +24,23 @@
  */
 'use strict';
 
-goog.provide('Blockly.Warning');
+goog.provide('Blockly.Cake.Warning');
 
-goog.require('Blockly.Bubble');
-goog.require('Blockly.Icon');
+goog.require('Blockly.Cake.Bubble');
+goog.require('Blockly.Cake.Icon');
 
 
 /**
  * Class for a warning.
- * @param {!Blockly.Block} block The block associated with this warning.
- * @extends {Blockly.Icon}
+ * @param {!Blockly.Cake.Block} block The block associated with this warning.
+ * @extends {Blockly.Cake.Icon}
  * @constructor
  */
-Blockly.Warning = function(block) {
-  Blockly.Warning.superClass_.constructor.call(this, block);
+Blockly.Cake.Warning = function(block) {
+  Blockly.Cake.Warning.superClass_.constructor.call(this, block);
   this.createIcon_();
 };
-goog.inherits(Blockly.Warning, Blockly.Icon);
+goog.inherits(Blockly.Cake.Warning, Blockly.Cake.Icon);
 
 
 /**
@@ -49,16 +49,16 @@ goog.inherits(Blockly.Warning, Blockly.Icon);
  * @return {!SVGTextElement} The top-level node of the text.
  * @private
  */
-Blockly.Warning.textToDom_ = function(text) {
+Blockly.Cake.Warning.textToDom_ = function(text) {
   var paragraph = /** @type {!SVGTextElement} */ (
-      Blockly.createSvgElement('text',
+      Blockly.Cake.createSvgElement('text',
           {'class': 'blocklyText blocklyBubbleText',
-           'y': Blockly.Bubble.BORDER_WIDTH},
+           'y': Blockly.Cake.Bubble.BORDER_WIDTH},
           null));
   var lines = text.split('\n');
   for (var i = 0; i < lines.length; i++) {
-    var tspanElement = Blockly.createSvgElement('tspan',
-        {'dy': '1em', 'x': Blockly.Bubble.BORDER_WIDTH}, paragraph);
+    var tspanElement = Blockly.Cake.createSvgElement('tspan',
+        {'dy': '1em', 'x': Blockly.Cake.Bubble.BORDER_WIDTH}, paragraph);
     var textNode = document.createTextNode(lines[i]);
     tspanElement.appendChild(textNode);
   }
@@ -69,27 +69,27 @@ Blockly.Warning.textToDom_ = function(text) {
  * Warning text (if bubble is not visible).
  * @private
  */
-Blockly.Warning.prototype.text_ = '';
+Blockly.Cake.Warning.prototype.text_ = '';
 
 /**
  * Create the icon on the block.
  * @private
  */
-Blockly.Warning.prototype.createIcon_ = function() {
-  Blockly.Icon.prototype.createIcon_.call(this);
+Blockly.Cake.Warning.prototype.createIcon_ = function() {
+  Blockly.Cake.Icon.prototype.createIcon_.call(this);
   /* Here's the markup that will be generated:
   <path class="blocklyIconShield" d="..."/>
   <text class="blocklyIconMark" x="8" y="13">!</text>
   */
-  var iconShield = Blockly.createSvgElement('path',
+  var iconShield = Blockly.Cake.createSvgElement('path',
       {'class': 'blocklyIconShield',
        'd': 'M 2,15 Q -1,15 0.5,12 L 6.5,1.7 Q 8,-1 9.5,1.7 L 15.5,12 ' +
        'Q 17,15 14,15 z'},
       this.iconGroup_);
-  this.iconMark_ = Blockly.createSvgElement('text',
+  this.iconMark_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyIconMark',
-       'x': Blockly.Icon.RADIUS,
-       'y': 2 * Blockly.Icon.RADIUS - 3}, this.iconGroup_);
+       'x': Blockly.Cake.Icon.RADIUS,
+       'y': 2 * Blockly.Cake.Icon.RADIUS - 3}, this.iconGroup_);
   this.iconMark_.appendChild(document.createTextNode('!'));
 };
 
@@ -97,25 +97,25 @@ Blockly.Warning.prototype.createIcon_ = function() {
  * Show or hide the warning bubble.
  * @param {boolean} visible True if the bubble should be visible.
  */
-Blockly.Warning.prototype.setVisible = function(visible) {
+Blockly.Cake.Warning.prototype.setVisible = function(visible) {
   if (visible == this.isVisible()) {
     // No change.
     return;
   }
   if (visible) {
     // Create the bubble.
-    var paragraph = Blockly.Warning.textToDom_(this.text_);
-    this.bubble_ = new Blockly.Bubble(
-        /** @type {!Blockly.Workspace} */ (this.block_.workspace),
+    var paragraph = Blockly.Cake.Warning.textToDom_(this.text_);
+    this.bubble_ = new Blockly.Cake.Bubble(
+        /** @type {!Blockly.Cake.Workspace} */ (this.block_.workspace),
         paragraph, this.block_.svg_.svgPath_,
         this.iconX_, this.iconY_, null, null);
-    if (Blockly.RTL) {
+    if (Blockly.Cake.RTL) {
       // Right-align the paragraph.
       // This cannot be done until the bubble is rendered on screen.
       var maxWidth = paragraph.getBBox().width;
       for (var x = 0, textElement; textElement = paragraph.childNodes[x]; x++) {
         textElement.setAttribute('text-anchor', 'end');
-        textElement.setAttribute('x', maxWidth + Blockly.Bubble.BORDER_WIDTH);
+        textElement.setAttribute('x', maxWidth + Blockly.Cake.Bubble.BORDER_WIDTH);
       }
     }
     this.updateColour();
@@ -135,7 +135,7 @@ Blockly.Warning.prototype.setVisible = function(visible) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.Warning.prototype.bodyFocus_ = function(e) {
+Blockly.Cake.Warning.prototype.bodyFocus_ = function(e) {
   this.bubble_.promote_();
 };
 
@@ -143,7 +143,7 @@ Blockly.Warning.prototype.bodyFocus_ = function(e) {
  * Set this warning's text.
  * @param {string} text Warning text.
  */
-Blockly.Warning.prototype.setText = function(text) {
+Blockly.Cake.Warning.prototype.setText = function(text) {
   if (this.text_ == text) {
     return;
   }
@@ -157,7 +157,7 @@ Blockly.Warning.prototype.setText = function(text) {
 /**
  * Dispose of this warning.
  */
-Blockly.Warning.prototype.dispose = function() {
+Blockly.Cake.Warning.prototype.dispose = function() {
   this.block_.warning = null;
-  Blockly.Icon.prototype.dispose.call(this);
+  Blockly.Cake.Icon.prototype.dispose.call(this);
 };

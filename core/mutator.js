@@ -25,20 +25,20 @@
  */
 'use strict';
 
-goog.provide('Blockly.Mutator');
+goog.provide('Blockly.Cake.Mutator');
 
-goog.require('Blockly.Bubble');
-goog.require('Blockly.Icon');
+goog.require('Blockly.Cake.Bubble');
+goog.require('Blockly.Cake.Icon');
 
 
 /**
  * Class for a mutator dialog.
  * @param {!Array.<string>} quarkNames List of names of sub-blocks for flyout.
- * @extends {Blockly.Icon}
+ * @extends {Blockly.Cake.Icon}
  * @constructor
  */
-Blockly.Mutator = function(quarkNames) {
-  Blockly.Mutator.superClass_.constructor.call(this, null);
+Blockly.Cake.Mutator = function(quarkNames) {
+  Blockly.Cake.Mutator.superClass_.constructor.call(this, null);
   this.quarkXml_ = [];
   // Convert the list of names into a list of XML objects for the flyout.
   for (var x = 0; x < quarkNames.length; x++) {
@@ -46,40 +46,40 @@ Blockly.Mutator = function(quarkNames) {
     this.quarkXml_[x] = element;
   }
 };
-goog.inherits(Blockly.Mutator, Blockly.Icon);
+goog.inherits(Blockly.Cake.Mutator, Blockly.Cake.Icon);
 
 /**
  * Width of workspace.
  * @private
  */
-Blockly.Mutator.prototype.workspaceWidth_ = 0;
+Blockly.Cake.Mutator.prototype.workspaceWidth_ = 0;
 
 /**
  * Height of workspace.
  * @private
  */
-Blockly.Mutator.prototype.workspaceHeight_ = 0;
+Blockly.Cake.Mutator.prototype.workspaceHeight_ = 0;
 
 /**
  * Create the icon on the block.
  */
-Blockly.Mutator.prototype.createIcon = function() {
-  Blockly.Icon.prototype.createIcon_.call(this);
+Blockly.Cake.Mutator.prototype.createIcon = function() {
+  Blockly.Cake.Icon.prototype.createIcon_.call(this);
   /* Here's the markup that will be generated:
   <rect class="blocklyIconShield" width="16" height="16" rx="4" ry="4"/>
   <text class="blocklyIconMark" x="8" y="12">★</text>
   */
-  var quantum = Blockly.Icon.RADIUS / 2;
-  var iconShield = Blockly.createSvgElement('rect',
+  var quantum = Blockly.Cake.Icon.RADIUS / 2;
+  var iconShield = Blockly.Cake.createSvgElement('rect',
       {'class': 'blocklyIconShield',
        'width': 4 * quantum,
        'height': 4 * quantum,
        'rx': quantum,
        'ry': quantum}, this.iconGroup_);
-  this.iconMark_ = Blockly.createSvgElement('text',
+  this.iconMark_ = Blockly.Cake.createSvgElement('text',
       {'class': 'blocklyIconMark',
-       'x': Blockly.Icon.RADIUS,
-       'y': 2 * Blockly.Icon.RADIUS - 4}, this.iconGroup_);
+       'x': Blockly.Cake.Icon.RADIUS,
+       'y': 2 * Blockly.Cake.Icon.RADIUS - 4}, this.iconGroup_);
   this.iconMark_.appendChild(document.createTextNode('\u2605'));
 };
 
@@ -90,9 +90,9 @@ Blockly.Mutator.prototype.createIcon = function() {
  * @private
  * @override
  */
-Blockly.Mutator.prototype.iconClick_ = function(e) {
+Blockly.Cake.Mutator.prototype.iconClick_ = function(e) {
   if (this.block_.isEditable()) {
-    Blockly.Icon.prototype.iconClick_.call(this, e);
+    Blockly.Cake.Icon.prototype.iconClick_.call(this, e);
   }
 };
 
@@ -101,7 +101,7 @@ Blockly.Mutator.prototype.iconClick_ = function(e) {
  * @return {!Element} The top-level node of the editor.
  * @private
  */
-Blockly.Mutator.prototype.createEditor_ = function() {
+Blockly.Cake.Mutator.prototype.createEditor_ = function() {
   /* Create the editor.  Here's the markup that will be generated:
   <svg>
     <rect class="blocklyMutatorBackground" />
@@ -109,16 +109,16 @@ Blockly.Mutator.prototype.createEditor_ = function() {
     [Workspace]
   </svg>
   */
-  this.svgDialog_ = Blockly.createSvgElement('svg',
-      {'x': Blockly.Bubble.BORDER_WIDTH, 'y': Blockly.Bubble.BORDER_WIDTH},
+  this.svgDialog_ = Blockly.Cake.createSvgElement('svg',
+      {'x': Blockly.Cake.Bubble.BORDER_WIDTH, 'y': Blockly.Cake.Bubble.BORDER_WIDTH},
       null);
-  Blockly.createSvgElement('rect',
+  Blockly.Cake.createSvgElement('rect',
       {'class': 'blocklyMutatorBackground',
        'height': '100%', 'width': '100%'}, this.svgDialog_);
   var mutator = this;
-  this.workspace_ = new Blockly.Workspace(
+  this.workspace_ = new Blockly.Cake.Workspace(
       function() {return mutator.getFlyoutMetrics_();}, null);
-  this.flyout_ = new Blockly.Flyout();
+  this.flyout_ = new Blockly.Cake.Flyout();
   this.flyout_.autoClose = false;
   this.svgDialog_.appendChild(this.flyout_.createDom());
   this.svgDialog_.appendChild(this.workspace_.createDom());
@@ -128,14 +128,14 @@ Blockly.Mutator.prototype.createEditor_ = function() {
 /**
  * Add or remove the UI indicating if this icon may be clicked or not.
  */
-Blockly.Mutator.prototype.updateEditable = function() {
+Blockly.Cake.Mutator.prototype.updateEditable = function() {
   if (this.block_.isEditable()) {
     // Default behaviour for an icon.
-    Blockly.Icon.prototype.updateEditable.call(this);
+    Blockly.Cake.Icon.prototype.updateEditable.call(this);
   } else {
     // Close any mutator bubble.  Icon is not clickable.
     this.setVisible(false);
-    Blockly.removeClass_(/** @type {!Element} */ (this.iconGroup_),
+    Blockly.Cake.removeClass_(/** @type {!Element} */ (this.iconGroup_),
                          'blocklyIconGroup');
   }
 };
@@ -145,12 +145,12 @@ Blockly.Mutator.prototype.updateEditable = function() {
  * Resize the workspace accordingly.
  * @private
  */
-Blockly.Mutator.prototype.resizeBubble_ = function() {
-  var doubleBorderWidth = 2 * Blockly.Bubble.BORDER_WIDTH;
+Blockly.Cake.Mutator.prototype.resizeBubble_ = function() {
+  var doubleBorderWidth = 2 * Blockly.Cake.Bubble.BORDER_WIDTH;
   var workspaceSize = this.workspace_.getCanvas().getBBox();
   var flyoutMetrics = this.flyout_.getMetrics_();
   var width;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     width = -workspaceSize.x;
   } else {
     width = workspaceSize.width + workspaceSize.x;
@@ -171,7 +171,7 @@ Blockly.Mutator.prototype.resizeBubble_ = function() {
     this.svgDialog_.setAttribute('height', this.workspaceHeight_);
   }
 
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     // Scroll the workspace to always left-align.
     var translation = 'translate(' + this.workspaceWidth_ + ',0)';
     this.workspace_.getCanvas().setAttribute('transform', translation);
@@ -182,14 +182,14 @@ Blockly.Mutator.prototype.resizeBubble_ = function() {
  * Show or hide the mutator bubble.
  * @param {boolean} visible True if the bubble should be visible.
  */
-Blockly.Mutator.prototype.setVisible = function(visible) {
+Blockly.Cake.Mutator.prototype.setVisible = function(visible) {
   if (visible == this.isVisible()) {
     // No change.
     return;
   }
   if (visible) {
     // Create the bubble.
-    this.bubble_ = new Blockly.Bubble(this.block_.workspace,
+    this.bubble_ = new Blockly.Cake.Bubble(this.block_.workspace,
         this.createEditor_(), this.block_.svg_.svgPath_,
         this.iconX_, this.iconY_, null, null);
     var thisObj = this;
@@ -206,21 +206,21 @@ Blockly.Mutator.prototype.setVisible = function(visible) {
     this.rootBlock_.setDeletable(false);
     var margin = this.flyout_.CORNER_RADIUS * 2;
     var x = this.flyout_.width_ + margin;
-    if (Blockly.RTL) {
+    if (Blockly.Cake.RTL) {
       x = -x;
     }
     this.rootBlock_.moveBy(x, margin);
     // Save the initial connections, then listen for further changes.
     if (this.block_.saveConnections) {
       this.block_.saveConnections(this.rootBlock_);
-      this.sourceListener_ = Blockly.bindEvent_(
+      this.sourceListener_ = Blockly.Cake.bindEvent_(
           this.block_.workspace.getCanvas(),
           'blocklyWorkspaceChange', this.block_,
           function() {thisObj.block_.saveConnections(thisObj.rootBlock_)});
     }
     this.resizeBubble_();
     // When the mutator's workspace changes, update the source block.
-    Blockly.bindEvent_(this.workspace_.getCanvas(), 'blocklyWorkspaceChange',
+    Blockly.Cake.bindEvent_(this.workspace_.getCanvas(), 'blocklyWorkspaceChange',
         this.block_, function() {thisObj.workspaceChanged_();});
     this.updateColour();
   } else {
@@ -236,7 +236,7 @@ Blockly.Mutator.prototype.setVisible = function(visible) {
     this.workspaceWidth_ = 0;
     this.workspaceHeight_ = 0;
     if (this.sourceListener_) {
-      Blockly.unbindEvent_(this.sourceListener_);
+      Blockly.Cake.unbindEvent_(this.sourceListener_);
       this.sourceListener_ = null;
     }
   }
@@ -248,14 +248,14 @@ Blockly.Mutator.prototype.setVisible = function(visible) {
  * Fired whenever a change is made to the mutator's workspace.
  * @private
  */
-Blockly.Mutator.prototype.workspaceChanged_ = function() {
-  if (Blockly.Block.dragMode_ == 0) {
+Blockly.Cake.Mutator.prototype.workspaceChanged_ = function() {
+  if (Blockly.Cake.Block.dragMode_ == 0) {
     var blocks = this.workspace_.getTopBlocks(false);
     var MARGIN = 20;
     for (var b = 0, block; block = blocks[b]; b++) {
       var blockXY = block.getRelativeToSurfaceXY();
       var blockHW = block.getHeightWidth();
-      if (block.isDeletable() && (Blockly.RTL ?
+      if (block.isDeletable() && (Blockly.Cake.RTL ?
             blockXY.x > -this.flyout_.width_ + MARGIN :
             blockXY.x < this.flyout_.width_ - MARGIN)) {
         // Delete any block that's sitting on top of the flyout.
@@ -295,9 +295,9 @@ Blockly.Mutator.prototype.workspaceChanged_ = function() {
  *     workspace.
  * @private
  */
-Blockly.Mutator.prototype.getFlyoutMetrics_ = function() {
+Blockly.Cake.Mutator.prototype.getFlyoutMetrics_ = function() {
   var left = 0;
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     left += this.workspaceWidth_;
   }
   return {
@@ -311,7 +311,7 @@ Blockly.Mutator.prototype.getFlyoutMetrics_ = function() {
 /**
  * Dispose of this mutator.
  */
-Blockly.Mutator.prototype.dispose = function() {
+Blockly.Cake.Mutator.prototype.dispose = function() {
   this.block_.mutator = null;
-  Blockly.Icon.prototype.dispose.call(this);
+  Blockly.Cake.Icon.prototype.dispose.call(this);
 };

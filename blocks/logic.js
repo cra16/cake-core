@@ -19,55 +19,55 @@
  */
 
 /**
- * @fileoverview Logic blocks for Blockly.
+ * @fileoverview Logic blocks for Blockly.Cake.
  * @author q.neutron@gmail.com (Quynh Neutron)
  */
 'use strict';
 
-goog.provide('Blockly.Blocks.logic');
+goog.provide('Blockly.Cake.Blocks.logic');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
 
-Blockly.Blocks['controls_if'] = {
+Blockly.Cake.Blocks['controls_if'] = {
   /**
    * Block for if/elseif/else condition.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.appendValueInput('IF0')
       .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
-      .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
+      .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
-      .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+      .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_THEN);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setMutator(new Blockly.Mutator(['controls_if_elseif',
+    this.setMutator(new Blockly.Cake.Mutator(['controls_if_elseif',
       'controls_if_else'
     ]));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       if (!thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_1;
+        return Blockly.Cake.Msg.CONTROLS_IF_TOOLTIP_1;
       } else if (!thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_2;
+        return Blockly.Cake.Msg.CONTROLS_IF_TOOLTIP_2;
       } else if (thisBlock.elseifCount_ && !thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_3;
+        return Blockly.Cake.Msg.CONTROLS_IF_TOOLTIP_3;
       } else if (thisBlock.elseifCount_ && thisBlock.elseCount_) {
-        return Blockly.Msg.CONTROLS_IF_TOOLTIP_4;
+        return Blockly.Cake.Msg.CONTROLS_IF_TOOLTIP_4;
       }
       return '';
     });
     this.elseifCount_ = 0;
     this.elseCount_ = 0;
-      this.tag = Blockly.Msg.TAG_LOGIC_IF;
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_IF;
   },
   /**
    * Create XML to represent the number of else-if and else inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     if (!this.elseifCount_ && !this.elseCount_) {
@@ -85,7 +85,7 @@ Blockly.Blocks['controls_if'] = {
   /**
    * Parse XML to restore the else-if and else inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     this.elseifCount_ = parseInt(xmlElement.getAttribute('elseif'), 10);
@@ -93,33 +93,33 @@ Blockly.Blocks['controls_if'] = {
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
           .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+        .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_THEN);
     }
     if (this.elseCount_) {
       this.appendStatementInput('ELSE')
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+        .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_ELSE);
     }
   },
   /**
    * Populate the mutator's dialog with this block's components.
-   * @param {!Blockly.Workspace} workspace Mutator's workspace.
-   * @return {!Blockly.Block} Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Cake.Block} Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   decompose: function(workspace) {
-    var containerBlock = Blockly.Block.obtain(workspace, 'controls_if_if');
+    var containerBlock = Blockly.Cake.Block.obtain(workspace, 'controls_if_if');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 1; x <= this.elseifCount_; x++) {
-      var elseifBlock = Blockly.Block.obtain(workspace, 'controls_if_elseif');
+      var elseifBlock = Blockly.Cake.Block.obtain(workspace, 'controls_if_elseif');
       elseifBlock.initSvg();
       connection.connect(elseifBlock.previousConnection);
       connection = elseifBlock.nextConnection;
     }
     if (this.elseCount_) {
-      var elseBlock = Blockly.Block.obtain(workspace, 'controls_if_else');
+      var elseBlock = Blockly.Cake.Block.obtain(workspace, 'controls_if_else');
       elseBlock.initSvg();
       connection.connect(elseBlock.previousConnection);
     }
@@ -127,8 +127,8 @@ Blockly.Blocks['controls_if'] = {
   },
   /**
    * Reconfigure this block based on the mutator dialog's components.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   compose: function(containerBlock) {
     // Disconnect the else input blocks and remove the inputs.
@@ -150,9 +150,9 @@ Blockly.Blocks['controls_if'] = {
           this.elseifCount_++;
           var ifInput = this.appendValueInput('IF' + this.elseifCount_)
             .setCheck(['Boolean', 'Number'])
-            .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
+            .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_ELSEIF);
           var doInput = this.appendStatementInput('DO' + this.elseifCount_);
-          doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+          doInput.appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_THEN);
           // Reconnect any child blocks.
           if (clauseBlock.valueConnection_) {
             ifInput.connection.connect(clauseBlock.valueConnection_);
@@ -164,7 +164,7 @@ Blockly.Blocks['controls_if'] = {
         case 'controls_if_else':
           this.elseCount_++;
           var elseInput = this.appendStatementInput('ELSE');
-          elseInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSE);
+          elseInput.appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_ELSE);
           // Reconnect any child blocks.
           if (clauseBlock.statementConnection_) {
             elseInput.connection.connect(clauseBlock.statementConnection_);
@@ -179,8 +179,8 @@ Blockly.Blocks['controls_if'] = {
   },
   /**
    * Store pointers to any connected child blocks.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   saveConnections: function(containerBlock) {
     var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -210,62 +210,62 @@ Blockly.Blocks['controls_if'] = {
   },
 
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_if_if'] = {
+Blockly.Cake.Blocks['controls_if_if'] = {
   /**
    * Mutator block for if container.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.CONTROLS_IF_IF_TITLE_IF);
+      .appendField(Blockly.Cake.Msg.CONTROLS_IF_IF_TITLE_IF);
     this.appendStatementInput('STACK');
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_IF_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.CONTROLS_IF_IF_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['controls_if_elseif'] = {
+Blockly.Cake.Blocks['controls_if_elseif'] = {
   /**
    * Mutator bolck for else-if condition.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
+      .appendField(Blockly.Cake.Msg.CONTROLS_IF_ELSEIF_TITLE_ELSEIF);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.CONTROLS_IF_ELSEIF_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['controls_if_else'] = {
+Blockly.Cake.Blocks['controls_if_else'] = {
   /**
    * Mutator block for else condition.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
+      .appendField(Blockly.Cake.Msg.CONTROLS_IF_ELSE_TITLE_ELSE);
     this.setPreviousStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_IF_ELSE_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.CONTROLS_IF_ELSE_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['logic_compare'] = {
+Blockly.Cake.Blocks['logic_compare'] = {
   /**
    * Block for comparison operator.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
-    var OPERATORS = Blockly.RTL ? [
+    var OPERATORS = Blockly.Cake.RTL ? [
       ['=', 'EQ'],
       ['\u2260', 'NEQ'],
       ['>', 'LT'],
@@ -284,38 +284,38 @@ Blockly.Blocks['logic_compare'] = {
     this.setOutput(true, 'Boolean');
     this.appendValueInput('A');
     this.appendValueInput('B')
-      .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+      .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'OP');
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('OP');
       var TOOLTIPS = {
-        'EQ': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_EQ,
-        'NEQ': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_NEQ,
-        'LT': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_LT,
-        'LTE': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_LTE,
-        'GT': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_GT,
-        'GTE': Blockly.Msg.LOGIC_COMPARE_TOOLTIP_GTE
+        'EQ': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_EQ,
+        'NEQ': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_NEQ,
+        'LT': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_LT,
+        'LTE': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_LTE,
+        'GT': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_GT,
+        'GTE': Blockly.Cake.Msg.LOGIC_COMPARE_TOOLTIP_GTE
       };
       return TOOLTIPS[op];
     });
-      this.tag = Blockly.Msg.TAG_LOGIC_COMPARE;
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_COMPARE;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['logic_operation'] = {
+Blockly.Cake.Blocks['logic_operation'] = {
   /**
    * Block for logical operations: 'and', 'or'.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var OPERATORS =
       [
-        [Blockly.Msg.LOGIC_OPERATION_AND, 'AND'],
-        [Blockly.Msg.LOGIC_OPERATION_OR, 'OR']
+        [Blockly.Cake.Msg.LOGIC_OPERATION_AND, 'AND'],
+        [Blockly.Cake.Msg.LOGIC_OPERATION_OR, 'OR']
       ];
     this.setColour(200);
     this.setOutput(true, 'Boolean');
@@ -323,130 +323,130 @@ Blockly.Blocks['logic_operation'] = {
 //      .setCheck(['Boolean', 'Number']);
     this.appendValueInput('B')
 //      .setCheck(['Boolean', 'Number'])
-      .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
+      .appendField(new Blockly.Cake.FieldDropdown(OPERATORS), 'OP');
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
       var op = thisBlock.getFieldValue('OP');
       var TOOLTIPS = {
-        'AND': Blockly.Msg.LOGIC_OPERATION_TOOLTIP_AND,
-        'OR': Blockly.Msg.LOGIC_OPERATION_TOOLTIP_OR
+        'AND': Blockly.Cake.Msg.LOGIC_OPERATION_TOOLTIP_AND,
+        'OR': Blockly.Cake.Msg.LOGIC_OPERATION_TOOLTIP_OR
       };
       return TOOLTIPS[op];
     });
-      this.tag = Blockly.Msg.TAG_LOGIC_OPERATION;
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_OPERATION;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['logic_negate'] = {
+Blockly.Cake.Blocks['logic_negate'] = {
   /**
    * Block for negation.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.setOutput(true, 'Boolean');
-    this.interpolateMsg(Blockly.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number', 'NEGATIVE', 'INT'], Blockly.ALIGN_RIGHT],
-      Blockly.ALIGN_RIGHT);
-    this.setTooltip(Blockly.Msg.LOGIC_NEGATE_TOOLTIP);
-      this.tag = Blockly.Msg.TAG_LOGIC_NEGATE;
+    this.interpolateMsg(Blockly.Cake.Msg.LOGIC_NEGATE_TITLE, ['BOOL', ['Boolean', 'Number', 'NEGATIVE', 'INT'], Blockly.Cake.ALIGN_RIGHT],
+      Blockly.Cake.ALIGN_RIGHT);
+    this.setTooltip(Blockly.Cake.Msg.LOGIC_NEGATE_TOOLTIP);
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_NEGATE;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['logic_boolean'] = {
+Blockly.Cake.Blocks['logic_boolean'] = {
   /**
    * Block for boolean data type: true and false.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     var BOOLEANS =
       [
-        [Blockly.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
-        [Blockly.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']
+        [Blockly.Cake.Msg.LOGIC_BOOLEAN_TRUE, 'TRUE'],
+        [Blockly.Cake.Msg.LOGIC_BOOLEAN_FALSE, 'FALSE']
       ];
     this.setColour(200);
     this.setOutput(true, 'Boolean');
     this.appendDummyInput()
-      .appendField(new Blockly.FieldDropdown(BOOLEANS), 'BOOL');
-    this.setTooltip(Blockly.Msg.LOGIC_BOOLEAN_TOOLTIP);
-      this.tag = Blockly.Msg.TAG_LOGIC_BOOLEAN;
+      .appendField(new Blockly.Cake.FieldDropdown(BOOLEANS), 'BOOL');
+    this.setTooltip(Blockly.Cake.Msg.LOGIC_BOOLEAN_TOOLTIP);
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_BOOLEAN;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['logic_null'] = {
+Blockly.Cake.Blocks['logic_null'] = {
   /**
    * Block for null data type.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.setOutput(true);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.LOGIC_NULL);
-    this.setTooltip(Blockly.Msg.LOGIC_NULL_TOOLTIP);
-      this.tag = Blockly.Msg.TAG_LOGIC_NULL;
+      .appendField(Blockly.Cake.Msg.LOGIC_NULL);
+    this.setTooltip(Blockly.Cake.Msg.LOGIC_NULL_TOOLTIP);
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_NULL;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['logic_ternary'] = {
+Blockly.Cake.Blocks['logic_ternary'] = {
   /**
    * Block for ternary operator.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   init: function() {
     this.setColour(200);
     this.appendValueInput('IF')
-          .appendField(Blockly.Msg.LOGIC_TERNARY_CONDITION);
+          .appendField(Blockly.Cake.Msg.LOGIC_TERNARY_CONDITION);
     this.appendValueInput('THEN')
-      .appendField(Blockly.Msg.LOGIC_TERNARY_IF_TRUE);
+      .appendField(Blockly.Cake.Msg.LOGIC_TERNARY_IF_TRUE);
     this.appendValueInput('ELSE')
-      .appendField(Blockly.Msg.LOGIC_TERNARY_IF_FALSE);
+      .appendField(Blockly.Cake.Msg.LOGIC_TERNARY_IF_FALSE);
     this.setOutput(true);
-    this.setTooltip(Blockly.Msg.LOGIC_TERNARY_TOOLTIP);
-      this.tag = Blockly.Msg.TAG_LOGIC_TERNARY;
+    this.setTooltip(Blockly.Cake.Msg.LOGIC_TERNARY_TOOLTIP);
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_TERNARY;
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_switch'] = {
+Blockly.Cake.Blocks['controls_switch'] = {
   init: function() {
     this.setColour(200);
     this.appendValueInput('SWITCH')
-      .appendField(Blockly.Msg.CONTROLS_SWITCH);
+      .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH);
       this.appendDummyInput()
-          .appendField(Blockly.Msg.CONTROLS_SWITCH_DEFAULT);
+          .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_DEFAULT);
       this.appendStatementInput('DEFAULT')
-          .appendField(Blockly.Msg.CONTROLS_SWITCH_DO);
+          .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_DO);
     this.appendValueInput('CASE0')
         .setCheck(['Number', 'INT', 'Variable', 'VAR_INT', 'Aster', 'NEGATIVE', 'DOUBLE'])
-    .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+    .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE);
     this.appendStatementInput('DO0')
-      .appendField(Blockly.Msg.CONTROLS_SWITCH_DO);
+      .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_DO);
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setMutator(new Blockly.Mutator(['controls_switch_case']));
+    this.setMutator(new Blockly.Cake.Mutator(['controls_switch_case']));
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
-      this.tag = Blockly.Msg.TAG_LOGIC_SWITCH;
+      this.tag = Blockly.Cake.Msg.TAG_LOGIC_SWITCH;
     this.setTooltip(function() {
       if (!thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP1;
+        return Blockly.Cake.Msg.CONTROLS_SWITCH_TOOLTIP1;
       } else if (!thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP2;
+        return Blockly.Cake.Msg.CONTROLS_SWITCH_TOOLTIP2;
       } else if (thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP3;
+        return Blockly.Cake.Msg.CONTROLS_SWITCH_TOOLTIP3;
       } else if (thisBlock.caseCount_) {
-        return Blockly.Msg.CONTROLS_SWITCH_TOOLTIP4;
+        return Blockly.Cake.Msg.CONTROLS_SWITCH_TOOLTIP4;
       }
       return '';
     });
@@ -455,7 +455,7 @@ Blockly.Blocks['controls_switch'] = {
   /**
    * Create XML to represent the number of else-if and else inputs.
    * @return {Element} XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   mutationToDom: function() {
     if (!this.caseCount_) {
@@ -470,30 +470,30 @@ Blockly.Blocks['controls_switch'] = {
   /**
    * Parse XML to restore the else-if and else inputs.
    * @param {!Element} xmlElement XML storage element.
-   * @this Blockly.Block
+   * @this Blockly.Cake.Block
    */
   domToMutation: function(xmlElement) {
     this.caseCount_ = parseInt(xmlElement.getAttribute('case'), 10);
     for (var x = 1; x <= this.caseCount_; x++) {
       this.appendValueInput('CASE' + x)
         .setCheck(['Boolean', 'Number', 'INT', 'Variable', 'VAR_INT', 'NEGATIVE', 'DOUBLE'])
-        .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+        .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE);
       this.appendStatementInput('DO' + x)
-        .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+        .appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_THEN);
     }
   },
   /**
    * Populate the mutator's dialog with this block's components.
-   * @param {!Blockly.Workspace} workspace Mutator's workspace.
-   * @return {!Blockly.Block} Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+   * @return {!Blockly.Cake.Block} Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   decompose: function(workspace) {
-    var containerBlock = Blockly.Block.obtain(workspace, 'controls_switch_switch');
+    var containerBlock = Blockly.Cake.Block.obtain(workspace, 'controls_switch_switch');
     containerBlock.initSvg();
     var connection = containerBlock.getInput('STACK').connection;
     for (var x = 1; x <= this.caseCount_; x++) {
-      var caseBlock = Blockly.Block.obtain(workspace, 'controls_switch_case');
+      var caseBlock = Blockly.Cake.Block.obtain(workspace, 'controls_switch_case');
       caseBlock.initSvg();
       connection.connect(caseBlock.previousConnection);
       connection = caseBlock.nextConnection;
@@ -502,8 +502,8 @@ Blockly.Blocks['controls_switch'] = {
   },
   /**
    * Reconfigure this block based on the mutator dialog's components.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   compose: function(containerBlock) {
     
@@ -521,9 +521,9 @@ Blockly.Blocks['controls_switch'] = {
           this.caseCount_++;
           var ifInput = this.appendValueInput('CASE' + this.caseCount_)
             .setCheck('Number', 'INT', 'Variable', 'VAR_INT')
-            .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+            .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE);
           var doInput = this.appendStatementInput('DO' + this.caseCount_);
-          doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
+          doInput.appendField(Blockly.Cake.Msg.CONTROLS_IF_MSG_THEN);
           // Reconnect any child blocks.
           if (clauseBlock.valueConnection_) {
             ifInput.connection.connect(clauseBlock.valueConnection_);
@@ -541,8 +541,8 @@ Blockly.Blocks['controls_switch'] = {
   },
   /**
    * Store pointers to any connected child blocks.
-   * @param {!Blockly.Block} containerBlock Root block in mutator.
-   * @this Blockly.Block
+   * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+   * @this Blockly.Cake.Block
    */
   saveConnections: function(containerBlock) {
     var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -567,52 +567,52 @@ Blockly.Blocks['controls_switch'] = {
   },
 
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['controls_switch_switch'] = {
+Blockly.Cake.Blocks['controls_switch_switch'] = {
   init: function() {
     this.setColour(200);
     this.appendDummyInput()
-      .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+      .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE);
     this.appendStatementInput('STACK');
     this.setPreviousStatement(true);
     this.setNextStatement(true);
-    this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
+    this.setTooltip(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
     this.contextMenu = false;
   }
 };
 
-Blockly.Blocks['controls_switch_case'] = {
+Blockly.Cake.Blocks['controls_switch_case'] = {
     init: function() {
         this.setColour(200);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
+            .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.CONTROLS_SWITCH_CASE_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['controls_switch_break'] = {
+Blockly.Cake.Blocks['controls_switch_break'] = {
     /**
      * Block for break in the switch block.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(200);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.CONTROLS_SWITCH_BREAK);
+            .appendField(Blockly.Cake.Msg.CONTROLS_SWITCH_BREAK);
         this.setPreviousStatement(true);
         // Assign 'this' to a variable for use in the tooltip closure below.
-        this.tag = Blockly.Msg.TAG_LOOP_FLOW;
-        this.setTooltip(Blockly.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_LOOP_FLOW;
+        this.setTooltip(Blockly.Cake.Msg.CONTROLS_SWITCH_BREAK_TOOLTIP);
     },
     /**
      * Called whenever anything on the workspace changes.
      * Add warning if this flow block is not nested inside a loop.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     onchange: function() {
         if (!this.workspace) {
@@ -632,7 +632,7 @@ Blockly.Blocks['controls_switch_break'] = {
         if (legal) {
             this.setWarningText(null);
         } else {
-            this.setWarningText(Blockly.Msg.CONTROLS_SWITCH_BREAK_WARNING);
+            this.setWarningText(Blockly.Cake.Msg.CONTROLS_SWITCH_BREAK_WARNING);
         }
     }
 };

@@ -26,30 +26,30 @@
  */
 'use strict';
 
-goog.provide('Blockly.Variables');
+goog.provide('Blockly.Cake.Variables');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
-goog.require('Blockly.Toolbox');
-goog.require('Blockly.Workspace');
+// goog.require('Blockly.Cake.Block');
+goog.require('Blockly.Cake.Toolbox');
+goog.require('Blockly.Cake.Workspace');
 
 
 /**
  * Category to separate variable names from procedures and generated functions.
  */
-Blockly.Variables.NAME_TYPE = 'VARIABLE';
+Blockly.Cake.Variables.NAME_TYPE = 'VARIABLE';
 
 /**
  * Find all user-created variables.
- * @param {Blockly.Block=} opt_block Optional root block.
+ * @param {Blockly.Cake.Block=} opt_block Optional root block.
  * @return {!Array.<string>} Array of variable names.
  */
-Blockly.Variables.allVariables = function(opt_block) {
+Blockly.Cake.Variables.allVariables = function(opt_block) {
   var blocks;
   if (opt_block) {
     blocks = opt_block.getDescendants();
   } else {
-    blocks = Blockly.mainWorkspace.getAllBlocks();
+    blocks = Blockly.Cake.mainWorkspace.getAllBlocks();
   }
   var variableHash = Object.create(null);
   // Iterate through every block and add each variable to the hash.
@@ -124,8 +124,8 @@ Blockly.Variables.allVariables = function(opt_block) {
  * @param {string} oldName Variable to rename.
  * @param {string} newName New variable name.
  */
-Blockly.Variables.renameVariable = function(oldName, newName) {
-  var blocks = Blockly.mainWorkspace.getAllBlocks();
+Blockly.Cake.Variables.renameVariable = function(oldName, newName) {
+  var blocks = Blockly.Cake.mainWorkspace.getAllBlocks();
   // Iterate through every block.
   for (var x = 0; x < blocks.length; x++) {
     var func = blocks[x].renameVar;
@@ -137,13 +137,13 @@ Blockly.Variables.renameVariable = function(oldName, newName) {
 
 /**
  * Construct the blocks required by the flyout for the variable category.
- * @param {!Array.<!Blockly.Block>} blocks List of blocks to show.
+ * @param {!Array.<!Blockly.Cake.Block>} blocks List of blocks to show.
  * @param {!Array.<number>} gaps List of widths between blocks.
  * @param {number} margin Standard margin width for calculating gaps.
- * @param {!Blockly.Workspace} workspace The flyout's workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The flyout's workspace.
  */
-Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
-  var variableList = Blockly.Variables.allVariables();
+Blockly.Cake.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
+  var variableList = Blockly.Cake.Variables.allVariables();
   window.alert(variableList);
   variableList.sort(goog.string.caseInsensitiveCompare);
   // In addition to the user's variables, we also want to display the default
@@ -155,11 +155,11 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
     if (variableList[i][1] === defaultVariable) {
       continue;
     }
-    var getBlock = Blockly.Blocks['variables_get'] ?
-      Blockly.Block.obtain(workspace, 'variables_get') : null;
+    var getBlock = Blockly.Cake.Blocks['variables_get'] ?
+      Blockly.Cake.Block.obtain(workspace, 'variables_get') : null;
     getBlock && getBlock.initSvg();
-    var setBlock = Blockly.Blocks['variables_set'] ?
-      Blockly.Block.obtain(workspace, 'variables_set') : null;
+    var setBlock = Blockly.Cake.Blocks['variables_set'] ?
+      Blockly.Cake.Block.obtain(workspace, 'variables_set') : null;
     setBlock && setBlock.initSvg();
     if (variableList[i][1] === null) {
       defaultVariable = (getBlock || setBlock).getVars()[0];
@@ -183,8 +183,8 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
  * If no unique name is located it will try 'i1' to 'z1', then 'i2' to 'z2' etc.
  * @return {string} New variable name.
  */
-Blockly.Variables.generateUniqueName = function() {
-  var variableList = Blockly.Variables.allVariables();
+Blockly.Cake.Variables.generateUniqueName = function() {
+  var variableList = Blockly.Cake.Variables.allVariables();
   var newName = '';
   if (variableList.length) {
     variableList.sort(goog.string.caseInsensitiveCompare);

@@ -1,10 +1,10 @@
 'use strict';
 
-goog.provide('Blockly.cake.stdio');
+goog.provide('Blockly.Cake.cake.stdio');
 
-goog.require('Blockly.cake');
+goog.require('Blockly.Cake.cake');
 
-Blockly.cake['library_stdio_printf'] = function(block) {
+Blockly.Cake.cake['library_stdio_printf'] = function(block) {
     // Print statement
     var argument = '';
     var typeCode = '';
@@ -13,8 +13,8 @@ Blockly.cake['library_stdio_printf'] = function(block) {
     var code = '';
 
     for (var n = 0; n <= block.printAddCount_; n++) {
-        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
-            Blockly.cake.ORDER_NONE) || '';
+        argument = Blockly.Cake.cake.valueToCode(block, 'VAR' + n,
+            Blockly.Cake.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
         var childBlock = childConnection.targetBlock();
@@ -64,7 +64,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             {
                 var tempArgu1 = argument.split('[');
 
-                typeCode = Blockly.cake.varTypeCheckInPrintScan(tempArgu1[0]);
+                typeCode = Blockly.Cake.cake.varTypeCheckInPrintScan(tempArgu1[0]);
 
                 if (typeCode == '') {
                     inQutCode += argument;
@@ -81,7 +81,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             else if (childBlockType == 'variables_pointer_&')
             {
                 if(childBlock.inputList[0].connection.targetBlock()){
-                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+                    argument = Blockly.Cake.cake.valueToCode(childBlock, 'VALUE', Blockly.Cake.cake.ORDER_NONE) || '';
 
                     inQutCode += '%p';
                     outQutCode += ', &' + argument;
@@ -90,12 +90,12 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             else if (childBlockType == 'variables_pointer_*')
             {
                 if(childBlock.inputList[0].connection.targetBlock()){
-                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+                    argument = Blockly.Cake.cake.valueToCode(childBlock, 'VALUE', Blockly.Cake.cake.ORDER_NONE) || '';
 
                     if(argument.indexOf('*') >= 0 && childBlock.inputList[0].connection.targetBlock().inputList[0].connection.targetBlock()){ // when double pointer
-                        var astChild = Blockly.cake.valueToCode(childBlock.inputList[0].connection.targetBlock(), 'VALUE', Blockly.cake.ORDER_NONE) || '';
+                        var astChild = Blockly.Cake.cake.valueToCode(childBlock.inputList[0].connection.targetBlock(), 'VALUE', Blockly.Cake.cake.ORDER_NONE) || '';
 
-                        typeCode = Blockly.cake.pointerTypeCheckInPrint(astChild, true);
+                        typeCode = Blockly.Cake.cake.pointerTypeCheckInPrint(astChild, true);
                         if (typeCode == '') {
                             inQutCode += astChild;
                         } else {
@@ -103,7 +103,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                             outQutCode += ', **' + astChild;
                         }
                     } else { // when single pointer(*) or normal pointer block
-                        typeCode = Blockly.cake.pointerTypeCheckInPrint(argument, false);
+                        typeCode = Blockly.Cake.cake.pointerTypeCheckInPrint(argument, false);
                         if (typeCode == '') {
                             inQutCode += argument;
                         } else {
@@ -136,7 +136,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
             }
             else
             {
-                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+                typeCode = Blockly.Cake.cake.varTypeCheckInPrintScan(argument);
 
                 if (typeCode == '') {
                     inQutCode += argument;
@@ -154,34 +154,34 @@ Blockly.cake['library_stdio_printf'] = function(block) {
         code = 'printf(\"' + inQutCode + '\"' + outQutCode + ');';
     }
 
-    Blockly.cake.definitions_['include_cake_stdio'] =
+    Blockly.Cake.cake.definitions_['include_cake_stdio'] =
         '#include <stdio.h>';
     return code + '\n';
 };
 
-Blockly.cake['library_stdio_text'] = function(block) {
+Blockly.Cake.cake['library_stdio_text'] = function(block) {
     // Text value.
-    var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+    var code = Blockly.Cake.cake.quote_(block.getFieldValue('TEXT'));
     if (block.getParent()
         && (block.getParent().type == 'library_stdio_printf'
         || block.getParent().type == 'define_declare'
         || block.getParent().type == 'comment')) {
-        return [code, Blockly.cake.ORDER_ATOMIC];
+        return [code, Blockly.Cake.cake.ORDER_ATOMIC];
     } else if (code.length == 1) {
         code = '\'' + code + '\'';
     } else {
         code = '\"' + code + '\"';
     }
-    return [code, Blockly.cake.ORDER_ATOMIC];
+    return [code, Blockly.Cake.cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['library_stdio_newLine'] = function() {
+Blockly.Cake.cake['library_stdio_newLine'] = function() {
     // new line block for '\n'
     var code = '\\n';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_stdio_scanf'] = function(block) {
+Blockly.Cake.cake['library_stdio_scanf'] = function(block) {
     // Scan statement
     var argument = '';
     var typeCode = '';
@@ -190,8 +190,8 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
     var code = '';
 
     for (var n = 0; n <= block.scanAddCount_; n++) {
-        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
-            Blockly.cake.ORDER_NONE) || '';
+        argument = Blockly.Cake.cake.valueToCode(block, 'VAR' + n,
+            Blockly.Cake.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
         var childBlock = childConnection.targetBlock();
@@ -203,7 +203,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             {
                 var tempArgu1 = argument.split('[');
 
-                typeCode = Blockly.cake.arrTypeCheckInScan(tempArgu1[0], childConnection);
+                typeCode = Blockly.Cake.cake.arrTypeCheckInScan(tempArgu1[0], childConnection);
 
                 if (typeCode == '%s') {
                     inQutCode += typeCode;
@@ -215,7 +215,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             }
             else if (childBlockType == 'variables_pointer_get')
             {
-                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+                typeCode = Blockly.Cake.cake.varTypeCheckInPrintScan(argument);
 
                 if (typeCode == '%c'){
                     typeCode = '%s';
@@ -236,9 +236,9 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             else if (childBlockType == 'variables_pointer_*')
             {
                 if(childBlock.inputList[0].connection.targetBlock()){
-                    argument = Blockly.cake.valueToCode(childBlock, 'VALUE', Blockly.cake.ORDER_NONE) || '';
+                    argument = Blockly.Cake.cake.valueToCode(childBlock, 'VALUE', Blockly.Cake.cake.ORDER_NONE) || '';
 
-                    typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+                    typeCode = Blockly.Cake.cake.varTypeCheckInPrintScan(argument);
 
                     if (typeCode == '') {
                         inQutCode += argument;
@@ -250,7 +250,7 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
             }
             else // When 'variables_variable_get' block
             {
-                typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
+                typeCode = Blockly.Cake.cake.varTypeCheckInPrintScan(argument);
 
                 inQutCode += typeCode;
                 outQutCode += ', &' + argument;
@@ -264,14 +264,14 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
         code = 'scanf(\"' + inQutCode + '\"' + outQutCode + ');';
     }
 
-    Blockly.cake.definitions_['include_cake_stdio'] =
+    Blockly.Cake.cake.definitions_['include_cake_stdio'] =
         '#include <stdio.h>';
     return code + '\n';
 };
 
-Blockly.cake.varTypeCheckInPrintScan = function(varName) { // variable type check
+Blockly.Cake.cake.varTypeCheckInPrintScan = function(varName) { // variable type check
     var typeCode = '';
-    var varList = Blockly.Variables.allVariables();
+    var varList = Blockly.Cake.Variables.allVariables();
 
     for(var temp = 0 ; temp < varList.length ; temp++) {
         if (varName == varList[temp][2]) {
@@ -295,9 +295,9 @@ Blockly.cake.varTypeCheckInPrintScan = function(varName) { // variable type chec
     return typeCode;
 };
 
-Blockly.cake.pointerTypeCheckInPrint = function(varName, checkDoubleAst) { // pointer type check
+Blockly.Cake.cake.pointerTypeCheckInPrint = function(varName, checkDoubleAst) { // pointer type check
     var typeCode = '';
-    var varList = Blockly.Variables.allVariables();
+    var varList = Blockly.Cake.Variables.allVariables();
 
     if (checkDoubleAst == true){ // double pointer
         for(var temp = 0 ; temp < varList.length ; temp++) {
@@ -348,14 +348,14 @@ Blockly.cake.pointerTypeCheckInPrint = function(varName, checkDoubleAst) { // po
     }
 };
 
-Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
+Blockly.Cake.cake.arrTypeCheckInScan = function(varName, childConnection) {
     var typeCode = '';
     var childBlock = childConnection.targetBlock();
-    var arrList = Blockly.Blocks.getWantedBlockArray('a');
+    var arrList = Blockly.Cake.Blocks.getWantedBlockArray('a');
 
     for(var temp = 0 ; temp < arrList.length ; temp++) {
         var option = arrList[temp][2];
-        var type = Blockly.FieldDropdown.prototype.getTypefromVars(option, 0);
+        var type = Blockly.Cake.FieldDropdown.prototype.getTypefromVars(option, 0);
 
         var arrIdxLength = arrList[temp][5][0];
         var inputLength = childBlock.getInputIdxLength();
@@ -395,15 +395,15 @@ Blockly.cake.arrTypeCheckInScan = function(varName, childConnection) {
     return typeCode;
 };
 
-Blockly.cake['comment'] = function(block) {
+Blockly.Cake.cake['comment'] = function(block) {
     // Comment statement
     var argument = '';
     var code = '';
     var numOfLine = 0;
 
     for (var n = 0; n <= block.commentAddCount_; n++) {
-        argument = Blockly.cake.valueToCode(block, 'VAR' + n,
-            Blockly.cake.ORDER_NONE) || '';
+        argument = Blockly.Cake.cake.valueToCode(block, 'VAR' + n,
+            Blockly.Cake.cake.ORDER_NONE) || '';
 
         var childConnection = block.inputList[n].connection;
         var childBlock = childConnection.targetBlock();

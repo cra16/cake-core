@@ -24,35 +24,35 @@
  */
 'use strict';
 
-goog.provide('Blockly.Scrollbar');
-goog.provide('Blockly.ScrollbarPair');
+goog.provide('Blockly.Cake.Scrollbar');
+goog.provide('Blockly.Cake.ScrollbarPair');
 
 goog.require('goog.userAgent');
 
 
 /**
  * Class for a pair of scrollbars.  Horizontal and vertical.
- * @param {!Blockly.Workspace} workspace Workspace to bind the scrollbars to.
+ * @param {!Blockly.Cake.Workspace} workspace Workspace to bind the scrollbars to.
  * @constructor
  */
-Blockly.ScrollbarPair = function(workspace) {
+Blockly.Cake.ScrollbarPair = function(workspace) {
   this.workspace_ = workspace;
   this.oldHostMetrics_ = null;
-  this.hScroll = new Blockly.Scrollbar(workspace, true, true);
-  this.vScroll = new Blockly.Scrollbar(workspace, false, true);
-  this.corner_ = Blockly.createSvgElement('rect',
-      {'height': Blockly.Scrollbar.scrollbarThickness,
-      'width': Blockly.Scrollbar.scrollbarThickness,
+  this.hScroll = new Blockly.Cake.Scrollbar(workspace, true, true);
+  this.vScroll = new Blockly.Cake.Scrollbar(workspace, false, true);
+  this.corner_ = Blockly.Cake.createSvgElement('rect',
+      {'height': Blockly.Cake.Scrollbar.scrollbarThickness,
+      'width': Blockly.Cake.Scrollbar.scrollbarThickness,
       'style': 'fill: #fff'}, null);
-  Blockly.Scrollbar.insertAfter_(this.corner_, workspace.getBubbleCanvas());
+  Blockly.Cake.Scrollbar.insertAfter_(this.corner_, workspace.getBubbleCanvas());
 };
 
 /**
  * Dispose of this pair of scrollbars.
  * Unlink from all DOM elements to prevent memory leaks.
  */
-Blockly.ScrollbarPair.prototype.dispose = function() {
-  Blockly.unbindEvent_(this.onResizeWrapper_);
+Blockly.Cake.ScrollbarPair.prototype.dispose = function() {
+  Blockly.Cake.unbindEvent_(this.onResizeWrapper_);
   this.onResizeWrapper_ = null;
   goog.dom.removeNode(this.corner_);
   this.corner_ = null;
@@ -68,7 +68,7 @@ Blockly.ScrollbarPair.prototype.dispose = function() {
  * Recalculate both of the scrollbars' locations and lengths.
  * Also reposition the corner rectangle.
  */
-Blockly.ScrollbarPair.prototype.resize = function() {
+Blockly.Cake.ScrollbarPair.prototype.resize = function() {
   // Look up the host metrics once, and use for both scrollbars.
   var hostMetrics = this.workspace_.getMetrics();
   if (!hostMetrics) {
@@ -130,7 +130,7 @@ Blockly.ScrollbarPair.prototype.resize = function() {
  * @param {number} x Horizontal scroll value.
  * @param {number} y Vertical scroll value.
  */
-Blockly.ScrollbarPair.prototype.set = function(x, y) {
+Blockly.Cake.ScrollbarPair.prototype.set = function(x, y) {
   /* HACK:
    Two scrollbars are about to have their sliders moved.  Moving a scrollbar
    will normally result in its onScroll function being called.  That function
@@ -143,7 +143,7 @@ Blockly.ScrollbarPair.prototype.set = function(x, y) {
    other browsers), onScroll is called as a function and the browser only
    rerenders the contents once at the end of the thread.
   */
-  if (Blockly.Scrollbar === Blockly.ScrollbarNative) {
+  if (Blockly.Cake.Scrollbar === Blockly.Cake.ScrollbarNative) {
     // Native scrollbar mode.
     // Set both scrollbars and suppress their two separate onScroll events.
     this.hScroll.set(x, false);
@@ -169,12 +169,12 @@ Blockly.ScrollbarPair.prototype.set = function(x, y) {
  * Class for a pure SVG scrollbar.
  * This technique offers a scrollbar that is guaranteed to work, but may not
  * look or behave like the system's scrollbars.
- * @param {!Blockly.Workspace} workspace Workspace to bind the scrollbar to.
+ * @param {!Blockly.Cake.Workspace} workspace Workspace to bind the scrollbar to.
  * @param {boolean} horizontal True if horizontal, false if vertical.
  * @param {boolean} opt_pair True if the scrollbar is part of a horiz/vert pair.
  * @constructor
  */
-Blockly.Scrollbar = function(workspace, horizontal, opt_pair) {
+Blockly.Cake.Scrollbar = function(workspace, horizontal, opt_pair) {
   this.workspace_ = workspace;
   this.pair_ = opt_pair || false;
   this.horizontal_ = horizontal;
@@ -183,42 +183,42 @@ Blockly.Scrollbar = function(workspace, horizontal, opt_pair) {
 
   if (horizontal) {
     this.svgBackground_.setAttribute('height',
-        Blockly.Scrollbar.scrollbarThickness);
+        Blockly.Cake.Scrollbar.scrollbarThickness);
     this.svgKnob_.setAttribute('height',
-        Blockly.Scrollbar.scrollbarThickness - 6);
+        Blockly.Cake.Scrollbar.scrollbarThickness - 6);
     this.svgKnob_.setAttribute('y', 3);
   } else {
     this.svgBackground_.setAttribute('width',
-        Blockly.Scrollbar.scrollbarThickness);
+        Blockly.Cake.Scrollbar.scrollbarThickness);
     this.svgKnob_.setAttribute('width',
-        Blockly.Scrollbar.scrollbarThickness - 6);
+        Blockly.Cake.Scrollbar.scrollbarThickness - 6);
     this.svgKnob_.setAttribute('x', 3);
   }
   var scrollbar = this;
-  this.onMouseDownBarWrapper_ = Blockly.bindEvent_(this.svgBackground_,
+  this.onMouseDownBarWrapper_ = Blockly.Cake.bindEvent_(this.svgBackground_,
       'mousedown', scrollbar, scrollbar.onMouseDownBar_);
-  this.onMouseDownKnobWrapper_ = Blockly.bindEvent_(this.svgKnob_,
+  this.onMouseDownKnobWrapper_ = Blockly.Cake.bindEvent_(this.svgKnob_,
       'mousedown', scrollbar, scrollbar.onMouseDownKnob_);
 };
 
 /**
  * Width of vertical scrollbar or height of horizontal scrollbar.
  */
-Blockly.Scrollbar.scrollbarThickness = 15;
+Blockly.Cake.Scrollbar.scrollbarThickness = 15;
 
 /**
  * Dispose of this scrollbar.
  * Unlink from all DOM elements to prevent memory leaks.
  */
-Blockly.Scrollbar.prototype.dispose = function() {
+Blockly.Cake.Scrollbar.prototype.dispose = function() {
   this.onMouseUpKnob_();
   if (this.onResizeWrapper_) {
-    Blockly.unbindEvent_(this.onResizeWrapper_);
+    Blockly.Cake.unbindEvent_(this.onResizeWrapper_);
     this.onResizeWrapper_ = null;
   }
-  Blockly.unbindEvent_(this.onMouseDownBarWrapper_);
+  Blockly.Cake.unbindEvent_(this.onMouseDownBarWrapper_);
   this.onMouseDownBarWrapper_ = null;
-  Blockly.unbindEvent_(this.onMouseDownKnobWrapper_);
+  Blockly.Cake.unbindEvent_(this.onMouseDownKnobWrapper_);
   this.onMouseDownKnobWrapper_ = null;
 
   goog.dom.removeNode(this.svgGroup_);
@@ -234,7 +234,7 @@ Blockly.Scrollbar.prototype.dispose = function() {
  * required dimensions.  If not provided, it will be fetched from the host
  * object.
  */
-Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
+Blockly.Cake.Scrollbar.prototype.resize = function(opt_metrics) {
   // Determine the location, height and width of the host element.
   var hostMetrics = opt_metrics;
   if (!hostMetrics) {
@@ -260,7 +260,7 @@ Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
     var outerLength = hostMetrics.viewWidth;
     if (this.pair_) {
       // Shorten the scrollbar to make room for the corner square.
-      outerLength -= Blockly.Scrollbar.scrollbarThickness;
+      outerLength -= Blockly.Cake.Scrollbar.scrollbarThickness;
     } else {
       // Only show the scrollbar if needed.
       // Ideally this would also apply to scrollbar pairs, but that's a bigger
@@ -277,12 +277,12 @@ Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
         this.ratio_;
     this.svgKnob_.setAttribute('width', Math.max(0, innerLength));
     this.xCoordinate = hostMetrics.absoluteLeft;
-    if (this.pair_ && Blockly.RTL) {
+    if (this.pair_ && Blockly.Cake.RTL) {
       this.xCoordinate += hostMetrics.absoluteLeft +
-          Blockly.Scrollbar.scrollbarThickness;
+          Blockly.Cake.Scrollbar.scrollbarThickness;
     }
     this.yCoordinate = hostMetrics.absoluteTop + hostMetrics.viewHeight -
-        Blockly.Scrollbar.scrollbarThickness;
+        Blockly.Cake.Scrollbar.scrollbarThickness;
     this.svgGroup_.setAttribute('transform',
         'translate(' + this.xCoordinate + ', ' + this.yCoordinate + ')');
     this.svgBackground_.setAttribute('width', Math.max(0, outerLength));
@@ -291,7 +291,7 @@ Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
     var outerLength = hostMetrics.viewHeight;
     if (this.pair_) {
       // Shorten the scrollbar to make room for the corner square.
-      outerLength -= Blockly.Scrollbar.scrollbarThickness;
+      outerLength -= Blockly.Cake.Scrollbar.scrollbarThickness;
     } else {
       // Only show the scrollbar if needed.
       this.setVisible(outerLength < hostMetrics.contentHeight);
@@ -306,9 +306,9 @@ Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
         this.ratio_;
     this.svgKnob_.setAttribute('height', Math.max(0, innerLength));
     this.xCoordinate = hostMetrics.absoluteLeft;
-    if (!Blockly.RTL) {
+    if (!Blockly.Cake.RTL) {
       this.xCoordinate += hostMetrics.viewWidth -
-          Blockly.Scrollbar.scrollbarThickness;
+          Blockly.Cake.Scrollbar.scrollbarThickness;
     }
     this.yCoordinate = hostMetrics.absoluteTop;
     this.svgGroup_.setAttribute('transform',
@@ -325,21 +325,21 @@ Blockly.Scrollbar.prototype.resize = function(opt_metrics) {
  * The resulting widget is not sized.
  * @private
  */
-Blockly.Scrollbar.prototype.createDom_ = function() {
+Blockly.Cake.Scrollbar.prototype.createDom_ = function() {
   /* Create the following DOM:
   <g>
     <rect class="blocklyScrollbarBackground" />
     <rect class="blocklyScrollbarKnob" rx="7" ry="7" />
   </g>
   */
-  this.svgGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.svgBackground_ = Blockly.createSvgElement('rect',
+  this.svgGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  this.svgBackground_ = Blockly.Cake.createSvgElement('rect',
       {'class': 'blocklyScrollbarBackground'}, this.svgGroup_);
-  var radius = Math.floor((Blockly.Scrollbar.scrollbarThickness - 6) / 2);
-  this.svgKnob_ = Blockly.createSvgElement('rect',
+  var radius = Math.floor((Blockly.Cake.Scrollbar.scrollbarThickness - 6) / 2);
+  this.svgKnob_ = Blockly.Cake.createSvgElement('rect',
       {'class': 'blocklyScrollbarKnob', 'rx': radius, 'ry': radius},
       this.svgGroup_);
-  Blockly.Scrollbar.insertAfter_(this.svgGroup_,
+  Blockly.Cake.Scrollbar.insertAfter_(this.svgGroup_,
                                  this.workspace_.getBubbleCanvas());
 };
 
@@ -348,7 +348,7 @@ Blockly.Scrollbar.prototype.createDom_ = function() {
  * needed.
  * @return {boolean} True if visible.
  */
-Blockly.Scrollbar.prototype.isVisible = function() {
+Blockly.Cake.Scrollbar.prototype.isVisible = function() {
   return this.svgGroup_.getAttribute('display') != 'none';
 };
 
@@ -357,7 +357,7 @@ Blockly.Scrollbar.prototype.isVisible = function() {
  * Only applies to non-paired scrollbars.
  * @param {boolean} visible True if visible.
  */
-Blockly.Scrollbar.prototype.setVisible = function(visible) {
+Blockly.Cake.Scrollbar.prototype.setVisible = function(visible) {
   if (visible == this.isVisible()) {
     return;
   }
@@ -381,18 +381,18 @@ Blockly.Scrollbar.prototype.setVisible = function(visible) {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.Scrollbar.prototype.onMouseDownBar_ = function(e) {
+Blockly.Cake.Scrollbar.prototype.onMouseDownBar_ = function(e) {
   this.onMouseUpKnob_();
-  if (Blockly.isRightButton(e)) {
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     // Scrollbars have no context menu.
     e.stopPropagation();
     return;
   }
-  var mouseXY = Blockly.mouseToSvg(e);
+  var mouseXY = Blockly.Cake.mouseToSvg(e);
   var mouseLocation = this.horizontal_ ? mouseXY.x : mouseXY.y;
 
-  var knobXY = Blockly.getSvgXY_(this.svgKnob_);
+  var knobXY = Blockly.Cake.getSvgXY_(this.svgKnob_);
   var knobStart = this.horizontal_ ? knobXY.x : knobXY.y;
   var knobLength = parseFloat(
       this.svgKnob_.getAttribute(this.horizontal_ ? 'width' : 'height'));
@@ -419,9 +419,9 @@ Blockly.Scrollbar.prototype.onMouseDownBar_ = function(e) {
  * @param {!Event} e Mouse down event.
  * @private
  */
-Blockly.Scrollbar.prototype.onMouseDownKnob_ = function(e) {
+Blockly.Cake.Scrollbar.prototype.onMouseDownKnob_ = function(e) {
   this.onMouseUpKnob_();
-  if (Blockly.isRightButton(e)) {
+  if (Blockly.Cake.isRightButton(e)) {
     // Right-click.
     // Scrollbars have no context menu.
     e.stopPropagation();
@@ -432,9 +432,9 @@ Blockly.Scrollbar.prototype.onMouseDownKnob_ = function(e) {
       this.svgKnob_.getAttribute(this.horizontal_ ? 'x' : 'y'));
   // Record the current mouse position.
   this.startDragMouse = this.horizontal_ ? e.clientX : e.clientY;
-  Blockly.Scrollbar.onMouseUpWrapper_ = Blockly.bindEvent_(document,
+  Blockly.Cake.Scrollbar.onMouseUpWrapper_ = Blockly.Cake.bindEvent_(document,
       'mouseup', this, this.onMouseUpKnob_);
-  Blockly.Scrollbar.onMouseMoveWrapper_ = Blockly.bindEvent_(document,
+  Blockly.Cake.Scrollbar.onMouseMoveWrapper_ = Blockly.Cake.bindEvent_(document,
       'mousemove', this, this.onMouseMoveKnob_);
   e.stopPropagation();
 };
@@ -444,7 +444,7 @@ Blockly.Scrollbar.prototype.onMouseDownKnob_ = function(e) {
  * @param {!Event} e Mouse up event.
  * @private
  */
-Blockly.Scrollbar.prototype.onMouseMoveKnob_ = function(e) {
+Blockly.Cake.Scrollbar.prototype.onMouseMoveKnob_ = function(e) {
   var currentMouse = this.horizontal_ ? e.clientX : e.clientY;
   var mouseDelta = currentMouse - this.startDragMouse;
   var knobValue = this.startDragKnob + mouseDelta;
@@ -458,16 +458,16 @@ Blockly.Scrollbar.prototype.onMouseMoveKnob_ = function(e) {
  * Stop binding to the global mouseup and mousemove events.
  * @private
  */
-Blockly.Scrollbar.prototype.onMouseUpKnob_ = function() {
-  Blockly.removeAllRanges();
-  Blockly.hideChaff(true);
-  if (Blockly.Scrollbar.onMouseUpWrapper_) {
-    Blockly.unbindEvent_(Blockly.Scrollbar.onMouseUpWrapper_);
-    Blockly.Scrollbar.onMouseUpWrapper_ = null;
+Blockly.Cake.Scrollbar.prototype.onMouseUpKnob_ = function() {
+  Blockly.Cake.removeAllRanges();
+  Blockly.Cake.hideChaff(true);
+  if (Blockly.Cake.Scrollbar.onMouseUpWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Scrollbar.onMouseUpWrapper_);
+    Blockly.Cake.Scrollbar.onMouseUpWrapper_ = null;
   }
-  if (Blockly.Scrollbar.onMouseMoveWrapper_) {
-    Blockly.unbindEvent_(Blockly.Scrollbar.onMouseMoveWrapper_);
-    Blockly.Scrollbar.onMouseMoveWrapper_ = null;
+  if (Blockly.Cake.Scrollbar.onMouseMoveWrapper_) {
+    Blockly.Cake.unbindEvent_(Blockly.Cake.Scrollbar.onMouseMoveWrapper_);
+    Blockly.Cake.Scrollbar.onMouseMoveWrapper_ = null;
   }
 };
 
@@ -478,7 +478,7 @@ Blockly.Scrollbar.prototype.onMouseUpKnob_ = function() {
  * @return {number} Constrained value.
  * @private
  */
-Blockly.Scrollbar.prototype.constrainKnob_ = function(value) {
+Blockly.Cake.Scrollbar.prototype.constrainKnob_ = function(value) {
   if (value <= 0 || isNaN(value)) {
     value = 0;
   } else {
@@ -494,7 +494,7 @@ Blockly.Scrollbar.prototype.constrainKnob_ = function(value) {
  * Called when scrollbar is moved.
  * @private
  */
-Blockly.Scrollbar.prototype.onScroll_ = function() {
+Blockly.Cake.Scrollbar.prototype.onScroll_ = function() {
   var knobValue = parseFloat(
       this.svgKnob_.getAttribute(this.horizontal_ ? 'x' : 'y'));
   var barLength = parseFloat(
@@ -517,7 +517,7 @@ Blockly.Scrollbar.prototype.onScroll_ = function() {
  * @param {number} value The distance from the top/left end of the bar.
  * @param {boolean} fireEvents True if onScroll events should be fired.
  */
-Blockly.Scrollbar.prototype.set = function(value, fireEvents) {
+Blockly.Cake.Scrollbar.prototype.set = function(value, fireEvents) {
   // Move the scrollbar slider.
   this.svgKnob_.setAttribute(this.horizontal_ ? 'x' : 'y', value * this.ratio_);
 
@@ -533,7 +533,7 @@ Blockly.Scrollbar.prototype.set = function(value, fireEvents) {
  * @param {!Element} refNode Existing element to precede new node.
  * @private
  */
-Blockly.Scrollbar.insertAfter_ = function(newNode, refNode) {
+Blockly.Cake.Scrollbar.insertAfter_ = function(newNode, refNode) {
   var siblingNode = refNode.nextSibling;
   var parentNode = refNode.parentNode;
   if (!parentNode) {

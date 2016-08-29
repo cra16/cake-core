@@ -19,16 +19,16 @@
  */
 
 /**
- * @fileoverview Functions for injecting Blockly into a web page.
+ * @fileoverview Functions for injecting Blockly.Cake into a web page.
  * @author fraser@google.com (Neil Fraser)
  */
 'use strict';
 
-goog.provide('Blockly.inject');
+goog.provide('Blockly.Cake.inject');
 
-goog.require('Blockly.Xml');
-goog.require('Blockly.Css');
-goog.require('Blockly.Input');
+goog.require('Blockly.Cake.Xml');
+goog.require('Blockly.Cake.Css');
+goog.require('Blockly.Cake.Input');
 goog.require('goog.dom');
 
 
@@ -37,25 +37,25 @@ goog.require('goog.dom');
  * @param {!Element} container Containing element.
  * @param {Object} opt_options Optional dictionary of options.
  */
-Blockly.inject = function(container, opt_options) {
+Blockly.Cake.inject = function(container, opt_options) {
   // Verify that the container is in document.
   if (!goog.dom.contains(document, container)) {
     throw 'Error: container is not in current document.';
   }
   if (opt_options) {
     // TODO(scr): don't mix this in to global variables.
-    goog.mixin(Blockly, Blockly.parseOptions_(opt_options));
+    goog.mixin(Blockly.Cake, Blockly.Cake.parseOptions_(opt_options));
   }
   var startUi = function() {
-    Blockly.createDom_(container);
-    Blockly.init_();
+    Blockly.Cake.createDom_(container);
+    Blockly.Cake.init_();
   };
-  if (Blockly.enableRealtime) {
+  if (Blockly.Cake.enableRealtime) {
     var realtimeElement = document.getElementById('realtime');
     if (realtimeElement) {
       realtimeElement.style.display = 'block';
     }
-    Blockly.Realtime.startRealtime(startUi, container, Blockly.realtimeOptions);
+    Blockly.Cake.Realtime.startRealtime(startUi, container, Blockly.Cake.realtimeOptions);
   } else {
     startUi();
   }
@@ -67,7 +67,7 @@ Blockly.inject = function(container, opt_options) {
  * @return {Node} DOM tree of blocks or null.
  * @private
  */
-Blockly.parseToolboxTree_ = function(tree) {
+Blockly.Cake.parseToolboxTree_ = function(tree) {
   if (tree) {
     if (typeof tree != 'string' && typeof XSLTProcessor == 'undefined') {
       // In this case the tree will not have been properly built by the
@@ -77,7 +77,7 @@ Blockly.parseToolboxTree_ = function(tree) {
       tree = tree.outerHTML;
     }
     if (typeof tree == 'string') {
-      tree = Blockly.Xml.textToDom(tree);
+      tree = Blockly.Cake.Xml.textToDom(tree);
     }
   } else {
     tree = null;
@@ -86,12 +86,12 @@ Blockly.parseToolboxTree_ = function(tree) {
 };
 
 /**
- * Configure Blockly to behave according to a set of options.
+ * Configure Blockly.Cake to behave according to a set of options.
  * @param {!Object} options Dictionary of options.
  * @return {Object} Parsed options.
  * @private
  */
-Blockly.parseOptions_ = function(options) {
+Blockly.Cake.parseOptions_ = function(options) {
   var readOnly = !!options['readOnly'];
   if (readOnly) {
     var hasCategories = false;
@@ -99,7 +99,7 @@ Blockly.parseOptions_ = function(options) {
     var hasCollapse = false;
     var tree = null;
   } else {
-    var tree = Blockly.parseToolboxTree_(options['toolbox']);
+    var tree = Blockly.Cake.parseToolboxTree_(options['toolbox']);
     var hasCategories = Boolean(tree &&
       tree.getElementsByTagName('category').length);
     var hasTrashcan = options['trashcan'];
@@ -142,16 +142,16 @@ Blockly.parseOptions_ = function(options) {
  * @param {!Element} container Containing element.
  * @private
  */
-Blockly.createDom_ = function(container) {
+Blockly.Cake.createDom_ = function(container) {
   // Sadly browsers (Chrome vs Firefox) are currently inconsistent in laying
-  // out content in RTL mode.  Therefore Blockly forces the use of LTR,
+  // out content in RTL mode.  Therefore Blockly.Cake forces the use of LTR,
   // then manually positions content in RTL as needed.
   container.setAttribute('dir', 'LTR');
   // Closure can be trusted to create HTML widgets with the proper direction.
-  goog.ui.Component.setDefaultRightToLeft(Blockly.RTL);
+  goog.ui.Component.setDefaultRightToLeft(Blockly.Cake.RTL);
 
   // Load CSS.
-  Blockly.Css.inject();
+  Blockly.Cake.Css.inject();
 
   // Build the SVG DOM.
   /*
@@ -164,7 +164,7 @@ Blockly.createDom_ = function(container) {
     ...
   </svg>
   */
-  var svg = Blockly.createSvgElement('svg', {
+  var svg = Blockly.Cake.createSvgElement('svg', {
     'xmlns': 'http://www.w3.org/2000/svg',
     'xmlns:html': 'http://www.w3.org/1999/xhtml',
     'xmlns:xlink': 'http://www.w3.org/1999/xlink',
@@ -176,7 +176,7 @@ Blockly.createDom_ = function(container) {
     ... filters go here ...
   </defs>
   */
-  var defs = Blockly.createSvgElement('defs', {}, svg);
+  var defs = Blockly.Cake.createSvgElement('defs', {}, svg);
   var filter, feSpecularLighting, feMerge, pattern;
   /*
     <filter id="blocklyEmboss">
@@ -192,15 +192,15 @@ Blockly.createDom_ = function(container) {
                    k1="0" k2="1" k3="1" k4="0"/>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter', {
+  filter = Blockly.Cake.createSvgElement('filter', {
     'id': 'blocklyEmboss'
   }, defs);
-  Blockly.createSvgElement('feGaussianBlur', {
+  Blockly.Cake.createSvgElement('feGaussianBlur', {
     'in': 'SourceAlpha',
     'stdDeviation': 1,
     'result': 'blur'
   }, filter);
-  feSpecularLighting = Blockly.createSvgElement('feSpecularLighting', {
+  feSpecularLighting = Blockly.Cake.createSvgElement('feSpecularLighting', {
       'in': 'blur',
       'surfaceScale': 1,
       'specularConstant': 0.5,
@@ -209,18 +209,18 @@ Blockly.createDom_ = function(container) {
       'result': 'specOut'
     },
     filter);
-  Blockly.createSvgElement('fePointLight', {
+  Blockly.Cake.createSvgElement('fePointLight', {
     'x': -5000,
     'y': -10000,
     'z': 20000
   }, feSpecularLighting);
-  Blockly.createSvgElement('feComposite', {
+  Blockly.Cake.createSvgElement('feComposite', {
     'in': 'specOut',
     'in2': 'SourceAlpha',
     'operator': 'in',
     'result': 'specOut'
   }, filter);
-  Blockly.createSvgElement('feComposite', {
+  Blockly.Cake.createSvgElement('feComposite', {
     'in': 'SourceGraphic',
     'in2': 'specOut',
     'operator': 'arithmetic',
@@ -239,25 +239,25 @@ Blockly.createDom_ = function(container) {
       </feMerge>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter', {
+  filter = Blockly.Cake.createSvgElement('filter', {
     'id': 'blocklyTrashcanShadowFilter'
   }, defs);
-  Blockly.createSvgElement('feGaussianBlur', {
+  Blockly.Cake.createSvgElement('feGaussianBlur', {
     'in': 'SourceAlpha',
     'stdDeviation': 2,
     'result': 'blur'
   }, filter);
-  Blockly.createSvgElement('feOffset', {
+  Blockly.Cake.createSvgElement('feOffset', {
     'in': 'blur',
     'dx': 1,
     'dy': 1,
     'result': 'offsetBlur'
   }, filter);
-  feMerge = Blockly.createSvgElement('feMerge', {}, filter);
-  Blockly.createSvgElement('feMergeNode', {
+  feMerge = Blockly.Cake.createSvgElement('feMerge', {}, filter);
+  Blockly.Cake.createSvgElement('feMergeNode', {
     'in': 'offsetBlur'
   }, feMerge);
-  Blockly.createSvgElement('feMergeNode', {
+  Blockly.Cake.createSvgElement('feMergeNode', {
     'in': 'SourceGraphic'
   }, feMerge);
   /*
@@ -265,10 +265,10 @@ Blockly.createDom_ = function(container) {
       <feGaussianBlur stdDeviation="2"/>
     </filter>
   */
-  filter = Blockly.createSvgElement('filter', {
+  filter = Blockly.Cake.createSvgElement('filter', {
     'id': 'blocklyShadowFilter'
   }, defs);
-  Blockly.createSvgElement('feGaussianBlur', {
+  Blockly.Cake.createSvgElement('feGaussianBlur', {
     'stdDeviation': 2
   }, filter);
   /*
@@ -278,57 +278,57 @@ Blockly.createDom_ = function(container) {
       <path d="M 0 0 L 10 10 M 10 0 L 0 10" stroke="#cc0" />
     </pattern>
   */
-  pattern = Blockly.createSvgElement('pattern', {
+  pattern = Blockly.Cake.createSvgElement('pattern', {
     'id': 'blocklyDisabledPattern',
     'patternUnits': 'userSpaceOnUse',
     'width': 10,
     'height': 10
   }, defs);
-  Blockly.createSvgElement('rect', {
+  Blockly.Cake.createSvgElement('rect', {
     'width': 10,
     'height': 10,
     'fill': '#aaa'
   }, pattern);
-  Blockly.createSvgElement('path', {
+  Blockly.Cake.createSvgElement('path', {
     'd': 'M 0 0 L 10 10 M 10 0 L 0 10',
     'stroke': '#cc0'
   }, pattern);
-  Blockly.mainWorkspace = new Blockly.Workspace(
-    Blockly.getMainWorkspaceMetrics_,
-    Blockly.setMainWorkspaceMetrics_);
-  svg.appendChild(Blockly.mainWorkspace.createDom());
-  Blockly.mainWorkspace.maxBlocks = Blockly.maxBlocks;
+  Blockly.Cake.mainWorkspace = new Blockly.Cake.Workspace(
+    Blockly.Cake.getMainWorkspaceMetrics_,
+    Blockly.Cake.setMainWorkspaceMetrics_);
+  svg.appendChild(Blockly.Cake.mainWorkspace.createDom());
+  Blockly.Cake.mainWorkspace.maxBlocks = Blockly.Cake.maxBlocks;
 
-  if (!Blockly.readOnly) {
+  if (!Blockly.Cake.readOnly) {
     // Determine if there needs to be a category tree, or a simple list of
     // blocks.  This cannot be changed later, since the UI is very different.
-    if (Blockly.hasCategories) {
-      Blockly.Toolbox.createDom(svg, container);
+    if (Blockly.Cake.hasCategories) {
+      Blockly.Cake.Toolbox.createDom(svg, container);
     } else {
       /**
-       * @type {!Blockly.Flyout}
+       * @type {!Blockly.Cake.Flyout}
        * @private
        */
-      Blockly.mainWorkspace.flyout_ = new Blockly.Flyout();
-      var flyout = Blockly.mainWorkspace.flyout_;
+      Blockly.Cake.mainWorkspace.flyout_ = new Blockly.Cake.Flyout();
+      var flyout = Blockly.Cake.mainWorkspace.flyout_;
       var flyoutSvg = flyout.createDom();
-      flyout.init(Blockly.mainWorkspace, true);
+      flyout.init(Blockly.Cake.mainWorkspace, true);
       flyout.autoClose = false;
       // Insert the flyout behind the workspace so that blocks appear on top.
-      goog.dom.insertSiblingBefore(flyoutSvg, Blockly.mainWorkspace.svgGroup_);
+      goog.dom.insertSiblingBefore(flyoutSvg, Blockly.Cake.mainWorkspace.svgGroup_);
       var workspaceChanged = function() {
-        if (Blockly.Block.dragMode_ == 0) {
-          var metrics = Blockly.mainWorkspace.getMetrics();
+        if (Blockly.Cake.Block.dragMode_ == 0) {
+          var metrics = Blockly.Cake.mainWorkspace.getMetrics();
           if (metrics.contentTop < 0 ||
             metrics.contentTop + metrics.contentHeight >
             metrics.viewHeight + metrics.viewTop ||
-            metrics.contentLeft < (Blockly.RTL ? metrics.viewLeft : 0) ||
-            metrics.contentLeft + metrics.contentWidth > (Blockly.RTL ?
+            metrics.contentLeft < (Blockly.Cake.RTL ? metrics.viewLeft : 0) ||
+            metrics.contentLeft + metrics.contentWidth > (Blockly.Cake.RTL ?
               metrics.viewWidth :
               metrics.viewWidth + metrics.viewLeft)) {
             // One or more blocks is out of bounds.  Bump them back in.
             var MARGIN = 25;
-            var blocks = Blockly.mainWorkspace.getTopBlocks(false);
+            var blocks = Blockly.Cake.mainWorkspace.getTopBlocks(false);
             for (var b = 0, block; block = blocks[b]; b++) {
               var blockXY = block.getRelativeToSurfaceXY();
               var blockHW = block.getHeightWidth();
@@ -346,18 +346,18 @@ Blockly.createDom_ = function(container) {
               }
               // Bump any block that's off the left back inside.
               var overflow = MARGIN + metrics.viewLeft - blockXY.x -
-                (Blockly.RTL ? 0 : blockHW.width);
+                (Blockly.Cake.RTL ? 0 : blockHW.width);
               if (overflow > 0) {
                 block.moveBy(overflow, 0);
               }
               // Bump any block that's off the right back inside.
               var overflow = metrics.viewLeft + metrics.viewWidth - MARGIN -
-                blockXY.x + (Blockly.RTL ? blockHW.width : 0);
+                blockXY.x + (Blockly.Cake.RTL ? blockHW.width : 0);
               if (overflow < 0) {
                 block.moveBy(overflow, 0);
               }
               // Delete any block that's sitting on top of the flyout.
-              if (block.isDeletable() && (Blockly.RTL ?
+              if (block.isDeletable() && (Blockly.Cake.RTL ?
                 blockXY.x - metrics.viewWidth :
                 -blockXY.x) > MARGIN * 2) {
                 block.dispose(false, true);
@@ -366,40 +366,40 @@ Blockly.createDom_ = function(container) {
           }
         }
       };
-      Blockly.addChangeListener(workspaceChanged);
+      Blockly.Cake.addChangeListener(workspaceChanged);
     }
   }
 
-  svg.appendChild(Blockly.Tooltip.createDom());
+  svg.appendChild(Blockly.Cake.Tooltip.createDom());
 
   // The SVG is now fully assembled.  Add it to the container.
   container.appendChild(svg);
-  Blockly.svg = svg;
-  Blockly.svgResize();
+  Blockly.Cake.svg = svg;
+  Blockly.Cake.svgResize();
 
   // Create an HTML container for popup overlays (e.g. editor widgets).
-  Blockly.WidgetDiv.DIV = goog.dom.createDom('div', 'blocklyWidgetDiv');
-  Blockly.WidgetDiv.DIV.style.direction = Blockly.RTL ? 'rtl' : 'ltr';
-  document.body.appendChild(Blockly.WidgetDiv.DIV);
+  Blockly.Cake.WidgetDiv.DIV = goog.dom.createDom('div', 'blocklyWidgetDiv');
+  Blockly.Cake.WidgetDiv.DIV.style.direction = Blockly.Cake.RTL ? 'rtl' : 'ltr';
+  document.body.appendChild(Blockly.Cake.WidgetDiv.DIV);
 };
 
 
 /**
- * Initialize Blockly with various handlers.
+ * Initialize Blockly.Cake with various handlers.
  * @private
  */
-Blockly.init_ = function() {
+Blockly.Cake.init_ = function() {
   // Bind temporary hooks that preload the sounds.
   var soundBinds = [];
   var unbindSounds = function() {
     while (soundBinds.length) {
-      Blockly.unbindEvent_(soundBinds.pop());
+      Blockly.Cake.unbindEvent_(soundBinds.pop());
     }
-    Blockly.preloadAudio_();
+    Blockly.Cake.preloadAudio_();
   };
   // Android ignores any sound not loaded as a result of a user action.
-  soundBinds.push(Blockly.bindEvent_(document, 'mousemove', null, unbindSounds));
-  soundBinds.push(Blockly.bindEvent_(document, 'touchstart', null, unbindSounds));
+  soundBinds.push(Blockly.Cake.bindEvent_(document, 'mousemove', null, unbindSounds));
+  soundBinds.push(Blockly.Cake.bindEvent_(document, 'touchstart', null, unbindSounds));
 
   // Bind events for scrolling the workspace.
   // Most of these events should be bound to the SVG's surface.
@@ -407,60 +407,60 @@ Blockly.init_ = function() {
   // out of bounds and released will know that it has been released.
   // Also, 'keydown' has to be on the whole document since the browser doesn't
   // understand a concept of focus on the SVG image.
-  Blockly.bindEvent_(Blockly.svg, 'mousedown', null, Blockly.onMouseDown_);
-  Blockly.bindEvent_(Blockly.svg, 'mousemove', null, Blockly.onMouseMove_);
-  Blockly.bindEvent_(Blockly.svg, 'contextmenu', null, Blockly.onContextMenu_);
-  Blockly.bindEvent_(Blockly.WidgetDiv.DIV, 'contextmenu', null,
-    Blockly.onContextMenu_);
+  Blockly.Cake.bindEvent_(Blockly.Cake.svg, 'mousedown', null, Blockly.Cake.onMouseDown_);
+  Blockly.Cake.bindEvent_(Blockly.Cake.svg, 'mousemove', null, Blockly.Cake.onMouseMove_);
+  Blockly.Cake.bindEvent_(Blockly.Cake.svg, 'contextmenu', null, Blockly.Cake.onContextMenu_);
+  Blockly.Cake.bindEvent_(Blockly.Cake.WidgetDiv.DIV, 'contextmenu', null,
+    Blockly.Cake.onContextMenu_);
 
-  if (!Blockly.documentEventsBound_) {
+  if (!Blockly.Cake.documentEventsBound_) {
     // Only bind the window/document events once.
-    // Destroying and reinjecting Blockly should not bind again.
-    Blockly.bindEvent_(window, 'resize', document, Blockly.svgResize);
-    Blockly.bindEvent_(document, 'keydown', null, Blockly.onKeyDown_);
+    // Destroying and reinjecting Blockly.Cake should not bind again.
+    Blockly.Cake.bindEvent_(window, 'resize', document, Blockly.Cake.svgResize);
+    Blockly.Cake.bindEvent_(document, 'keydown', null, Blockly.Cake.onKeyDown_);
     // Don't use bindEvent_ for document's mouseup since that would create a
     // corresponding touch handler that would squeltch the ability to interact
-    // with non-Blockly elements.
-    document.addEventListener('mouseup', Blockly.onMouseUp_, false);
+    // with non-Blockly.Cake elements.
+    document.addEventListener('mouseup', Blockly.Cake.onMouseUp_, false);
     // Some iPad versions don't fire resize after portrait to landscape change.
     if (goog.userAgent.IPAD) {
-      Blockly.bindEvent_(window, 'orientationchange', document, function() {
-        Blockly.fireUiEvent(window, 'resize');
+      Blockly.Cake.bindEvent_(window, 'orientationchange', document, function() {
+        Blockly.Cake.fireUiEvent(window, 'resize');
       });
     }
-    Blockly.documentEventsBound_ = true;
+    Blockly.Cake.documentEventsBound_ = true;
   }
 
-  if (Blockly.languageTree) {
-    if (Blockly.hasCategories) {
-      Blockly.Toolbox.init();
+  if (Blockly.Cake.languageTree) {
+    if (Blockly.Cake.hasCategories) {
+      Blockly.Cake.Toolbox.init();
     } else {
       // Build a fixed flyout with the root blocks.
-      Blockly.mainWorkspace.flyout_.init(Blockly.mainWorkspace, true);
-      Blockly.mainWorkspace.flyout_.show(Blockly.languageTree.childNodes);
+      Blockly.Cake.mainWorkspace.flyout_.init(Blockly.Cake.mainWorkspace, true);
+      Blockly.Cake.mainWorkspace.flyout_.show(Blockly.Cake.languageTree.childNodes);
       // Translate the workspace sideways to avoid the fixed flyout.
-      Blockly.mainWorkspace.scrollX = Blockly.mainWorkspace.flyout_.width_;
-      if (Blockly.RTL) {
-        Blockly.mainWorkspace.scrollX *= -1;
+      Blockly.Cake.mainWorkspace.scrollX = Blockly.Cake.mainWorkspace.flyout_.width_;
+      if (Blockly.Cake.RTL) {
+        Blockly.Cake.mainWorkspace.scrollX *= -1;
       }
-      var translation = 'translate(' + Blockly.mainWorkspace.scrollX + ', 0)';
-      Blockly.mainWorkspace.getCanvas().setAttribute('transform', translation);
-      Blockly.mainWorkspace.getBubbleCanvas().setAttribute('transform',
+      var translation = 'translate(' + Blockly.Cake.mainWorkspace.scrollX + ', 0)';
+      Blockly.Cake.mainWorkspace.getCanvas().setAttribute('transform', translation);
+      Blockly.Cake.mainWorkspace.getBubbleCanvas().setAttribute('transform',
         translation);
     }
   }
-  if (Blockly.hasScrollbars) {
-    Blockly.mainWorkspace.scrollbar =
-      new Blockly.ScrollbarPair(Blockly.mainWorkspace);
-    Blockly.mainWorkspace.scrollbar.resize();
+  if (Blockly.Cake.hasScrollbars) {
+    Blockly.Cake.mainWorkspace.scrollbar =
+      new Blockly.Cake.ScrollbarPair(Blockly.Cake.mainWorkspace);
+    Blockly.Cake.mainWorkspace.scrollbar.resize();
   }
 
-  Blockly.mainWorkspace.addTrashcan();
+  Blockly.Cake.mainWorkspace.addTrashcan();
 
   // Load the sounds.
-  Blockly.loadAudio_(
+  Blockly.Cake.loadAudio_(
     ['media/click.mp3', 'media/click.wav', 'media/click.ogg'], 'click');
-  Blockly.loadAudio_(
+  Blockly.Cake.loadAudio_(
     ['media/delete.mp3', 'media/delete.ogg', 'media/delete.wav'], 'delete');
 
 };
@@ -469,30 +469,30 @@ Blockly.init_ = function() {
  * Modify the block tree on the existing toolbox.
  * @param {Node|string} tree DOM tree of blocks, or text representation of same.
  */
-Blockly.updateToolbox = function(tree) {
-  tree = Blockly.parseToolboxTree_(tree);
+Blockly.Cake.updateToolbox = function(tree) {
+  tree = Blockly.Cake.parseToolboxTree_(tree);
   if (!tree) {
-    if (Blockly.languageTree) {
+    if (Blockly.Cake.languageTree) {
       throw 'Can\'t nullify an existing toolbox.';
     }
     // No change (null to null).
     return;
   }
-  if (!Blockly.languageTree) {
+  if (!Blockly.Cake.languageTree) {
     throw 'Existing toolbox is null.  Can\'t create new toolbox.';
   }
   var hasCategories = !!tree.getElementsByTagName('category').length;
   if (hasCategories) {
-    if (!Blockly.hasCategories) {
+    if (!Blockly.Cake.hasCategories) {
       throw 'Existing toolbox has no categories.  Can\'t change mode.';
     }
-    Blockly.languageTree = tree;
-    Blockly.Toolbox.populate_();
+    Blockly.Cake.languageTree = tree;
+    Blockly.Cake.Toolbox.populate_();
   } else {
-    if (Blockly.hasCategories) {
+    if (Blockly.Cake.hasCategories) {
       throw 'Existing toolbox has categories.  Can\'t change mode.';
     }
-    Blockly.languageTree = tree;
-    Blockly.mainWorkspace.flyout_.show(Blockly.languageTree.childNodes);
+    Blockly.Cake.languageTree = tree;
+    Blockly.Cake.mainWorkspace.flyout_.show(Blockly.Cake.languageTree.childNodes);
   }
 };

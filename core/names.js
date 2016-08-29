@@ -24,7 +24,7 @@
  */
 'use strict';
 
-goog.provide('Blockly.Names');
+goog.provide('Blockly.Cake.Names');
 
 
 /**
@@ -33,7 +33,7 @@ goog.provide('Blockly.Names');
  *     illegal for use as names in a language (e.g. 'new,if,this,...').
  * @constructor
  */
-Blockly.Names = function(reservedWords) {
+Blockly.Cake.Names = function(reservedWords) {
   this.reservedDict_ = Object.create(null);
   if (reservedWords) {
     var splitWords = reservedWords.split(',');
@@ -46,9 +46,9 @@ Blockly.Names = function(reservedWords) {
 
 /**
  * When JavaScript (or most other languages) is generated, variable 'foo' and
- * procedure 'foo' would collide.  However, Blockly has no such problems since
+ * procedure 'foo' would collide.  However, Blockly.Cake has no such problems since
  * variable get 'foo' and procedure call 'foo' are unambiguous.
- * Therefore, Blockly keeps a separate type name to disambiguate.
+ * Therefore, Blockly.Cake keeps a separate type name to disambiguate.
  * getName('foo', 'variable') -> 'foo'
  * getName('foo', 'procedure') -> 'foo2'
  */
@@ -56,19 +56,19 @@ Blockly.Names = function(reservedWords) {
 /**
  * Empty the database and start from scratch.  The reserved words are kept.
  */
-Blockly.Names.prototype.reset = function() {
+Blockly.Cake.Names.prototype.reset = function() {
   this.db_ = Object.create(null);
   this.dbReverse_ = Object.create(null);
 };
 
 /**
- * Convert a Blockly entity name to a legal exportable entity name.
- * @param {string} name The Blockly entity name (no constraints).
- * @param {string} type The type of entity in Blockly
+ * Convert a Blockly.Cake entity name to a legal exportable entity name.
+ * @param {string} name The Blockly.Cake entity name (no constraints).
+ * @param {string} type The type of entity in Blockly.Cake
  *     ('VARIABLE', 'PROCEDURE', 'BUILTIN', etc...).
  * @return {string} An entity name legal for the exported language.
  */
-Blockly.Names.prototype.getName = function(name, type) {
+Blockly.Cake.Names.prototype.getName = function(name, type) {
   var normalized = name.toLowerCase() + '_' + type;
   if (normalized in this.db_) {
     return this.db_[normalized];
@@ -79,16 +79,16 @@ Blockly.Names.prototype.getName = function(name, type) {
 };
 
 /**
- * Convert a Blockly entity name to a legal exportable entity name.
+ * Convert a Blockly.Cake entity name to a legal exportable entity name.
  * Ensure that this is a new name not overlapping any previously defined name.
  * Also check against list of reserved words for the current language and
  * ensure name doesn't collide.
- * @param {string} name The Blockly entity name (no constraints).
- * @param {string} type The type of entity in Blockly
+ * @param {string} name The Blockly.Cake entity name (no constraints).
+ * @param {string} type The type of entity in Blockly.Cake
  *     ('VARIABLE', 'PROCEDURE', 'BUILTIN', etc...).
  * @return {string} An entity name legal for the exported language.
  */
-Blockly.Names.prototype.getDistinctName = function(name, type) {
+Blockly.Cake.Names.prototype.getDistinctName = function(name, type) {
   var safeName = this.safeName_(name);
   var i = '';
   while (this.dbReverse_[safeName + i] ||
@@ -109,7 +109,7 @@ Blockly.Names.prototype.getDistinctName = function(name, type) {
  * @return {string} Safe entity name.
  * @private
  */
-Blockly.Names.prototype.safeName_ = function(name) {
+Blockly.Cake.Names.prototype.safeName_ = function(name) {
   if (!name) {
     name = 'unnamed';
   } else {
@@ -126,11 +126,11 @@ Blockly.Names.prototype.safeName_ = function(name) {
 
 /**
  * Do the given two entity names refer to the same entity?
- * Blockly names are case-insensitive.
+ * Blockly.Cake names are case-insensitive.
  * @param {string} name1 First name.
  * @param {string} name2 Second name.
  * @return {boolean} True if names are the same.
  */
-Blockly.Names.equals = function(name1, name2) {
+Blockly.Cake.Names.equals = function(name1, name2) {
   return name1.toLowerCase() == name2.toLowerCase();
 };

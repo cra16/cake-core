@@ -24,66 +24,66 @@
  */
 'use strict';
 
-goog.provide('Blockly.cake.math');
+goog.provide('Blockly.Cake.cake.math');
 
-goog.require('Blockly.cake');
+goog.require('Blockly.Cake.cake');
 
 
-Blockly.cake['math_number'] = function(block) {
+Blockly.Cake.cake['math_number'] = function(block) {
   // Numeric value.
   var code = parseFloat(block.getFieldValue('NUM'));
-  return [code, Blockly.cake.ORDER_ATOMIC];
+  return [code, Blockly.Cake.cake.ORDER_ATOMIC];
 };
 
-Blockly.cake['math_arithmetic'] = function(block) {
+Blockly.Cake.cake['math_arithmetic'] = function(block) {
   // Basic arithmetic operators, and power.
   var OPERATORS = {
-    'ADD': [' + ', Blockly.cake.ORDER_ADDITION],
-    'MINUS': [' - ', Blockly.cake.ORDER_SUBTRACTION],
-    'MULTIPLY': [' * ', Blockly.cake.ORDER_MULTIPLICATION],
-    'DIVIDE': [' / ', Blockly.cake.ORDER_DIVISION]
+    'ADD': [' + ', Blockly.Cake.cake.ORDER_ADDITION],
+    'MINUS': [' - ', Blockly.Cake.cake.ORDER_SUBTRACTION],
+    'MULTIPLY': [' * ', Blockly.Cake.cake.ORDER_MULTIPLICATION],
+    'DIVIDE': [' / ', Blockly.Cake.cake.ORDER_DIVISION]
   };
   var tuple = OPERATORS[block.getFieldValue('OP')];
   var operator = tuple[0];
   var order = tuple[1];
-  var argument0 = Blockly.cake.valueToCode(block, 'A', order) || '0';
-  var argument1 = Blockly.cake.valueToCode(block, 'B', order) || '0';
+  var argument0 = Blockly.Cake.cake.valueToCode(block, 'A', order) || '0';
+  var argument1 = Blockly.Cake.cake.valueToCode(block, 'B', order) || '0';
   var code;
   // Power in cake requires a special case since it has no operator.
   //if (!operator) {
   //  code = 'Math.pow(' + argument0 + ', ' + argument1 + ')';
-  //  return [code, Blockly.cake.ORDER_FUNCTION_CALL];
+  //  return [code, Blockly.Cake.cake.ORDER_FUNCTION_CALL];
   //}
   code = "(" + argument0 + operator + argument1 + ")";
   return [code, order];
 };
 
-Blockly.cake['math_modulo'] = function(block) {
+Blockly.Cake.cake['math_modulo'] = function(block) {
   // Remainder computation.
-  var argument0 = Blockly.cake.valueToCode(block, 'DIVIDEND',
-      Blockly.cake.ORDER_MODULUS) || '0';
-  var argument1 = Blockly.cake.valueToCode(block, 'DIVISOR',
-      Blockly.cake.ORDER_MODULUS) || '0';
+  var argument0 = Blockly.Cake.cake.valueToCode(block, 'DIVIDEND',
+      Blockly.Cake.cake.ORDER_MODULUS) || '0';
+  var argument1 = Blockly.Cake.cake.valueToCode(block, 'DIVISOR',
+      Blockly.Cake.cake.ORDER_MODULUS) || '0';
   var code = argument0 + ' % ' + argument1;
-  return [code, Blockly.cake.ORDER_MODULUS];
+  return [code, Blockly.Cake.cake.ORDER_MODULUS];
 };
 
-Blockly.cake['library_math_abs'] = function(block) {
+Blockly.Cake.cake['library_math_abs'] = function(block) {
     // Scan statement.
-    var argument0 = Blockly.cake.valueToCode(block, 'VAR',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    Blockly.cake.definitions_['include_cake_math'] =
+    var argument0 = Blockly.Cake.cake.valueToCode(block, 'VAR',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
     var code = 'abs(' + argument0 + ')';
-    return  [code, Blockly.cake.ORDER_NONE];
+    return  [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_trig'] = function(block) {
+Blockly.Cake.cake['library_math_trig'] = function(block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('OP');
     var code;
-    var arg = Blockly.cake.valueToCode(block, 'NUM',
-            Blockly.cake.ORDER_NONE) || '0';
+    var arg = Blockly.Cake.cake.valueToCode(block, 'NUM',
+            Blockly.Cake.cake.ORDER_NONE) || '0';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -99,17 +99,17 @@ Blockly.cake['library_math_trig'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    Blockly.cake.definitions_['include_cake_math'] =
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_logs'] = function(block) {
+Blockly.Cake.cake['library_math_logs'] = function(block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('OP');
     var code;
-    var arg = Blockly.cake.valueToCode(block, 'NUM',
-            Blockly.cake.ORDER_NONE) || '0';
+    var arg = Blockly.Cake.cake.valueToCode(block, 'NUM',
+            Blockly.Cake.cake.ORDER_NONE) || '0';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -125,49 +125,49 @@ Blockly.cake['library_math_logs'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    Blockly.cake.definitions_['include_cake_math'] =
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_pow'] = function(block) {
+Blockly.Cake.cake['library_math_pow'] = function(block) {
     // Scan statement.
-    var argument0 = Blockly.cake.valueToCode(block, 'BASE',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    var argument1 = Blockly.cake.valueToCode(block, 'EXPO',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    Blockly.cake.definitions_['include_cake_math'] =
+    var argument0 = Blockly.Cake.cake.valueToCode(block, 'BASE',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    var argument1 = Blockly.Cake.cake.valueToCode(block, 'EXPO',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
     var code = 'pow(' + argument0 + ',' + argument1 + ')';
-    return  [code, Blockly.cake.ORDER_NONE];
+    return  [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_exp'] = function(block) {
+Blockly.Cake.cake['library_math_exp'] = function(block) {
     // Scan statement.
-    var argument0 = Blockly.cake.valueToCode(block, 'EXPO',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    Blockly.cake.definitions_['include_cake_math'] =
+    var argument0 = Blockly.Cake.cake.valueToCode(block, 'EXPO',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
     var code = 'exp(' + argument0 + ')';
-    return  [code, Blockly.cake.ORDER_NONE];
+    return  [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_sqrt'] = function(block) {
+Blockly.Cake.cake['library_math_sqrt'] = function(block) {
     // Scan statement.
-    var argument0 = Blockly.cake.valueToCode(block, 'VAR',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    Blockly.cake.definitions_['include_cake_math'] =
+    var argument0 = Blockly.Cake.cake.valueToCode(block, 'VAR',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
     var code = 'sqrt(' + argument0 + ')';
-    return  [code, Blockly.cake.ORDER_NONE];
+    return  [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_round'] = function(block) {
+Blockly.Cake.cake['library_math_round'] = function(block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('OP');
     var code;
-    var arg = Blockly.cake.valueToCode(block, 'NUM',
-            Blockly.cake.ORDER_NONE) || '\'\'';
+    var arg = Blockly.Cake.cake.valueToCode(block, 'NUM',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -186,17 +186,17 @@ Blockly.cake['library_math_round'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    Blockly.cake.definitions_['include_cake_math'] =
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_numcheck'] = function(block) {
+Blockly.Cake.cake['library_math_numcheck'] = function(block) {
     // Math operators with single operand.
     var operator = block.getFieldValue('CONDITIONS');
     var code;
-    var arg = Blockly.cake.valueToCode(block, 'VAR',
-            Blockly.cake.ORDER_NONE) || '\'\'';
+    var arg = Blockly.Cake.cake.valueToCode(block, 'VAR',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -215,19 +215,19 @@ Blockly.cake['library_math_numcheck'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    Blockly.cake.definitions_['include_cake_math'] =
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };
 
-Blockly.cake['library_math_numcompare'] = function(block) {
+Blockly.Cake.cake['library_math_numcompare'] = function(block) {
     // Math operators with two operand.
     var operator = block.getFieldValue('CONDITIONS');
     var code;
-    var arg1 = Blockly.cake.valueToCode(block, 'VAR1',
-            Blockly.cake.ORDER_NONE) || '\'\'';
-    var arg2 = Blockly.cake.valueToCode(block, 'VAR2',
-            Blockly.cake.ORDER_NONE) || '\'\'';
+    var arg1 = Blockly.Cake.cake.valueToCode(block, 'VAR1',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
+    var arg2 = Blockly.Cake.cake.valueToCode(block, 'VAR2',
+            Blockly.Cake.cake.ORDER_NONE) || '\'\'';
     // First, handle cases which generate values that don't need parentheses
     // wrapping the code.
     switch (operator) {
@@ -252,7 +252,7 @@ Blockly.cake['library_math_numcompare'] = function(block) {
         default:
             throw 'Unknown math operator: ' + operator;
     }
-    Blockly.cake.definitions_['include_cake_math'] =
+    Blockly.Cake.cake.definitions_['include_cake_math'] =
         '#include <math.h>';
-    return [code, Blockly.cake.ORDER_NONE];
+    return [code, Blockly.Cake.cake.ORDER_NONE];
 };

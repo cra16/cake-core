@@ -1,30 +1,30 @@
 'use strict';
 
-goog.provide('Blockly.Blocks.stdio');
+goog.provide('Blockly.Cake.Blocks.stdio');
 
-goog.require('Blockly.Blocks');
+goog.require('Blockly.Cake.Blocks');
 
-Blockly.Blocks['library_stdio_printf'] = {
+Blockly.Cake.Blocks['library_stdio_printf'] = {
     /**
      * Block for [printf function] in C.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendValueInput('VAR0')
             .setCheck(null)
-            .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIO_PRINTF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setMutator(new Blockly.Mutator(['library_stdio_printf_add']));
-        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STDIO_PRINTF;
+        this.setMutator(new Blockly.Cake.Mutator(['library_stdio_printf_add']));
+        this.setTooltip(Blockly.Cake.Msg.TEXT_PRINT_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STDIO_PRINTF;
         this.printAddCount_ = 0;
     },
     /**
      * Create XML to represent the number of printf inputs.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         if (!this.printAddCount_) {
@@ -39,7 +39,7 @@ Blockly.Blocks['library_stdio_printf'] = {
     /**
      * Parse XML to restore printf inputs.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         this.printAddCount_ = parseInt(xmlElement.getAttribute('printadd'), 10);
@@ -51,16 +51,16 @@ Blockly.Blocks['library_stdio_printf'] = {
     },
     /**
      * Populate the mutator's dialog with this block's components.
-     * @param {!Blockly.Workspace} workspace Mutator's workspace.
-     * @return {!Blockly.Block} Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Cake.Block} Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     decompose: function(workspace) {
-        var containerBlock = Blockly.Block.obtain(workspace, 'library_stdio_printf_printf');
+        var containerBlock = Blockly.Cake.Block.obtain(workspace, 'library_stdio_printf_printf');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var x = 1; x <= this.printAddCount_; x++) {
-            var printAddBlock = Blockly.Block.obtain(workspace, 'library_stdio_printf_add');
+            var printAddBlock = Blockly.Cake.Block.obtain(workspace, 'library_stdio_printf_add');
             printAddBlock.initSvg();
             connection.connect(printAddBlock.previousConnection);
             connection = printAddBlock.nextConnection;
@@ -69,8 +69,8 @@ Blockly.Blocks['library_stdio_printf'] = {
     },
     /**
      * Reconfigure this block based on the mutator dialog's components.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     compose: function(containerBlock) {
         // Disconnect all the elseif input blocks and remove the inputs.
@@ -101,8 +101,8 @@ Blockly.Blocks['library_stdio_printf'] = {
     },
     /**
      * Store pointers to any connected child blocks.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     saveConnections: function(containerBlock) {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -124,73 +124,73 @@ Blockly.Blocks['library_stdio_printf'] = {
         }
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['library_stdio_printf_printf'] = {
+Blockly.Cake.Blocks['library_stdio_printf_printf'] = {
     /**
      * Mutator block for printf_add container.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STDIO_PRINTF_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIO_PRINTF_TITLE);
         this.appendStatementInput('STACK');
-        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.TEXT_PRINT_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['library_stdio_printf_add'] = {
+Blockly.Cake.Blocks['library_stdio_printf_add'] = {
     /**
      * Mutator bolck for printf_add condition.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STDIP_PRINTF_MUTATOR_PRINTFADD_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIP_PRINTF_MUTATOR_PRINTFADD_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.TEXT_PRINT_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.TEXT_PRINT_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['library_stdio_text'] = {
+Blockly.Cake.Blocks['library_stdio_text'] = {
     /**
      * Block for text value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(90);
         this.appendDummyInput()
             .appendField(this.newQuote_(true))
-            .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+            .appendField(new Blockly.Cake.FieldTextInput(''), 'TEXT')
             .appendField(this.newQuote_(false));
         this.setOutput(true, 'String');
-        this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STDIO_TEXT;
+        this.setTooltip(Blockly.Cake.Msg.TEXT_TEXT_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STDIO_TEXT;
     },
     /**
      * Create an image of an open or closed quote.
      * @param {boolean} open True if open quote, false if closed.
-     * @return {!Blockly.FieldImage} The field image of the quote.
+     * @return {!Blockly.Cake.FieldImage} The field image of the quote.
      * @private
      */
     newQuote_: function(open) {
-        if (open == Blockly.RTL) {
+        if (open == Blockly.Cake.RTL) {
             var file = 'quote1.png';
         } else {
             var file = 'quote0.png';
         }
-        return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+        return new Blockly.Cake.FieldImage(Blockly.Cake.pathToBlockly + 'media/' + file,
             12, 12, '"');
     },
 
     onchange: function()  {
-        Blockly.Blocks.requireInFunction();
+        Blockly.Cake.Blocks.requireInFunction();
 
         if (this.getFieldValue('TEXT')) {
             var txtlength = this.getFieldValue('TEXT').length;
@@ -205,45 +205,45 @@ Blockly.Blocks['library_stdio_text'] = {
     //when the block is changed,
 };
 
-Blockly.Blocks['library_stdio_newLine'] = {
+Blockly.Cake.Blocks['library_stdio_newLine'] = {
     /**
      * Block for text value.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(90);
-        this.interpolateMsg(Blockly.Msg.STDIO_NEWLINE_TITLE,
-            Blockly.ALIGN_RIGHT);
+        this.interpolateMsg(Blockly.Cake.Msg.STDIO_NEWLINE_TITLE,
+            Blockly.Cake.ALIGN_RIGHT);
         this.setOutput(true, 'String');
-        this.setTooltip(Blockly.Msg.STDIO_NEWLINE_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STDIO_NEWLINE;
+        this.setTooltip(Blockly.Cake.Msg.STDIO_NEWLINE_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STDIO_NEWLINE;
     },
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
     //when the block is changed,
 };
 
-Blockly.Blocks['library_stdio_scanf'] = {
+Blockly.Cake.Blocks['library_stdio_scanf'] = {
     /**
      * Block for [scanf function] in C.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendValueInput('VAR0')
             .setCheck(['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR',
                 'Array', 'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'Aster'])
-            .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIO_SCANF_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setMutator(new Blockly.Mutator(['library_stdio_scanf_add']));
-        this.setTooltip(Blockly.Msg.STDIO_SCANF_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_STDIO_SCANF;
+        this.setMutator(new Blockly.Cake.Mutator(['library_stdio_scanf_add']));
+        this.setTooltip(Blockly.Cake.Msg.STDIO_SCANF_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_STDIO_SCANF;
         this.scanAddCount_ = 0;
     },
     /**
      * Create XML to represent the number of scanf inputs.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         if (!this.scanAddCount_) {
@@ -258,7 +258,7 @@ Blockly.Blocks['library_stdio_scanf'] = {
     /**
      * Parse XML to restore scanf inputs.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         this.scanAddCount_ = parseInt(xmlElement.getAttribute('scanadd'), 10);
@@ -272,16 +272,16 @@ Blockly.Blocks['library_stdio_scanf'] = {
     },
     /**
      * Populate the mutator's dialog with this block's components.
-     * @param {!Blockly.Workspace} workspace Mutator's workspace.
-     * @return {!Blockly.Block} Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Cake.Block} Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     decompose: function(workspace) {
-        var containerBlock = Blockly.Block.obtain(workspace, 'library_stdio_scanf_scanf');
+        var containerBlock = Blockly.Cake.Block.obtain(workspace, 'library_stdio_scanf_scanf');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var x = 1; x <= this.scanAddCount_; x++) {
-            var scanAddBlock = Blockly.Block.obtain(workspace, 'library_stdio_scanf_add');
+            var scanAddBlock = Blockly.Cake.Block.obtain(workspace, 'library_stdio_scanf_add');
             scanAddBlock.initSvg();
             connection.connect(scanAddBlock.previousConnection);
             connection = scanAddBlock.nextConnection;
@@ -290,8 +290,8 @@ Blockly.Blocks['library_stdio_scanf'] = {
     },
     /**
      * Reconfigure this block based on the mutator dialog's components.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     compose: function(containerBlock) {
         // Disconnect all the elseif input blocks and remove the inputs.
@@ -323,8 +323,8 @@ Blockly.Blocks['library_stdio_scanf'] = {
     },
     /**
      * Store pointers to any connected child blocks.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     saveConnections: function(containerBlock) {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -346,64 +346,64 @@ Blockly.Blocks['library_stdio_scanf'] = {
         }
     },
     //when the block is changed,
-    onchange: Blockly.Blocks.requireInFunction
+    onchange: Blockly.Cake.Blocks.requireInFunction
 };
 
-Blockly.Blocks['library_stdio_scanf_scanf'] = {
+Blockly.Cake.Blocks['library_stdio_scanf_scanf'] = {
     /**
      * Mutator block for scanf_add container.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STDIO_SCANF_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIO_SCANF_TITLE);
         this.appendStatementInput('STACK');
-        this.setTooltip(Blockly.Msg.STDIO_SCANF_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STDIO_SCANF_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['library_stdio_scanf_add'] = {
+Blockly.Cake.Blocks['library_stdio_scanf_add'] = {
     /**
      * Mutator bolck for scanf_add condition.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(280);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.STDIP_SCANF_MUTATOR_SCANFADD_TITLE);
+            .appendField(Blockly.Cake.Msg.STDIP_SCANF_MUTATOR_SCANFADD_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.STDIO_SCANF_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.STDIO_SCANF_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['comment'] = {
+Blockly.Cake.Blocks['comment'] = {
     /**
      * Block for comment in C.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(75);
         this.appendValueInput('VAR0')
             .setCheck(null)
-            .appendField(Blockly.Msg.COMMENT_TITLE);
+            .appendField(Blockly.Cake.Msg.COMMENT_TITLE);
         //this.appendDummyInput()
-        //    .appendField(Blockly.Msg.COMMENT_TITLE)
-        //    .appendField(new Blockly.FieldTextInput(), 'VAR0');
+        //    .appendField(Blockly.Cake.Msg.COMMENT_TITLE)
+        //    .appendField(new Blockly.Cake.FieldTextInput(), 'VAR0');
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setMutator(new Blockly.Mutator(['comment_add']));
-        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
-        this.tag = Blockly.Msg.TAG_COMMENT;
+        this.setMutator(new Blockly.Cake.Mutator(['comment_add']));
+        this.setTooltip(Blockly.Cake.Msg.COMMENT_TOOLTIP);
+        this.tag = Blockly.Cake.Msg.TAG_COMMENT;
         this.commentAddCount_ = 0;
     },
     /**
      * Create XML to represent the number of comment inputs.
      * @return {Element} XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     mutationToDom: function() {
         if (!this.commentAddCount_) {
@@ -418,7 +418,7 @@ Blockly.Blocks['comment'] = {
     /**
      * Parse XML to restore comment inputs.
      * @param {!Element} xmlElement XML storage element.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     domToMutation: function(xmlElement) {
         this.commentAddCount_ = parseInt(xmlElement.getAttribute('commentadd'), 10);
@@ -428,21 +428,21 @@ Blockly.Blocks['comment'] = {
                 .appendField(''); // a blank space
             //this.appendDummyInput()
             //    .appendField('       ') // a blank space
-            //    .appendField(new Blockly.FieldTextInput(), 'VAR' + x);
+            //    .appendField(new Blockly.Cake.FieldTextInput(), 'VAR' + x);
         }
     },
     /**
      * Populate the mutator's dialog with this block's components.
-     * @param {!Blockly.Workspace} workspace Mutator's workspace.
-     * @return {!Blockly.Block} Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Workspace} workspace Mutator's workspace.
+     * @return {!Blockly.Cake.Block} Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     decompose: function(workspace) {
-        var containerBlock = Blockly.Block.obtain(workspace, 'comment_comment');
+        var containerBlock = Blockly.Cake.Block.obtain(workspace, 'comment_comment');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var x = 1; x <= this.commentAddCount_; x++) {
-            var commentAddBlock = Blockly.Block.obtain(workspace, 'comment_add');
+            var commentAddBlock = Blockly.Cake.Block.obtain(workspace, 'comment_add');
             commentAddBlock.initSvg();
             connection.connect(commentAddBlock.previousConnection);
             connection = commentAddBlock.nextConnection;
@@ -451,8 +451,8 @@ Blockly.Blocks['comment'] = {
     },
     /**
      * Reconfigure this block based on the mutator dialog's components.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     compose: function(containerBlock) {
         // Disconnect all the elseif input blocks and remove the inputs.
@@ -475,7 +475,7 @@ Blockly.Blocks['comment'] = {
                             .appendField('');
                     //this.appendDummyInput()
                     //    .appendField('       ') // a blank space
-                    //    .appendField(new Blockly.FieldTextInput(), 'VAR' + this.commentAddCount_);
+                    //    .appendField(new Blockly.Cake.FieldTextInput(), 'VAR' + this.commentAddCount_);
                     // Reconnect any child blocks.
                     if (clauseBlock.valueConnection_) {
                         commentInput.connection.connect(clauseBlock.valueConnection_);
@@ -490,8 +490,8 @@ Blockly.Blocks['comment'] = {
     },
     /**
      * Store pointers to any connected child blocks.
-     * @param {!Blockly.Block} containerBlock Root block in mutator.
-     * @this Blockly.Block
+     * @param {!Blockly.Cake.Block} containerBlock Root block in mutator.
+     * @this Blockly.Cake.Block
      */
     saveConnections: function(containerBlock) {
         var clauseBlock = containerBlock.getInputTargetBlock('STACK');
@@ -514,33 +514,33 @@ Blockly.Blocks['comment'] = {
     }
 };
 
-Blockly.Blocks['comment_comment'] = {
+Blockly.Cake.Blocks['comment_comment'] = {
     /**
      * Mutator block for comment_add container.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(75);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.COMMENT_TITLE);
+            .appendField(Blockly.Cake.Msg.COMMENT_TITLE);
         this.appendStatementInput('STACK');
-        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.COMMENT_TOOLTIP);
         this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['comment_add'] = {
+Blockly.Cake.Blocks['comment_add'] = {
     /**
      * Mutator bolck for comment_add condition.
-     * @this Blockly.Block
+     * @this Blockly.Cake.Block
      */
     init: function() {
         this.setColour(75);
         this.appendDummyInput()
-            .appendField(Blockly.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE);
+            .appendField(Blockly.Cake.Msg.COMMENT_MUTATOR_COMMENTADD_TITLE);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
-        this.setTooltip(Blockly.Msg.COMMENT_TOOLTIP);
+        this.setTooltip(Blockly.Cake.Msg.COMMENT_TOOLTIP);
         this.contextMenu = false;
     }
 };

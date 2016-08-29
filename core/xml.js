@@ -24,10 +24,10 @@
  */
 'use strict';
 
-goog.provide('Blockly.Xml');
+goog.provide('Blockly.Cake.Xml');
 
 // TODO(scr): Fix circular dependencies
-// goog.require('Blockly.Block');
+// goog.require('Blockly.Cake.Block');
 
 
 /**
@@ -35,17 +35,17 @@ goog.provide('Blockly.Xml');
  * @param {!Object} workspace The SVG workspace.
  * @return {!Element} XML document.
  */
-Blockly.Xml.workspaceToDom = function(workspace) {
+Blockly.Cake.Xml.workspaceToDom = function(workspace) {
   var width;  // Not used in LTR.
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     width = workspace.getMetrics().viewWidth;
   }
   var xml = goog.dom.createDom('xml');
   var blocks = workspace.getTopBlocks(true);
   for (var i = 0, block; block = blocks[i]; i++) {
-    var element = Blockly.Xml.blockToDom_(block);
+    var element = Blockly.Cake.Xml.blockToDom_(block);
     var xy = block.getRelativeToSurfaceXY();
-    element.setAttribute('x', Blockly.RTL ? width - xy.x : xy.x);
+    element.setAttribute('x', Blockly.Cake.RTL ? width - xy.x : xy.x);
     element.setAttribute('y', xy.y);
     xml.appendChild(element);
   }
@@ -54,11 +54,11 @@ Blockly.Xml.workspaceToDom = function(workspace) {
 
 /**
  * Encode a block subtree as XML.
- * @param {!Blockly.Block} block The root block to encode.
+ * @param {!Blockly.Cake.Block} block The root block to encode.
  * @return {!Element} Tree of XML elements.
  * @private
  */
-Blockly.Xml.blockToDom_ = function(block) {
+Blockly.Cake.Xml.blockToDom_ = function(block) {
   var element = goog.dom.createDom('block');
   element.setAttribute('type', block.type);
   element.setAttribute('id', block.id);
@@ -96,18 +96,18 @@ Blockly.Xml.blockToDom_ = function(block) {
   for (var i = 0, input; input = block.inputList[i]; i++) {
     var container;
     var empty = true;
-    if (input.type == Blockly.DUMMY_INPUT) {
+    if (input.type == Blockly.Cake.DUMMY_INPUT) {
       continue;
     } else {
       var childBlock = input.connection.targetBlock();
-      if (input.type == Blockly.INPUT_VALUE) {
+      if (input.type == Blockly.Cake.INPUT_VALUE) {
         container = goog.dom.createDom('value');
         hasValues = true;
-      } else if (input.type == Blockly.NEXT_STATEMENT) {
+      } else if (input.type == Blockly.Cake.NEXT_STATEMENT) {
         container = goog.dom.createDom('statement');
       }
       if (childBlock) {
-        container.appendChild(Blockly.Xml.blockToDom_(childBlock));
+        container.appendChild(Blockly.Cake.Xml.blockToDom_(childBlock));
         empty = false;
       }
     }
@@ -138,7 +138,7 @@ Blockly.Xml.blockToDom_ = function(block) {
   var nextBlock = block.getNextBlock();
   if (nextBlock) {
     var container = goog.dom.createDom('next', null,
-        Blockly.Xml.blockToDom_(nextBlock));
+        Blockly.Cake.Xml.blockToDom_(nextBlock));
     element.appendChild(container);
   }
 
@@ -151,7 +151,7 @@ Blockly.Xml.blockToDom_ = function(block) {
  * @param {!Element} dom A tree of XML elements.
  * @return {string} Text representation.
  */
-Blockly.Xml.domToText = function(dom) {
+Blockly.Cake.Xml.domToText = function(dom) {
   var oSerializer = new XMLSerializer();
   return oSerializer.serializeToString(dom);
 };
@@ -161,10 +161,10 @@ Blockly.Xml.domToText = function(dom) {
  * @param {!Element} dom A tree of XML elements.
  * @return {string} Text representation.
  */
-Blockly.Xml.domToPrettyText = function(dom) {
+Blockly.Cake.Xml.domToPrettyText = function(dom) {
   // This function is not guaranteed to be correct for all XML.
-  // But it handles the XML that Blockly generates.
-  var blob = Blockly.Xml.domToText(dom);
+  // But it handles the XML that Blockly.Cake generates.
+  var blob = Blockly.Cake.Xml.domToText(dom);
   // Place every open and close tag on its own line.
   var lines = blob.split('<');
   // Indent every line.
@@ -193,7 +193,7 @@ Blockly.Xml.domToPrettyText = function(dom) {
  * @param {string} text Text representation.
  * @return {!Element} A tree of XML elements.
  */
-Blockly.Xml.textToDom = function(text) {
+Blockly.Cake.Xml.textToDom = function(text) {
   var oParser = new DOMParser();
   var dom = oParser.parseFromString(text, 'text/xml');
   // The DOM should have one and only one top-level node, an XML tag.
@@ -201,28 +201,28 @@ Blockly.Xml.textToDom = function(text) {
       dom.firstChild.nodeName.toLowerCase() != 'xml' ||
       dom.firstChild !== dom.lastChild) {
     // Whatever we got back from the parser is not XML.
-    throw 'Blockly.Xml.textToDom did not obtain a valid XML tree.';
+    throw 'Blockly.Cake.Xml.textToDom did not obtain a valid XML tree.';
   }
   return dom.firstChild;
 };
 
 /**
  * Decode an XML DOM and create blocks on the workspace.
- * @param {!Blockly.Workspace} workspace The SVG workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The SVG workspace.
  * @param {!Element} xml XML DOM.
  */
-Blockly.Xml.domToWorkspace = function(workspace, xml) {
+Blockly.Cake.Xml.domToWorkspace = function(workspace, xml) {
   var width
-  if (Blockly.RTL) {
+  if (Blockly.Cake.RTL) {
     width = workspace.getMetrics().viewWidth;
   }
   for (var x = 0, xmlChild; xmlChild = xml.childNodes[x]; x++) {
     if (xmlChild.nodeName.toLowerCase() == 'block') {
-      var block = Blockly.Xml.domToBlock(workspace, xmlChild);
+      var block = Blockly.Cake.Xml.domToBlock(workspace, xmlChild);
       var blockX = parseInt(xmlChild.getAttribute('x'), 10);
       var blockY = parseInt(xmlChild.getAttribute('y'), 10);
       if (!isNaN(blockX) && !isNaN(blockY)) {
-        block.moveBy(Blockly.RTL ? width - blockX : blockX, blockY);
+        block.moveBy(Blockly.Cake.RTL ? width - blockX : blockX, blockY);
       }
     }
   }
@@ -231,14 +231,14 @@ Blockly.Xml.domToWorkspace = function(workspace, xml) {
 /**
  * Decode an XML block tag and create a block (and possibly sub blocks) on the
  * workspace.
- * @param {!Blockly.Workspace} workspace The workspace.
+ * @param {!Blockly.Cake.Workspace} workspace The workspace.
  * @param {!Element} xmlBlock XML block element.
  * @param {boolean=} opt_reuseBlock Optional arg indicating whether to
  *     reinitialize an existing block.
- * @return {!Blockly.Block} The root block created.
+ * @return {!Blockly.Cake.Block} The root block created.
  * @private
  */
-Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
+Blockly.Cake.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
   var block = null;
   var prototypeName = xmlBlock.getAttribute('type');
   if (!prototypeName) {
@@ -246,7 +246,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
   }
   var id = xmlBlock.getAttribute('id');
   if (opt_reuseBlock && id) {
-    block = Blockly.Block.getById(id, workspace);
+    block = Blockly.Cake.Block.getById(id, workspace);
     // TODO: The following is for debugging.  It should never actually happen.
     if (!block) {
       throw 'Couldn\'t get Block with id: ' + id;
@@ -260,7 +260,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
     block.fill(workspace, prototypeName);
     block.parent_ = parentBlock;
   } else {
-    block = Blockly.Block.obtain(workspace, prototypeName);
+    block = Blockly.Cake.Block.obtain(workspace, prototypeName);
 //    if (id) {
 //      block.id = parseInt(id, 10);
 //    }
@@ -345,7 +345,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
         }
         if (firstRealGrandchild &&
             firstRealGrandchild.nodeName.toLowerCase() == 'block') {
-          blockChild = Blockly.Xml.domToBlock(workspace, firstRealGrandchild,
+          blockChild = Blockly.Cake.Xml.domToBlock(workspace, firstRealGrandchild,
               opt_reuseBlock);
           if (blockChild.outputConnection) {
             input.connection.connect(blockChild.outputConnection);
@@ -365,7 +365,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
             // This could happen if there is more than one XML 'next' tag.
             throw 'Next statement is already connected.';
           }
-          blockChild = Blockly.Xml.domToBlock(workspace, firstRealGrandchild,
+          blockChild = Blockly.Cake.Xml.domToBlock(workspace, firstRealGrandchild,
               opt_reuseBlock);
           if (!blockChild.previousConnection) {
             throw 'Next block does not have previous statement.';
@@ -397,7 +397,7 @@ Blockly.Xml.domToBlock = function(workspace, xmlBlock, opt_reuseBlock) {
  * Remove any 'next' block (statements in a stack).
  * @param {!Element} xmlBlock XML block element.
  */
-Blockly.Xml.deleteNext = function(xmlBlock) {
+Blockly.Cake.Xml.deleteNext = function(xmlBlock) {
   for (var x = 0, child; child = xmlBlock.childNodes[x]; x++) {
     if (child.nodeName.toLowerCase() == 'next') {
       xmlBlock.removeChild(child);
@@ -405,7 +405,7 @@ Blockly.Xml.deleteNext = function(xmlBlock) {
     }
   }
 };
-Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
+Blockly.Cake.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
     var block = null;
     var prototypeName = xmlBlock.getAttribute('type');
     if (!prototypeName) {
@@ -413,7 +413,7 @@ Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
     }
     var id = xmlBlock.getAttribute('id');
     if (opt_reuseBlock && id) {
-        block = Blockly.Block.getById(id, workspace);
+        block = Blockly.Cake.Block.getById(id, workspace);
         // TODO: The following is for debugging.  It should never actually happen.
         if (!block) {
             throw 'Couldn\'t get Block with id: ' + id;
@@ -427,11 +427,11 @@ Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
         block.fill(workspace, prototypeName);
         block.parent_ = parentBlock;
     } else {
-        if (Blockly.Realtime.isEnabled()) {
-            return Blockly.Realtime.obtainBlock(workspace, prototypeName);
+        if (Blockly.Cake.Realtime.isEnabled()) {
+            return Blockly.Cake.Realtime.obtainBlock(workspace, prototypeName);
         } else {
-            var block = new Blockly.Block();
-            block.id = Blockly.genUid();
+            var block = new Blockly.Cake.Block();
+            block.id = Blockly.Cake.genUid();
             block.fill(workspace, prototypeName);
         }
     }
@@ -512,7 +512,7 @@ Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
                 }
                 if (firstRealGrandchild &&
                     firstRealGrandchild.nodeName.toLowerCase() == 'block') {
-                    blockChild = Blockly.Xml.domToBlockObject(workspace, firstRealGrandchild,
+                    blockChild = Blockly.Cake.Xml.domToBlockObject(workspace, firstRealGrandchild,
                         opt_reuseBlock);
                     if (blockChild.outputConnection) {
                         input.connection.connect(blockChild.outputConnection);
@@ -532,7 +532,7 @@ Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
                         // This could happen if there is more than one XML 'next' tag.
                         throw 'Next statement is already connected.';
                     }
-                    blockChild = Blockly.Xml.domToBlockObject(workspace, firstRealGrandchild,
+                    blockChild = Blockly.Cake.Xml.domToBlockObject(workspace, firstRealGrandchild,
                         opt_reuseBlock);
                     if (!blockChild.previousConnection) {
                         throw 'Next block does not have previous statement.';
@@ -553,8 +553,8 @@ Blockly.Xml.domToBlockObject = function(workspace, xmlBlock, opt_reuseBlock) {
 };
 
 // Export symbols that would otherwise be renamed by Closure compiler.
-Blockly['Xml'] = Blockly.Xml;
-Blockly.Xml['domToText'] = Blockly.Xml.domToText;
-Blockly.Xml['domToWorkspace'] = Blockly.Xml.domToWorkspace;
-Blockly.Xml['textToDom'] = Blockly.Xml.textToDom;
-Blockly.Xml['workspaceToDom'] = Blockly.Xml.workspaceToDom;
+Blockly.Cake['Xml'] = Blockly.Cake.Xml;
+Blockly.Cake.Xml['domToText'] = Blockly.Cake.Xml.domToText;
+Blockly.Cake.Xml['domToWorkspace'] = Blockly.Cake.Xml.domToWorkspace;
+Blockly.Cake.Xml['textToDom'] = Blockly.Cake.Xml.textToDom;
+Blockly.Cake.Xml['workspaceToDom'] = Blockly.Cake.Xml.workspaceToDom;

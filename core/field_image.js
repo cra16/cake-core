@@ -24,9 +24,9 @@
  */
 'use strict';
 
-goog.provide('Blockly.FieldImage');
+goog.provide('Blockly.Cake.FieldImage');
 
-goog.require('Blockly.Field');
+goog.require('Blockly.Cake.Field');
 goog.require('goog.userAgent');
 
 
@@ -36,10 +36,10 @@ goog.require('goog.userAgent');
  * @param {number} width Width of the image.
  * @param {number} height Height of the image.
  * @param {?string} opt_alt Optional alt text for when block is collapsed.
- * @extends {Blockly.Field}
+ * @extends {Blockly.Cake.Field}
  * @constructor
  */
-Blockly.FieldImage = function(src, width, height, opt_alt) {
+Blockly.Cake.FieldImage = function(src, width, height, opt_alt) {
   this.sourceBlock_ = null;
   // Ensure height and width are numbers.  Strings are bad at math.
   this.height_ = Number(height);
@@ -47,9 +47,9 @@ Blockly.FieldImage = function(src, width, height, opt_alt) {
   this.size_ = {height: this.height_ + 10, width: this.width_};
   this.text_ = opt_alt || '';
   // Build the DOM.
-  var offsetY = 6 - Blockly.BlockSvg.FIELD_HEIGHT;
-  this.fieldGroup_ = Blockly.createSvgElement('g', {}, null);
-  this.imageElement_ = Blockly.createSvgElement('image',
+  var offsetY = 6 - Blockly.Cake.BlockSvg.FIELD_HEIGHT;
+  this.fieldGroup_ = Blockly.Cake.createSvgElement('g', {}, null);
+  this.imageElement_ = Blockly.Cake.createSvgElement('image',
       {'height': this.height_ + 'px',
        'width': this.width_ + 'px',
        'y': offsetY}, this.fieldGroup_);
@@ -57,22 +57,22 @@ Blockly.FieldImage = function(src, width, height, opt_alt) {
   if (goog.userAgent.GECKO) {
     // Due to a Firefox bug which eats mouse events on image elements,
     // a transparent rectangle needs to be placed on top of the image.
-    this.rectElement_ = Blockly.createSvgElement('rect',
+    this.rectElement_ = Blockly.Cake.createSvgElement('rect',
         {'height': this.height_ + 'px',
          'width': this.width_ + 'px',
          'y': offsetY,
          'fill-opacity': 0}, this.fieldGroup_);
   }
 };
-goog.inherits(Blockly.FieldImage, Blockly.Field);
+goog.inherits(Blockly.Cake.FieldImage, Blockly.Cake.Field);
 
 /**
  * Clone this FieldImage.
- * @return {!Blockly.FieldImage} The result of calling the constructor again
+ * @return {!Blockly.Cake.FieldImage} The result of calling the constructor again
  *   with the current values of the arguments used during construction.
  */
-Blockly.FieldImage.prototype.clone = function() {
-  return new Blockly.FieldImage(this.getSrc(), this.width_, this.height_,
+Blockly.Cake.FieldImage.prototype.clone = function() {
+  return new Blockly.Cake.FieldImage(this.getSrc(), this.width_, this.height_,
       this.getText());
 };
 
@@ -81,18 +81,18 @@ Blockly.FieldImage.prototype.clone = function() {
  * @type {Element}
  * @private
  */
-Blockly.FieldImage.prototype.rectElement_ = null;
+Blockly.Cake.FieldImage.prototype.rectElement_ = null;
 
 /**
  * Editable fields are saved by the XML renderer, non-editable fields are not.
  */
-Blockly.FieldImage.prototype.EDITABLE = false;
+Blockly.Cake.FieldImage.prototype.EDITABLE = false;
 
 /**
  * Install this text on a block.
- * @param {!Blockly.Block} block The block containing this text.
+ * @param {!Blockly.Cake.Block} block The block containing this text.
  */
-Blockly.FieldImage.prototype.init = function(block) {
+Blockly.Cake.FieldImage.prototype.init = function(block) {
   if (this.sourceBlock_) {
     throw 'Image has already been initialized once.';
   }
@@ -102,13 +102,13 @@ Blockly.FieldImage.prototype.init = function(block) {
   // Configure the field to be transparent with respect to tooltips.
   var topElement = this.rectElement_ || this.imageElement_;
   topElement.tooltip = this.sourceBlock_;
-  Blockly.Tooltip.bindMouseEvents(topElement);
+  Blockly.Cake.Tooltip.bindMouseEvents(topElement);
 };
 
 /**
  * Dispose of all DOM objects belonging to this text.
  */
-Blockly.FieldImage.prototype.dispose = function() {
+Blockly.Cake.FieldImage.prototype.dispose = function() {
   goog.dom.removeNode(this.fieldGroup_);
   this.fieldGroup_ = null;
   this.imageElement_ = null;
@@ -120,7 +120,7 @@ Blockly.FieldImage.prototype.dispose = function() {
  * @param {string|!Element} newTip Text for tooltip or a parent element to
  *     link to for its tooltip.
  */
-Blockly.FieldImage.prototype.setTooltip = function(newTip) {
+Blockly.Cake.FieldImage.prototype.setTooltip = function(newTip) {
   var topElement = this.rectElement_ || this.imageElement_;
   topElement.tooltip = newTip;
 };
@@ -130,7 +130,7 @@ Blockly.FieldImage.prototype.setTooltip = function(newTip) {
  * @return {string} Current text.
  * @override
  */
-Blockly.FieldImage.prototype.getValue = function() {
+Blockly.Cake.FieldImage.prototype.getValue = function() {
   return this.src_;
 };
 
@@ -139,7 +139,7 @@ Blockly.FieldImage.prototype.getValue = function() {
  * @param {?string} src New source.
  * @override
  */
-Blockly.FieldImage.prototype.setValue = function(src) {
+Blockly.Cake.FieldImage.prototype.setValue = function(src) {
   if (src === null) {
     // No change if null.
     return;
@@ -154,7 +154,7 @@ Blockly.FieldImage.prototype.setValue = function(src) {
  * @param {?string} alt New alt text.
  * @override
  */
-Blockly.FieldImage.prototype.setText = function(alt) {
+Blockly.Cake.FieldImage.prototype.setText = function(alt) {
   if (alt === null) {
     // No change if null.
     return;
