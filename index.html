@@ -64,9 +64,17 @@
     <xml id="toolbox">
       <category name="Variables">
         <category name="Variable">
-          <block type="variables_declare"></block>
+          <block type="variables_declare">
+            <value name="VALUE">
+              <block type="math_number"></block>
+            </value>
+          </block>
           <block type="variables_get"></block>
-          <block type="variables_set"></block>
+          <block type="variables_set">
+            <value name="VALUE">
+              <block type="math_number"></block>
+            </value>
+          </block>
         </category>
         <category name="Pointer">
           <block type="variables_pointer_declare"></block>
@@ -81,9 +89,27 @@
           <block type="variables_pointer_*"></block>
         </category>
         <category name="Array">
-          <block type="variables_array_declare"></block>
-          <block type="variables_array_get"></block>
-          <block type="variables_array_set"></block>
+          <block type="variables_array_declare">
+            <value name="LENGTH_1">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+          <block type="variables_array_get">
+            <value name="LENGTH_1">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
+          <block type="variables_array_set">
+            <value name="LENGTH_1">
+              <block type="math_number">
+                <field name="NUM">1</field>
+              </block>
+            </value>
+          </block>
         </category>
       </category>
       <category name="Arithmetics">
@@ -92,13 +118,37 @@
         <block type="math_modulo"></block>
       </category>
       <category name="Loops">
-        <block type="controls_whileUntil"></block>
-        <block type="controls_doWhile"></block>
-        <block type="controls_for"></block>
+        <block type="controls_whileUntil">
+          <value name="BOOL">
+            <block type="logic_compare"></block>
+          </value>
+        </block>
+        <block type="controls_doWhile">
+          <value name="BOOL">
+            <block type="logic_compare"></block>
+          </value>
+        </block>
+        <block type="controls_for">
+          <value name="FROM">
+            <block type="math_number"></block>
+          </value>
+          <value name="TO">
+            <block type="math_number"></block>
+          </value>
+          <value name="BY">
+            <block type="math_number">
+              <field name="NUM">1</field>
+            </block>
+          </value>
+        </block>
         <block type="controls_flow_statements"></block>
       </category>
       <category name="Logic">
-        <block type="controls_if"></block>
+        <block type="controls_if">
+          <value name="IF0">
+            <block type="logic_compare"></block>
+          </value>
+        </block>
         <block type="controls_switch"></block>
         <block type="controls_switch_break"></block>
         <block type="logic_compare"></block>
@@ -113,17 +163,20 @@
         <block type="procedures_defreturn"></block>
         <block type="procedures_ifreturn"></block>
       </category>
-      </category>
       <category name="Structure" custom="STRUCTURE">
         <block type="structure_define"></block>
         <block type="structure_declare"></block>
       </category>
-        <category name="Print">
-            <block type="library_stdio_printf"></block>
+      <category name="Print">
+        <block type="library_stdio_printf">
+          <value name="VAR0">
             <block type="library_stdio_text"></block>
-            <block type='library_stdio_newLine'></block>
-        </category>
-        <category name="Math">
+          </value>
+        </block>
+        <block type="library_stdio_text"></block>
+        <block type='library_stdio_newLine'></block>
+      </category>
+      <category name="Math">
         <block type="library_math_abs"></block>
         <block type="library_math_trig"></block>
         <block type="library_math_logs"></block>
@@ -133,7 +186,7 @@
         <block type="library_math_round"></block>
         <block type="library_math_numcheck"></block>
         <block type="library_math_numcompare"></block>
-        </category>
+      </category>
       <category name="Others">
         <block type='comment'>
           <value name="VAR0">
