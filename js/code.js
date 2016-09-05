@@ -4,9 +4,9 @@ var rtl = (document.location.search == '?rtl');
 var block = null;
 
 function start() {
-  Blockly.inject(document.getElementById('blocklyDiv'), 
+  Blockly.inject(document.getElementById('blocklyDiv'),
       {
-        path: '../', 
+        path: '../',
         toolbox: document.getElementById('toolbox')
       }
   );
