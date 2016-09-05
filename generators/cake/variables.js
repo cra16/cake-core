@@ -135,9 +135,10 @@ Blockly.cake['variables_array_get'] = function(block) {
     var varName = Blockly.cake.variableDB_.getName(block.getFieldValue('VAR'),
         Blockly.Variables.NAME_TYPE);
     varName = Blockly.Blocks.checkUnselect(varName);
-    var length_1 = block.getFieldValue('LENGTH_1');
-    var length_2 = block.getFieldValue('LENGTH_2');
-    var length_3 = block.getFieldValue('LENGTH_3');
+
+    var length_1 = block.getIndices()[0];
+    var length_2 = block.getIndices()[1];
+    var length_3 = block.getIndices()[2];
 
     // if length_1 is number
     if (isNaN(length_1) == false) {
@@ -202,14 +203,14 @@ Blockly.cake['variables_array_set'] = function(block) {
 
     varName = Blockly.Blocks.checkUnselect(varName);
 
-    var length_1 = block.getFieldValue('LENGTH_1');
-    var length_2 = block.getFieldValue('LENGTH_2');
-    var length_3 = block.getFieldValue('LENGTH_3');
+    var length_1 = block.getIndices()[0];
+    var length_2 = block.getIndices()[1];
+    var length_3 = block.getIndices()[2];
 
     // if no-input : regarded as -1 to distinguish with 0
-    length_1 = (length_1 == '' ? -1 :length_1 * 1);
-    length_2 = (length_2 == '' ? -1 :length_2 * 1);
-    length_3 = (length_3 == '' ? -1 :length_3 * 1);
+    length_1 = (length_1 == '' ? -1 :length_1);
+    length_2 = (length_2 == '' ? -1 :length_2);
+    length_3 = (length_3 == '' ? -1 :length_3);
 
 
     // get array list
@@ -254,9 +255,11 @@ Blockly.cake['variables_array_declare'] = function(block) {
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var varType = block.getFieldValue('TYPES');
-    var length_1 = block.getFieldValue('LENGTH_1');
-    var length_2 = block.getFieldValue('LENGTH_2');
-    var length_3 = block.getFieldValue('LENGTH_3');
+    var length_1 = block.getIndices()[0];
+    var length_2 = block.getIndices()[1];
+    var length_3 = block.getIndices()[2];
+
+
     var code;
 
     // must: idx > 0 , no-input: regarded as 0

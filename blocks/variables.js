@@ -752,18 +752,157 @@ Blockly.Blocks['variables_array_get'] = {
         this.setColour(48);
         this.appendDummyInput()
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
-            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
+        this.appendValueInput('LENGTH_1')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        this.appendValueInput('LENGTH_2')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        this.appendValueInput('LENGTH_3')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
 
         this.setOutput(true, 'Array');
 
+        this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
         this.contextMenuType_ = 'variables_array_set';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_GET;
+    },
+    /**
+     * Return array indices of this block in format list.
+     * @return {!Array.<int>} List of array indexes. (index, value): (0, 1st index), (1, 2nd index), (2, 3rd index)
+     * @this Blockly.Block
+     */
+    getIndices: function() {
+        var length_1;
+        var length_2;
+        var length_3;
+
+        if(this.getNextBlock())
+        {
+            switch(this.childBlocks_.length - 1)
+            {
+                case 1:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    length_2 = 0;
+                    length_3 = 0;
+                    break;
+                case 2:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    length_3 = 0;
+                    break;
+                case 3:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
+                    {
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                    }
+                    break;
+                default:
+                    length_1 = 0;
+                    length_2 = 0;
+                    length_3 = 0;
+                    break;
+            }
+        }
+        else {
+            switch(this.childBlocks_.length)
+            {
+                case 1:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    length_2 = 0;
+                    length_3 = 0;
+                    break;
+                case 2:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    length_3 = 0;
+                    break;
+                case 3:
+                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    {
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
+                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
+                    {
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                    }
+                    break;
+                default:
+                    length_1 = 0;
+                    length_2 = 0;
+                    length_3 = 0;
+                    break;
+            }
+        }
+        return [length_1, length_2, length_3];
     },
     /**
      * Return all variables referenced by this block.
@@ -817,29 +956,28 @@ Blockly.Blocks['variables_array_get'] = {
      * @param withinIdx3
      */
     initIdx: function(withinIdx1, withinIdx2, withinIdx3) {
-        var initVal = 0;
+        var initVal = '0';
         if (withinIdx1 == false) {
-            this.setFieldValue(initVal, 'LENGTH_1');
+            this.childBlocks_[0].setFieldValue(initVal, 'NUM');
         }
         else if (withinIdx2 == false) {
-            this.setFieldValue(initVal, 'LENGTH_2');
+            this.childBlocks_[1].setFieldValue(initVal, 'NUM');
         }
         else {
-            this.setFieldValue(initVal, 'LENGTH_3');
+            this.childBlocks_[2].setFieldValue(initVal, 'NUM');
         }
         return;
 
     },
 
     getInputIdxLength: function() {
-        var inputLength = 0;
-
-        for ( var temp = 1 ; temp <= 3 ; temp++ ) {
-            if(this.getFieldValue('LENGTH_'+temp)) {
-                inputLength++;
-            }
+        if(this.getNextBlock())
+        {
+            return this.childBlocks_.length - 1;
         }
-        return inputLength;
+        else {
+            return this.childBlocks_.length;
+        }
     },
     //when the block is changed,
     onchange: function() {
@@ -875,12 +1013,15 @@ Blockly.Blocks['variables_array_set'] = {
         this.setColour(48);
         this.appendDummyInput()
             .appendField(Blockly.Msg.VARIABLES_SET_TITLE)
-            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR')
-            .appendField(new Blockly.FieldTextInput('0'), 'LENGTH_1')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_2')
-            .appendField(new Blockly.FieldTextInput(''), 'LENGTH_3')
+            .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
+        this.appendValueInput('LENGTH_1')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        this.appendValueInput('LENGTH_2')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        this.appendValueInput('LENGTH_3')
+            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        this.appendValueInput('VALUE')
             .appendField(Blockly.Msg.VARIABLES_SET_TAIL);
-        this.appendValueInput('VALUE');
 
         this.setInputsInline(true);
         this.setPreviousStatement(true);
@@ -922,6 +1063,7 @@ Blockly.Blocks['variables_array_set'] = {
      * @param withinIdx2
      * @param withinIdx3
      */
+    getIndices: Blockly.Blocks['variables_array_get'].getIndices,
     initIdx: Blockly.Blocks['variables_array_get'].initIdx,
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu,
     getInputIdxLength: Blockly.Blocks['variables_array_get'].getInputIdxLength,
@@ -967,11 +1109,12 @@ Blockly.Blocks['variables_array_declare'] = {
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['LENGTH_1', new Blockly.FieldTextInput('1')],
-            ['LENGTH_2', new Blockly.FieldTextInput('')],
-            ['LENGTH_3', new Blockly.FieldTextInput('')],
+            ['LENGTH_1', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
+            ['LENGTH_2', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
+            ['LENGTH_3', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
+        this.setInputsInline(true);
         this.setPreviousStatement(true);
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
@@ -1006,9 +1149,10 @@ Blockly.Blocks['variables_array_declare'] = {
      * specific means their Index
      */
     getSpec: function() {
-        var length_1 = this.getFieldValue('LENGTH_1');
-        var length_2 = this.getFieldValue('LENGTH_2');
-        var length_3 = this.getFieldValue('LENGTH_3');
+        var length_1 = this.getIndices()[0];
+        var length_2 = this.getIndices()[1];
+        var length_3 = this.getIndices()[2];
+
         length_1 = length_1 * 1;
         length_2 = length_2 * 1;
         length_3 = length_3 * 1;
@@ -1031,7 +1175,7 @@ Blockly.Blocks['variables_array_declare'] = {
         return [this.getFieldValue('TYPES')];
     },
     getLength: function() {
-        return [this.getFieldValue('LENGTH_1')];
+        return [this.childBlocks_[0].getFieldValue('NUM')];
     },
     /**
      * Return all variables referenced by this block.
@@ -1061,6 +1205,7 @@ Blockly.Blocks['variables_array_declare'] = {
             this.setFieldValue(newName, 'VAR');
         }
     },
+    getIndices: Blockly.Blocks['variables_array_get'].getIndices,
     customContextMenu: Blockly.Blocks['variables_array_get'].customContextMenu
 };
 
