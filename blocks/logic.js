@@ -37,7 +37,7 @@ Blockly.Blocks['controls_if'] = {
   init: function() {
     this.setColour(200);
     this.appendValueInput('IF0')
-      .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
+      .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'Boolean'])
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_IF);
     this.appendStatementInput('DO0')
       .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -92,7 +92,7 @@ Blockly.Blocks['controls_if'] = {
     this.elseCount_ = parseInt(xmlElement.getAttribute('else'), 10);
     for (var x = 1; x <= this.elseifCount_; x++) {
       this.appendValueInput('IF' + x)
-          .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
+          .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'Boolean'])
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
       this.appendStatementInput('DO' + x)
         .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
