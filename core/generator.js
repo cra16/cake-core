@@ -92,7 +92,18 @@ Blockly.Generator.prototype.workspaceToCodeArr = function() {
   code = code.replace(/\n\s+$/, '\n');
   code = code.replace(/[ \t]+\n/g, '\n');
   var code_arr = code.split('\n');
-  return code_arr;
+  var return_val = [];
+  for(var i = 0;i<code_arr.length;i++)
+  {
+    var temp = [];
+    for(var j = 0;j<=i;j++)
+    {
+      temp.push(code_arr[j]);
+    }
+    temp = temp.join("\n");
+    return_val.push(temp);
+  }
+  return return_val;
 };
 
 /**

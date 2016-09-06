@@ -112,7 +112,7 @@ Blockly.Blocks['procedures_return'] = {
         var block = this;
         var typeConfig = false;
         while(block.getSurroundParent()){
-            block = this.getSurroundParent();
+            block = block.getSurroundParent();
             if(block.type == 'main_block' || block.type == 'procedures_defnoreturn' || block.type == 'procedures_defreturn'){
                 typeConfig = true;
                 break;
