@@ -165,6 +165,7 @@ Blockly.cake['library_stdio_text'] = function(block) {
     var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
     if (block.getParent()
         && (block.getParent().type == 'library_stdio_printf'
+        || block.getParent().type == 'library_stdio_scanf'
         || block.getParent().type == 'define_declare'
         || block.getParent().type == 'comment')) {
         return ['\"' + code + '\"', Blockly.cake.ORDER_ATOMIC];
@@ -208,10 +209,12 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
 
                 if (typeCode == '%s') {
                     inQutCode += typeCode;
-                    outQutCode += ', ' + argument;
+                    //outQutCode += ', ' + argument;
+                    outQutCode += ' >> ' + argument;
                 } else {
                     inQutCode += typeCode;
-                    outQutCode += ', &' + argument;
+                    //outQutCode += ', &' + argument;
+                    outQutCode += ' >> ' + argument;
                 }
             }
             else if (childBlockType == 'variables_pointer_get')
@@ -222,7 +225,8 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
                     typeCode = '%s';
                 }
                 inQutCode += typeCode;
-                outQutCode += ', ' + argument;
+                //outQutCode += ', ' + argument;
+                outQutCode += ' >> ' + argument;
             }
             else if (childBlockType == 'variables_pointer_&')
             {
@@ -245,7 +249,8 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
                         inQutCode += argument;
                     } else {
                         inQutCode += typeCode;
-                        outQutCode += ', &*' + argument;
+                        //outQutCode += ', &*' + argument;
+                        outQutCode += ' >> ' + argument;
                     }
                 }
             }
@@ -254,19 +259,21 @@ Blockly.cake['library_stdio_scanf'] = function(block) {
                 typeCode = Blockly.cake.varTypeCheckInPrintScan(argument);
 
                 inQutCode += typeCode;
-                outQutCode += ', &' + argument;
+                //outQutCode += ', &' + argument;
+                outQutCode += ' >> ' + argument;
             }
         }
     } // for loop end
 
-    if (outQutCode == ''){
-        code = 'scanf(\"' + inQutCode + '\");';
-    } else {
-        code = 'scanf(\"' + inQutCode + '\"' + outQutCode + ');';
-    }
+    // if (outQutCode == ''){
+    //     code = 'scanf(\"' + inQutCode + '\");';
+    // } else {
+    //     code = 'scanf(\"' + inQutCode + '\"' + outQutCode + ');';
+    // }
+    code = 'std::cin' + outQutCode + ';';
 
     Blockly.cake.definitions_['include_cake_stdio'] =
-        '#include <stdio.h>';
+        '#include <iostream>';
     return code + '\n';
 };
 
