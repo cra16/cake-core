@@ -119,7 +119,11 @@
         <block type="structure_declare"></block>
       </category>
         <category name="Print">
-            <block type="library_stdio_printf"></block>
+            <block type="library_stdio_printf">
+                <value name="VAR0">
+                    <block type="library_stdio_text"></block>
+                </value>
+            </block>
             <block type="library_stdio_scanf"></block>
             <block type="library_stdio_text"></block>
             <block type='library_stdio_newLine'></block>
