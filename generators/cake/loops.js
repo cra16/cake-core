@@ -74,9 +74,18 @@ Blockly.cake['controls_for'] = function(block) {
   branch = Blockly.cake.addLoopTrap(branch, block.id);
   var code;
     // All arguments are simple numbers.
-    code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
-      variable0 + '<' + argument1 + '; ' +
-      variable0;
+    if(argument0 > argument1 && parseFloat(increment) < 0)
+    {
+        code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+            variable0 + '>' + argument1 + '; ' +
+            variable0;
+    }
+    else
+    {
+        code = 'for (' + variable0 + ' = ' + argument0 + '; ' +
+            variable0 + '<' + argument1 + '; ' +
+            variable0;
+    }
     var up = increment >= 0;
     var step = Math.abs(parseFloat(increment));
     if (step == 1) {
