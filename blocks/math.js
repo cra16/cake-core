@@ -81,9 +81,9 @@ Blockly.Blocks['math_arithmetic'] = {
     this.setColour(240);
     this.setOutput(true, 'Number');
     this.appendValueInput('A')
-        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'VAR_STR']);
     this.appendValueInput('B')
-        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
+        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'VAR_STR'])
         .appendField(new Blockly.FieldDropdown(OPERATORS), 'OP');
     this.setInputsInline(true);
     // Assign 'this' to a variable for use in the tooltip closure below.
@@ -101,7 +101,9 @@ Blockly.Blocks['math_arithmetic'] = {
     });
   },
   //when the block is changed, 
-  onchange: Blockly.Blocks.requireInFunction
+  onchange: function() {
+      Blockly.Blocks.requireInFunction(this);
+  }
 };
 
 Blockly.Blocks['math_modulo'] = {

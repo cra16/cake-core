@@ -535,9 +535,8 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
     {
         case('int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'NEGATIVE', 'INT']);
+                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'VAR_CHAR', 'NEGATIVE', 'INT']);
             break;
-
         case('unsigned int'):
             block.getInput(inputName)
                 .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_UNINT', 'NEGATIVE']);
@@ -545,7 +544,7 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
         case('float') :
             block.getInput(inputName)
                 .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_FLOAT', 'DOUBLE']);
-
+            break;
         case('double') :
             block.getInput(inputName)
                 .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_DOUBLE', 'DOUBLE']);
@@ -553,6 +552,10 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
         case('char'):
             block.getInput(inputName)
                 .setCheck(['String', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_CHAR', 'CHAR', 'Number', 'INT']);
+            break;
+        case('std::string'):
+            block.getInput(inputName)
+                .setCheck(['Variable', 'Array', 'Aster', 'Macro', 'VAR_STR', 'String']);
             break;
         /*        default:
          block.getInput(inputName)
@@ -584,6 +587,9 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
         case ('char'):
             block.getInput(inputName).setCheck(['PTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
+        case ('string'):
+            block.getInput(inputName).setCheck(['PTR_STR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
+            break;
         case ('dbint'):
             block.getInput(inputName).setCheck(['DBPTR_INT', 'Address', 'Pointer', 'Aster', 'Array', 'Aster']);
             break;
@@ -598,6 +604,9 @@ Blockly.Blocks.setCheckPointer = function(block, ptrType, inputName) {
             break;
         case ('dbchar'):
             block.getInput(inputName).setCheck(['DBPTR_CHAR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
+            break;
+        case ('dbstring'):
+            block.getInput(inputName).setCheck(['DBPTR_STR', 'Address', 'Pointer', 'String', 'STR', 'CHAR', 'Array', 'Aster']);
             break;
         /*        default:
          block.getInput(inputName).setCheck(['String', 'Pointer', 'Array', 'Aster']);

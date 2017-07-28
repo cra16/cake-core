@@ -220,7 +220,7 @@ Blockly.Blocks['variables_get'] = {
         this.setOutput(true, 'Variable');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-        this.contextMenuType_ = 'variables_set';
+        this.contextMenuType_ = 'variables_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_GET;
     },
     /**
@@ -293,6 +293,18 @@ Blockly.Blocks['variables_get'] = {
             case ("char"):
                 this.changeOutput(dist+'_CHAR');
                 break;
+            case ("std::string"):
+                this.changeOutput(dist+'_STR');
+                break;
+            default:
+                if(dist == 'VAR')
+                    this.changeOutput('Variable');
+                else if(dist == 'ARR')
+                    this.changeOutput('Array');
+                else if(dist == 'PTR')
+                    this.changeOutput('Pointer');
+                else
+                break;
         }
     }
 };
@@ -317,7 +329,7 @@ Blockly.Blocks['variables_set'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_get';
+        this.contextMenuType_ = 'variables_set';
         this.tag = Blockly.Msg.TAG_VARIABLE_SET;
     },
     /**
@@ -357,9 +369,7 @@ Blockly.Blocks['variables_set'] = {
         if (type == false) {
             type = 'int';
         }
-        if (this.getInputTargetBlock('VALUE')) {
-            Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
-        }
+        Blockly.Blocks.setCheckVariable(this, type, 'VALUE');
     }
 };
 
@@ -371,7 +381,8 @@ Blockly.Blocks['variables_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         this.setColour(350);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_DECLARE_DEFAULT_NAME, this);
@@ -390,7 +401,7 @@ Blockly.Blocks['variables_declare'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_get';
+        this.contextMenuType_ = 'variables_declare';
         this.tag = Blockly.Msg.TAG_VARIABLE_DECLARE;
     },
 
@@ -489,7 +500,7 @@ Blockly.Blocks['variables_pointer_get'] = {
         this.setOutput(true, 'Pointer');
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-        this.contextMenuType_ = 'variables_pointer_set';
+        this.contextMenuType_ = 'variables_pointer_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_GET;
     },
     /**
@@ -573,7 +584,7 @@ Blockly.Blocks['variables_pointer_set'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_pointer_get';
+        this.contextMenuType_ = 'variables_pointer_set';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_SET;
     },
 
@@ -626,7 +637,8 @@ Blockly.Blocks['variables_pointer_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         this.setColour(25);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_POINTER_DECLARE_DEFAULT_NAME, this);
@@ -647,7 +659,7 @@ Blockly.Blocks['variables_pointer_declare'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_pointer_get';
+        this.contextMenuType_ = 'variables_pointer_declare';
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_DECLARE;
     },
 
@@ -754,11 +766,11 @@ Blockly.Blocks['variables_array_get'] = {
             .appendField(Blockly.Msg.ARRAY_GET_TITLE)
             .appendField(new Blockly.FieldVariableArray(Blockly.Msg.SELECT_MENU, null, this), 'VAR');
         this.appendValueInput('LENGTH_1')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+            .setCheck(['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster']);
         this.appendValueInput('LENGTH_2')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster']);
+            .setCheck(['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster']);
         this.appendValueInput('LENGTH_3')
-            .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'])
+            .setCheck(['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster'])
             .appendField(Blockly.Msg.VARIABLES_GET_TAIL);
 
         this.setOutput(true, 'Array');
@@ -766,7 +778,7 @@ Blockly.Blocks['variables_array_get'] = {
         this.setInputsInline(true);
         this.setTooltip(Blockly.Msg.VARIABLES_GET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_GET_CREATE_SET;
-        this.contextMenuType_ = 'variables_array_set';
+        this.contextMenuType_ = 'variables_array_get';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_GET;
     },
     /**
@@ -1028,7 +1040,7 @@ Blockly.Blocks['variables_array_set'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_SET_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_array_get';
+        this.contextMenuType_ = 'variables_array_set';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_SET;
     },
     /**
@@ -1097,7 +1109,8 @@ Blockly.Blocks['variables_array_declare'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         this.setColour(48);
         var name = Blockly.Procedures.findLegalName(
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_DEFAULT_NAME, this);
@@ -1109,9 +1122,9 @@ Blockly.Blocks['variables_array_declare'] = {
             Blockly.Msg.VARIABLES_ARRAY_DECLARE_LENGTH + ' %3' + ' %4' + ' %5 ',
             ['TYPES', new Blockly.FieldDropdown(TYPE)],
             ['VAR', new Blockly.FieldTextInput(name, Blockly.Procedures.rename)],
-            ['LENGTH_1', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
-            ['LENGTH_2', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
-            ['LENGTH_3', ['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster'], Blockly.ALIGN_RIGHT],
+            ['LENGTH_1', ['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster'], Blockly.ALIGN_RIGHT],
+            ['LENGTH_2', ['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster'], Blockly.ALIGN_RIGHT],
+            ['LENGTH_3', ['Number', 'INT', 'Variable', 'VAR_INT', 'VAR_UNINT', 'Aster'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
 
         this.setInputsInline(true);
@@ -1119,7 +1132,7 @@ Blockly.Blocks['variables_array_declare'] = {
         this.setNextStatement(true);
         this.setTooltip(Blockly.Msg.VARIABLES_DECLARE_TOOLTIP);
         this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
-        this.contextMenuType_ = 'variables_array_get';
+        this.contextMenuType_ = 'variables_array_declare';
         this.tag = Blockly.Msg.TAG_VARIABLE_ARRAY_DECLARE;
     },
 
@@ -1214,8 +1227,8 @@ Blockly.Blocks['variables_pointer_&'] = {
         this.setColour(25);
         this.interpolateMsg(
             '&' + ' %1 ', ['VALUE',
-                ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'Array',
-                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR'], Blockly.ALIGN_RIGHT],
+                ['Variable', 'VAR_INT', 'VAR_UNINT', 'VAR_FLOAT', 'VAR_DOUBLE', 'VAR_CHAR', 'VAR_STR', 'Array',
+                    'Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'PTR_STR'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Address');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ADDR;
@@ -1261,8 +1274,8 @@ Blockly.Blocks['variables_pointer_*'] = {
     init: function() {
         this.setColour(25);
         this.interpolateMsg(
-            '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR',
-                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],
+            '*' + ' %1 ', ['VALUE', ['Pointer', 'PTR_INT', 'PTR_UNINT', 'PTR_FLOAT', 'PTR_DOUBLE', 'PTR_CHAR', 'PTR_STR',
+                'DBPTR_INT', 'DBPTR_UNINT', 'DBPTR_FLOAT', 'DBPTR_DOUBLE', 'DBPTR_CHAR', 'DBPTR_STR', 'Array', 'Aster'], Blockly.ALIGN_RIGHT],
             Blockly.ALIGN_RIGHT);
         this.setOutput(true, 'Aster');
         this.tag = Blockly.Msg.TAG_VARIABLE_POINTER_ASTR;

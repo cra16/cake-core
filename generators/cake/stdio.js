@@ -169,10 +169,23 @@ Blockly.cake['library_stdio_text'] = function(block) {
         || block.getParent().type == 'define_declare'
         || block.getParent().type == 'comment')) {
         return ['\"' + code + '\"', Blockly.cake.ORDER_ATOMIC];
-    } else if (code.length == 1) {
-        code = '\'' + code + '\'';
     } else {
         code = '\"' + code + '\"';
+    }
+    return [code, Blockly.cake.ORDER_ATOMIC];
+};
+
+Blockly.cake['library_stdio_char'] = function(block) {
+    // Char value.
+    var code = Blockly.cake.quote_(block.getFieldValue('TEXT'));
+    if (block.getParent()
+        && (block.getParent().type == 'library_stdio_printf'
+        || block.getParent().type == 'library_stdio_scanf'
+        || block.getParent().type == 'define_declare'
+        || block.getParent().type == 'comment')) {
+        return ['\'' + code + '\'', Blockly.cake.ORDER_ATOMIC];
+    } else {
+        code = '\'' + code + '\'';
     }
     return [code, Blockly.cake.ORDER_ATOMIC];
 };

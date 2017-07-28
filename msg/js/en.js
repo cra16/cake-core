@@ -447,6 +447,7 @@ Blockly.Msg.MATH_NUMCOMPARE_ISLEEQ = 'less or equal';
 Blockly.Msg.MATH_NUMCOMPARE_ISLEGR = 'less or greater';
 Blockly.Msg.MATH_NUMCOMPARE_ISUNORDER = 'unordered';
 Blockly.Msg.MATH_NUMCOMPARE_TOOLTIP = '';
+
 Blockly.Msg.STRING_STRLEN_TITLE = 'string length %1';
 Blockly.Msg.STRING_STRLEN_TOOLTIP = 'return length of string';
 Blockly.Msg.STRING_STRLEN_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
@@ -459,6 +460,13 @@ Blockly.Msg.STRING_STRCPY_HELPURL = 'https://en.wikipedia.org/wiki/C_string_hand
 Blockly.Msg.STRING_STRCMP_TITLE = 'string compare %1 and %2';
 Blockly.Msg.STRING_STRCMP_TOOLTIP = 'compare two strings';
 Blockly.Msg.STRING_STRCMP_HELPURL = 'https://en.wikipedia.org/wiki/C_string_handling';
+
+Blockly.Msg.STRING_DECLARE_NAME = 'string name';
+Blockly.Msg.STRING_DECLARE_INIT = 'initial value';
+Blockly.Msg.STRING_DECLARE_DEFAULT_NAME = 'myString';
+
+Blockly.Msg.STRING_SET_TITLE = 'set';
+Blockly.Msg.STRING_SET_TAIL = 'to';
 
 Blockly.Msg.TIME_REQUIREDTIME_TITLE = 'time to do followings';
 Blockly.Msg.TIME_REQRUIEDTIME_TALE = 'save in double variable %1';
@@ -477,6 +485,8 @@ Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT= 'unsigned int';
 Blockly.Msg.VARIABLES_SET_TYPE_FLOAT = 'real number(float)';
 Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE = 'real number(double)';
 Blockly.Msg.VARIABLES_SET_TYPE_CHAR= 'character';
+Blockly.Msg.VARIABLES_SET_TYPE_STRING= 'string';
+
 Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL = '*';
 Blockly.Msg.VARIABLES_SET_ITERATION_DOUBLE = '**';
 Blockly.Msg.VARIABLES_SET_ITERATION_TRIPLE = '***';

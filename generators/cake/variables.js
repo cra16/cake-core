@@ -77,6 +77,12 @@ Blockly.cake['variables_declare'] = function(block) {
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var varType = block.getFieldValue('TYPES');
+    if(varType == 'std::string'){
+        Blockly.cake.definitions_['include_cake_string'] =
+            '#include <string>';
+        argument0 = Blockly.cake.valueToCode(block, 'VALUE',
+                Blockly.cake.ORDER_ASSIGNMENT) || '\"\"';
+    }
     if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
         this.initVar();
     }
@@ -104,10 +110,20 @@ Blockly.cake['variables_pointer_set'] = function(block) {
 Blockly.cake['variables_pointer_declare'] = function(block) {
     // Variable declare.
     var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
-            Blockly.cake.ORDER_ASSIGNMENT) || '0';
+            Blockly.cake.ORDER_ASSIGNMENT);
+    var initCode;
+    if(argument0)
+        initCode = ' = ' + argument0 + ';\n';
+    else
+        initCode =  ';\n';
+
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var varType = block.getFieldValue('TYPES');
+    if(varType == 'std::string'){
+        Blockly.cake.definitions_['include_cake_string'] =
+            '#include <string>';
+    }
     var varIteration;
     if (block.getFieldValue('ITERATION') == '*' || block.getFieldValue('ITERATION') == '**' || block.getFieldValue('ITERATION') == '***')
         varIteration = block.getFieldValue('ITERATION');
@@ -118,7 +134,7 @@ Blockly.cake['variables_pointer_declare'] = function(block) {
     if (Blockly.Blocks.checkLegalName(Blockly.Msg.VARIABLES_ILLEGALNAME, varName) == -1){
         this.initVar();
     }
-    return varType + varIteration + ' ' + varName + ' = ' + argument0 + ';\n';
+    return varType + varIteration + ' ' + varName + initCode;
 };
 
 Blockly.cake['variables_pointer_&'] = function(block) {
@@ -165,7 +181,7 @@ Blockly.cake['variables_array_get'] = function(block) {
 
     // index over -> msg
     if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
-        window.alert('인덱스 초과');
+        window.alert('out of index');
         block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
     }
 
@@ -232,7 +248,7 @@ Blockly.cake['variables_array_set'] = function(block) {
 
     // index over -> msg
     if ((isAvbNum1 == false && length_1 != -1) || (isAvbNum2 == false && length_2 != -1) || (isAvbNum3 == false && length_3 != -1)) {
-        window.alert('인덱스 초과');
+        window.alert('out of Index');
         block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
     }
     else if (isAvbNum1 == true && isAvbNum2 == false)
@@ -250,8 +266,6 @@ Blockly.cake['variables_array_set'] = function(block) {
 
 Blockly.cake['variables_array_declare'] = function(block) {
     // Variable declare.
-    var argument0 = Blockly.cake.valueToCode(block, 'VALUE',
-            Blockly.cake.ORDER_ASSIGNMENT) || '0';
     var varName = Blockly.cake.variableDB_.getName(
         block.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
     var varType = block.getFieldValue('TYPES');
@@ -259,6 +273,10 @@ Blockly.cake['variables_array_declare'] = function(block) {
     var length_2 = block.getIndices()[1];
     var length_3 = block.getIndices()[2];
 
+    if(varType == 'std::string'){
+        Blockly.cake.definitions_['include_cake_string'] =
+            '#include <string>';
+    }
 
     var code;
 
@@ -268,11 +286,11 @@ Blockly.cake['variables_array_declare'] = function(block) {
     }
     */
     if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-        code = varType + ' ' + varName + '[' + length_1 + ']' + ' = {' + argument0 + '}' + ';\n';
+        code = varType + ' ' + varName + '[' + length_1 + '];';
     else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-        code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '] ' + ' = {' + argument0 + '}'  + ';\n';
+        code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '];';
     else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-        code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = {' + argument0 + '}'  + ';\n';
+        code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + '];';
     /*else
         window.alert('Please confirm array index');
 */

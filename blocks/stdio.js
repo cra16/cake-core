@@ -186,7 +186,44 @@ Blockly.Blocks['library_stdio_text'] = {
             var file = 'quote0.png';
         }
         return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
-            12, 12, '"');
+            12, 12, '\"');
+    },
+
+    onchange: function()  {
+        Blockly.Blocks.requireInFunction();
+    }
+    //when the block is changed,
+};
+
+Blockly.Blocks['library_stdio_char'] = {
+    /**
+     * Block for char value.
+     * @this Blockly.Block
+     */
+    init: function() {
+        this.setColour(90);
+        this.appendDummyInput()
+            .appendField(this.newQuote_(true))
+            .appendField(new Blockly.FieldTextInput(''), 'TEXT')
+            .appendField(this.newQuote_(false));
+        this.setOutput(true, 'CHAR');
+        this.setTooltip(Blockly.Msg.TEXT_TEXT_TOOLTIP);
+        this.tag = Blockly.Msg.TAG_STDIO_TEXT;
+    },
+    /**
+     * Create an image of an open or closed quote.
+     * @param {boolean} open True if open quote, false if closed.
+     * @return {!Blockly.FieldImage} The field image of the quote.
+     * @private
+     */
+    newQuote_: function(open) {
+        if (open == Blockly.RTL) {
+            var file = 'quote3.png';
+        } else {
+            var file = 'quote2.png';
+        }
+        return new Blockly.FieldImage(Blockly.pathToBlockly + 'media/' + file,
+            12, 12, '\'');
     },
 
     onchange: function()  {
@@ -198,7 +235,8 @@ Blockly.Blocks['library_stdio_text'] = {
                 this.changeOutput('CHAR');
             }
             else {
-                this.changeOutput('STR');
+                window.alert("only one character should be entered");
+                this.setFieldValue(this.getFieldValue('TEXT').charAt(0), 'TEXT');
             }
         }
     }

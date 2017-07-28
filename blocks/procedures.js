@@ -595,7 +595,8 @@ Blockly.Blocks['procedures_defreturn'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         var DIST = [
             [Blockly.Msg.VARIABLES_SET_DIST_VARIABLE, 'variable'],
             [Blockly.Msg.VARIABLES_SET_DIST_POINTER, 'pointer'],
@@ -772,7 +773,8 @@ Blockly.Blocks['procedures_mutatorarg'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         this.setColour(300);
         this.appendDummyInput()
             .appendField('variable')
@@ -820,7 +822,8 @@ Blockly.Blocks['procedures_mutatorarg_array'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         this.setColour(300);
         this.interpolateMsg(
             // TODO: Combine these messages instead of using concatenation.
@@ -884,7 +887,8 @@ Blockly.Blocks['procedures_mutatorarg_pointer'] = {
                 [Blockly.Msg.VARIABLES_SET_TYPE_UNSIGNED_INT, 'unsigned int'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_FLOAT, 'float'],
                 [Blockly.Msg.VARIABLES_SET_TYPE_DOUBLE, 'double'],
-                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char']];
+                [Blockly.Msg.VARIABLES_SET_TYPE_CHAR, 'char'],
+                [Blockly.Msg.VARIABLES_SET_TYPE_STRING, 'std::string']];
         var ITERATION =
             [
                 [Blockly.Msg.VARIABLES_SET_ITERATION_NORMAL, '*'],
@@ -1043,7 +1047,6 @@ Blockly.Blocks['procedures_callnoreturn'] = {
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField(this.types_[x])
                         .appendField(this.arguments_[x]+'[' + this.spec_[x][1] + ']');
-                    console.log('types_[x]: '+ this.types_[x]);
                 //    Blockly.Blocks.setCheckVariable(this, this.types_[x], 'ARG'+x);
                 }
                 else if(this.spec_[x][0] ==2){
