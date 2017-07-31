@@ -149,7 +149,7 @@ Blockly.Blocks['controls_if'] = {
                 case 'controls_if_elseif':
                     this.elseifCount_++;
                     var ifInput = this.appendValueInput('IF' + this.elseifCount_)
-                        .setCheck(['Boolean', 'Number'])
+                        .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'Boolean'])
                         .appendField(Blockly.Msg.CONTROLS_IF_MSG_ELSEIF);
                     var doInput = this.appendStatementInput('DO' + this.elseifCount_);
                     doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -476,7 +476,7 @@ Blockly.Blocks['controls_switch'] = {
         this.caseCount_ = parseInt(xmlElement.getAttribute('case'), 10);
         for (var x = 1; x <= this.caseCount_; x++) {
             this.appendValueInput('CASE' + x)
-                .setCheck(['Boolean', 'Number', 'INT', 'Variable', 'VAR_INT', 'NEGATIVE', 'DOUBLE'])
+                .setCheck(['Number', 'INT', 'NEGATIVE', 'Variable', 'VAR_INT', 'VAR_UNINT', 'DOUBLE', 'VAR_FLOAT', 'VAR_DOUBLE', 'Aster', 'Boolean'])
                 .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
             this.appendStatementInput('DO' + x)
                 .appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
@@ -519,14 +519,14 @@ Blockly.Blocks['controls_switch'] = {
             switch (clauseBlock.type) {
                 case 'controls_switch_case':
                     this.caseCount_++;
-                    var ifInput = this.appendValueInput('CASE' + this.caseCount_)
-                        .setCheck('Number', 'INT', 'Variable', 'VAR_INT')
+                    var caseInput = this.appendValueInput('CASE' + this.caseCount_)
+                        .setCheck(['Number', 'INT', 'NEGATIVE', 'DOUBLE', 'Boolean'])
                         .appendField(Blockly.Msg.CONTROLS_SWITCH_CASE);
                     var doInput = this.appendStatementInput('DO' + this.caseCount_);
                     doInput.appendField(Blockly.Msg.CONTROLS_IF_MSG_THEN);
                     // Reconnect any child blocks.
                     if (clauseBlock.valueConnection_) {
-                        ifInput.connection.connect(clauseBlock.valueConnection_);
+                        caseInput.connection.connect(clauseBlock.valueConnection_);
                     }
                     if (clauseBlock.statementConnection_) {
                         doInput.connection.connect(clauseBlock.statementConnection_);

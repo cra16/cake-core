@@ -228,7 +228,6 @@ Blockly.cake['variables_array_set'] = function(block) {
     length_2 = (length_2 == '' ? -1 :length_2);
     length_3 = (length_3 == '' ? -1 :length_3);
 
-
     // get array list
     var arrList = Blockly.Blocks.getWantedBlockArray('a');
 
@@ -257,8 +256,9 @@ Blockly.cake['variables_array_set'] = function(block) {
         code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + ' = ' + argument0 + ';\n';
     else if (isAvbNum1 == true && isAvbNum2 == true && isAvbNum3 == true)
         code = varName + '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + ']' + ' = ' + argument0 + ';\n';
-    else
-        block.initIdx(isAvbNum1, isAvbNum2, isAvbNum3);
+    else{
+        code = varName + '[0][0][0] = ' + argument0 + ';\n';
+    }
 
     //}
     return code;
@@ -286,11 +286,11 @@ Blockly.cake['variables_array_declare'] = function(block) {
     }
     */
     if (length_1 != 0 && length_2 == 0 && length_3 == 0)
-        code = varType + ' ' + varName + '[' + length_1 + '];';
+        code = varType + ' ' + varName + '[' + length_1 + '];\n';
     else if (length_1 != 0 && length_2 != 0 && length_3 == 0)
-        code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '];';
+        code = varType + ' ' + varName + '[' + length_1 + ']' + '[' + length_2 + '];\n';
     else if (length_1 != 0 && length_2 != 0 && length_3 != 0)
-        code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + '];';
+        code = varType + ' ' + varName +  '[' + length_1 + ']' + '[' + length_2 + ']' + '[' + length_3 + '];\n';
     /*else
         window.alert('Please confirm array index');
 */

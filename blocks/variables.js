@@ -787,14 +787,40 @@ Blockly.Blocks['variables_array_get'] = {
      * @this Blockly.Block
      */
     getIndices: function() {
-        var length_1;
-        var length_2;
-        var length_3;
+        var length_1 = 0;
+        var length_2 = 0;
+        var length_3 = 0;
 
         if(this.getNextBlock())
         {
             switch(this.childBlocks_.length - 1)
             {
+                case 3:
+                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
+                    {
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_arithmetic')
+                    {
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_3').connection.targetBlock());
+                        length_3 = temp[0];
+                    }
+                case 2:
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_arithmetic')
+                    {
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_2').connection.targetBlock());
+                        length_2 = temp[0];
+                    }
                 case 1:
                     if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
                     {
@@ -803,59 +829,45 @@ Blockly.Blocks['variables_array_get'] = {
                     else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
                         length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
                     }
-                    length_2 = 0;
-                    length_3 = 0;
-                    break;
-                case 2:
-                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_arithmetic')
                     {
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
-                    {
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
-                    }
-                    length_3 = 0;
-                    break;
-                case 3:
-                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
-                    {
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
-                    {
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
-                    {
-                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
-                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_1').connection.targetBlock());
+                        length_1 = temp[0];
                     }
                     break;
                 default:
-                    length_1 = 0;
-                    length_2 = 0;
-                    length_3 = 0;
                     break;
             }
         }
         else {
             switch(this.childBlocks_.length)
             {
+                case 3:
+                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
+                    {
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
+                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                    }
+                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_arithmetic')
+                    {
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_3').connection.targetBlock());
+                        length_3 = temp[0];
+                    }
+                case 2:
+                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
+                    {
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
+                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
+                    }
+                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_arithmetic')
+                    {
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_2').connection.targetBlock());
+                        length_2 = temp[0];
+                    }
                 case 1:
                     if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
                     {
@@ -864,53 +876,13 @@ Blockly.Blocks['variables_array_get'] = {
                     else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
                         length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
                     }
-                    length_2 = 0;
-                    length_3 = 0;
-                    break;
-                case 2:
-                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
+                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_arithmetic')
                     {
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
-                    {
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
-                    }
-                    length_3 = 0;
-                    break;
-                case 3:
-                    if(this.getInput('LENGTH_1').connection.targetBlock().type == 'math_number')
-                    {
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_1').connection.targetBlock().type == 'variables_get'){
-                        length_1 = this.getInput('LENGTH_1').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_2').connection.targetBlock().type == 'math_number')
-                    {
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_2').connection.targetBlock().type == 'variables_get'){
-                        length_2 = this.getInput('LENGTH_2').connection.targetBlock().getVars();
-                    }
-                    if(this.getInput('LENGTH_3').connection.targetBlock().type == 'math_number')
-                    {
-                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getFieldValue('NUM');
-                    }
-                    else if(this.getInput('LENGTH_3').connection.targetBlock().type == 'variables_get'){
-                        length_3 = this.getInput('LENGTH_3').connection.targetBlock().getVars();
+                        var temp = Blockly.cake['math_arithmetic'](this.getInput('LENGTH_1').connection.targetBlock());
+                        length_1 = temp[0];
                     }
                     break;
                 default:
-                    length_1 = 0;
-                    length_2 = 0;
-                    length_3 = 0;
                     break;
             }
         }

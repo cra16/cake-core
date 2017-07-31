@@ -299,7 +299,6 @@ Blockly.Blocks.getIndexArray = function(arrList, arrName) {
             fixedIdx2 = arrList[temp][5][2];
             fixedIdx3 = arrList[temp][5][3];
 
-
             switch(arrList[temp][5][0]) {
 
                 case 1:
