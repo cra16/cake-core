@@ -126,13 +126,7 @@ Blockly.cake['library_stdio_printf'] = function(block) {
                 childBlockType == 'library_stdlib_rand_scope' ||
                 childBlockType == 'library_stdlib_malloc')
             {
-                if (childConnection.isSuperior()) {
-                    childConnection.targetBlock().setParent(null);
-                } else {
-                    childConnection.sourceBlock_.setParent(null);
-                }
-                // Bump away.
-                childConnection.sourceBlock_.bumpNeighbours_();
+                outQutCode += ' << (' + argument + ')';
             }
             else
             {
