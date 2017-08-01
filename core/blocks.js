@@ -534,7 +534,7 @@ Blockly.Blocks.setCheckVariable = function(block, varType, inputName) {
     {
         case('int'):
             block.getInput(inputName)
-                .setCheck(['Number', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'VAR_CHAR', 'NEGATIVE', 'INT']);
+                .setCheck(['Number', 'INTEGER', 'Aster', 'Array', 'Boolean', 'Macro', 'Variable', 'VAR_INT', 'VAR_CHAR', 'NEGATIVE', 'INT']);
             break;
         case('unsigned int'):
             block.getInput(inputName)
